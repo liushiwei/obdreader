@@ -1,7 +1,5 @@
 package com.george.obd;
 
-import org.codeandmagic.android.gauge.GaugeView;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

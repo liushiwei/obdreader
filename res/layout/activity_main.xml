@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <org.codeandmagic.android.gauge.GaugeView
+        <com.george.obd.GaugeView
             android:id="@+id/rpm_gauge_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -64,7 +64,7 @@
             gauge:showOuterRim="false"
             gauge:subdivisions="2" />
 
-        <org.codeandmagic.android.gauge.GaugeView
+        <com.george.obd.GaugeView
             android:id="@+id/spd_gauge_view"
             android:layout_width="150dp"
             android:layout_height="150dp"
