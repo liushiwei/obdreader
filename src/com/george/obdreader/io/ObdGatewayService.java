@@ -373,19 +373,24 @@ public class ObdGatewayService extends Service {
 		_isRunning.set(false);
 
 		// close socket
-		try {
-			// _sock.close();
-			if (socket != null) {
-				Log.d(TAG, "Socket close");
-				socket.shutdownInput(); // 需要调此方法，不然mReader.readLine还傻傻挂着。
-				socket.shutdownOutput();
-				socket.close();
-			}
-			if(ioThread!=null &&ioThread.isAlive())
-			ioThread.interrupt();
-		} catch (IOException e) {
-			Log.e(TAG, e.getMessage());
-		}
+		new Thread( new Runnable() {     
+		    public void run() {     
+		    	try {
+					// _sock.close();
+					if (socket != null) {
+						Log.d(TAG, "Socket close");
+						socket.shutdownInput(); // 需要调此方法，不然mReader.readLine还傻傻挂着。
+						socket.shutdownOutput();
+						socket.close();
+					}
+					if(ioThread!=null &&ioThread.isAlive())
+					ioThread.interrupt();
+				} catch (IOException e) {
+					Log.e(TAG, e.getMessage());
+				}   
+		     }            
+		}).start();
+		
 
 		// kill service
 		stopSelf();

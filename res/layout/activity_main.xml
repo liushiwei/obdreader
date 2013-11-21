@@ -3,17 +3,10 @@
     xmlns:gauge="http://schemas.android.com/apk/res/com.george.obdreader"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/main_background"
+    android:background="@drawable/background"
     android:orientation="vertical" >
     <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:orientation="horizontal">
-	    <Button android:id="@+id/home_button" android:layout_width="60dp" android:layout_height="wrap_content"
-	        android:background="@drawable/home_button"  android:layout_alignParentLeft="true"/>
-	    <!-- <TextView android:layout_width="680dp" android:layout_height="60dp" android:gravity="center_vertical" 
-	     	android:paddingLeft="30dp" android:textColor="@android:color/white" android:text="@string/title" 
-	     	android:textSize="24sp"/> -->
-	    <Button android:id="@+id/back_button" android:layout_width="60dp" android:layout_height="wrap_content"
-			android:background="@drawable/back_button"  android:layout_alignParentRight="true"/>
 
 	    <ImageView
 	        android:id="@+id/obd_connected"
@@ -21,7 +14,7 @@
 	        android:layout_height="25dp"
 	        android:layout_marginRight="50dp"
 	        android:layout_marginTop="15dp"
-	        android:layout_toLeftOf="@+id/back_button"
+	        android:layout_alignParentRight="true"
 	        android:src="@drawable/obd_con" />
 
 	    <ImageView
@@ -75,7 +68,8 @@
             gauge:showOuterBorder="false"
             gauge:showOuterShadow="true"
             gauge:showOuterRim="false"
-            gauge:subdivisions="4"  />
+            gauge:subdivisions="4"  
+            android:visibility="gone"/>
 		    <!-- <com.george.control.RotateView android:id="@+id/fuel_pointer" android:layout_width="wrap_content" 
 	            android:layout_gravity="center" android:layout_height="wrap_content" 
 		        android:background="@drawable/main_speed_pointer" android:visibility="visible"/> -->
@@ -94,12 +88,15 @@
             gauge:showOuterBorder="false"
             gauge:showOuterShadow="true"
             gauge:showOuterRim="false"
-            gauge:subdivisions="8" />
+            gauge:subdivisions="8" 
+            android:visibility="gone"/>
 		    <!-- <com.george.control.RotateView android:id="@+id/rpm_pointer" android:layout_width="wrap_content" 
 	            android:layout_gravity="center" android:layout_height="wrap_content" 
 		        android:background="@drawable/main_speed_pointer" android:visibility="visible"/> -->
 	    </FrameLayout> 	     
-	    <FrameLayout android:layout_width="285dp" android:layout_height="285dp" android:layout_gravity="center">
+	    <FrameLayout android:layout_width="285dp" android:layout_height="285dp" android:layout_gravity="center_horizontal">
+			 <ImageView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:src="@drawable/gauge" android:layout_gravity="top"/> 
 			<com.george.obdreader.GaugeView
             android:id="@+id/rpm_view"
             android:layout_width="285dp"
@@ -112,14 +109,16 @@
             gauge:showOuterBorder="false"
             gauge:showOuterShadow="true"
             gauge:showOuterRim="false"
-            gauge:subdivisions="2"  />      
+            gauge:subdivisions="2"  
+            android:layout_marginTop="12dp"/>     
+           
 			<!-- <com.george.control.RotateView android:id="@+id/speed_pointer" android:layout_width="wrap_content" 
 				android:layout_gravity="center" android:layout_height="wrap_content" 
 				android:background="@drawable/main_speed_pointer" android:visibility="visible"/> --> 	 	        
         </FrameLayout>
 	    <LinearLayout android:layout_width="fill_parent" android:layout_height="170dp" 
 	       android:background="@drawable/main_function_bg" android:layout_gravity="bottom" 
-	       android:paddingLeft="18dp" android:orientation="horizontal">
+	       android:paddingLeft="18dp" android:orientation="horizontal" android:visibility="gone">
 	        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"  
 	            android:layout_marginTop="40dp" android:layout_weight="1" android:orientation="vertical">
 		        <ImageButton android:id="@+id/trouble_codes_button" android:layout_width="wrap_content"    

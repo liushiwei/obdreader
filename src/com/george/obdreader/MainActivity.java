@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +31,6 @@ import eu.lighthouselabs.obd.commands.control.DtcNumberObdCommand;
 import eu.lighthouselabs.obd.commands.control.PendingTroubleCodesObdCommand;
 import eu.lighthouselabs.obd.commands.control.TroubleCodesObdCommand;
 import eu.lighthouselabs.obd.commands.engine.EngineRPMObdCommand;
-import eu.lighthouselabs.obd.commands.fuel.FuelEconomyWithoutMAFObdCommand;
 import eu.lighthouselabs.obd.commands.pressure.IntakeManifoldPressureObdCommand;
 import eu.lighthouselabs.obd.commands.temperature.AirIntakeTemperatureObdCommand;
 
@@ -180,6 +180,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		  if (true) {  
+		        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()  
+		                .detectDiskReads()  
+		                .detectDiskWrites()  
+		                .detectNetwork()  
+		                .penaltyLog()  
+		                .build());  
+		    }  
 		setContentView(R.layout.activity_main);
 		GaugeView mGaugeView1 = (GaugeView) findViewById(R.id.speed_view);
 		speed = 0;
@@ -210,8 +218,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		final ImageView btn = (ImageView) findViewById(R.id.obd_connected);
 		btn.startAnimation(animation);
 
-		findViewById(R.id.home_button).setOnClickListener(this);
-		findViewById(R.id.back_button).setOnClickListener(this);
 		findViewById(R.id.health_setting_button).setOnClickListener(this);
 		findViewById(R.id.speed_test_button).setOnClickListener(this);
 		findViewById(R.id.trouble_codes_button).setOnClickListener(this);
@@ -270,10 +276,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		// fuel.setPriority(1);
 		// final ObdCommandJob rpmJob = new ObdCommandJob(rpm);
 		mServiceConnection.addJobToQueue(new ObdCommandJob(rpm));
-		mServiceConnection.addJobToQueue(new ObdCommandJob(speed));
+		//mServiceConnection.addJobToQueue(new ObdCommandJob(speed));
 		// mServiceConnection.addJobToQueue(new ObdCommandJob(dtcNum));
-		mServiceConnection.addJobToQueue(new ObdCommandJob(inMFP));
-		mServiceConnection.addJobToQueue(new ObdCommandJob(inAT));
+		//mServiceConnection.addJobToQueue(new ObdCommandJob(inMFP));
+		//mServiceConnection.addJobToQueue(new ObdCommandJob(inAT));
 		// mServiceConnection.addJobToQueue(new ObdCommandJob(fuel));
 		// mServiceConnection.addJobToQueue(maf);
 		// mServiceConnection.addJobToQueue(fuelLevel);
@@ -362,15 +368,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.home_button:
-			Intent i = new Intent(Intent.ACTION_MAIN);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			i.addCategory(Intent.CATEGORY_HOME);
-			startActivity(i);
-			break;
-		case R.id.back_button:
-			MainActivity.this.finish();
-			break;
 		case R.id.health_setting_button:
 			if (isConnected)
 				startActivity(new Intent(this, MaintenanceSetting.class));

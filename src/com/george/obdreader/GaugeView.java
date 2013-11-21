@@ -64,7 +64,7 @@ public class GaugeView extends View {
 	public static final float SCALE_POSITION = 0.025f;
 	public static final float SCALE_START_VALUE = 0.0f;
 	public static final float SCALE_END_VALUE = 1500.0f;
-	public static final float SCALE_START_ANGLE = 55.0f;
+	public static final float SCALE_START_ANGLE = 85.0f;
 	public static final int SCALE_DIVISIONS = 10;
 	public static final int SCALE_SUBDIVISIONS = 5;
 
@@ -615,7 +615,7 @@ public class GaugeView extends View {
 	@Override
 	protected void onDraw(final Canvas canvas) {
 		
-		drawDialPlate(canvas);
+//		drawDialPlate(canvas);
 
 		final float scale = Math.min(getWidth(), getHeight());
 		canvas.scale(scale, scale);

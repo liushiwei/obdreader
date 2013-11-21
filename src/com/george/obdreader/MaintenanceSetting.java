@@ -28,8 +28,8 @@ public class MaintenanceSetting extends Activity {
 		// user.getText().toString()).commit();
 		// userInfo.edit().putString("pass",
 		// password.getText().toString()).commit();
-		DragableSpace.setGestrueViewValue(R.id.health_time_1, 2,
-				Integer.toString(interval), getWindow());
+//		DragableSpace.setGestrueViewValue(R.id.health_time_1, 2,
+//				Integer.toString(interval), getWindow());
 		 if(getIntent().getBooleanExtra("notification_confirm", false) ){
 				SharedPreferences.Editor editor = userInfo.edit();
 				Calendar today = Calendar.getInstance();
@@ -54,8 +54,8 @@ public class MaintenanceSetting extends Activity {
 			break;
 
 		case R.id.health_time_ok:
-			showConfirmDialog(v.getId(), DragableSpace.getGestrueViewValue(
-					R.id.health_time_1, 2, getWindow()));
+//			showConfirmDialog(v.getId(), DragableSpace.getGestrueViewValue(
+//					R.id.health_time_1, 2, getWindow()));
 			break;
 
 		case R.id.health_detail:
@@ -97,8 +97,7 @@ public class MaintenanceSetting extends Activity {
 					public void onClick(View v) {
 						alertDialog.cancel();
 						// TODO save date;
-						int interval = DragableSpace.getGestrueViewValue(
-								R.id.health_time_1, 2, getWindow());
+						int interval = 10;
 						if (interval > 0) {
 							SharedPreferences userInfo = getSharedPreferences(
 									"maintenance_info", MODE_PRIVATE);
