@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.george.obd.io.ObdCommandJob;
 import com.george.obd.io.ObdGatewayService;
@@ -22,6 +24,7 @@ import eu.lighthouselabs.obd.commands.control.DtcNumberObdCommand;
 import eu.lighthouselabs.obd.commands.control.PendingTroubleCodesObdCommand;
 import eu.lighthouselabs.obd.commands.control.TroubleCodesObdCommand;
 import eu.lighthouselabs.obd.commands.engine.EngineRPMObdCommand;
+import eu.lighthouselabs.obd.commands.fuel.FuelEconomyObdCommand;
 import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -74,6 +77,11 @@ public class MainActivity extends Activity implements OnClickListener {
 					Log.e(TAG, "--------------PENDING_TROUBLE_CODES = "+((PendingTroubleCodesObdCommand) job.getCommand()).formatResult());
 				}
 						
+			}else if(msg.what==1){
+				initAnim();
+			}else if(msg.what==2){
+				Animation right = AnimationUtils.loadAnimation(MainActivity.this,msg.arg1);
+				findViewById(msg.arg2).startAnimation(right);
 			}
 			super.handleMessage(msg);
 		}
@@ -107,6 +115,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		GaugeView mGaugeView1 = (GaugeView) findViewById(R.id.rpm_gauge_view);
 		mGaugeView1.setTargetValue(0);
+		mHandler.sendEmptyMessageDelayed(1, 1000);
 	}
 
 	@Override
@@ -212,10 +221,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		speed.setPriority(1);
 		EngineRPMObdCommand rpm =new EngineRPMObdCommand();
 		rpm.setPriority(1);
+		FuelEconomyObdCommand fuel = new FuelEconomyObdCommand();
+		fuel.setPriority(1);
 		//final ObdCommandJob rpmJob = new ObdCommandJob(rpm);
 		mServiceConnection.addJobToQueue(new ObdCommandJob(rpm));
 		mServiceConnection.addJobToQueue(new ObdCommandJob(speed));
 		mServiceConnection.addJobToQueue(new ObdCommandJob(dtcNum));
+		mServiceConnection.addJobToQueue(new ObdCommandJob(fuel));
 		//mServiceConnection.addJobToQueue(maf);
 		//mServiceConnection.addJobToQueue(fuelLevel);
 //		mServiceConnection.addJobToQueue(equiv);
@@ -232,7 +244,48 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onStop();
 	}
 	
-	
+	private void initAnim(){
+//		Animation right = AnimationUtils.loadAnimation(this, R.anim.right_out);
+//		Animation left = AnimationUtils.loadAnimation(this, R.anim.left_out);
+//		
+//		findViewById(R.id.imageView4).startAnimation(right);
+//		findViewById(R.id.imageView5).startAnimation(right);
+//		findViewById(R.id.imageView6).startAnimation(right);
+//		findViewById(R.id.imageView1).startAnimation(left);
+//		findViewById(R.id.imageView2).startAnimation(left);
+//		findViewById(R.id.imageView3).startAnimation(left);
+		Message msg = new Message();
+		msg.what = 2;
+		msg.arg1 = R.anim.right_out;
+		msg.arg2 = R.id.imageView4;
+		mHandler.sendMessageDelayed(msg, 100);
+		msg = new Message();
+		msg.what = 2;
+		msg.arg1 = R.anim.right_out;
+		msg.arg2 = R.id.imageView5;
+		mHandler.sendMessageDelayed(msg, 200);
+		msg = new Message();
+		msg.what = 2;
+		msg.arg1 = R.anim.right_out;
+		msg.arg2 = R.id.imageView6;
+		mHandler.sendMessageDelayed(msg, 300);
+		msg = new Message();
+		msg.what = 2;
+		msg.arg1 = R.anim.left_out;
+		msg.arg2 = R.id.imageView1;
+		mHandler.sendMessageDelayed(msg, 100);
+		msg = new Message();
+		msg.what = 2;
+		msg.arg1 = R.anim.left_out;
+		msg.arg2 = R.id.imageView2;
+		mHandler.sendMessageDelayed(msg, 200);
+		msg = new Message();
+		msg.what = 2;
+		msg.arg1 = R.anim.left_out;
+		msg.arg2 = R.id.imageView3;
+		mHandler.sendMessageDelayed(msg, 300);
+		
+	}
 
 
 }
