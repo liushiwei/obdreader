@@ -31,4 +31,9 @@ public class FuelPressureObdCommand extends PressureObdCommand {
 		return AvailableCommandNames.FUEL_PRESSURE.getValue();
 	}
 	
+	@Override
+	public AvailableCommandNames getId() {
+		return  AvailableCommandNames.FUEL_PRESSURE;
+	}
+	
 }

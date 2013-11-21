@@ -4,6 +4,7 @@
 package eu.lighthouselabs.obd.commands.protocol;
 
 import eu.lighthouselabs.obd.commands.ObdCommand;
+import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
 /**
  * This command will turn-off echo.
@@ -40,6 +41,11 @@ public class SimpleObdCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return name;
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  null;
 	}
 
 }

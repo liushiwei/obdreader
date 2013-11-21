@@ -4,6 +4,7 @@
 package eu.lighthouselabs.obd.commands.protocol;
 
 import eu.lighthouselabs.obd.commands.ObdCommand;
+import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
 /**
  * This will set the value of time in milliseconds (ms) that the OBD interface
@@ -40,6 +41,11 @@ public class TimeoutObdCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return "Timeout";
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  null;
 	}
 
 }

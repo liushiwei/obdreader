@@ -67,4 +67,10 @@ public class EngineRPMObdCommand extends ObdCommand {
 
 		return _rpm;
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.ENGINE_RPM;
+	}
+
 }

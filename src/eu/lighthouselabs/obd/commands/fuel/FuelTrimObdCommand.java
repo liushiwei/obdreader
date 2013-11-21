@@ -4,6 +4,7 @@
 package eu.lighthouselabs.obd.commands.fuel;
 
 import eu.lighthouselabs.obd.commands.ObdCommand;
+import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 import eu.lighthouselabs.obd.enums.FuelTrim;
 
 /**
@@ -62,6 +63,11 @@ public class FuelTrimObdCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return bank.getBank();
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  null;
 	}
 
 }

@@ -78,5 +78,10 @@ public class FuelEconomyObdCommand extends ObdCommand {
 	public String getName() {
 		return AvailableCommandNames.FUEL_ECONOMY.getValue();
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.FUEL_ECONOMY;
+	}
 
 }

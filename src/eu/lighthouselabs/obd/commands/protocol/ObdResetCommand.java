@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import eu.lighthouselabs.obd.commands.ObdCommand;
+import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
 /**
  * This method will reset the OBD connection.
@@ -56,6 +57,11 @@ public class ObdResetCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return "Reset OBD";
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  null;
 	}
 
 }

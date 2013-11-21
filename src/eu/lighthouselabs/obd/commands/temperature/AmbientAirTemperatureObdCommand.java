@@ -28,5 +28,10 @@ public class AmbientAirTemperatureObdCommand extends TemperatureObdCommand {
     public String getName() {
 		return AvailableCommandNames.AMBIENT_AIR_TEMP.getValue();
     }
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return   AvailableCommandNames.AMBIENT_AIR_TEMP;
+	}
 
 }

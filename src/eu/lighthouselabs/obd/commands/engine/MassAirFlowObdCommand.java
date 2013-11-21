@@ -57,4 +57,8 @@ public class MassAirFlowObdCommand extends ObdCommand {
 	public String getName() {
 		return AvailableCommandNames.MAF.getValue();
 	}
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.MAF;
+	}
 }

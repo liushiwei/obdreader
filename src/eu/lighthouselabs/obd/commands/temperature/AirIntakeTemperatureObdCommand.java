@@ -25,4 +25,9 @@ public class AirIntakeTemperatureObdCommand extends TemperatureObdCommand {
 		return AvailableCommandNames.AIR_INTAKE_TEMP.getValue();
 	}
 	
+	@Override
+	public AvailableCommandNames getId() {
+		return   AvailableCommandNames.AIR_INTAKE_TEMP;
+	}
+	
 }

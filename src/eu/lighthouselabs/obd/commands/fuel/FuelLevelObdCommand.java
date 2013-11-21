@@ -39,5 +39,10 @@ public class FuelLevelObdCommand extends ObdCommand {
 	public String getName() {
 		return AvailableCommandNames.FUEL_LEVEL.getValue();
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  AvailableCommandNames.FUEL_LEVEL;
+	}
 
 }

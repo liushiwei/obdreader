@@ -4,6 +4,7 @@
 package eu.lighthouselabs.obd.commands.protocol;
 
 import eu.lighthouselabs.obd.commands.ObdCommand;
+import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 import eu.lighthouselabs.obd.enums.ObdProtocols;
 
 /**
@@ -34,6 +35,11 @@ public class SelectProtocolObdCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return "Select Protocol " + _protocol.name();
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  null;
 	}
 
 }

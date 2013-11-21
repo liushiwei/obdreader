@@ -63,8 +63,10 @@ public class DtcNumberObdCommand extends ObdCommand {
 		String res = getResult();
 
 		if (!"NODATA".equals(res)) {
+			if(buffer!=null&&buffer.size()>3){
 			int mil = buffer.get(2);
 			codeCount = mil - 128;
+			}
 		}
 		return codeCount;
 	}
@@ -80,6 +82,11 @@ public class DtcNumberObdCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return AvailableCommandNames.DTC_NUMBER.getValue();
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.DTC_NUMBER;
 	}
 
 }

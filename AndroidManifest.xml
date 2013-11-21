@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.george.obd"
+    package="com.george.obdreader"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="15" android:maxSdkVersion="15" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.george.obdreader.MainActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.george.obdreader.MaintenanceSetting"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="landscape"/>
+        <activity android:name="com.george.obdreader.SpeedUpTestSettings"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="landscape"/>
+        <activity android:name="com.george.obdreader.SpeedUpTest"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="landscape"/>
+        
+         <activity android:name="com.george.obdreader.TroubleCodes"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="landscape"/>
+        <service android:name=".io.ObdGatewayService" android:exported="false"/>
+        
+        <receiver android:name=".BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            
+        </receiver>
+    </application>
+    
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
@@ -19,21 +61,5 @@
 	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 	<uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.george.obd.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> 
-        <service android:name=".io.ObdGatewayService" android:exported="false"/>
-    </application>
 
 </manifest>

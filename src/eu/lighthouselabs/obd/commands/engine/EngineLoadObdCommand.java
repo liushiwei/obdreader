@@ -33,5 +33,10 @@ public class EngineLoadObdCommand extends PercentageObdCommand {
 	public String getName() {
 		return AvailableCommandNames.ENGINE_LOAD.getValue();
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.ENGINE_LOAD;
+	}
 
 }

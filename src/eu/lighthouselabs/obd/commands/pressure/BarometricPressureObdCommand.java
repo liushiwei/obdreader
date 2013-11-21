@@ -33,5 +33,10 @@ public class BarometricPressureObdCommand extends PressureObdCommand {
 	public String getName() {
 		return AvailableCommandNames.BAROMETRIC_PRESSURE.getValue();
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  AvailableCommandNames.BAROMETRIC_PRESSURE;
+	}
 
 }

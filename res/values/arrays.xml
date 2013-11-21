@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="ranges">
-        <item>3000</item>
+    <string-array name="rpm_ranges">
+        <item>2500</item>
         <item>4000</item>
         <item>5000</item>
         <item>7000</item>
     </string-array>
     
-    <string-array name="rangeColors">
+    <string-array name="rpm_rangeColors">
+        <item>#1BCA21</item>
+        <item>#E8E721</item>
+        <item>#E86F21</item>
+        <item>#E7202B</item>
+    </string-array>
+    <string-array name="fuel_ranges">
+        <item>8</item>
+        <item>12</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+    
+    <string-array name="fuel_rangeColors">
+        <item>#1BCA21</item>
+        <item>#E8E721</item>
+        <item>#E86F21</item>
+        <item>#E7202B</item>
+    </string-array>
+    
+    <string-array name="speed_ranges">
+        <item>80</item>
+        <item>120</item>
+        <item>160</item>
+        <item>220</item>
+    </string-array>
+    
+    <string-array name="speed_rangeColors">
         <item>#1BCA21</item>
         <item>#E8E721</item>
         <item>#E86F21</item>

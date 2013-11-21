@@ -4,6 +4,7 @@
 package eu.lighthouselabs.obd.commands.protocol;
 
 import eu.lighthouselabs.obd.commands.ObdCommand;
+import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
 /**
  * This command will turn-off echo.
@@ -37,6 +38,11 @@ public class MemoryOffObdCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return "Memory Off";
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  null;
 	}
 
 }

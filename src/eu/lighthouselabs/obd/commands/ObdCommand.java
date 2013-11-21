@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import eu.lighthouselabs.obd.enums.AvailableCommandNames;
+
 import android.util.Log;
 
 /**
@@ -22,6 +24,7 @@ public abstract class ObdCommand {
 	protected String rawData = null;
 	protected int priority = 0;
 	protected int currentPriority = 0;
+	private int delay = 0;
 
 	/**
 	 * Default ctor to use
@@ -91,7 +94,8 @@ public abstract class ObdCommand {
 		 * Due to the time that some systems may take to respond, let's give it
 		 * 500ms.
 		 */
-		//Thread.sleep(200);
+		if(delay>0)
+		Thread.sleep(delay);
 	}
 
 	/**
@@ -142,7 +146,6 @@ public abstract class ObdCommand {
 		// clear buffer
 		buffer.clear();
 		
-		Log.e("ObdCommand", "cmd = "+cmd+" readResult ="+rawData);
 		// read string each two chars
 		int begin = 0;
 		int end = 2;
@@ -218,6 +221,11 @@ public abstract class ObdCommand {
 	 */
 	public abstract String getName();
 	
+	/**
+	 * @return the OBD command id.
+	 */
+	public abstract AvailableCommandNames getId();
+	
 
 	public int getPriority() {
 		return priority;
@@ -233,6 +241,14 @@ public abstract class ObdCommand {
 
 	public void setCurrentPriority(int currentPriority) {
 		this.currentPriority = currentPriority;
+	}
+	
+	public void setDelay(int delay){
+		this.delay = delay;
+	}
+	
+	public int getDelay(){
+		return delay;
 	}
 	
 	

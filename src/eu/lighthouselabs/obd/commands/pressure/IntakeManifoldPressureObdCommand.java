@@ -32,5 +32,8 @@ public class IntakeManifoldPressureObdCommand extends PressureObdCommand {
 	public String getName() {
 		return AvailableCommandNames.INTAKE_MANIFOLD_PRESSURE.getValue();
 	}
-	
+	@Override
+	public AvailableCommandNames getId() {
+		return  AvailableCommandNames.INTAKE_MANIFOLD_PRESSURE;
+	}
 }

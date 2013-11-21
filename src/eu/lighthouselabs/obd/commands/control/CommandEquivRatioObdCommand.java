@@ -69,4 +69,10 @@ public class CommandEquivRatioObdCommand extends ObdCommand {
 	public String getName() {
 		return AvailableCommandNames.EQUIV_RATIO.getValue();
 	}
+
+	@Override
+	public AvailableCommandNames getId() {
+		// TODO Auto-generated method stub
+		return AvailableCommandNames.EQUIV_RATIO;
+	}
 }

@@ -51,4 +51,9 @@ public class EngineRuntimeObdCommand extends ObdCommand {
 	public String getName() {
 		return AvailableCommandNames.ENGINE_RUNTIME.getValue();
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.ENGINE_RUNTIME;
+	}
 }

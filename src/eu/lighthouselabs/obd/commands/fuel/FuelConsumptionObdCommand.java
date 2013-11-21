@@ -53,5 +53,11 @@ public class FuelConsumptionObdCommand extends ObdCommand {
 	public String getName() {
 		return AvailableCommandNames.FUEL_CONSUMPTION.getValue();
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.FUEL_CONSUMPTION;
+	}
+
 
 }

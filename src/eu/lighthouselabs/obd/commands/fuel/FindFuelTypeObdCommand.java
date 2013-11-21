@@ -59,5 +59,10 @@ public class FindFuelTypeObdCommand extends ObdCommand {
 	public String getName() {
 		return AvailableCommandNames.FUEL_TYPE.getValue();
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.FUEL_TYPE;
+	}
 
 }

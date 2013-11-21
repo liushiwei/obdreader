@@ -4,6 +4,7 @@
 package eu.lighthouselabs.obd.commands.protocol;
 
 import eu.lighthouselabs.obd.commands.ObdCommand;
+import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
 /**
  * Turns off line-feed.
@@ -37,6 +38,11 @@ public class LineFeedOffObdCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return "Line Feed Off";
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return  null;
 	}
 
 }

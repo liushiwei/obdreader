@@ -3,6 +3,8 @@
  */
 package eu.lighthouselabs.obd.commands.control;
 
+import java.util.ArrayList;
+
 import eu.lighthouselabs.obd.commands.ObdCommand;
 import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
@@ -103,6 +105,113 @@ public class TroubleCodesObdCommand extends ObdCommand {
 		}
 		return result;
 	}
+	
+	public String[] getTroubleCodes(){
+		String res = getResult();
+		ArrayList<String> result=new ArrayList<String>();
+		if (!"NODATA".equals(res)) {
+			res = res.replaceAll("\r", "");
+
+			/*
+			 * Ignore first byte [43] of the response and then read each two
+			 * bytes.
+			 */
+			int begin = 0; // start at 2nd byte
+			int end = begin + 4; // end at 4th byte
+
+			for (int i = 0; i < howManyTroubleCodes; i++) {
+				// read and jump 2 bytes
+				if (i % 3 != 0) {
+					codes[i] = res.substring(begin, end);
+					begin += 4;
+					end += 4;
+				} else {
+					begin += 2;
+					end += 2;
+					codes[i] = res.substring(begin, end);
+					begin += 4;
+					end += 4;
+				}
+			}
+			for(String code :codes){
+				if(!code.equals("0000")){
+					switch(code.charAt(0)){
+					case '0':
+						code=code.replaceFirst("0", "P0");
+						break;
+					case '1':
+						code=code.replaceFirst("1", "P1");
+						break;
+					case '2':
+						code=code.replaceFirst("2", "P2");
+						break;
+					case '3':
+						code=code.replaceFirst("3", "P3");
+						break;
+					case '4':
+						code=code.replaceFirst("4", "C0");
+						break;
+					case '5':
+						code=code.replaceFirst("5", "C1");
+						break;
+					case '6':
+						code=code.replaceFirst("6", "C2");
+						break;
+					case '7':
+						code=code.replaceFirst("7", "C3");
+						break;
+					case '8':
+						code=code.replaceFirst("8", "B0");
+						break;
+					case '9':
+						code=code.replaceFirst("9", "B1");
+						break;
+					case 'a':
+						code=code.replaceFirst("a", "B2");
+						break;
+					case 'A':
+						code=code.replaceFirst("A", "B2");
+						break;
+					case 'b':
+						code=code.replaceFirst("b", "B3");
+						break;
+					case 'B':
+						code=code.replaceFirst("B", "B3");
+						break;
+					case 'c':
+						code=code.replaceFirst("c", "U0");
+						break;
+					case 'C':
+						code=code.replaceFirst("C", "U0");
+						break;
+					case 'd':
+						code=code.replaceFirst("d", "U1");
+						break;
+					case 'D':
+						code=code.replaceFirst("D", "U1");
+						break;
+					case 'e':
+						code=code.replaceFirst("e", "U2");
+						break;
+					case 'E':
+						code=code.replaceFirst("E", "U2");
+						break;
+					case 'f':
+						code=code.replaceFirst("f", "U3");
+						break;
+					case 'F':
+						code=code.replaceFirst("F", "U3");
+						break;
+					}
+					result.add(code);
+				}
+			}
+			return result.toArray(new String[0]);
+		}
+		return null;
+
+	}
+
 
 	@Override
 	public String getFormattedResult() {
@@ -113,5 +222,10 @@ public class TroubleCodesObdCommand extends ObdCommand {
 	@Override
 	public String getName() {
 		return AvailableCommandNames.TROUBLE_CODES.getValue();
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return AvailableCommandNames.TROUBLE_CODES;
 	}
 }

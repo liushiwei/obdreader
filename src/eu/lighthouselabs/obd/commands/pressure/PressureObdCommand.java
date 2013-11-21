@@ -54,6 +54,7 @@ public abstract class PressureObdCommand extends ObdCommand implements
 
 		if (!"NODATA".equals(res)) {
 			// ignore first two bytes [hh hh] of the response
+			if(buffer!=null&&buffer.size()>2)
 			tempValue = buffer.get(2);
 			pressure = preparePressureValue(); // this will need tempValue
 			res = String.format("%d%s", pressure, "kPa");

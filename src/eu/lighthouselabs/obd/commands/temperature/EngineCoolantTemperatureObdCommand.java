@@ -33,5 +33,10 @@ public class EngineCoolantTemperatureObdCommand extends TemperatureObdCommand {
 	public String getName() {
 		return AvailableCommandNames.ENGINE_COOLANT_TEMP.getValue();
 	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return   AvailableCommandNames.ENGINE_COOLANT_TEMP;
+	}
 
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/alarm_background"
+    android:orientation="vertical" >
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:orientation="horizontal">
+	    <Button android:id="@+id/home_button" android:layout_width="60dp" android:layout_height="wrap_content"
+	        android:background="@drawable/home_button" />
+	    <TextView android:layout_width="680dp" android:layout_height="60dp" android:gravity="center_vertical" 
+	     	android:paddingLeft="30dp" android:textColor="@android:color/white" android:text="@string/obd_speed_test" 
+	     	android:textSize="24sp"/>
+	    <Button android:id="@+id/back_button" android:layout_width="60dp" android:layout_height="wrap_content"
+			android:background="@drawable/back_button" />
+    </LinearLayout>
+    <TextView android:id="@+id/test_speed_time" android:layout_width="180dp" android:layout_height="80dp"
+	    android:layout_gravity="center_horizontal" android:layout_marginTop="10dp"
+	    android:textColor="@android:color/black" android:textSize="48sp"
+	    android:gravity="center"
+	    android:text="@string/test_0_second" android:background="@drawable/test_time_bg"/>
+    <TextView android:id="@+id/second" android:layout_width="180dp" android:layout_height="80dp"
+	    android:layout_gravity="center_horizontal" android:layout_marginTop="10dp"
+	    android:textColor="@android:color/black" android:textSize="48sp"
+	    android:gravity="center"/>
+     <LinearLayout android:layout_width="731dp" android:layout_height="63dp"
+         android:layout_marginTop="60dp" android:layout_gravity="center_horizontal"
+		android:orientation="horizontal">
+	    <View android:id="@+id/test_car" 
+			android:layout_width="178dp" android:layout_height="63dp"
+			android:background="@drawable/test_car"
+			android:layout_marginLeft="0dip"/>
+	 </LinearLayout>
+     <ProgressBar android:id="@+id/test_progress" style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="731dp" android:layout_height="18dp"
+		android:progressDrawable="@drawable/test_progress"
+		android:progress="0" android:max="100"
+		android:layout_gravity="center_horizontal"
+		android:paddingLeft="0dip" android:paddingRight="0dip"/>
+    <Button android:id="@+id/speed_start" android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal" android:layout_marginTop="60dp"
+	    android:textColor="@android:color/white" android:textSize="28sp"
+	    android:text="@string/test_start" android:background="@drawable/health_setting_btn"
+	    android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal" 
+	    android:text="..."
+	    android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp" />
+    
+</LinearLayout>

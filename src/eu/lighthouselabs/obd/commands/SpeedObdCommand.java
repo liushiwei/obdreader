@@ -38,9 +38,10 @@ public class SpeedObdCommand extends ObdCommand implements SystemOfUnits {
 		
 		if (!"NODATA".equals(res)) {
 			//Ignore first two bytes [hh hh] of the response.
+			if(buffer!=null&& buffer.size()>2){
 			metricSpeed = buffer.get(2);
 			res = String.format("%d%s", metricSpeed, "km/h");
-
+			}
 			if (useImperialUnits)
 				res = String.format("%.2f%s", getImperialUnit(),
 				        "mph");
@@ -55,6 +56,7 @@ public class SpeedObdCommand extends ObdCommand implements SystemOfUnits {
 	public int getMetricSpeed() {
 		String res = getResult();
 		if (!"NODATA".equals(res)) {
+			if(buffer!=null&&buffer.size()>3)
 			metricSpeed = buffer.get(2);
 		}
 
@@ -79,6 +81,11 @@ public class SpeedObdCommand extends ObdCommand implements SystemOfUnits {
 	@Override
 	public String getName() {
 		return AvailableCommandNames.SPEED.getValue();
+	}
+	
+	@Override
+	public AvailableCommandNames getId() {
+		return   AvailableCommandNames.SPEED;
 	}
 
 }
