@@ -109,54 +109,54 @@
                 gauge:showOuterRim="false"
                 gauge:showOuterShadow="true"
                 gauge:subdivisions="8" />
-            
         </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="285dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:padding="20dp" >
+
+            <RelativeLayout
+                android:id="@+id/left_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/fly_left" >
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/right_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/left_top"
+                android:layout_toRightOf="@+id/left_top"
+                android:background="@drawable/fly_right" >
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/left_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/fly_bottom_left" >
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/right_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/left_bottom"
+                android:background="@drawable/fly_bottom_right" >
+            </RelativeLayout>
+        </RelativeLayout>
 
         <FrameLayout
             android:layout_width="285dp"
             android:layout_height="285dp"
             android:layout_gravity="center" >
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center_horizontal" 
-                android:padding="20dp">
-
-                <RelativeLayout
-                    android:id="@+id/left_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/fly_left" >
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/right_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/left_top"
-                    android:layout_toRightOf="@+id/left_top"
-                    android:background="@drawable/fly_right" >
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/left_bottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/fly_bottom_left" >
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/right_bottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toRightOf="@+id/left_bottom"
-                    android:background="@drawable/fly_bottom_right" >
-                </RelativeLayout>
-            </RelativeLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -177,7 +177,6 @@
                 gauge:showOuterRim="false"
                 gauge:showOuterShadow="true"
                 gauge:subdivisions="2" />
-
         </FrameLayout>
 
         <LinearLayout

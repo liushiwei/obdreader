@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	private double fuel;
 
 	private final static int HANDLER_FUEL = 0x01;
+	
+	private final static int INIT_ANIM = 0x02;
+	
+	private final static int START_ANIM = 0x03;
 
 	private static final String TAG = "MainActivity";
 
@@ -170,6 +175,13 @@ public class MainActivity extends Activity implements OnClickListener {
 					rpm_view.setTargetValue((float) fuel);
 					mHandler.sendEmptyMessageDelayed(HANDLER_FUEL, 500);
 					break;
+				case INIT_ANIM:
+					initAnim();
+					break;
+				case START_ANIM:
+					Animation right = AnimationUtils.loadAnimation(MainActivity.this,msg.arg1);
+					findViewById(msg.arg2).startAnimation(right);
+					break;
 				}
 			}
 			super.handleMessage(msg);
@@ -221,6 +233,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.health_setting_button).setOnClickListener(this);
 		findViewById(R.id.speed_test_button).setOnClickListener(this);
 		findViewById(R.id.trouble_codes_button).setOnClickListener(this);
+		
+		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 1000);
 
 	}
 
@@ -401,6 +415,40 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		stopLiveData();
 		super.onDestroy();
+	}
+	
+	private void initAnim(){
+//		Animation right = AnimationUtils.loadAnimation(this, R.anim.right_out);
+//		Animation left = AnimationUtils.loadAnimation(this, R.anim.left_out);
+//		
+//		findViewById(R.id.imageView4).startAnimation(right);
+//		findViewById(R.id.imageView5).startAnimation(right);
+//		findViewById(R.id.imageView6).startAnimation(right);
+//		findViewById(R.id.imageView1).startAnimation(left);
+//		findViewById(R.id.imageView2).startAnimation(left);
+//		findViewById(R.id.imageView3).startAnimation(left);
+		Message msg = new Message();
+		msg.what = START_ANIM;
+		msg.arg1 = R.anim.right_out;
+		msg.arg2 = R.id.right_top;
+		mHandler.sendMessageDelayed(msg, 100);
+		msg = new Message();
+		msg.what = START_ANIM;
+		msg.arg1 = R.anim.right_out;
+		msg.arg2 = R.id.right_bottom;
+		mHandler.sendMessageDelayed(msg, 200);
+		
+		msg = new Message();
+		msg.what = START_ANIM;
+		msg.arg1 = R.anim.left_out;
+		msg.arg2 = R.id.left_top;
+		mHandler.sendMessageDelayed(msg, 100);
+		msg = new Message();
+		msg.what = START_ANIM;
+		msg.arg1 = R.anim.left_out;
+		msg.arg2 = R.id.left_bottom;
+		mHandler.sendMessageDelayed(msg, 200);
+		
 	}
 
 }
