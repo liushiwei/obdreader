@@ -27,6 +27,7 @@ import android.graphics.RadialGradient;
 import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -64,7 +65,7 @@ public class GaugeView extends View {
 	public static final float SCALE_POSITION = 0.025f;
 	public static final float SCALE_START_VALUE = 0.0f;
 	public static final float SCALE_END_VALUE = 1500.0f;
-	public static final float SCALE_START_ANGLE = 85.0f;
+	public static final float SCALE_START_ANGLE = 0.0f;
 	public static final int SCALE_DIVISIONS = 10;
 	public static final int SCALE_SUBDIVISIONS = 5;
 
@@ -738,7 +739,9 @@ public class GaugeView extends View {
 			setNeedleShadowPosition(angle);
 			canvas.drawPath(mNeedleLeftPath, mNeedleLeftPaint);
 			canvas.drawPath(mNeedleRightPath, mNeedleRightPaint);
-
+//			Bitmap bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.main_circle_pointer);
+			//getResources().getDrawable(R.drawable.main_circle_pointer).get
+//			canvas.drawBitmap(bitmap, 100, 100, null);
 			canvas.restore();
 
 			// Draw the needle screw and its border
