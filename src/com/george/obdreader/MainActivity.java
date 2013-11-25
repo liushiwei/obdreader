@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,10 +52,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	private double fuel;
 
 	private final static int HANDLER_FUEL = 0x01;
-	
+
 	private final static int INIT_ANIM = 0x02;
-	
+
 	private final static int START_ANIM = 0x03;
+
+	private final static int SHOW_MENU = 0x04;
+
+	private final static int SHOW_ICON = 0x05;
 
 	private static final String TAG = "MainActivity";
 
@@ -179,8 +184,127 @@ public class MainActivity extends Activity implements OnClickListener {
 					initAnim();
 					break;
 				case START_ANIM:
-					Animation right = AnimationUtils.loadAnimation(MainActivity.this,msg.arg1);
+					Animation right = AnimationUtils.loadAnimation(
+							MainActivity.this, msg.arg1);
+					// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
+					findViewById(msg.arg2).setVisibility(View.VISIBLE);
+					// findViewById(msg.arg2).setAlpha(0);
+					// right.setDuration(300);
 					findViewById(msg.arg2).startAnimation(right);
+					right.setAnimationListener(new AnimationListener() {
+
+						@Override
+						public void onAnimationStart(Animation animation) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation animation) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onAnimationEnd(Animation animation) {
+							Message msg = new Message();
+							msg.what = SHOW_MENU;
+							msg.arg1 = R.anim.right_out;
+							msg.arg2 = R.id.right_top;
+							mHandler.sendMessageDelayed(msg, 200);
+							// msg = new Message();
+							// msg.what = SHOW_MENU;
+							// msg.arg1 = R.anim.right_out;
+							// msg.arg2 = R.id.right_bottom;
+							// mHandler.sendMessageDelayed(msg, 100);
+							//
+							// msg = new Message();
+							// msg.what = SHOW_MENU;
+							// msg.arg1 = R.anim.left_out;
+							// msg.arg2 = R.id.left_top;
+							// mHandler.sendMessageDelayed(msg, 200);
+							// msg = new Message();
+							// msg.what = SHOW_MENU;
+							// msg.arg1 = R.anim.left_out;
+							// msg.arg2 = R.id.left_bottom;
+							// mHandler.sendMessageDelayed(msg, 100);
+
+						}
+					});
+					break;
+
+				case SHOW_MENU:
+					/*
+					 * Animation show_menu =
+					 * AnimationUtils.loadAnimation(MainActivity.this,msg.arg1);
+					 * //AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
+					 * findViewById(msg.arg2).setVisibility(View.VISIBLE);
+					 * //findViewById(msg.arg2).setAlpha(0);
+					 * //right.setDuration(300);
+					 * findViewById(msg.arg2).startAnimation(show_menu);
+					 * show_menu.setAnimationListener(new AnimationListener() {
+					 * 
+					 * @Override public void onAnimationStart(Animation
+					 * animation) { // TODO Auto-generated method stub
+					 * 
+					 * }
+					 * 
+					 * @Override public void onAnimationRepeat(Animation
+					 * animation) { // TODO Auto-generated method stub
+					 * 
+					 * }
+					 * 
+					 * @Override public void onAnimationEnd(Animation animation)
+					 * { Message msg = new Message(); msg.what = SHOW_ICON;
+					 * msg.arg1 = R.anim.show_out; msg.arg2 = R.id.stopwatch;
+					 * mHandler.sendMessageDelayed(msg, 200);
+					 * 
+					 * } });
+					 */
+					Animation show_menu = AnimationUtils.loadAnimation(
+							MainActivity.this, R.anim.right_out);
+					// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
+					findViewById(R.id.right_top).setVisibility(View.VISIBLE);
+					findViewById(R.id.right_top).startAnimation(show_menu);
+					findViewById(R.id.right_bottom).setVisibility(View.VISIBLE);
+					findViewById(R.id.right_bottom).startAnimation(show_menu);
+					show_menu = AnimationUtils.loadAnimation(MainActivity.this,
+							R.anim.left_out);
+					findViewById(R.id.left_top).setVisibility(View.VISIBLE);
+					findViewById(R.id.left_top).startAnimation(show_menu);
+					findViewById(R.id.left_bottom).setVisibility(View.VISIBLE);
+					findViewById(R.id.left_bottom).startAnimation(show_menu);
+					show_menu.setAnimationListener(new AnimationListener() {
+
+						@Override
+						public void onAnimationStart(Animation animation) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation animation) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onAnimationEnd(Animation animation) {
+							mHandler.sendEmptyMessage(SHOW_ICON);
+						}
+					});
+					break;
+				case SHOW_ICON:
+					Animation show_icon = AnimationUtils.loadAnimation(
+							MainActivity.this, R.anim.show_out);
+					findViewById(R.id.stopwatch).setVisibility(View.VISIBLE);
+					findViewById(R.id.stopwatch).startAnimation(show_icon);
+					findViewById(R.id.obd).setVisibility(View.VISIBLE);
+					findViewById(R.id.obd).startAnimation(show_icon);
+					findViewById(R.id.trouble_codes).setVisibility(View.VISIBLE);
+					findViewById(R.id.trouble_codes).startAnimation(show_icon);
+					findViewById(R.id.refuel_log).setVisibility(View.VISIBLE);
+					findViewById(R.id.refuel_log).startAnimation(show_icon);
 					break;
 				}
 			}
@@ -192,14 +316,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		  if (true) {  
-		        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()  
-		                .detectDiskReads()  
-		                .detectDiskWrites()  
-		                .detectNetwork()  
-		                .penaltyLog()  
-		                .build());  
-		    }  
+		if (true) {
+			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+					.detectDiskReads().detectDiskWrites().detectNetwork()
+					.penaltyLog().build());
+		}
 		setContentView(R.layout.activity_main);
 		GaugeView mGaugeView1 = (GaugeView) findViewById(R.id.speed_view);
 		speed = 0;
@@ -230,10 +351,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		final ImageView btn = (ImageView) findViewById(R.id.obd_connected);
 		btn.startAnimation(animation);
 
-		findViewById(R.id.health_setting_button).setOnClickListener(this);
-		findViewById(R.id.speed_test_button).setOnClickListener(this);
-		findViewById(R.id.trouble_codes_button).setOnClickListener(this);
-		
+		findViewById(R.id.obd).setOnClickListener(this);
+		findViewById(R.id.stopwatch).setOnClickListener(this);
+		findViewById(R.id.trouble_codes).setOnClickListener(this);
+		findViewById(R.id.refuel_log).setOnClickListener(this);
 		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 1000);
 
 	}
@@ -290,10 +411,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		// fuel.setPriority(1);
 		// final ObdCommandJob rpmJob = new ObdCommandJob(rpm);
 		mServiceConnection.addJobToQueue(new ObdCommandJob(rpm));
-		//mServiceConnection.addJobToQueue(new ObdCommandJob(speed));
+		// mServiceConnection.addJobToQueue(new ObdCommandJob(speed));
 		// mServiceConnection.addJobToQueue(new ObdCommandJob(dtcNum));
-		//mServiceConnection.addJobToQueue(new ObdCommandJob(inMFP));
-		//mServiceConnection.addJobToQueue(new ObdCommandJob(inAT));
+		// mServiceConnection.addJobToQueue(new ObdCommandJob(inMFP));
+		// mServiceConnection.addJobToQueue(new ObdCommandJob(inAT));
 		// mServiceConnection.addJobToQueue(new ObdCommandJob(fuel));
 		// mServiceConnection.addJobToQueue(maf);
 		// mServiceConnection.addJobToQueue(fuelLevel);
@@ -345,7 +466,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		if (Device.getNetConnect(MainActivity.this) < 0) {
-			showDialog(0);
+			// showDialog(0);
 		} else {
 			if (mServiceConnection == null) {
 				mServiceIntent = new Intent(this, ObdGatewayService.class);
@@ -382,7 +503,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.health_setting_button:
+		case R.id.obd:
 			if (isConnected)
 				startActivity(new Intent(this, MaintenanceSetting.class));
 			else {
@@ -390,7 +511,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						Toast.LENGTH_LONG).show();
 			}
 			break;
-		case R.id.speed_test_button:
+		case R.id.stopwatch:
 			if (isConnected)
 				startActivity(new Intent(this, SpeedUpTestSettings.class));
 			else {
@@ -398,7 +519,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						Toast.LENGTH_LONG).show();
 			}
 			break;
-		case R.id.trouble_codes_button:
+		case R.id.trouble_codes:
 			if (isConnected)
 				startActivity(new Intent(this, TroubleCodes.class));
 			else {
@@ -416,39 +537,24 @@ public class MainActivity extends Activity implements OnClickListener {
 		stopLiveData();
 		super.onDestroy();
 	}
-	
-	private void initAnim(){
-//		Animation right = AnimationUtils.loadAnimation(this, R.anim.right_out);
-//		Animation left = AnimationUtils.loadAnimation(this, R.anim.left_out);
-//		
-//		findViewById(R.id.imageView4).startAnimation(right);
-//		findViewById(R.id.imageView5).startAnimation(right);
-//		findViewById(R.id.imageView6).startAnimation(right);
-//		findViewById(R.id.imageView1).startAnimation(left);
-//		findViewById(R.id.imageView2).startAnimation(left);
-//		findViewById(R.id.imageView3).startAnimation(left);
+
+	private void initAnim() {
+		// Animation right = AnimationUtils.loadAnimation(this,
+		// R.anim.right_out);
+		// Animation left = AnimationUtils.loadAnimation(this, R.anim.left_out);
+		//
+		// findViewById(R.id.imageView4).startAnimation(right);
+		// findViewById(R.id.imageView5).startAnimation(right);
+		// findViewById(R.id.imageView6).startAnimation(right);
+		// findViewById(R.id.imageView1).startAnimation(left);
+		// findViewById(R.id.imageView2).startAnimation(left);
+		// findViewById(R.id.imageView3).startAnimation(left);
 		Message msg = new Message();
 		msg.what = START_ANIM;
-		msg.arg1 = R.anim.right_out;
-		msg.arg2 = R.id.right_top;
-		mHandler.sendMessageDelayed(msg, 100);
-		msg = new Message();
-		msg.what = START_ANIM;
-		msg.arg1 = R.anim.right_out;
-		msg.arg2 = R.id.right_bottom;
-		mHandler.sendMessageDelayed(msg, 200);
-		
-		msg = new Message();
-		msg.what = START_ANIM;
-		msg.arg1 = R.anim.left_out;
-		msg.arg2 = R.id.left_top;
-		mHandler.sendMessageDelayed(msg, 100);
-		msg = new Message();
-		msg.what = START_ANIM;
-		msg.arg1 = R.anim.left_out;
-		msg.arg2 = R.id.left_bottom;
-		mHandler.sendMessageDelayed(msg, 200);
-		
+		msg.arg1 = R.anim.show_out;
+		msg.arg2 = R.id.light;
+		mHandler.sendMessageDelayed(msg, 10);
+
 	}
 
 }

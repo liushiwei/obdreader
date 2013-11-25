@@ -114,49 +114,119 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="285dp"
-            android:gravity="center_horizontal"
             android:layout_gravity="center"
+            android:gravity="center_horizontal"
             android:padding="20dp" >
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/left_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/fly_left" >
-            </RelativeLayout>
+                android:visibility="gone" >
 
-            <RelativeLayout
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fly_left" />
+
+                
+            </FrameLayout>
+
+            <FrameLayout
                 android:id="@+id/right_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/left_top"
                 android:layout_toRightOf="@+id/left_top"
-                android:background="@drawable/fly_right" >
-            </RelativeLayout>
+                android:visibility="gone" >
 
-            <RelativeLayout
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fly_right" />
+            </FrameLayout>
+
+            <FrameLayout
                 android:id="@+id/left_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/fly_bottom_left" >
-            </RelativeLayout>
+                android:visibility="gone" >
 
-            <RelativeLayout
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fly_bottom_left" />
+            </FrameLayout>
+
+            <FrameLayout
                 android:id="@+id/right_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/left_bottom"
-                android:background="@drawable/fly_bottom_right" >
-            </RelativeLayout>
+                android:visibility="gone" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fly_bottom_right" />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="390dp"
+            android:layout_height="285dp"
+            android:layout_gravity="center"
+            android:paddingTop="65dp" 
+            android:paddingBottom="65dp">
+            <ImageView
+                    android:id="@+id/stopwatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/stopwatch"
+                    android:visibility="gone" />
+            <ImageView
+                    android:id="@+id/obd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/obd"
+                    android:visibility="gone" />
+            <ImageView
+                    android:id="@+id/trouble_codes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/trouble_codes"
+                    android:visibility="gone" />
+            <ImageView
+                    android:id="@+id/refuel_log"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/refuel_log"
+                    android:visibility="gone" />
         </RelativeLayout>
 
         <FrameLayout
             android:layout_width="285dp"
             android:layout_height="285dp"
             android:layout_gravity="center" >
+
+            <ImageView
+                android:id="@+id/light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:src="@drawable/light_red"
+                android:visibility="gone" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -179,118 +249,6 @@
                 gauge:subdivisions="2" />
         </FrameLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="170dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/main_function_bg"
-            android:orientation="horizontal"
-            android:paddingLeft="18dp"
-            android:visibility="gone" >
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageButton
-                    android:id="@+id/trouble_codes_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/main_vehicle_check" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-25dp"
-                    android:text="@string/obd_check"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageButton
-                    android:id="@+id/health_setting_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/health_setting" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-25dp"
-                    android:text="@string/obd_health"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageButton
-                    android:id="@+id/volume_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/main_volume"
-                    android:src="@drawable/main_volume_mute" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageButton
-                    android:id="@+id/speed_test_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/main_speed_test" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-25dp"
-                    android:text="@string/obd_speed_test"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageButton
-                    android:id="@+id/vehicle_alarm_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/main_vehicle_alarm" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-25dp"
-                    android:text="@string/obd_alarm"
-                    android:textSize="20sp" />
-            </LinearLayout>
-        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>

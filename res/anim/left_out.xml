@@ -4,10 +4,10 @@
     android:fillBefore="false"
     android:interpolator="@android:anim/accelerate_interpolator" >
 
-    <!-- <alpha
-        android:duration="1000"
+    <alpha
+        android:duration="500"
         android:fromAlpha="0.0"
-        android:toAlpha="1.0" />  -->
+        android:toAlpha="1.0" /> 
     <!-- <scale
             android:fromXScale="1.0"
             android:toXScale="3.0"
@@ -18,5 +18,5 @@
             android:duration="300" /> -->
     <translate android:duration="500"
         android:fromXDelta="0%p"
-        android:toXDelta="-70%"/>
+        android:toXDelta="-110%"/>
 </set>
