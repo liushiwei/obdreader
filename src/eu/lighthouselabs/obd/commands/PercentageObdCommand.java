@@ -31,7 +31,7 @@ public abstract class PercentageObdCommand extends ObdCommand {
 	public String getFormattedResult() {
 		String res = getResult();
 
-		if (!"NODATA".equals(res)) {
+		if (!"NODATA".equals(res)&&buffer!=null&&buffer.size()>2) {
 			// ignore first two bytes [hh hh] of the response
 			float tempValue = (buffer.get(2) * 100.0f) / 255.0f;
 			res = String.format("%.1f%s", tempValue, "%");

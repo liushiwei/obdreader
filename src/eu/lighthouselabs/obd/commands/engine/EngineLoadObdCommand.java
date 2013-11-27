@@ -38,5 +38,29 @@ public class EngineLoadObdCommand extends PercentageObdCommand {
 	public AvailableCommandNames getId() {
 		return AvailableCommandNames.ENGINE_LOAD;
 	}
+	
+	@Override
+	public String getFormattedResult() {
+		String res = getResult();
+
+		if (!"NODATA".equals(res) &&buffer!=null&& buffer.size()>2) {
+			// ignore first two bytes [hh hh] of the response
+			float tempValue = (buffer.get(2) * 100.0f) / 255.0f;
+			res = String.format("%.1f%s", tempValue, "%");
+		}
+
+		return res;
+	}
+	
+	public int getValueResult() {
+		String res = getResult();
+		int result = 0;
+		if (!"NODATA".equals(res) &&buffer!=null&& buffer.size()>2) {
+			// ignore first two bytes [hh hh] of the response
+			result = (int) ((buffer.get(2) * 100.0f) / 255.0f);
+		}
+
+		return result;
+	}
 
 }

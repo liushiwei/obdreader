@@ -30,4 +30,14 @@ public class TimingAdvanceObdCommand extends PercentageObdCommand {
 	public AvailableCommandNames getId() {
 		return AvailableCommandNames.TIMING_ADVANCE;
 	}
+	
+	public int getValueResult(){
+		String res = getResult();
+		int result = 0;
+		if (!"NODATA".equals(res)&&buffer!=null&&buffer.size()>2) {
+			// ignore first two bytes [hh hh] of the response
+			result = (int) (buffer.get(2)/ 2f-64);
+		}
+		return result;
+	}
 }

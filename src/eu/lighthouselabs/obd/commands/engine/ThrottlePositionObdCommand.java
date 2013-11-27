@@ -40,4 +40,13 @@ public class ThrottlePositionObdCommand extends PercentageObdCommand {
 		return AvailableCommandNames.THROTTLE_POS;
 	}
 	
+	public int getValueResult(){
+		String res = getResult();
+		int result = 0;
+		if (!"NODATA".equals(res)&&buffer!=null&&buffer.size()>2) {
+			result = (int) ((buffer.get(2) * 100.0f) / 255.0f);
+		}
+		return result;
+	}
+	
 }

@@ -28,7 +28,7 @@ public class FuelConsumptionObdCommand extends ObdCommand {
 	 */
 	@Override
 	public String getFormattedResult() {
-		if (!"NODATA".equals(getResult())) {
+		if (!"NODATA".equals(getResult())&&buffer!=null&&buffer.size()>3) {
 			// ignore first two bytes [hh hh] of the response
 			int a = buffer.get(2);
 			int b = buffer.get(3);

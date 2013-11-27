@@ -41,7 +41,7 @@ public class DtcNumberObdCommand extends ObdCommand {
 	public String getFormattedResult() {
 		String res = getResult();
 
-		if (!"NODATA".equals(res)) {
+		if (!"NODATA".equals(res)&&buffer!=null&&buffer.size()>2) {
 			// ignore first two bytes [hh hh] of the response
 			int mil = buffer.get(2);
 			if ((mil & 0x80) == 128)
@@ -62,11 +62,9 @@ public class DtcNumberObdCommand extends ObdCommand {
 	public int getTotalAvailableCodes() {
 		String res = getResult();
 
-		if (!"NODATA".equals(res)) {
-			if(buffer!=null&&buffer.size()>3){
+		if (!"NODATA".equals(res)&&buffer!=null&&buffer.size()>2) {
 			int mil = buffer.get(2);
 			codeCount = mil - 128;
-			}
 		}
 		return codeCount;
 	}

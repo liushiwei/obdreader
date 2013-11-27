@@ -34,13 +34,11 @@ public class EngineRPMObdCommand extends ObdCommand {
 	 */
 	@Override
 	public String getFormattedResult() {
-		if (!"NODATA".equals(getResult())) {
+		if (!"NODATA".equals(getResult())&&buffer!=null&&buffer.size()>3) {
 			// ignore first two bytes [41 0C] of the response
-			if (buffer != null && buffer.size() == 4) {
 				int a = buffer.get(2);
 				int b = buffer.get(3);
 				_rpm = (a * 256 + b) / 4;
-			}
 		} else {
 			_rpm = 0;
 		}
@@ -54,13 +52,11 @@ public class EngineRPMObdCommand extends ObdCommand {
 	}
 
 	public int getRPM() {
-		if (!"NODATA".equals(getResult())) {
+		if (!"NODATA".equals(getResult())&&buffer!=null&&buffer.size()>3) {
 			// ignore first two bytes [41 0C] of the response
-			if (buffer != null && buffer.size() == 4) {
 				int a = buffer.get(2);
 				int b = buffer.get(3);
 				_rpm = (a * 256 + b) / 4;
-			}
 		} else {
 			_rpm = 0;
 		}

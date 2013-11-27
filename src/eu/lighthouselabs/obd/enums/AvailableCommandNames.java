@@ -29,7 +29,12 @@ public enum AvailableCommandNames {
 	FUEL_ECONOMY_WITHOUT_MAF("Fuel Economy 3"),
 	TIMING_ADVANCE("Timing Advance"),
 	DTC_NUMBER("Diagnostic Trouble Codes"),
-	EQUIV_RATIO("Command Equivalence Ratio");
+	EQUIV_RATIO("Command Equivalence Ratio"),
+	SHORT_TERM_BANK_1("Short term bank 1"),
+	LONG_TERM_BANK_1("Long term bank 1"),
+	SHORT_TERM_BANK_2("Short term bank 2"),
+	LONG_TERM_BANK_2("Long term bank 2"),
+	UNKNOW("Unknow name");
 	
 	
 	private final String value;

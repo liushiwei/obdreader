@@ -187,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/stopwatch"
+                    android:src="@drawable/stopwatch_icon"
                     android:visibility="gone" />
             <ImageView
                     android:id="@+id/obd"
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/obd"
+                    android:src="@drawable/obd_icon"
                     android:visibility="gone" />
             <ImageView
                     android:id="@+id/trouble_codes"
@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentBottom="true"
-                    android:src="@drawable/trouble_codes"
+                    android:src="@drawable/money_icon"
                     android:visibility="gone" />
             <ImageView
                     android:id="@+id/refuel_log"
@@ -211,7 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:src="@drawable/refuel_log"
+                    android:src="@drawable/refuel_log_icon"
                     android:visibility="gone" />
         </RelativeLayout>
 

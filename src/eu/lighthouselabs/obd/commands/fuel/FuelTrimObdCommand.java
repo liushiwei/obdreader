@@ -38,7 +38,7 @@ public class FuelTrimObdCommand extends ObdCommand {
 
 	@Override
 	public String getFormattedResult() {
-		if (!"NODATA".equals(getResult())) {
+		if (!"NODATA".equals(getResult())&&buffer!=null&&buffer.size()>2) {
 			// ignore first two bytes [hh hh] of the response
 			fuelTrimValue = prepareTempValue(buffer.get(2));
 		}
@@ -67,7 +67,22 @@ public class FuelTrimObdCommand extends ObdCommand {
 	
 	@Override
 	public AvailableCommandNames getId() {
-		return  null;
+		AvailableCommandNames id =AvailableCommandNames.UNKNOW;
+		switch(bank){
+		case SHORT_TERM_BANK_1:
+			id = AvailableCommandNames.SHORT_TERM_BANK_1;
+			break;
+		case LONG_TERM_BANK_1:
+			id = AvailableCommandNames.LONG_TERM_BANK_1;
+			break;
+		case SHORT_TERM_BANK_2:
+			id = AvailableCommandNames.SHORT_TERM_BANK_2;
+			break;
+		case LONG_TERM_BANK_2:
+			id = AvailableCommandNames.LONG_TERM_BANK_2;
+			break;
+		}
+		return id;
 	}
 
 }

@@ -55,9 +55,8 @@ public abstract class TemperatureObdCommand extends ObdCommand implements System
 	public String getFormattedResult() {
 		String res = getResult();
 
-		if (!"NODATA".equals(res)) {
+		if (!"NODATA".equals(res)&&buffer!=null&&buffer.size()>2) {
 			// ignore first two bytes [hh hh] of the response
-			if(buffer.size()>0){
 			try{
 			temperature = prepareTempValue(buffer.get(2));
 			}catch(Exception e){
@@ -68,7 +67,6 @@ public abstract class TemperatureObdCommand extends ObdCommand implements System
 				res = String.format("%.1f%s", getImperialUnit(), "F");
 			else
 				res = String.format("%.0f%s", temperature, "C");
-			}
 		}
 
 		return res;

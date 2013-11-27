@@ -55,8 +55,7 @@ public class SpeedObdCommand extends ObdCommand implements SystemOfUnits {
 	 */
 	public int getMetricSpeed() {
 		String res = getResult();
-		if (!"NODATA".equals(res)) {
-			if(buffer!=null&&buffer.size()>3)
+		if (!"NODATA".equals(res)&&buffer!=null&&buffer.size()>2) {
 			metricSpeed = buffer.get(2);
 		}
 

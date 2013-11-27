@@ -47,7 +47,7 @@ public class CommandEquivRatioObdCommand extends ObdCommand {
 	public String getFormattedResult() {
 		String res = getResult();
 
-		if (!"NODATA".equals(res)) {
+		if (!"NODATA".equals(res)&&buffer!=null&&buffer.size()>3) {
 			// ignore first two bytes [hh hh] of the response
 			int a = buffer.get(2);
 			int b = buffer.get(3);
