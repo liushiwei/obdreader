@@ -303,8 +303,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					findViewById(R.id.obd).startAnimation(show_icon);
 					findViewById(R.id.trouble_codes).setVisibility(View.VISIBLE);
 					findViewById(R.id.trouble_codes).startAnimation(show_icon);
-					findViewById(R.id.refuel_log).setVisibility(View.VISIBLE);
-					findViewById(R.id.refuel_log).startAnimation(show_icon);
+					findViewById(R.id.money).setVisibility(View.VISIBLE);
+					findViewById(R.id.money).startAnimation(show_icon);
 					break;
 				}
 			}
@@ -316,11 +316,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (true) {
-			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-					.detectDiskReads().detectDiskWrites().detectNetwork()
-					.penaltyLog().build());
-		}
+//		if (true) {
+//			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//					.detectDiskReads().detectDiskWrites().detectNetwork()
+//					.penaltyLog().build());
+//		}
 		setContentView(R.layout.activity_main);
 		GaugeView mGaugeView1 = (GaugeView) findViewById(R.id.speed_view);
 		speed = 0;
@@ -354,7 +354,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.obd).setOnClickListener(this);
 		findViewById(R.id.stopwatch).setOnClickListener(this);
 		findViewById(R.id.trouble_codes).setOnClickListener(this);
-		findViewById(R.id.refuel_log).setOnClickListener(this);
+		findViewById(R.id.money).setOnClickListener(this);
 		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 1000);
 
 	}
@@ -526,6 +526,9 @@ public class MainActivity extends Activity implements OnClickListener {
 				Toast.makeText(getBaseContext(), R.string.device_unconn,
 						Toast.LENGTH_LONG).show();
 			}
+			break;
+		case R.id.money:
+			startActivity(new Intent(this, MoneyActivity.class));
 			break;
 		}
 

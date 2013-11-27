@@ -203,15 +203,15 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentBottom="true"
-                    android:src="@drawable/money_icon"
+                    android:src="@drawable/trouble_codes_icon"
                     android:visibility="gone" />
             <ImageView
-                    android:id="@+id/refuel_log"
+                    android:id="@+id/money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:src="@drawable/refuel_log_icon"
+                    android:src="@drawable/money_icon"
                     android:visibility="gone" />
         </RelativeLayout>
 

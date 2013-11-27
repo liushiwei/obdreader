@@ -37,6 +37,10 @@
          <activity android:name="com.george.obdreader.TroubleCodes"
             android:theme="@android:style/Theme.Black.NoTitleBar"
             android:screenOrientation="landscape"/>
+	 	 <activity android:name="com.george.obdreader.MoneyActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="landscape"/>
+         
         <service android:name=".io.ObdGatewayService" android:exported="false"/>
         
         <receiver android:name=".BootReceiver" >
@@ -57,7 +61,6 @@
 	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"></uses-permission>
 	<uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
-	<uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES"></uses-permission>
 	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 	<uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
