@@ -38,7 +38,7 @@
             android:theme="@android:style/Theme.Black.NoTitleBar"
             android:screenOrientation="landscape"/>
 	 	 <activity android:name="com.george.obdreader.MoneyActivity"
-            android:screenOrientation="landscape"/>
+            />
          
         <service android:name=".io.ObdGatewayService" android:exported="false"/>
         

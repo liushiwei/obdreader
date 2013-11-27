@@ -17,7 +17,6 @@ public class FacebookFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		Log.d("=====>", "FacebookFragment onAttach");
-		MainActivity mainActivity = (MainActivity)activity;
 	}
 	
 	@Override
