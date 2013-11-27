@@ -4,9 +4,9 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="15" android:maxSdkVersion="15" />
+     <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="17" />
 
     <application
         android:allowBackup="true"
@@ -38,7 +38,6 @@
             android:theme="@android:style/Theme.Black.NoTitleBar"
             android:screenOrientation="landscape"/>
 	 	 <activity android:name="com.george.obdreader.MoneyActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar"
             android:screenOrientation="landscape"/>
          
         <service android:name=".io.ObdGatewayService" android:exported="false"/>
