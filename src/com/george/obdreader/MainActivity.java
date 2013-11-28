@@ -303,8 +303,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					findViewById(R.id.obd).startAnimation(show_icon);
 					findViewById(R.id.trouble_codes).setVisibility(View.VISIBLE);
 					findViewById(R.id.trouble_codes).startAnimation(show_icon);
-					findViewById(R.id.money).setVisibility(View.VISIBLE);
-					findViewById(R.id.money).startAnimation(show_icon);
+					findViewById(R.id.maintenance).setVisibility(View.VISIBLE);
+					findViewById(R.id.maintenance).startAnimation(show_icon);
 					break;
 				}
 			}
@@ -354,7 +354,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.obd).setOnClickListener(this);
 		findViewById(R.id.stopwatch).setOnClickListener(this);
 		findViewById(R.id.trouble_codes).setOnClickListener(this);
-		findViewById(R.id.money).setOnClickListener(this);
+		findViewById(R.id.maintenance).setOnClickListener(this);
 		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 1000);
 
 	}
@@ -529,6 +529,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.money:
 			startActivity(new Intent(this, MoneyActivity.class));
+			break;
+		case R.id.maintenance:
+			startActivity(new Intent(this, MaintenanceSetting.class));
 			break;
 		}
 

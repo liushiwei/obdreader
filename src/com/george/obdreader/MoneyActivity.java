@@ -3,6 +3,7 @@ package com.george.obdreader;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,16 +28,37 @@ public class MoneyActivity extends FragmentActivity {
 		setTabs();
 		
 	}
+	
+	
+	
 
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
 
 	private void setTabs() {
 		 addTab("Home", R.drawable.money_icon, AppleFragment.class);
+		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
+		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
+		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
 		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
 //		mTabHost.addTab(mTabHost.newTabSpec("Apple").setIndicator("Apple"),
 //				AppleFragment.class, null);
 //		// 2
 //		mTabHost.addTab(mTabHost.newTabSpec("Google").setIndicator("Google"),
 //				FacebookFragment.class, null);
+	}
+	
+	
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		Log.d("=====>", "TabHost height = "+findViewById(android.R.id.tabs).getHeight());
+		findViewById(R.id.action_bar).getLayoutParams().height = findViewById(android.R.id.tabs).getHeight();
+		findViewById(R.id.action_bar).postInvalidate();
 	}
 
 	private void addTab(String labelId, int drawableId, Class<?> c) {
@@ -53,5 +75,15 @@ public class MoneyActivity extends FragmentActivity {
 		
 		
 	}
+
+	public FragmentTabHost getTabHost() {
+		return mTabHost;
+	}
+
+	public void setTabHost(FragmentTabHost mTabHost) {
+		this.mTabHost = mTabHost;
+	}
+	
+	
 
 }

@@ -23,7 +23,7 @@ public class FacebookFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d("=====>", "FacebookFragment onCreateView");
-		return inflater.inflate(R.layout.speed_up_test_settings, container, false);
+		return inflater.inflate(R.layout.refuel_log, container, false);
 	}
 	
 	@Override

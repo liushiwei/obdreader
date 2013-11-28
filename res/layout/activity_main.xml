@@ -213,6 +213,14 @@
                     android:layout_alignParentBottom="true"
                     android:src="@drawable/money_icon"
                     android:visibility="gone" />
+            <ImageView
+                    android:id="@+id/maintenance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/maintenance_icon"
+                    android:visibility="gone" />
         </RelativeLayout>
 
         <FrameLayout
