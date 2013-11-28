@@ -24,9 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.george.obdreader.MaintenanceSetting"
-            android:theme="@android:style/Theme.Black.NoTitleBar"
-            android:screenOrientation="landscape"/>
+        <activity android:name="com.george.obdreader.MaintenanceActivity"/>
         <activity android:name="com.george.obdreader.SpeedUpTestSettings"
             android:theme="@android:style/Theme.Black.NoTitleBar"
             android:screenOrientation="landscape"/>

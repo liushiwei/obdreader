@@ -531,7 +531,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			startActivity(new Intent(this, MoneyActivity.class));
 			break;
 		case R.id.maintenance:
-			startActivity(new Intent(this, MaintenanceSetting.class));
+			startActivity(new Intent(this, MaintenanceActivity.class));
 			break;
 		}
 
