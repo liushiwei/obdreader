@@ -111,4 +111,11 @@
     <string name="ready">已经准备好</string>
     <string name="chronograph">记时开始</string>
     <string name="over">停止</string>
+    
+     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <string name="back_button_label">Back</string>
+    <string name="next_button_label">Next</string>
+
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="skip_button_label">Skip</string>
 </resources>
