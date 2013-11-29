@@ -14,6 +14,7 @@
         <item name="android:listViewStyle">@style/ListViewAppTheme</item>
         <item name="android:listViewWhiteStyle">@style/ListViewAppTheme.White</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItemAppTheme</item>
+        <item name="android:windowBackground">@drawable/background_holo_dark</item>
     </style>
 
     <!-- Application theme. -->
