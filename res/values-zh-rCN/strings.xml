@@ -67,4 +67,18 @@
     <string name="delete_fail">删除失败</string>
     <string name="delete_success">删除成功</string>
     <string name="net_uncon">网络未连接，是否现在设置网络？</string>
+    
+    <string name="choice_date">请选择保养间隔时间</string>
+    <string name="set_date">设置保养间隔时间</string>
+    
+    <string name="current_interval_time">当前保养间隔时间</string>
+    
+    <string name="maintenance_interval_time">保养间隔时间</string>
+    <string name="maintenance_tip_off">保养提醒未开启</string>
+    <string name="maintenance_tip_on">保养提醒已经开启</string>
+    <string name="maintenance_tip">是否开启保养提醒</string>
+    <string name="maintenance_time">保养时间</string>
+    <string name="last_maintenance_time">上一次保养时间</string>
+    <string name="next_maintenance_time">下一次保养时间</string>
+    <string name="no_maintenance_log">没有保养记录</string>
 </resources>

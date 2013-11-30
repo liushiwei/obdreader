@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="基本设置" >
+        <ListPreference
+            android:dialogTitle="@string/choice_date"
+            android:entries="@array/maintenance_time"
+            android:entryValues="@array/maintenance_time_value"
+            android:key="maintenance_time"
+            android:summary="@string/set_date"
+            android:title="@string/maintenance_interval_time" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="maintenance_tip"
+            android:summaryOff="@string/maintenance_tip_off"
+            android:summaryOn="@string/maintenance_tip_on"
+            android:title="@string/maintenance_tip" 
+            android:dependency="maintenance_time"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/maintenance_time" >
+        <Preference
+            android:key="last_maintenance_time"
+            android:summary="@string/no_maintenance_log"
+            android:title="@string/last_maintenance_time" >
+        </Preference>
+        <Preference
+            android:key="last_maintenance_time"
+            android:summary="@string/choice_date"
+            android:title="@string/next_maintenance_time" >
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

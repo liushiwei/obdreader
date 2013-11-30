@@ -211,7 +211,7 @@ public class MainActivity extends Activity implements OnClickListener {
 							msg.what = SHOW_MENU;
 							msg.arg1 = R.anim.right_out;
 							msg.arg2 = R.id.right_top;
-							mHandler.sendMessageDelayed(msg, 200);
+							mHandler.sendMessageDelayed(msg, 50);
 							// msg = new Message();
 							// msg.what = SHOW_MENU;
 							// msg.arg1 = R.anim.right_out;
@@ -355,7 +355,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.stopwatch).setOnClickListener(this);
 		findViewById(R.id.trouble_codes).setOnClickListener(this);
 		findViewById(R.id.maintenance).setOnClickListener(this);
-		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 1000);
+		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 500);
 
 	}
 
