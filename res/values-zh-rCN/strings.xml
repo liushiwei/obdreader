@@ -81,4 +81,5 @@
     <string name="last_maintenance_time">上一次保养时间</string>
     <string name="next_maintenance_time">下一次保养时间</string>
     <string name="no_maintenance_log">没有保养记录</string>
+    <string name="maintenance_settings">基本设置</string>
 </resources>

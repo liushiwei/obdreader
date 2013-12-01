@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="基本设置" >
+    <PreferenceCategory android:title="@string/maintenance_settings" >
         <ListPreference
             android:dialogTitle="@string/choice_date"
             android:entries="@array/maintenance_time"
@@ -22,10 +22,11 @@
         <Preference
             android:key="last_maintenance_time"
             android:summary="@string/no_maintenance_log"
-            android:title="@string/last_maintenance_time" >
+            android:title="@string/last_maintenance_time"
+             >
         </Preference>
         <Preference
-            android:key="last_maintenance_time"
+            android:key="next_maintenance_time"
             android:summary="@string/choice_date"
             android:title="@string/next_maintenance_time" >
         </Preference>
