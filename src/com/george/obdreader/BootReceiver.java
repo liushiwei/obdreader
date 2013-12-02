@@ -18,7 +18,7 @@ public class BootReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Log.e("Boot_Receiver", "get Action :" + intent.getAction());
+		/*Log.e("Boot_Receiver", "get Action :" + intent.getAction());
 		SharedPreferences userInfo = context.getSharedPreferences(
 				"maintenance_info", context.MODE_PRIVATE);
 		long next_maintenance_date = userInfo.getLong("next_maintenance_date",
@@ -38,7 +38,11 @@ public class BootReceiver extends BroadcastReceiver {
 					&& last_maintenance_date < next_maintenance_date) {
 				notifyObdManager(context);
 			}
-		}
+		}*/
+		
+		 Intent service = new Intent(context,OBDService.class);  
+	     context.startService(service);    
+	        
 		// SharedPreferences.Editor editor = userInfo.edit();
 		// Calendar today = Calendar.getInstance();
 		// editor.putLong("maintenance_date",
@@ -51,24 +55,4 @@ public class BootReceiver extends BroadcastReceiver {
 		// editor.putInt("interval", interval);
 		// editor.commit();
 	}
-
-	private void notifyObdManager(Context context) {
-		CharSequence connectText;
-		Notification notification = new Notification();
-		notification.icon = R.drawable.icon;
-		notification.flags = Notification.FLAG_AUTO_CANCEL;
-		PendingIntent contentIntent;
-		connectText = context.getText(R.string.obd_health_warn);
-		Intent intent = new Intent(context, MaintenanceSetting.class);
-		intent.putExtra("notification_confirm", true);
-		contentIntent = PendingIntent.getActivity(context, 0, intent, 0);
-
-		notification.setLatestEventInfo(context,
-				context.getText(R.string.app_name), connectText, contentIntent);
-		// startForeground(R.string.app_name, notification);
-		NotificationManager notifcationManager = (NotificationManager) context
-				.getSystemService(context.NOTIFICATION_SERVICE);
-		notifcationManager.notify(R.string.obd_alarm, notification);
-	}
-
 }

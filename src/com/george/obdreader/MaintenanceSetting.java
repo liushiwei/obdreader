@@ -21,13 +21,15 @@ public class MaintenanceSetting extends PreferenceFragment implements OnPreferen
 	
 	private static final String TAG = "MaintenanceSetting";
 	
-	private static final String MAINTENANCE_TIME = "maintenance_time";
+	public static final String MAINTENANCE_TIME = "maintenance_time";
 	
-	private static final String MAINTENANCE_TIP = "maintenance_tip";
+	public static final String MAINTENANCE_TIP = "maintenance_tip";
 	
-	private static final String LAST_MAINTENANCE_TIME = "last_maintenance_time";
+	public static final String MAINTENANCE_TIP_TIME = "maintenance_tip_time";
 	
-	private static final String NEXT_MAINTENANCE_TIME = "next_maintenance_time";
+	public static final String LAST_MAINTENANCE_TIME = "last_maintenance_time";
+	
+	public static final String NEXT_MAINTENANCE_TIME = "next_maintenance_time";
 	
 
 	 @Override  
@@ -86,6 +88,8 @@ public class MaintenanceSetting extends PreferenceFragment implements OnPreferen
         last_time.setSummary(getString(R.string.maintenance_time)+": "+sdf.format(today.getTime()));
         today.add(Calendar.MONTH, Integer.valueOf((String) newValue));
         editor.putLong(NEXT_MAINTENANCE_TIME,
+                today.getTimeInMillis());
+        editor.putLong(MAINTENANCE_TIP_TIME,
                 today.getTimeInMillis());
         Preference next_time = findPreference(NEXT_MAINTENANCE_TIME);
         next_time.setSummary(getString(R.string.maintenance_time)+" "+sdf.format(today.getTime()));

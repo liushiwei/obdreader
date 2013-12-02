@@ -356,6 +356,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.trouble_codes).setOnClickListener(this);
 		findViewById(R.id.maintenance).setOnClickListener(this);
 		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 500);
+		
+		Intent service = new Intent(this,OBDService.class);  
+	    startService(service);    
 
 	}
 
