@@ -28,7 +28,7 @@
         <activity
             android:name="com.george.obdreader.SpeedUpTestSettings"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            />
         <activity
             android:name="com.george.obdreader.SpeedUpTest"
             android:screenOrientation="landscape"

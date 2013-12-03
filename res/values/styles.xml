@@ -5,7 +5,7 @@
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
 
-    <style name="AppBaseTheme" parent="android:Theme.Black">
+    <style name="AppBaseTheme" parent="android:Theme.Black.NoTitleBar">
         <item name="android:checkboxStyle">@style/CheckBoxAppTheme</item>
         <item name="android:radioButtonStyle">@style/RadioButtonAppTheme</item>
         <item name="android:buttonStyle">@style/ButtonAppTheme</item>

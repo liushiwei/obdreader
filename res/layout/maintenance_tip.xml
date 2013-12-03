@@ -2,57 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:padding="10dp" android:background="@color/holo_dialog_bg">
+    android:background="@color/holo_dialog_bg"
+    android:orientation="vertical"
+    android:padding="5dp" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="保养提醒"
-        android:textAppearance="?android:attr/textAppearanceLarge" 
-        android:textColor="@color/holo_blue_dark"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/holo_blue_dark"
+        android:paddingLeft="5dp" />
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="2dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:background="@color/holo_blue_dark" />
+    
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="您的爱车到了该保养的时间了哦！"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:padding="10dp" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/button1"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="是的，我已经保养过了" 
-        android:layout_marginTop="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_margin="10dp" />
+        android:orientation="vertical"
+        android:layout_gravity="center" >
+        <Button
+        android:id="@+id/maintenanced"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:text="是的，我已经保养过了"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="明天再提醒我吧" 
-        android:layout_marginTop="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_margin="10dp" />
+        android:id="@+id/tomorrow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:text="过几天再提醒我吧"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="下一次再保养再提醒我吧" 
-        android:layout_marginTop="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_margin="10dp" />
+        android:id="@+id/next_time"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:text="下一次保养再提醒我吧"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.george.obdreader;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Service;
@@ -14,6 +15,8 @@ import android.text.format.Time;
 import android.util.Log;
 
 public class OBDService extends Service {
+	
+	private static final String TAG = "OBDService";
 
 	 @Override  
 	    public IBinder onBind(Intent intent) {  
@@ -53,7 +56,7 @@ public class OBDService extends Service {
 
 				Log.e("OBDService","时间在改变!");
 				Date today = new Date();
-				//if(today.getHours()==9&&today.getMinutes()==0){
+				if(today.getHours()==14&&today.getMinutes()==27){
 					SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 					
 					boolean is_tip= preferences.getBoolean(MaintenanceSetting.MAINTENANCE_TIP, true); 
@@ -63,8 +66,17 @@ public class OBDService extends Service {
 				
 					long maintenance_tip = preferences.getLong(MaintenanceSetting.MAINTENANCE_TIP_TIME,
 							0);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					today = new Date(next_maintenance_date);
+					Log.e(TAG, "next_maintenance_date ="+sdf.format(today));
+					today = new Date(maintenance_tip);
+					Log.e(TAG, "maintenance_tip ="+sdf.format(today));
+					
 					Time next_maintenance_time = new Time();
 					next_maintenance_time.set(next_maintenance_date);
+					Log.e(TAG, "next_maintenance_date ="+next_maintenance_time.year+"-"+next_maintenance_time.month+"-"+next_maintenance_time.monthDay);
+					
+					
 					if (is_tip && next_maintenance_date > 0) {
 						//if (today.getTime() > maintenance_tip) {
 						Intent dialogIntent = new Intent(getBaseContext(), MaintenanceTip.class);
@@ -72,7 +84,7 @@ public class OBDService extends Service {
 						getApplication().startActivity(dialogIntent);
 						//}
 					}
-				//}
+				}
 
 
 			}

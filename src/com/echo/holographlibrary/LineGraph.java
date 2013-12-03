@@ -28,6 +28,7 @@ import android.graphics.*;
 import android.graphics.Bitmap.Config;
 import android.graphics.Path.Direction;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -158,25 +159,33 @@ public class LineGraph extends View {
 		}
 	}
 	public float getMaxX(){
-		float max = lines.get(0).getPoint(0).getX();
-		for (Line line : lines){
-			for (LinePoint point : line.getPoints()){
-				if (point.getX() > max) max = point.getX();
-			}
-		}
-		maxX = max;
+//		float max = lines.get(0).getPoint(0).getX();
+//		for (Line line : lines){
+//			for (LinePoint point : line.getPoints()){
+//				if (point.getX() > max) max = point.getX();
+//			}
+//		}
+//		maxX = max;
 		return maxX;
 		
 	}
 	public float getMinX(){
-		float max = lines.get(0).getPoint(0).getX();
-		for (Line line : lines){
-			for (LinePoint point : line.getPoints()){
-				if (point.getX() < max) max = point.getX();
-			}
-		}
-		maxX = max;
-		return maxX;
+//		float max = lines.get(0).getPoint(0).getX();
+//		for (Line line : lines){
+//			for (LinePoint point : line.getPoints()){
+//				if (point.getX() < max) max = point.getX();
+//			}
+//		}
+//		maxX = max;
+		return minX;
+	}
+	
+	public void setMinX(float minx){
+		minX = minx;
+	}
+	
+	public void setMaxX(float maxx){
+		maxX = maxx;
 	}
 	
 	public void onDraw(Canvas ca) {
@@ -208,7 +217,7 @@ public class LineGraph extends View {
 				float minX = getMinX();
 				
 				if (lineCount == lineToFill){
-					paint.setColor(Color.BLACK);
+					paint.setColor(Color.GRAY);
 					paint.setAlpha(30);
 					paint.setStrokeWidth(2);
 					for (int i = 10; i-getWidth() < getHeight(); i = i+20){
@@ -296,11 +305,13 @@ public class LineGraph extends View {
 					float yPercent = (p.getY()-minY)/(maxY - minY);
 					float xPercent = (p.getX()-minX)/(maxX - minX);
 					if (count == 0){
+						
 						lastXPixels = sidePadding + (xPercent*usableWidth);
 						lastYPixels = getHeight() - bottomPadding - (usableHeight*yPercent);
 					} else {
 						newXPixels = sidePadding + (xPercent*usableWidth);
 						newYPixels = getHeight() - bottomPadding - (usableHeight*yPercent);
+						Log.e("LineGraph", "lastXPixels = "+lastXPixels+ " lastYPixels="+lastYPixels+" newXPixels="+newXPixels+" newYPixels="+newYPixels);
 						canvas.drawLine(lastXPixels, lastYPixels, newXPixels, newYPixels, paint);
 						lastXPixels = newXPixels;
 						lastYPixels = newYPixels;
