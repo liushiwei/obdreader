@@ -23,16 +23,27 @@
 
 package com.echo.holographlibrary;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Path.Direction;
+import android.graphics.PathEffect;
+import android.graphics.Point;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Region;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.util.ArrayList;
 
 public class LineGraph extends View {
 	
@@ -49,7 +60,10 @@ public class LineGraph extends View {
 	private boolean shouldUpdate = false;
     private boolean showMinAndMax = false;
     private boolean showHorizontalGrid = false;
+    private boolean showTitles = false;
 	private int gridColor = 0xffffffff;
+	private List<ValueTitle> yTitles;
+	private List<ValueTitle> xTitles;
 	
 	public LineGraph(Context context){
 		this(context,null);
@@ -84,6 +98,32 @@ public class LineGraph extends View {
 		this.minY = minY;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<ValueTitle> getYTitles() {
+		return yTitles;
+	}
+	public void setYTitles(List<ValueTitle> yTitles) {
+		this.yTitles = yTitles;
+	}
+	public List<ValueTitle> getXTitles() {
+		return xTitles;
+	}
+	public void setXTitles(List<ValueTitle> xTitles) {
+		this.xTitles = xTitles;
+	}
+	public boolean isShowTitles() {
+		return showTitles;
+	}
+	public void setShowTitles(boolean showTitles) {
+		this.showTitles = showTitles;
+	}
 	public void update()
 	{
 		shouldUpdate = true;
@@ -199,8 +239,12 @@ public class LineGraph extends View {
 			
 			float bottomPadding = 1, topPadding = 0;
 			float sidePadding = 10;
-            if (this.showMinAndMax)
+            //if (this.showMinAndMax)
                 sidePadding = txtPaint.measureText(max);
+            if (this.showTitles)
+            	bottomPadding += txtPaint.getTextSize();
+            
+            
 			
 			float usableHeight = getHeight() - bottomPadding - topPadding;
 			float usableWidth = getWidth() - sidePadding;
@@ -281,6 +325,7 @@ public class LineGraph extends View {
 			paint.setAlpha(50);
 			paint.setAntiAlias(true);
 			canvas.drawLine(sidePadding, getHeight() - bottomPadding, getWidth(), getHeight()-bottomPadding, paint);
+			canvas.drawLine(sidePadding, getHeight() - bottomPadding, sidePadding, 0, paint);
 			if(this.showHorizontalGrid)
 				for(int i=1;i<=10;i++)
 				{
@@ -288,7 +333,47 @@ public class LineGraph extends View {
 				}
 			paint.setAlpha(255);
 			
-			
+			if(this.showTitles){
+            	paint.setStyle(Paint.Style.STROKE);
+            	paint.setStrokeWidth(0.5f);
+            	paint.setColor(Color.WHITE);
+            	paint.setAlpha(100);
+            	for(ValueTitle y:yTitles){
+            		if(y.value<=maxY){
+            			float yPercent = (y.value-minY)/(maxY - minY);
+            			float newYPixels = getHeight() - bottomPadding - (usableHeight*yPercent);
+            			if(y.value!=0){
+            				//canvas.drawLine(sidePadding, newYPixels, getWidth(), newYPixels, paint);
+            				Path ypath = new Path();       
+            				ypath.moveTo(sidePadding, newYPixels);  
+            				ypath.lineTo(getWidth(), newYPixels);        
+            		        PathEffect effects = new DashPathEffect(new float[]{3,3,3,3},1);  
+            		        paint.setPathEffect(effects); 
+            		        canvas.drawPath(ypath, paint);  
+            			}
+            			ca.drawText(y.title, 0, newYPixels, txtPaint);
+            		}
+            	}
+            	for(ValueTitle x:xTitles){
+            		if(x.value<=maxX){
+            			float xPercent = (x.value-minX)/(maxX - minX);
+            			float newYPixels = sidePadding + (xPercent*usableWidth);
+            			if(x.value!=0){
+            				//canvas.drawLine(newYPixels, getHeight() - bottomPadding, newYPixels, 0, paint);
+            				Path xpath = new Path();       
+            				xpath.moveTo(newYPixels, getHeight() - bottomPadding);  
+            				xpath.lineTo(newYPixels, 0);        
+            		        PathEffect effects = new DashPathEffect(new float[]{3,3,3,3},1);  
+            		        paint.setPathEffect(effects); 
+            		        canvas.drawPath(xpath, paint);  
+            			}
+            			
+            			ca.drawText(x.title, newYPixels, this.getHeight(), txtPaint);
+            		}
+            	}
+            }
+			paint.reset();
+			paint.setAntiAlias(true);
 			for (Line line : lines){
 				int count = 0;
                 float lastXPixels = 0, newYPixels;
@@ -297,7 +382,6 @@ public class LineGraph extends View {
 				float minY = getMinY();
 				float maxX = getMaxX();
 				float minX = getMinX();
-				
 				paint.setColor(line.getColor());
 				paint.setStrokeWidth(6);
 				
@@ -363,10 +447,13 @@ public class LineGraph extends View {
 			}
 			
 			shouldUpdate = false;
-            if (this.showMinAndMax) {
-				ca.drawText(max, 0, txtPaint.getTextSize(), txtPaint);
-				ca.drawText(min,0,this.getHeight(),txtPaint);
-			}
+//            if (this.showMinAndMax) {
+//				ca.drawText(max, 0, txtPaint.getTextSize(), txtPaint);
+//				ca.drawText(min,0,this.getHeight(),txtPaint);
+//			}
+            
+            
+            
 		}
 		
 		ca.drawBitmap(fullImage, 0, 0, null);

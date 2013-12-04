@@ -76,6 +76,8 @@ public class ObdGatewayService extends Service {
 	// private static final String SERVER_IP = "192.168.43.1";
 	private static final String SERVER_IP = "192.168.0.10";
 	private Socket socket;
+	
+	private int mConnectTime;
 
 	private Handler mHandler;
 	/*
@@ -486,7 +488,7 @@ public class ObdGatewayService extends Service {
 		public void run() {
 			while(true){
 				try {
-					if(Device.getNetConnect(getBaseContext())>0){
+					if(Device.getNetConnect(getBaseContext())>-1&&mConnectTime<30){
 					InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
 
 					socket = new Socket(serverAddr, SERVERPORT);
@@ -531,6 +533,7 @@ public class ObdGatewayService extends Service {
 						//mHandler.postDelayed(connectRunnable, 500);
 					}
 					Log.d(TAG, "reset result is "+job.getCommand().getResult());
+					mConnectTime++;
 					}
 				} catch (UnknownHostException e1) {
 					e1.printStackTrace();
