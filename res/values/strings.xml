@@ -118,4 +118,11 @@
 
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="skip_button_label">Skip</string>
+    
+    <string name="speed_60">60KM/H</string>
+    <string name="speed_80">80KM/H</string>
+    <string name="speed_100">100KM/H</string>
+    <string name="wait">&#8230;</string>
+    <string name="best_score">最好成绩:</string>
+    <string name="no_best_score">无</string>
 </resources>

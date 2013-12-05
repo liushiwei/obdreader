@@ -2,18 +2,94 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button1"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:id="@+id/speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:layout_alignParentLeft="true">
+
+            <RadioButton
+                android:id="@+id/speed_60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/speed_60" />
+
+            <RadioButton
+                android:id="@+id/speed_80"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/speed_80" />
+
+            <RadioButton
+                android:id="@+id/speed_100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/speed_100" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/best_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/test_speed_time"
+            android:layout_width="180dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:alpha="50"
+            android:background="@drawable/test_time_bg"
+            android:gravity="center"
+            android:text="@string/test_0_second"
+            android:textColor="@android:color/white"
+            android:textSize="48sp" />
+
+        <com.echo.holographlibrary.LineGraph
+            android:id="@+id/linegraph"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/second"
+            android:layout_width="180dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="48sp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
-    
-    <com.echo.holographlibrary.LineGraph
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:id="@+id/linegraph"/>
-	
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/wait"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp" />
 
 </LinearLayout>

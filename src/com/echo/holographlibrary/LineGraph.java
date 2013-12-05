@@ -351,7 +351,7 @@ public class LineGraph extends View {
             		        paint.setPathEffect(effects); 
             		        canvas.drawPath(ypath, paint);  
             			}
-            			ca.drawText(y.title, 0, newYPixels, txtPaint);
+            			canvas.drawText(y.title, 0, newYPixels, txtPaint);
             		}
             	}
             	for(ValueTitle x:xTitles){
@@ -368,7 +368,7 @@ public class LineGraph extends View {
             		        canvas.drawPath(xpath, paint);  
             			}
             			
-            			ca.drawText(x.title, newYPixels, this.getHeight(), txtPaint);
+            			canvas.drawText(x.title, newYPixels, this.getHeight(), txtPaint);
             		}
             	}
             }

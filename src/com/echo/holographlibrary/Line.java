@@ -67,5 +67,9 @@ public class Line {
     public void setShowingPoints(boolean showPoints) {
         this.showPoints = showPoints;
     }
+    
+    public void clear(){
+    	points.clear();
+    }
 
 }

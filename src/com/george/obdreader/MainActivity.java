@@ -516,7 +516,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.stopwatch:
 			//if (isConnected)
-				startActivity(new Intent(this, SpeedUpTestSettings.class));
+				startActivity(new Intent(this, SpeedUpTest.class));
 //			else {
 //				Toast.makeText(getBaseContext(), R.string.device_unconn,
 //						Toast.LENGTH_LONG).show();
