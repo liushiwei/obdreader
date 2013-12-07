@@ -10,7 +10,7 @@
     <string name="action_settings">Settings</string>
     <string name="title">engine diagnostic management system</string> 
     <string name="obd_alarm">alarm</string> 
-    <string name="obd_check">check</string> 
+    <string name="obd_check">Trouble Code Check</string> 
     <string name="obd_health">health setting</string> 
     <string name="obd_speed_test">speed test</string> 
     <string name="obd_health_warn">maintenance reminders</string>
@@ -46,8 +46,8 @@
     <string name="check_need_check">to be checked</string>    
     <string name="check_lookup">lookup</string>
     <string name="check_start_check">starts check</string>
-    <string name="check_item">medical projects</string>
-    <string name="check_result">check results</string>
+    <string name="check_item">Trouble code</string>
+    <string name="describe">Describe</string>
     <string name="check_engine_system">engine system</string>
     <string name="check_egs">automatic transmission system</string>
     <string name="check_braking_system">brake system</string>
@@ -125,4 +125,8 @@
     <string name="wait">&#8230;</string>
     <string name="best_score">最好成绩:</string>
     <string name="no_best_score">无</string>
+    <string name="category">范畴</string>
+    <string name="en_def">英文定义</string>
+    <string name="cn_def">中文定义</string>
+    <string name="knowledge">背景知识</string>
 </resources>

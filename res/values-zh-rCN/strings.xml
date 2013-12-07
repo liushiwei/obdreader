@@ -3,7 +3,7 @@
     <string name="app_name">OBD</string>
     <string name="title">发动机诊断管理系统</string> 
     <string name="obd_alarm">车辆报警</string> 
-    <string name="obd_check">汽车体检</string> 
+    <string name="obd_check">故障码检查</string> 
     <string name="obd_health">保养设置</string> 
     <string name="obd_speed_test">加速测试</string> 
     <string name="obd_health_warn">保养提醒</string>
@@ -25,8 +25,8 @@
     <string name="check_need_check">待检查</string>    
     <string name="check_lookup">查看</string>
     <string name="check_start_check">开始体检</string>
-    <string name="check_item">体检项目</string>
-    <string name="check_result">体检结果</string>
+    <string name="check_item">故障码</string>
+    <string name="describe">描述</string>
     <string name="check_engine_system">发动机系统</string>
     <string name="check_egs">自动变速箱系统</string>
     <string name="check_braking_system">刹车系统</string>

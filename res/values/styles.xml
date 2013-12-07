@@ -2,7 +2,7 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
 
     <style name="AppBaseTheme" parent="android:Theme.Black.NoTitleBar">
@@ -17,7 +17,7 @@
         <item name="android:windowBackground">@drawable/background_holo_dark</item>
     </style>
 
-    <style name="DialogStyle" parent="AppTheme" >
+    <style name="DialogStyle" parent="AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -31,6 +31,13 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="FullHeightDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
 </resources>

@@ -17,7 +17,7 @@ public class Databasehelper extends SQLiteOpenHelper {
 
 	private SQLiteDatabase myDataBase;
     private final Context mContext;
-    private static final String DATABASE_NAME = "obd";
+    private static final String DATABASE_NAME = "OBDDef";
     public static final int DATABASE_VERSION = 1;
     //public static final int DATABASE_VERSION_old = 1;
 

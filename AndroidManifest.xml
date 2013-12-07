@@ -16,8 +16,7 @@
         <activity
             android:name="com.george.obdreader.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,11 +26,8 @@
         <activity android:name="com.george.obdreader.MaintenanceActivity" />
         <activity
             android:name="com.george.obdreader.SpeedUpTest"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name="com.george.obdreader.TroubleCodes"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="landscape" />
+        <activity android:name="com.george.obdreader.TroubleCodes" />
         <activity android:name="com.george.obdreader.MoneyActivity" />
         <activity
             android:name="com.george.obdreader.MaintenanceTip"
@@ -40,7 +36,6 @@
         <service
             android:name=".io.ObdGatewayService"
             android:exported="false" />
-        
         <service
             android:name=".OBDService"
             android:exported="false" />
