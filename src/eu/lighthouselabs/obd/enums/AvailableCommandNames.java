@@ -34,6 +34,7 @@ public enum AvailableCommandNames {
 	LONG_TERM_BANK_1("Long term bank 1"),
 	SHORT_TERM_BANK_2("Short term bank 2"),
 	LONG_TERM_BANK_2("Long term bank 2"),
+	CONTROL_MODULE_V("Control module voltage"),
 	UNKNOW("Unknow name");
 	
 	

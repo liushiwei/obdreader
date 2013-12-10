@@ -29,6 +29,7 @@
             android:screenOrientation="landscape" />
         <activity android:name="com.george.obdreader.TroubleCodes" />
         <activity android:name="com.george.obdreader.MoneyActivity" />
+        <activity android:name=".OBDGaugeListActivity"/>
         <activity
             android:name="com.george.obdreader.MaintenanceTip"
             android:theme="@style/DialogStyle" />

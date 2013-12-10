@@ -39,11 +39,11 @@ public class MoneyActivity extends FragmentActivity {
 	}
 
 	private void setTabs() {
-		 addTab("Home", R.drawable.money_icon, AppleFragment.class);
-		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
-		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
-		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
-		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
+//		 addTab("Home", R.drawable.money_icon, AppleFragment.class);
+//		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
+//		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
+//		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
+//		 addTab("Search", R.drawable.money_icon, FacebookFragment.class);
 //		mTabHost.addTab(mTabHost.newTabSpec("Apple").setIndicator("Apple"),
 //				AppleFragment.class, null);
 //		// 2

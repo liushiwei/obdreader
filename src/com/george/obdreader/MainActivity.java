@@ -507,12 +507,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.obd:
-			if (isConnected)
-				startActivity(new Intent(this, MaintenanceSetting.class));
-			else {
-				Toast.makeText(getBaseContext(), R.string.device_unconn,
-						Toast.LENGTH_LONG).show();
-			}
+			//if (isConnected)
+				startActivity(new Intent(this, OBDGaugeListActivity.class));
+//			else {
+//				Toast.makeText(getBaseContext(), R.string.device_unconn,
+//						Toast.LENGTH_LONG).show();
+//			}
 			break;
 		case R.id.stopwatch:
 			//if (isConnected)
