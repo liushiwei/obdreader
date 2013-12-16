@@ -508,7 +508,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.obd:
 			//if (isConnected)
-				startActivity(new Intent(this, OBDGaugeListActivity.class));
+				startActivity(new Intent(this, OBDProgressBarActivity.class));
 //			else {
 //				Toast.makeText(getBaseContext(), R.string.device_unconn,
 //						Toast.LENGTH_LONG).show();

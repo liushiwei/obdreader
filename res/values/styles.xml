@@ -15,6 +15,7 @@
         <item name="android:listViewWhiteStyle">@style/ListViewAppTheme.White</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItemAppTheme</item>
         <item name="android:windowBackground">@drawable/background_holo_dark</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
     </style>
 
     <style name="DialogStyle" parent="AppTheme">
