@@ -513,6 +513,7 @@ public class MainActivity extends Activity implements OnClickListener {
 //				Toast.makeText(getBaseContext(), R.string.device_unconn,
 //						Toast.LENGTH_LONG).show();
 //			}
+				
 			break;
 		case R.id.stopwatch:
 			//if (isConnected)
