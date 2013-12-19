@@ -2,14 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/holo_dialog_bg"
+    android:orientation="vertical"
+    android:padding="5dp" >
 
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleHorizontal"
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/obd_check"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/holo_blue_dark"
+        android:paddingLeft="5dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/holo_blue_dark" />
+
+    <ListView
+        android:id="@+id/obdlist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:progress="50"
-        android:max="100"/>
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>
