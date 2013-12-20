@@ -121,6 +121,43 @@ public enum OBDEnums {
 		this.formula = formula;
 	}
 	
+	public String getCommand(){
+		return command;
+	}
+
+	public int getResultSize() {
+		return resultSize;
+	}
+
+
+	public int getDesc() {
+		return desc;
+	}
+
+
+	public float getMin() {
+		return min;
+	}
+
+
+	public float getMax() {
+		return max;
+	}
+
+
+	public String getUnit() {
+		return unit;
+	}
+
+
+	public int getFormula() {
+		return formula;
+	}
+
+	
+	
+	
+	
 	
 
 }

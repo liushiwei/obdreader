@@ -3,103 +3,61 @@ package com.george.obdreader;
 import eu.lighthouselabs.obd.commands.ObdCommand;
 import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
-public class OBDCommand extends ObdCommand{
+public class OBDCommand extends ObdCommand {
+
+	private OBDEnums command;
+
+	private int A, B, C, D, E;
 	
-	private int pid;
-	private String command;
-	private int resultSize;
-	private String desc;
-	private float min;
-	private float max;
-	private String unit;
-	private int formula;
-	
-	private int A,B,C,D,E;
-	private String result;
-	
-	
-	
-	public OBDCommand(int pid, String command, int resultSize, String desc,
-			float min, float max, String unit, int formula) {
-		super(command);
-		this.pid = pid;
-		this.command = command;
-		this.resultSize = resultSize;
-		this.desc = desc;
-		this.min = min;
-		this.max = max;
-		this.unit = unit;
-		this.formula = formula;
-	}
-	public int getPid() {
-		return pid;
-	}
-	public void setPid(int pid) {
-		this.pid = pid;
-	}
-	public String getCommand() {
-		return command;
-	}
-	public void setCommand(String command) {
+	public static final int NORESULT = -0xffffffff;
+
+	public OBDCommand(OBDEnums command) {
+		super(command.getCommand());
 		this.command = command;
 	}
-	public int getResultSize() {
-		return resultSize;
-	}
-	public void setResultSize(int resultSize) {
-		this.resultSize = resultSize;
-	}
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-	public float getMin() {
-		return min;
-	}
-	public void setMin(float min) {
-		this.min = min;
-	}
-	public float getMax() {
-		return max;
-	}
-	public void setMax(float max) {
-		this.max = max;
-	}
-	public String getUnit() {
-		return unit;
-	}
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-	public int getFormula() {
-		return formula;
-	}
-	public void setFormula(int formula) {
-		this.formula = formula;
-	}
-	
-	
-	
+
 	@Override
 	public String getFormattedResult() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public AvailableCommandNames getId() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-	
-	
+
+	public float getValue() {
+		float result = NORESULT;
+		if (rawData != null) {
+			if (rawData.contains("SEARCHING") || rawData.contains("DATA")|| rawData.contains("STOP")) {
+				rawData = "NODATA";
+			}else{
+				buffer.clear();
+				
+				// read string each two chars
+				int begin = 0;
+				int end = 2;
+				try{
+				while (end <= rawData.length()) {
+					String temp = "0x" + rawData.substring(begin, end);
+					buffer.add(Integer.decode(temp));
+					begin = end;
+					end += 2;
+				}
+				}catch(NumberFormatException e){
+					//do nothing;
+				}
+			}
+		}
+		return 0;
+	}
 
 }
