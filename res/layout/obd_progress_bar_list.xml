@@ -6,20 +6,35 @@
     android:orientation="vertical"
     android:padding="5dp" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/obd_check"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/holo_blue_dark"
-        android:paddingLeft="5dp" />
+         >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/obd_pid"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/holo_blue_dark" />
+
+        <ImageButton
+            android:id="@+id/add_pid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_add" />
+    </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
         android:background="@color/holo_blue_dark" />
 
     <ListView

@@ -9,7 +9,7 @@ public class OBDCommand extends ObdCommand {
 
 	private int A, B, C, D, E;
 	
-	public static final int NORESULT = -0xffffffff;
+	public static final int NORESULT = -0xfffffff;
 
 	public OBDCommand(OBDEnums command) {
 		super(command.getCommand());
@@ -57,7 +57,7 @@ public class OBDCommand extends ObdCommand {
 				}
 			}
 		}
-		return 0;
+		return result;
 	}
 
 }

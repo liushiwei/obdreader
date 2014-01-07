@@ -5,6 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/obd_pid_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="发动机负荷"
@@ -15,6 +16,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
+            android:id="@+id/obd_pid_min_value"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="-20"
@@ -33,6 +35,7 @@
             android:progress="10" 
             />
         <TextView
+            android:id="@+id/obd_pid_current_value"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="10"
@@ -41,6 +44,7 @@
 		</FrameLayout>
 
         <TextView
+            android:id="@+id/obd_pid_max_value"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="20"

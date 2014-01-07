@@ -130,4 +130,5 @@
     <string name="cn_def">中文定义</string>
     <string name="knowledge">背景知识</string>
     <string name="obd_check">OBD检测</string>
+    <string name="obd_pid">PID</string>
 </resources>
