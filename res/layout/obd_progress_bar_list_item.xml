@@ -8,7 +8,6 @@
         android:id="@+id/obd_pid_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="发动机负荷"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -19,7 +18,6 @@
             android:id="@+id/obd_pid_min_value"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="-20"
             android:textSize="17sp" 
             android:gravity="center"/>
 		<FrameLayout android:layout_width="0dp"
@@ -38,7 +36,6 @@
             android:id="@+id/obd_pid_current_value"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="10"
             android:textSize="17sp" 
             android:gravity="center"/>
 		</FrameLayout>
@@ -47,7 +44,6 @@
             android:id="@+id/obd_pid_max_value"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="20"
             android:textSize="17sp" 
             android:gravity="center"/>
     </LinearLayout>
