@@ -345,7 +345,7 @@ public class ObdGatewayService extends Service {
 	 * @param job
 	 * @return
 	 */
-	public Long queueJob(ObdCommandJob job) {
+	public long queueJob(ObdCommandJob job) {
 		_queueCounter++;
 		Log.d(TAG, "Adding job[" + _queueCounter + "] to queue..");
 
@@ -360,6 +360,13 @@ public class ObdGatewayService extends Service {
 
 		Log.d(TAG, "Job queued successfully.");
 		return _queueCounter;
+	}
+	
+	public boolean removeJob(ObdCommandJob job){
+		if(_queue!=null&&_queue.size()>0){
+			return _queue.remove(job);
+		}else
+			return false;
 	}
 
 	/**
@@ -445,11 +452,11 @@ public class ObdGatewayService extends Service {
 			_executeQueue();
 		}
 
-		public void addJobToQueue(ObdCommandJob job) {
+		public long addJobToQueue(ObdCommandJob job) {
 //			Log.d(TAG, "Adding job [" + job.getCommand().getName()
 //					+ "] to queue.");
 //			_queue.add(job);
-			queueJob(job);
+			return queueJob(job);
 			// if (!_isQueueRunning.get())
 			// _executeQueue();
 		}
@@ -459,6 +466,12 @@ public class ObdGatewayService extends Service {
 			if(_queue!=null && _isRunning.get()&&_queueCounter>0){
 				_queue.clear();
 			}
+		}
+
+		@Override
+		public boolean removeJobFromQueue(ObdCommandJob job) {
+			// TODO Auto-generated method stub
+			return removeJob(job);
 		}
 	}
 

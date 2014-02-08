@@ -14,7 +14,9 @@ public interface IPostMonitor {
 
 	void executeQueue();
 	
-	void addJobToQueue(ObdCommandJob job);
+	long addJobToQueue(ObdCommandJob job);
+	
+	boolean removeJobFromQueue(ObdCommandJob job);
 	
 	void clearQueue();
 }

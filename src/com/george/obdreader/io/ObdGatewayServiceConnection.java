@@ -49,9 +49,18 @@ public class ObdGatewayServiceConnection implements ServiceConnection {
 	 * @param the
 	 *            job
 	 */
-	public void addJobToQueue(ObdCommandJob job) {
+	public long addJobToQueue(ObdCommandJob job) {
 		if (null != _service)
-			_service.addJobToQueue(job);
+			return _service.addJobToQueue(job);
+		else
+			return -1;
+	}
+	
+	public boolean removeJobFromQueue(ObdCommandJob job) {
+		if (null != _service)
+			return _service.removeJobFromQueue(job);
+		else
+			return false;
 	}
 
 	/**
@@ -61,6 +70,9 @@ public class ObdGatewayServiceConnection implements ServiceConnection {
 	 */
 	public void setServiceListener(IPostListener listener) {
 		_listener = listener;
+		if (null != _service){
+			_service.setListener(_listener);
+		}
 	}
 	
 	public boolean isConnected(){
