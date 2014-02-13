@@ -5,7 +5,7 @@ public enum OBDEnums {
 	MONITOR_STATUS("01 01",4,R.string.obd_0101,-1,-1,"",-1),
 	FREEZE_DTC("01 02",2,R.string.obd_0102,-1,-1,"",-1),
 	ENGINE_LOAD("01 04",1,R.string.obd_0104,0,100,"%",1),
-	ENGINE_COOLANT_TEMP("01 05",1,R.string.obd_0105,0,100,"°C",2),
+	ENGINE_COOLANT_TEMP("01 05",1,R.string.obd_0105,-40,255,"°C",2),
 	SHORT_TERM_BANK_1("01 06",1,R.string.obd_0106,-100,99.22f,"%",3),
 	LONG_TERM_BANK_1("01 07",1,R.string.obd_0107,-100,99.22f,"%",3),
 	SHORT_TERM_BANK_2("01 08",1,R.string.obd_0108,-100,99.22f,"%",3),
@@ -13,7 +13,7 @@ public enum OBDEnums {
 	FUEL_PRESSURE("01 0A",1,R.string.obd_010A,0,765.22f,"kPa",4),
 	             
 	INTAKE_MANIFOLD_PRESSURE("01 0B",1,R.string.obd_010B ,0,255,"kPa",5),                        
-	ENGINE_RPM("01 0C",2,R.string.obd_010C ,0,16383.75f,"rpm",6),                             
+	ENGINE_RPM("01 0C",2,R.string.obd_010C ,0,16383f,"rpm",6),                             
 	SPEED("01 0D",1,R.string.obd_010D ,0,255,"km/h",5),                                  
 	TIMING_ADVANCE("01 0E",1,R.string.obd_010E ,-64,63.5f,"°",7),         
 	AIR_INTAKE_TEMP("01 0F",1,R.string.obd_010F ,-40,215,"°C",2),                                 

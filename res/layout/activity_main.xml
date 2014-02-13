@@ -240,7 +240,7 @@
                 gauge:divisions="5"
                 gauge:rangeColors="@array/rpm_rangeColors"
                 gauge:rangeValues="@array/rpm_ranges"
-                gauge:scaleEndValue="7000"
+                gauge:scaleEndValue="12000"
                 gauge:showInnerRim="true"
                 gauge:showOuterBorder="false"
                 gauge:showOuterRim="false"

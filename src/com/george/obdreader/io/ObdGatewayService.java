@@ -546,8 +546,9 @@ public class ObdGatewayService extends Service {
 						//mHandler.postDelayed(connectRunnable, 500);
 					}
 					Log.d(TAG, "reset result is "+job.getCommand().getResult());
-					mConnectTime++;
 					}
+					Thread.sleep(200);
+					mConnectTime++;
 				} catch (UnknownHostException e1) {
 					e1.printStackTrace();
 				} catch (IOException e1) {

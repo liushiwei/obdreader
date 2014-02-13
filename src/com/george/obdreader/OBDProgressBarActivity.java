@@ -1,22 +1,18 @@
 package com.george.obdreader;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.george.obdreader.io.IPostListener;
-import com.george.obdreader.io.ObdCommandJob;
-import com.george.obdreader.io.ObdGatewayService;
-import com.george.obdreader.io.ObdGatewayServiceConnection;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -34,6 +30,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.george.obdreader.io.IPostListener;
+import com.george.obdreader.io.ObdCommandJob;
+import com.george.obdreader.io.ObdGatewayService;
+import com.george.obdreader.io.ObdGatewayServiceConnection;
 
 public class OBDProgressBarActivity extends Activity {
 
@@ -80,8 +81,7 @@ public class OBDProgressBarActivity extends Activity {
 					mPid_show[i] = true;
 					OBDCommand cmd = new OBDCommand(mPidsEnum[i]);
 					cmd.setPriority(1);
-					ObdCommandJob job = new ObdCommandJob(new OBDCommand(mPidsEnum[i]));
-					
+					ObdCommandJob job = new ObdCommandJob(cmd);
 					PidValue pv = new PidValue();
 					pv.jobObj = job;
 					mPids.put(mPidsEnum[i].getCommand(),
@@ -140,8 +140,7 @@ public class OBDProgressBarActivity extends Activity {
 												mEnums_pids.add(pid);
 												OBDCommand cmd = new OBDCommand(pid);
 												cmd.setPriority(1);
-												ObdCommandJob job = new ObdCommandJob(new OBDCommand(pid));
-												
+												ObdCommandJob job = new ObdCommandJob(cmd);
 												mServiceConnection.addJobToQueue(job);
 												PidValue pv = new PidValue();
 												pv.jobObj = job;
@@ -237,6 +236,7 @@ public class OBDProgressBarActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			DecimalFormat df = new DecimalFormat("##0.00");  
 			convertView = mInflater.inflate(
 					R.layout.obd_progress_bar_list_item, null);
 			TextView title = (TextView) convertView.findViewById(R.id.obd_pid_desc);
@@ -247,9 +247,10 @@ public class OBDProgressBarActivity extends Activity {
 			max.setText(mEnums_pids.get(position).getMax()+"");
 			TextView current = (TextView) convertView.findViewById(R.id.obd_pid_current_value);
 			if(mPids.get(mEnums_pids.get(position).getCommand())!=null)
-			current.setText(mPids.get(mEnums_pids.get(position).getCommand()).value==DEFAULT_VALUE?"NODATE":mPids.get(mEnums_pids.get(position).getCommand()).value+"");
+			current.setText(mPids.get(mEnums_pids.get(position).getCommand()).value==DEFAULT_VALUE?"NODATE":df.format(mPids.get(mEnums_pids.get(position).getCommand()).value-mEnums_pids.get(position).getMin()));
 			ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar1);
-			progressBar.setProgress((int) (mPids.get(mEnums_pids.get(position).getCommand()).value==DEFAULT_VALUE?mEnums_pids.get(position).getMin():mPids.get(mEnums_pids.get(position).getCommand()).value));
+			progressBar.setMax((int) (mEnums_pids.get(position).getMax()-mEnums_pids.get(position).getMin()));
+			progressBar.setProgress((int) (mPids.get(mEnums_pids.get(position).getCommand()).value==DEFAULT_VALUE?mEnums_pids.get(position).getMin():(mPids.get(mEnums_pids.get(position).getCommand()).value-mEnums_pids.get(position).getMin())));
 			return convertView;
 		}
 
