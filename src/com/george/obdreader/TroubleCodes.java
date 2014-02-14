@@ -159,6 +159,18 @@ public class TroubleCodes extends Activity implements OnClickListener,
 				mAdapter.notifyDataSetChanged();
 				isSearching = true;
 			}
+
+			@Override
+			public void connectFailed(String deviceName) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void connectingDevice(String deviceName) {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		mServiceIntent = new Intent(this, ObdGatewayService.class);
 		mServiceConnection = new ObdGatewayServiceConnection();

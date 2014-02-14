@@ -109,7 +109,7 @@ public class ObdGatewayService extends Service {
 		_notifManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		showNotification();
 		mHandler = new Handler();
-		new Thread(connectRunnable).start();
+		
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class ObdGatewayService extends Service {
 		// Log.d(TAG, "Stopping Bluetooth discovery.");
 		// btAdapter.cancelDiscovery();
 
-		Toast.makeText(this, "Starting OBD connection..", Toast.LENGTH_SHORT);
+		Toast.makeText(this, "Starting OBD connection..", Toast.LENGTH_SHORT).show();
 
 		// try {
 		// startObdConnection();
@@ -473,6 +473,14 @@ public class ObdGatewayService extends Service {
 			// TODO Auto-generated method stub
 			return removeJob(job);
 		}
+
+		@Override
+		public void connectDevice() {
+			if(mConnectTime==0){
+				new Thread(connectRunnable).start();
+			}
+			
+		}
 	}
 
 	class ClientThread implements Runnable {
@@ -499,9 +507,24 @@ public class ObdGatewayService extends Service {
 	Runnable connectRunnable = new Runnable() {
 		@Override
 		public void run() {
+			Log.e(TAG, "connectRunnable run");
+			if(_callback!=null){
+				_callback.connectingDevice("WIFI");
+				Log.e(TAG, "connecting device");
+			}
 			while(true){
 				try {
-					if(Device.getNetConnect(getBaseContext())>-1&&mConnectTime<30){
+					if(mConnectTime>30){
+						if(_callback!=null){
+							_callback.connectFailed("WIFI");
+							Log.e(TAG, "connectFailed");
+						}else{
+							Log.e(TAG, "_callback is null");
+						}
+						mConnectTime=0;
+						return;
+					}
+					if(Device.getNetConnect(getBaseContext())>-1){
 					InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
 
 					socket = new Socket(serverAddr, SERVERPORT);
@@ -549,6 +572,7 @@ public class ObdGatewayService extends Service {
 					}
 					Thread.sleep(200);
 					mConnectTime++;
+					
 				} catch (UnknownHostException e1) {
 					e1.printStackTrace();
 				} catch (IOException e1) {

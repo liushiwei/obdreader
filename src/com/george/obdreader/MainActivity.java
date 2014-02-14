@@ -38,7 +38,7 @@ import eu.lighthouselabs.obd.commands.temperature.AirIntakeTemperatureObdCommand
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	private IPostListener mListener = null;
+	
 	private Intent mServiceIntent = null;
 	private ObdGatewayServiceConnection mServiceConnection;
 	private boolean isBound;
@@ -60,8 +60,35 @@ public class MainActivity extends Activity implements OnClickListener {
 	private final static int SHOW_MENU = 0x04;
 
 	private final static int SHOW_ICON = 0x05;
+	
+	private final static int WIFI_CONNECT_FAILED = 0x06;
+	
+	private final static int WIFI_CONNECTING = 0x07;
 
 	private static final String TAG = "MainActivity";
+	
+	private IPostListener mListener = new IPostListener() {
+		public void stateUpdate(ObdCommandJob job) {
+			mHandler.obtainMessage(0, job).sendToTarget();
+		}
+
+		@Override
+		public void deviceConnected(String deviceName) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void connectFailed(String deviceName) {
+			mHandler.sendEmptyMessage(WIFI_CONNECT_FAILED);
+		}
+
+		@Override
+		public void connectingDevice(String deviceName) {
+			mHandler.sendEmptyMessage(WIFI_CONNECTING);
+		}
+
+	};
 
 	private Handler mHandler = new Handler() {
 
@@ -306,6 +333,22 @@ public class MainActivity extends Activity implements OnClickListener {
 					findViewById(R.id.maintenance).setVisibility(View.VISIBLE);
 					findViewById(R.id.maintenance).startAnimation(show_icon);
 					break;
+					
+				case WIFI_CONNECT_FAILED:
+					ImageView con = (ImageView) findViewById(R.id.obd_connected);
+					con.clearAnimation();
+					con.setImageResource(R.drawable.obd_uncon);
+					break;
+				case WIFI_CONNECTING:
+					final Animation animation = new AlphaAnimation(1, 0);
+					animation.setDuration(400);
+					animation.setInterpolator(new AccelerateDecelerateInterpolator());
+					animation.setRepeatCount(Animation.INFINITE);
+					animation.setRepeatMode(Animation.REVERSE);
+					final ImageView btn = (ImageView) findViewById(R.id.obd_connected);
+					btn.setImageResource(R.drawable.obd_con);
+					btn.startAnimation(animation);
+					break;
 				}
 			}
 			super.handleMessage(msg);
@@ -330,31 +373,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		mGaugeView1 = (GaugeView) findViewById(R.id.fuel_view);
 		mGaugeView1.setTargetValue(0);
 
-		mListener = new IPostListener() {
-			public void stateUpdate(ObdCommandJob job) {
-				mHandler.obtainMessage(0, job).sendToTarget();
-			}
 
-			@Override
-			public void deviceConnected(String deviceName) {
-				// TODO Auto-generated method stub
-
-			}
-
-		};
-
-		final Animation animation = new AlphaAnimation(1, 0);
-		animation.setDuration(400);
-		animation.setInterpolator(new AccelerateDecelerateInterpolator());
-		animation.setRepeatCount(Animation.INFINITE);
-		animation.setRepeatMode(Animation.REVERSE);
-		final ImageView btn = (ImageView) findViewById(R.id.obd_connected);
-		btn.startAnimation(animation);
+		
 
 		findViewById(R.id.obd).setOnClickListener(this);
 		findViewById(R.id.stopwatch).setOnClickListener(this);
 		findViewById(R.id.trouble_codes).setOnClickListener(this);
 		findViewById(R.id.maintenance).setOnClickListener(this);
+		findViewById(R.id.obd_connected).setOnClickListener(this);
 		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 500);
 		
 		Intent service = new Intent(this,OBDService.class);  
@@ -468,9 +494,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onResume() {
-		if (Device.getNetConnect(MainActivity.this) < 0) {
-			// showDialog(0);
-		} else {
+//		if (Device.getNetConnect(MainActivity.this) < 0) {
+//			// showDialog(0);
+//		} else {
 			if (mServiceConnection == null) {
 				mServiceIntent = new Intent(this, ObdGatewayService.class);
 				mServiceConnection = new ObdGatewayServiceConnection();
@@ -480,7 +506,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			mServiceConnection.setServiceListener(mListener);
 			mHandler.post(getConnectStatusRunable);
 			mHandler.sendEmptyMessageDelayed(HANDLER_FUEL, 500);
-		}
+//		}
 		super.onResume();
 	}
 
@@ -536,6 +562,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.maintenance:
 			startActivity(new Intent(this, MaintenanceActivity.class));
+			break;
+			
+		case R.id.obd_connected:
+			if(mServiceConnection!=null){
+				mServiceConnection.connectDevice();
+			}
 			break;
 		}
 

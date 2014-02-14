@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CaritOBDReader</string>
+    <string name="app_name">OBDReader</string>
     <string name="hello_world">Hello world!</string>
     <string name="command_list">Choose a command</string>
     <string name="service_started">OBD connection has started.</string>

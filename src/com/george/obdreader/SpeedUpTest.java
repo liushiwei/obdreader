@@ -236,6 +236,18 @@ public class SpeedUpTest extends Activity implements OnClickListener,
 				speed.setDelay(100);
 				mServiceConnection.addJobToQueue(new ObdCommandJob(speed));
 			}
+
+			@Override
+			public void connectFailed(String deviceName) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void connectingDevice(String deviceName) {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		mServiceIntent = new Intent(this, ObdGatewayService.class);
 		mServiceConnection = new ObdGatewayServiceConnection();

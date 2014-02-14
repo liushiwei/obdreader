@@ -96,6 +96,18 @@ public class OBDProgressBarActivity extends Activity {
 			}
 		}
 
+		@Override
+		public void connectFailed(String deviceName) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void connectingDevice(String deviceName) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	};
 	private Intent mServiceIntent = null;
 	private ObdGatewayServiceConnection mServiceConnection;

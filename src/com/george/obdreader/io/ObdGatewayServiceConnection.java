@@ -24,6 +24,7 @@ public class ObdGatewayServiceConnection implements ServiceConnection {
 		Log.d(TAG, "Service is Connected.");
 		_service = (IPostMonitor) binder;
 		_service.setListener(_listener);
+		_service.connectDevice();
 	}
 
 	public void onServiceDisconnected(ComponentName name) {
@@ -82,6 +83,11 @@ public class ObdGatewayServiceConnection implements ServiceConnection {
 	public void clearQueue(){
 		if (null != _service)
 			_service.clearQueue();
+	}
+	
+	public void connectDevice(){
+		if (null != _service)
+			_service.connectDevice();
 	}
 
 }
