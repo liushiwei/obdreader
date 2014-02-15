@@ -12,6 +12,7 @@ import android.os.Message;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -365,6 +366,7 @@ public class MainActivity extends Activity implements OnClickListener {
 //					.penaltyLog().build());
 //		}
 		setContentView(R.layout.activity_main);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		GaugeView mGaugeView1 = (GaugeView) findViewById(R.id.speed_view);
 		speed = 0;
 		mGaugeView1.setTargetValue(speed);
@@ -381,6 +383,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.trouble_codes).setOnClickListener(this);
 		findViewById(R.id.maintenance).setOnClickListener(this);
 		findViewById(R.id.obd_connected).setOnClickListener(this);
+		findViewById(R.id.obd_config).setOnClickListener(this);
 		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 500);
 		
 		Intent service = new Intent(this,OBDService.class);  
@@ -568,6 +571,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			if(mServiceConnection!=null){
 				mServiceConnection.connectDevice();
 			}
+			break;
+		case R.id.obd_config:
+			
 			break;
 		}
 

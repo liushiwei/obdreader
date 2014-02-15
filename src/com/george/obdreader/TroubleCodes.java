@@ -137,7 +137,7 @@ public class TroubleCodes extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trouble_codes);
-
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		ListView troubleCodesListView = (ListView) findViewById(R.id.listView1);
 		mTroubleCodes = new ArrayList<Map<String, Object>>();
 		mAdapter = new SimpleAdapter(this, mTroubleCodes,

@@ -4,6 +4,7 @@
 package com.george.obdreader.io;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -574,11 +575,13 @@ public class ObdGatewayService extends Service {
 					mConnectTime++;
 					
 				} catch (UnknownHostException e1) {
+					mConnectTime+=3;
 					e1.printStackTrace();
 				} catch (IOException e1) {
+					mConnectTime+=3;
 					e1.printStackTrace();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					mConnectTime+=3;
 					e.printStackTrace();
 				}
 				
