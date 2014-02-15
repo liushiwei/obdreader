@@ -573,7 +573,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			break;
 		case R.id.obd_config:
-			
+			startActivity(new Intent(this, ConfigurationActivity.class));
 			break;
 		}
 

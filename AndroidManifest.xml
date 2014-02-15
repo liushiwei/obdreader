@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.george.obdreader.MaintenanceActivity" />
+        <activity android:name="com.george.obdreader.ConfigurationActivity" />
         <activity
             android:name="com.george.obdreader.SpeedUpTest"
             android:screenOrientation="landscape" />
@@ -31,6 +32,9 @@
         <activity android:name="com.george.obdreader.MoneyActivity" />
         <activity android:name=".OBDGaugeListActivity"/>
         <activity android:name=".OBDProgressBarActivity"/>
+        <activity android:name=".DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Dialog"/>
         <activity
             android:name="com.george.obdreader.MaintenanceTip"
             android:theme="@style/DialogStyle" />
