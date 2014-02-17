@@ -6,12 +6,12 @@
             android:entries="@array/connect_type"
             android:entryValues="@array/connect_type_value"
             android:key="connect_type"
-            android:summary="@string/connect_type"
+            android:summary="@string/connect_type_summary"
             android:title="@string/connect_type_title" />
        
         <Preference
             android:key="connect_device"
-            android:summary="@string/connect_device"
+            android:summary="@string/connect_device_summary"
             android:title="@string/connect_device_title"
              >
         </Preference>

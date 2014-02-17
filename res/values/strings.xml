@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">OBDReader</string>
     <string name="hello_world">Hello world!</string>
@@ -149,11 +149,13 @@
     <string name="base_settings">基本设置</string>
     <string name="configuration_settings">基本设置</string>
     <string name="obd_pid">PID</string>
-    <string name="connect_type">设备连接方式</string>
-    <string name="connect_type_title">选择设备连接方式</string>
-    <string name="connect_device">连接设备</string>
-    <string name="connect_device_title">选择连接设备</string>
+    <string name="connect_type_summary">选择设备连接方式</string>
+    <string name="connect_type_title">设备连接方式</string>
+    <string name="connect_device_summary">选择连接设备</string>
+    <string name="connect_device_title">连接设备</string>
     <string name="current_connect_type">连接方式 :</string>
+    <string name="choice_connect_type">请先选择设备连接方式</string>
+    <string name="current_obd_device">OBD设备: </string>
     <!--  DeviceListActivity -->
     <string name="scanning">scanning for devices...</string>
     <string name="select_device">select a device to connect</string>
@@ -162,4 +164,51 @@
     <string name="title_paired_devices">Paired Devices</string>
     <string name="title_other_devices">Other Available Devices</string>
     <string name="button_scan">Scan for devices</string>
+    
+    <string name="wifi_disabled">Disabled</string>
+    <string name="wifi_not_in_range">Not in range</string>
+    <string name="wifi_remembered">Remembered</string>
+    <string name="wifi_secured_with_status"><xliff:g id="wifi_status">%2$s</xliff:g>, secured with <xliff:g id="wifi_security">%1$s</xliff:g></string>
+    <string name="wifi_secured">Secured with <xliff:g id="wifi_security">%1$s</xliff:g></string>
+    
+    <string name="progress_scanning">Scanning</string>
+    
+    <!-- Used in the 1st-level settings screen to turn on WLAN -->
+    <string name="wifi_quick_toggle_title">WLAN</string>
+    <!-- Used in the 1st-level settings screen as the turn-on summary -->
+    <string name="wifi_quick_toggle_summary">Turn on WLAN</string>
+    <!-- Used in the 1st-level settings screen to go to the 2nd-level settings screen -->
+    <string name="wifi_settings">WLAN settings</string>
+    <!-- Title of the Wi-fi settings screen -->
+    <string name="wifi_settings_category">WLAN settings</string>
+    <!-- Summary text of the Wi-fi settings screen -->
+    <string name="wifi_settings_summary">Set up &amp; manage wireless access points</string>
+    <!-- Summary text when turning WLAN or bluetooth on -->
+    <string name="wifi_starting">Turning on\u2026</string>
+    <!-- Summary text when turning WLAN or bluetooth off -->
+    <string name="wifi_stopping">Turning off\u2026</string>
+    <!-- Summary text when WLAN or bluetooth has error -->
+    <string name="wifi_error">Error</string>
+    <!-- Toast message when WLAN or bluetooth is disallowed in airplane mode -->
+    <string name="wifi_in_airplane_mode">In airplane mode</string>
+    <!-- Toast message when WLAN cannot scan for networks -->
+    <string name="wifi_fail_to_scan">Unable to scan for networks</string>
+    <!-- Checkbox title for option to notify user when open networks are nearby -->
+    <string name="wifi_notify_open_networks">Network notification</string>
+    <!-- Checkbox summary for option to notify user when open networks are nearby -->
+    <string name="wifi_notify_open_networks_summary">Notify me when an open network is available</string>
+    <!-- Action message to manually add a wifi network -->
+    <string name="wifi_add_network">Add WLAN network</string>
+    <!-- Header for the list of wifi networks-->
+    <string name="wifi_access_points">WLAN networks</string>
+    <!-- Menu option to scan WLAN networks -->
+    <string name="wifi_menu_scan">Scan</string>
+    <!-- Menu option to WLAN advanced settings -->
+    <string name="wifi_menu_advanced">Advanced</string>
+    <!-- Menu option to connect to a WLAN network -->
+    <string name="wifi_menu_connect">Connect to network</string>
+    <!-- Menu option to delete a WLAN network -->
+    <string name="wifi_menu_forget">Forget network</string>
+    <!-- Menu option to modify a WLAN network configuration -->
+    <string name="wifi_menu_modify">Modify network</string>
 </resources>

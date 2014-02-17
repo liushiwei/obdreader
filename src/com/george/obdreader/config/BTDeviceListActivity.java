@@ -14,9 +14,14 @@
  * limitations under the License.
  */
 
-package com.george.obdreader;
+package com.george.obdreader.config;
 
 import java.util.Set;
+
+import com.george.obdreader.R;
+import com.george.obdreader.R.id;
+import com.george.obdreader.R.layout;
+import com.george.obdreader.R.string;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -43,13 +48,13 @@ import android.widget.AdapterView.OnItemClickListener;
  * by the user, the MAC address of the device is sent back to the parent
  * Activity in the result Intent.
  */
-public class DeviceListActivity extends Activity {
+public class BTDeviceListActivity extends Activity {
     // Debugging
     private static final String TAG = "DeviceListActivity";
     private static final boolean D = true;
 
     // Return Intent extra
-    public static String EXTRA_DEVICE_ADDRESS = "device_address";
+    
 
     // Member fields
     private BluetoothAdapter mBtAdapter;
@@ -164,7 +169,7 @@ public class DeviceListActivity extends Activity {
 
             // Create the result Intent and include the MAC address
             Intent intent = new Intent();
-            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
+            intent.putExtra(BaseSetting.EXTRA_DEVICE_ADDRESS, address);
 
             // Set result and finish this Activity
             setResult(Activity.RESULT_OK, intent);

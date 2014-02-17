@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.george.obdreader.config.ConfigurationActivity;
 import com.george.obdreader.io.IPostListener;
 import com.george.obdreader.io.ObdCommandJob;
 import com.george.obdreader.io.ObdGatewayService;

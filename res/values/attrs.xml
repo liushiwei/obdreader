@@ -10,7 +10,6 @@
         <attr name="showScale" format="boolean" />
         <attr name="showRanges" format="boolean" />
         <attr name="showText" format="boolean" />
-        
         <attr name="outerShadowWidth" format="float" />
         <attr name="outerBorderWidth" format="float" />
         <attr name="outerRimWidth" format="float" />
@@ -18,18 +17,14 @@
         <attr name="innerRimBorderWidth" format="float" />
         <attr name="needleWidth" format="float" />
         <attr name="needleHeight" format="float" />
-        
         <attr name="scalePosition" format="float" />
         <attr name="scaleStartValue" format="float" />
         <attr name="scaleEndValue" format="float" />
         <attr name="scaleStartAngle" format="float" />
-        
         <attr name="divisions" format="integer" />
         <attr name="subdivisions" format="integer" />
-        
         <attr name="rangeValues" format="reference" />
         <attr name="rangeColors" format="reference" />
-        
         <attr name="textValue" format="string|reference" />
         <attr name="textValueColor" format="color" />
         <attr name="textValueSize" format="float" />
@@ -37,12 +32,13 @@
         <attr name="textUnitColor" format="color" />
         <attr name="textUnitSize" format="float" />
         <attr name="textShadowColor" format="color" />
-       
     </declare-styleable>
-    
     <declare-styleable name="DragableSpace">
-        <attr name="default_screen" format="integer"/>
-        <attr name="xorientation" format="boolean"/>
-    </declare-styleable> 
+        <attr name="default_screen" format="integer" />
+        <attr name="xorientation" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="WifiEncryptionState">
+        <attr name="state_encrypted" format="boolean" />
+    </declare-styleable>
 
 </resources>

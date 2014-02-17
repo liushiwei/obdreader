@@ -24,17 +24,22 @@
             </intent-filter>
         </activity>
         <activity android:name="com.george.obdreader.MaintenanceActivity" />
-        <activity android:name="com.george.obdreader.ConfigurationActivity" />
+        <activity android:name="com.george.obdreader.config.ConfigurationActivity" />
+        <activity
+            android:name="com.george.obdreader.config.WifiDeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name="com.george.obdreader.SpeedUpTest"
             android:screenOrientation="landscape" />
         <activity android:name="com.george.obdreader.TroubleCodes" />
         <activity android:name="com.george.obdreader.MoneyActivity" />
-        <activity android:name=".OBDGaugeListActivity"/>
-        <activity android:name=".OBDProgressBarActivity"/>
-        <activity android:name=".DeviceListActivity"
+        <activity android:name=".OBDGaugeListActivity" />
+        <activity android:name=".OBDProgressBarActivity" />
+        <activity
+            android:name="com.george.obdreader.config.BTDeviceListActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name="com.george.obdreader.MaintenanceTip"
             android:theme="@style/DialogStyle" />
@@ -73,5 +78,13 @@
     </uses-permission>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
+    </uses-permission>
 
 </manifest>

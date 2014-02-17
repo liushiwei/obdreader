@@ -1,4 +1,10 @@
-package com.george.obdreader;
+package com.george.obdreader.config;
+
+import com.george.obdreader.R;
+import com.george.obdreader.R.drawable;
+import com.george.obdreader.R.id;
+import com.george.obdreader.R.layout;
+import com.george.obdreader.R.string;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
