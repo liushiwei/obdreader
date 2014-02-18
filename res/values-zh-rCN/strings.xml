@@ -1,52 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">OBD</string>
-    <string name="title">发动机诊断管理系统</string> 
-    <string name="obd_alarm">车辆报警</string> 
-    <string name="obd_check">故障码检查</string> 
-    <string name="obd_health">保养设置</string> 
-    <string name="obd_speed_test">加速测试</string> 
-    <string name="obd_health_warn">保养提醒</string>
-    <string name="alarm_view_1_1">发动机负荷</string>
-    <string name="alarm_view_1_2">电瓶电压</string>
-    <string name="alarm_view_1_3">冷却液体温度</string> 
-    <string name="alarm_view_1_4">气缸提前角</string> 
-    <string name="alarm_view_2_1">节气门位置</string>
-    <string name="alarm_view_2_2">发动机转速</string>
-    <string name="alarm_view_2_3">空气流量</string> 
-    <string name="alarm_view_2_4">长期燃油修正</string> 
-    <string name="alarm_view_3_1">进气温度</string>
-    <string name="alarm_view_3_2">环境温度</string>
-    <string name="alarm_view_3_3">进气歧管压力</string>  
-    <string name="alarm_not_data">无数据</string>
-    <string name="check_100_point">100分</string>
-    <string name="check_error">异常</string>
-    <string name="check_ok">正常</string>
-    <string name="check_need_check">待检查</string>    
-    <string name="check_lookup">查看</string>
-    <string name="check_start_check">开始体检</string>
-    <string name="check_item">故障码</string>
-    <string name="describe">描述</string>
-    <string name="check_engine_system">发动机系统</string>
-    <string name="check_egs">自动变速箱系统</string>
-    <string name="check_braking_system">刹车系统</string>
-    <string name="check_srs">安全气囊系统</string>
-    <string name="check_not_found_system">系统忙或通讯异常，请稍后再试&#8230;</string>
-    <string name="check_not_error">没有查询到任何故障</string>   
-    <string name="check_point">分</string>    
-    <string name="health_hint">提示</string>
-    <string name="health_confirm">确定</string>
-    <string name="health_cancel">取消</string>
-    <string name="health_mile_setting">里程设置</string>
-    <string name="health_time_setting">时间设置</string>
-    <string name="health_km">公里</string>
-    <string name="health_month">个月</string>
-    <string name="health_day">天</string>
-    <string name="health_detail">详情</string>
-    <string name="health_open_setting">没有保养信息，请先打开设置</string>
-   	<string name="your_car_health_maintenance">你的爱车将行使 %1$d%2$s后保养!</string>
-   	<string name="setting_invalid">你的输入有误</string>
-    <string name="health_dont_support_mile">你的爱车不支持里程读取</string> 
+    <string name="check_not_error">没有查询到任何故障</string>
     <string name="test_start">开始</string>
     <string name="test_stop">停止</string>
     <string name="test_0_second">00.00秒</string>
@@ -56,8 +12,8 @@
     <string name="test_distance_setting">距离设置</string>
     <string name="test_meter">米</string>
     <string name="test_test">测试</string>
-    <string name="test_selct_one">请选择其中一个进行测试</string> 
-    <string name="fault_code">故障码</string> 
+    <string name="test_selct_one">请选择其中一个进行测试</string>
+    <string name="fault_code">故障码</string>
     <string name="reading_fault_code">正在读取故障码&#8230;</string>
     <string name="no_fault_code">无故障</string>
     <string name="clear">清除</string>
@@ -67,12 +23,9 @@
     <string name="delete_fail">删除失败</string>
     <string name="delete_success">删除成功</string>
     <string name="net_uncon">网络未连接，是否现在设置网络？</string>
-    
     <string name="choice_date">请选择保养间隔时间</string>
     <string name="set_date">设置保养间隔时间</string>
-    
     <string name="current_interval_time">当前保养间隔时间</string>
-    
     <string name="maintenance_interval_time">保养间隔时间</string>
     <string name="maintenance_tip_off">保养提醒未开启</string>
     <string name="maintenance_tip_on">保养提醒已经开启</string>
@@ -83,4 +36,5 @@
     <string name="no_maintenance_log">没有保养记录</string>
     <string name="maintenance_settings">基本设置</string>
     <string name="obd_pid">PID</string>
+
 </resources>

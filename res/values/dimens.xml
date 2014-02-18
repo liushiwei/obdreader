@@ -3,12 +3,17 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-	<dimen name="activity_tab_host_height">139dp</dimen>
-	
-	<!-- Preference fragment padding, bottom -->
+    <dimen name="activity_tab_host_height">139dp</dimen>
+
+    <!-- Preference fragment padding, bottom -->
     <dimen name="preference_fragment_padding_bottom">0dp</dimen>
     <!-- Preference fragment padding, sides -->
     <dimen name="preference_fragment_padding_side">16dp</dimen>
 
-    <integer name="preference_fragment_scrollbarStyle">0x02000000</integer> <!-- outsideOverlay -->
+    <integer name="preference_fragment_scrollbarStyle">0x02000000</integer>
+ <!-- outsideOverlay -->
+    <dimen name="alarm_progress_width">517dp</dimen>
+    <dimen name="alarm_progress_height">37dp</dimen>
+    <dimen name="alarm_progress_marginLeft">20dp</dimen>
+
 </resources>

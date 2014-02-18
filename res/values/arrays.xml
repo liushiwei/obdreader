@@ -132,4 +132,32 @@
 		<!-- Status message of Wi-Fi when it is a failure. -->
 		<item>Unsuccessful</item>
 	</string-array>
+	<string-array name="maintenance_types">
+	    <item>洗车</item>
+	    <item>更换机油</item>
+	    <item>钣金</item>
+	    <item>补漆</item>
+	    <item>补胎</item>
+	    <item>更换轮胎</item>
+	    <item>四轮定位</item>
+	    <item>更换刹车片</item>
+	    <item>更换玻璃</item>
+	    <item>检修冷气</item>
+	    <item>更换减震器</item>
+	    <item>更换摆臂</item>
+	    <item>更换喇叭</item>
+	    <item>更换电池</item>
+	    <item>更换玻璃升降器</item>
+	    <item>更换机脚胶</item>
+	    <item>更换雨刮片</item>
+	    <item>更换水箱</item>
+	    <item>更换排气管</item>
+	    <item>更换大灯</item>
+	    <item>更换火嘴</item>
+	    <item>更换后视镜</item>
+	    <item>更换汽油泵</item>
+	    <item>更换汽油泵</item>
+	    <item>其它</item>
+	</string-array>
+
 </resources>
