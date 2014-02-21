@@ -52,6 +52,10 @@ public class TroubleCodes extends Activity implements OnClickListener,
 	private static final String TAG = "TroubleCodes";
 
 	private List<Map<String, Object>> mTroubleCodes;
+	
+	private static final int OBDCONNECTED = 0;
+	
+	private static final int UPDATEVIEW = 1;
 
 	private SimpleAdapter mAdapter;
 
@@ -98,7 +102,7 @@ public class TroubleCodes extends Activity implements OnClickListener,
 					Log.e(TAG,
 							"--------------TROUBLE_CODES = "
 									+ ((TroubleCodesObdCommand) job
-											.getCommand()).formatResult());
+											.getCommand()).getResult());
 					for (String troubleCode : ((TroubleCodesObdCommand) job
 							.getCommand()).getTroubleCodes()) {
 
@@ -114,7 +118,7 @@ public class TroubleCodes extends Activity implements OnClickListener,
 					Log.e(TAG,
 							"--------------PENDING_TROUBLE_CODES = "
 									+ ((PendingTroubleCodesObdCommand) job
-											.getCommand()).formatResult());
+											.getCommand()).getResult());
 					for (String troubleCode : ((PendingTroubleCodesObdCommand) job
 							.getCommand()).getTroubleCodes()) {
 
@@ -127,9 +131,19 @@ public class TroubleCodes extends Activity implements OnClickListener,
 					new Thread(dbQueryThread).start();
 				}
 			} else {
+				switch(msg.what){
+				case OBDCONNECTED:
+					DtcNumberObdCommand dtcNum = new DtcNumberObdCommand();
+					mServiceConnection.addJobToQueue(new ObdCommandJob(dtcNum));
+					mTroubleCodes.clear();
+					mAdapter.notifyDataSetChanged();
+					isSearching = true;
+					break;
+				case UPDATEVIEW:
 				mAdapter.notifyDataSetChanged();
 				findViewById(R.id.progressBar1).setVisibility(View.GONE);
 				findViewById(R.id.start_check).setVisibility(View.VISIBLE);
+				}
 			}
 		}
 	};
@@ -154,11 +168,7 @@ public class TroubleCodes extends Activity implements OnClickListener,
 
 			@Override
 			public void deviceConnected(String deviceName) {
-				DtcNumberObdCommand dtcNum = new DtcNumberObdCommand();
-				mServiceConnection.addJobToQueue(new ObdCommandJob(dtcNum));
-				mTroubleCodes.clear();
-				mAdapter.notifyDataSetChanged();
-				isSearching = true;
+				mHandler.sendEmptyMessage(OBDCONNECTED);
 			}
 
 			@Override
@@ -175,9 +185,9 @@ public class TroubleCodes extends Activity implements OnClickListener,
 		};
 		mServiceIntent = new Intent(this, ObdGatewayService.class);
 		mServiceConnection = new ObdGatewayServiceConnection();
-		mServiceConnection.setServiceListener(mListener);
 		getApplicationContext().bindService(mServiceIntent, mServiceConnection,
 				Context.BIND_AUTO_CREATE);
+		mServiceConnection.setServiceListener(mListener);
 
 		findViewById(R.id.start_check).setOnClickListener(this);
 	}
@@ -192,8 +202,7 @@ public class TroubleCodes extends Activity implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.start_check:
 			if (!isSearching) {
-				DtcNumberObdCommand dtcNum = new DtcNumberObdCommand();
-				mServiceConnection.addJobToQueue(new ObdCommandJob(dtcNum));
+				mServiceConnection.addJobToQueue(new ObdCommandJob( new DtcNumberObdCommand()));
 				mTroubleCodes.clear();
 				mAdapter.notifyDataSetChanged();
 				isSearching = true;
@@ -255,7 +264,7 @@ public class TroubleCodes extends Activity implements OnClickListener,
 					cursor.close();
 				}
 				db.close();
-				mHandler.sendEmptyMessage(1);
+				mHandler.sendEmptyMessage(UPDATEVIEW);
 				isSearching = false;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

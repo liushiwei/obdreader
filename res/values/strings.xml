@@ -34,6 +34,7 @@
     <string name="knowledge">背景知识</string>
     <string name="obd_check">OBD检测</string>
     <string name="obd_pid">PID</string>
+    <string name="check_not_error">没有查询到任何故障</string>
     <!-- 保养 -->
     <string name="maintenance_logs">保养维修记录</string>
     <string name="maintenance_settings">保养设置</string>

@@ -466,6 +466,7 @@ public class ObdGatewayService extends Service {
 		public void clearQueue() {
 			if(_queue!=null && _isRunning.get()&&_queueCounter>0){
 				_queue.clear();
+				_queueCounter=0l;
 			}
 		}
 
@@ -477,7 +478,7 @@ public class ObdGatewayService extends Service {
 
 		@Override
 		public void connectDevice() {
-			if(mConnectTime==0){
+			if(mConnectTime==0&&!_isRunning.get()){
 				new Thread(connectRunnable).start();
 			}
 			
@@ -492,6 +493,10 @@ public class ObdGatewayService extends Service {
 			try {
 				
 				startObdConnection();
+				_executeQueue();
+				_isRunning.set(true);
+				if (_callback != null)
+					_callback.deviceConnected("WIFI");
 				while (_isRunning.get()) {
 					_executeQueue();
 				}
@@ -561,9 +566,7 @@ public class ObdGatewayService extends Service {
 							socket.getOutputStream());
 					if(job.getCommand().getResult()!=null &&job.getCommand().getResult().length()>0){
 						Log.d(TAG, "reset obd OK");
-						_isRunning.set(true);
-						if (_callback != null)
-							_callback.deviceConnected("WIFI");
+						
 						break;
 					}else{
 						socket.close();
