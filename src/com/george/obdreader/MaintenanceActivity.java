@@ -30,8 +30,8 @@ public class MaintenanceActivity extends FragmentActivity {
     }
     
     private void setTabs() {
-        addTab("保养设置", R.drawable.money_icon, MaintenanceSetting.class);
-        addTab("保养记录", R.drawable.money_icon, MaintenanceLog.class);
+    	addTab(getString(R.string.maintenance_logs), R.drawable.money_icon, MaintenanceLog.class);
+        addTab(getString(R.string.maintenance_settings), R.drawable.money_icon, MaintenanceSetting.class);
 
    }
    

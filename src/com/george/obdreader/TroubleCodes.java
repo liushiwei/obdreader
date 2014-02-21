@@ -31,6 +31,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.george.obdreader.db.Databasehelper;
 import com.george.obdreader.io.IPostListener;
 import com.george.obdreader.io.ObdCommandJob;
 import com.george.obdreader.io.ObdGatewayService;

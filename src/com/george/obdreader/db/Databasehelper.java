@@ -1,4 +1,4 @@
-package com.george.obdreader;
+package com.george.obdreader.db;
 
 import java.io.File;
 import java.io.FileOutputStream;

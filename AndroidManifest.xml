@@ -51,6 +51,10 @@
             android:name=".OBDService"
             android:exported="false" />
 
+        <provider
+            android:name="com.george.obdreader.db.DatabaseProvider"
+            android:authorities="com.george.obdreader.provider" />
+
         <receiver android:name=".BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
