@@ -252,6 +252,8 @@ public class TroubleCodes extends Activity implements OnClickListener,
 					int col = cursor.getColumnIndex("EN_Def");
 					Log.e(TAG, "size = " + cursor.getCount());
 					Log.e(TAG, "col = " + col);
+					if(cursor.getCount()==0)
+						break;
 					cursor.moveToFirst();
 					item.put("CN_DESC",
 							cursor.getString(cursor.getColumnIndex("CN_Def")));

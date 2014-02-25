@@ -246,6 +246,9 @@ public class ObdGatewayService extends Service {
 		queueJob(new ObdCommandJob(new EchoOffObdCommand()));// ATE0
 		queueJob(new ObdCommandJob(new MemoryOffObdCommand()));// ATM0
 		queueJob(new ObdCommandJob(new LineFeedOffObdCommand()));// ATL0
+		queueJob(new ObdCommandJob(new SimpleObdCommand("AT DP", "Describe the Current Protocol ")));
+		queueJob(new ObdCommandJob(new SimpleObdCommand("AT SP A5", "Set Protocol to ISO 14230-4")));// ATS0
+		queueJob(new ObdCommandJob(new SimpleObdCommand("AT DP", "Describe the Current Protocol ")));
 		queueJob(new ObdCommandJob(new SimpleObdCommand("AT S0", "Space Off")));// ATS0
 		queueJob(new ObdCommandJob(new SimpleObdCommand("AT @1",
 				"Display Device Description")));// ATS0
