@@ -49,10 +49,8 @@
     <string name="last_maintenance_time">上一次保养时间</string>
     <string name="next_maintenance_time">下一次保养时间</string>
     <string name="no_maintenance_log">没有保养记录</string>
-    <string name="maintenance_settings">基本设置</string>
  	<string name="take">费用:</string>
     <string name="selecte_maintenance_options">选择保养项目</string>
-    <string name="maintenance_time">保养时间和费用</string>
     <string name="unit">元</string>
     <!-- 基本设置 -->
     <string name="base_settings">基本设置</string>
