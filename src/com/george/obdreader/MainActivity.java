@@ -537,21 +537,21 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.obd:
-			//if (isConnected)
+			if (isConnected)
 				startActivity(new Intent(this, OBDProgressBarActivity.class));
-//			else {
-//				Toast.makeText(getBaseContext(), R.string.device_unconn,
-//						Toast.LENGTH_LONG).show();
-//			}
+			else {
+				Toast.makeText(getBaseContext(), R.string.device_unconn,
+						Toast.LENGTH_LONG).show();
+			}
 				
 			break;
 		case R.id.stopwatch:
-			//if (isConnected)
+			if (isConnected)
 				startActivity(new Intent(this, SpeedUpTest.class));
-//			else {
-//				Toast.makeText(getBaseContext(), R.string.device_unconn,
-//						Toast.LENGTH_LONG).show();
-//			}
+			else {
+				Toast.makeText(getBaseContext(), R.string.device_unconn,
+						Toast.LENGTH_LONG).show();
+			}
 			break;
 		case R.id.trouble_codes:
 			if (isConnected)
