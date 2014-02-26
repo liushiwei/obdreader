@@ -8,14 +8,22 @@
     <string name="service_stopped">OBD connection has stopped.</string>
     <string name="notification_label">Tap to open OBD-Reader.</string>
     <string name="action_settings">Settings</string>
-    
     <string name="net_uncon">网络未连接，是否现在设置网络？</string>
     <string name="device_unconn">设备未连接</string>
     <string name="please_stop">请先停稳车</string>
     <string name="ready">已经准备好</string>
     <string name="chronograph">记时开始</string>
     <string name="over">停止</string>
-
+    <string name="test_start">开始</string>
+    <string name="test_stop">停止</string>
+    <string name="test_0_second">00.00秒</string>
+    <string name="second">秒</string>
+    <string name="test_speed_setting">速度设置</string>
+    <string name="test_speed_unit">公里/时</string>
+    <string name="test_distance_setting">距离设置</string>
+    <string name="test_meter">米</string>
+    <string name="test_test">测试</string>
+    <string name="test_selct_one">请选择其中一个进行测试</string>
     <!-- Strings for possible PreferenceActivity Back/Next buttons -->
     <string name="back_button_label">Back</string>
     <string name="next_button_label">Next</string>
@@ -49,7 +57,7 @@
     <string name="last_maintenance_time">上一次保养时间</string>
     <string name="next_maintenance_time">下一次保养时间</string>
     <string name="no_maintenance_log">没有保养记录</string>
- 	<string name="take">费用:</string>
+    <string name="take">费用:</string>
     <string name="selecte_maintenance_options">选择保养项目</string>
     <string name="unit">元</string>
     <!-- 基本设置 -->
