@@ -85,7 +85,7 @@ public class OBDProgressBarActivity extends Activity {
 						Log.e(TAG, "hex to bin "+cmdResult+" ="+Long.toBinaryString(Long.valueOf(cmdResult,16)));
 						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,16)) ;
 						for(int i = 32;i<64;i++){
-							if(i<32-cmdResult.length()){
+							if(i<64-cmdResult.length()){
 								isSupported[i]=false;
 							}else{
 								isSupported[i]=cmdResult.charAt(i-64+cmdResult.length())=='1'?true:false;
@@ -97,7 +97,7 @@ public class OBDProgressBarActivity extends Activity {
 						Log.e(TAG, "hex to bin "+cmdResult+" ="+Long.toBinaryString(Long.valueOf(cmdResult,16)));
 						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,16)) ;
 						for(int i = 64;i<96;i++){
-							if(i<32-cmdResult.length()){
+							if(i<96-cmdResult.length()){
 								isSupported[i]=false;
 							}else{
 								isSupported[i]=cmdResult.charAt(i-96+cmdResult.length())=='1'?true:false;
@@ -306,8 +306,13 @@ public class OBDProgressBarActivity extends Activity {
 			TextView max = (TextView) convertView.findViewById(R.id.obd_pid_max_value);
 			max.setText(mEnums_pids.get(position).getMax()+"");
 			TextView current = (TextView) convertView.findViewById(R.id.obd_pid_current_value);
-			if(mPids.get(mEnums_pids.get(position).getCommand())!=null)
-			current.setText(mPids.get(mEnums_pids.get(position).getCommand()).value==DEFAULT_VALUE?"NODATE":df.format(mPids.get(mEnums_pids.get(position).getCommand()).value-mEnums_pids.get(position).getMin()));
+			if(isSupported[Integer.valueOf(mEnums_pids.get(position).getCommand().substring(3), 16)]){
+			    if(mPids.get(mEnums_pids.get(position).getCommand())!=null)
+		            current.setText(mPids.get(mEnums_pids.get(position).getCommand()).value==DEFAULT_VALUE?"NODATE":df.format(mPids.get(mEnums_pids.get(position).getCommand()).value-mEnums_pids.get(position).getMin()));
+			}else{
+			    current.setText("Not Supported");
+			}
+			
 			ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar1);
 			progressBar.setMax((int) (mEnums_pids.get(position).getMax()-mEnums_pids.get(position).getMin()));
 			progressBar.setProgress((int) (mPids.get(mEnums_pids.get(position).getCommand()).value==DEFAULT_VALUE?mEnums_pids.get(position).getMin():(mPids.get(mEnums_pids.get(position).getCommand()).value-mEnums_pids.get(position).getMin())));
