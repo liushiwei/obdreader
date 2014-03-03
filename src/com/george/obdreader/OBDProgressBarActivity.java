@@ -37,6 +37,8 @@ import com.george.obdreader.io.ObdCommandJob;
 import com.george.obdreader.io.ObdGatewayService;
 import com.george.obdreader.io.ObdGatewayServiceConnection;
 
+import eu.lighthouselabs.obd.commands.protocol.SimpleObdCommand;
+
 public class OBDProgressBarActivity extends Activity {
 
 	private String[] mPid_decs = new String[OBDEnums.values().length];
@@ -48,6 +50,7 @@ public class OBDProgressBarActivity extends Activity {
 	private static final float DEFAULT_VALUE = -0xffff;
 	private ProgressBarAdapter mAdapter;
 	private boolean isBound;
+	private boolean isSupported[];
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -63,6 +66,44 @@ public class OBDProgressBarActivity extends Activity {
 					PidValue pv = mPids.get(command.getEnums().getCommand());
 					pv.value = command.getValue();
 					mAdapter.notifyDataSetChanged();
+				}else{
+					Log.e(TAG, "Command = "+job.getCommand().getCommand());
+					if(job.getCommand().getCommand().trim().equals("0100")){
+						cmdResult = job.getCommand().getFormattedResult().substring(4);
+						Log.e(TAG, "hex to bin "+cmdResult+" ="+Long.toBinaryString(Long.valueOf(cmdResult,16)));
+						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,16)) ;
+						for(int i = 0;i<32;i++){
+							if(i<32-cmdResult.length()){
+								isSupported[i]=false;
+							}else{
+								isSupported[i]=cmdResult.charAt(i-32+cmdResult.length())=='1'?true:false;
+							}
+						}
+					}
+					if(job.getCommand().getCommand().trim().equals("0120")){
+						cmdResult = job.getCommand().getFormattedResult().substring(4);
+						Log.e(TAG, "hex to bin "+cmdResult+" ="+Long.toBinaryString(Long.valueOf(cmdResult,16)));
+						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,16)) ;
+						for(int i = 32;i<64;i++){
+							if(i<32-cmdResult.length()){
+								isSupported[i]=false;
+							}else{
+								isSupported[i]=cmdResult.charAt(i-64+cmdResult.length())=='1'?true:false;
+							}
+						}
+					}
+					if(job.getCommand().getCommand().trim().equals("0140")){
+						cmdResult = job.getCommand().getFormattedResult().substring(4);
+						Log.e(TAG, "hex to bin "+cmdResult+" ="+Long.toBinaryString(Long.valueOf(cmdResult,16)));
+						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,16)) ;
+						for(int i = 64;i<96;i++){
+							if(i<32-cmdResult.length()){
+								isSupported[i]=false;
+							}else{
+								isSupported[i]=cmdResult.charAt(i-96+cmdResult.length())=='1'?true:false;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -75,6 +116,10 @@ public class OBDProgressBarActivity extends Activity {
 
 		@Override
 		public void deviceConnected(String deviceName) {
+			
+			mServiceConnection.addJobToQueue(new ObdCommandJob(new SimpleObdCommand("01 00","PIDs supported [01 - 20]")));
+			mServiceConnection.addJobToQueue(new ObdCommandJob(new SimpleObdCommand("01 20","PIDs supported [21 - 40]")));
+			mServiceConnection.addJobToQueue(new ObdCommandJob(new SimpleObdCommand("01 40","PIDs supported [41 - 60]")));
 			Log.e(TAG, "deviceConnected deviceName = "+deviceName);
 			for (int i = 0; i < mPidsEnum.length; i++) {
 				mPid_decs[i] = getString(mPidsEnum[i].getDesc());
@@ -118,6 +163,7 @@ public class OBDProgressBarActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.obd_progress_bar_list);
+		isSupported = new boolean[96];
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		mPids = new HashMap<String, PidValue>();
 		ImageButton plus = (ImageButton) findViewById(R.id.add_pid);
