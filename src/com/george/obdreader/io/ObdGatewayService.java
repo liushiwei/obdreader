@@ -4,7 +4,6 @@
 package com.george.obdreader.io;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -29,9 +28,9 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.george.obdreader.Log;
 import com.george.obdreader.MainActivity;
 import com.george.obdreader.R;
 import com.george.obdreader.config.ConfigActivity;

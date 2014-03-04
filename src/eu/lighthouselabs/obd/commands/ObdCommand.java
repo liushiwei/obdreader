@@ -9,9 +9,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import com.george.obdreader.Log;
+
 import eu.lighthouselabs.obd.enums.AvailableCommandNames;
 
-import android.util.Log;
 
 /**
  * TODO put description

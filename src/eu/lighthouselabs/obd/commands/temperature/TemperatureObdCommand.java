@@ -3,7 +3,8 @@
  */
 package eu.lighthouselabs.obd.commands.temperature;
 
-import android.util.Log;
+import com.george.obdreader.Log;
+
 import eu.lighthouselabs.obd.commands.ObdCommand;
 import eu.lighthouselabs.obd.commands.SystemOfUnits;
 

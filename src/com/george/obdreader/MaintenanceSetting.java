@@ -13,7 +13,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.support.v4.preference.PreferenceFragment;
-import android.util.Log;
 
 public class MaintenanceSetting extends PreferenceFragment implements OnPreferenceChangeListener {
 

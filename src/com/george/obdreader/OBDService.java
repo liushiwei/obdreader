@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.format.Time;
-import android.util.Log;
 
 public class OBDService extends Service {
 	

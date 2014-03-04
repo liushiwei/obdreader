@@ -18,6 +18,7 @@ package com.george.obdreader.config;
 
 import java.util.Set;
 
+import com.george.obdreader.Log;
 import com.george.obdreader.R;
 import com.george.obdreader.R.id;
 import com.george.obdreader.R.layout;
@@ -31,7 +32,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;

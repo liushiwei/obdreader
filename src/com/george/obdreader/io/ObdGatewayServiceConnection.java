@@ -6,7 +6,8 @@ package com.george.obdreader.io;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.util.Log;
+
+import com.george.obdreader.Log;
 
 /**
  * Service connection for ObdGatewayService.

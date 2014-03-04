@@ -25,9 +25,9 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.provider.Settings.Secure;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.george.obdreader.Log;
 import com.george.obdreader.R;
 
 public class WifiDeviceListActivity extends PreferenceActivity implements

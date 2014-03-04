@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import android.util.Log;
+import com.george.obdreader.Log;
 
 import eu.lighthouselabs.obd.commands.ObdCommand;
 import eu.lighthouselabs.obd.commands.SpeedObdCommand;

@@ -11,9 +11,9 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceManager;
 import android.support.v4.preference.PreferenceFragment;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.george.obdreader.Log;
 import com.george.obdreader.R;
 
 public class BaseSetting extends PreferenceFragment implements

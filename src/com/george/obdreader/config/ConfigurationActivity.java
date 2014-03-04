@@ -1,20 +1,16 @@
 package com.george.obdreader.config;
 
-import com.george.obdreader.R;
-import com.george.obdreader.R.drawable;
-import com.george.obdreader.R.id;
-import com.george.obdreader.R.layout;
-import com.george.obdreader.R.string;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.george.obdreader.Log;
+import com.george.obdreader.R;
 
 public class ConfigurationActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
