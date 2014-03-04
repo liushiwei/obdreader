@@ -2,4 +2,5 @@
 <resources>
     <color name="holo_blue_dark">#ff0099cc</color>
     <color name="holo_dialog_bg">#ff282828</color>
+    <color name="pid_item_bg">#338F18</color>
 </resources>

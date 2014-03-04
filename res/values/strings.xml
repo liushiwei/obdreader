@@ -123,5 +123,7 @@
     <string name="wifi_menu_forget">Forget network</string>
     <!-- Menu option to modify a WLAN network configuration -->
     <string name="wifi_menu_modify">Modify network</string>
+    
+    <string name="pid_not_supported">Not Supported</string>
 
 </resources>
