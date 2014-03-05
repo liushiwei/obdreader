@@ -309,6 +309,7 @@ public class ObdGatewayService extends Service {
 			} catch (Exception e) {
 				job.setState(ObdCommandJobState.EXECUTION_ERROR);
 				Log.e(TAG, "Failed to run command. -> " + e.getMessage());
+				resetDeivce();
 			}
 
 			if (job != null) {
@@ -596,5 +597,10 @@ public class ObdGatewayService extends Service {
 				
 		}
 	};
+	
+	private void resetDeivce(){
+		Log.e(TAG, "set AT command reset Device" );
+		queueJob(new ObdCommandJob(new SimpleObdCommand("AT SP A5", "Set Protocol to ISO 14230-4")));// ATS0
+	}
 
 }

@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -39,7 +41,7 @@ import com.george.obdreader.io.ObdGatewayServiceConnection;
 
 import eu.lighthouselabs.obd.commands.protocol.SimpleObdCommand;
 
-public class OBDProgressBarActivity extends Activity {
+public class OBDProgressBarActivity extends Activity implements OnItemClickListener, OnClickListener {
 
 	private String[] mPid_decs = new String[OBDEnums.values().length];
 	private boolean[] mPid_show = new boolean[OBDEnums.values().length];
@@ -50,7 +52,9 @@ public class OBDProgressBarActivity extends Activity {
 	private static final float DEFAULT_VALUE = -0xffff;
 	private ProgressBarAdapter mAdapter;
 	private boolean isBound;
+	private boolean isGetSupportedOver;
 	private boolean isSupported[];
+	private PidsAdapter mPidAdapter;
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -64,13 +68,15 @@ public class OBDProgressBarActivity extends Activity {
 				if (job.getCommand() instanceof OBDCommand) {
 					OBDCommand command = (OBDCommand) job.getCommand();
 					PidValue pv = mPids.get(command.getEnums().getCommand());
-					pv.value = command.getValue();
-					mAdapter.notifyDataSetChanged();
+					if(pv!=null){
+						pv.value = command.getValue();
+						mAdapter.notifyDataSetChanged();
+					}
 				} else {
 					Log.e(TAG, "Command = " + job.getCommand().getCommand());
 					if (job.getCommand().getCommand().trim().equals("0100")) {
-						cmdResult = job.getCommand().getFormattedResult()
-								.substring(4);
+						cmdResult = job.getCommand().getFormattedResult();
+						cmdResult = 	cmdResult.substring(cmdResult.length()-8);
 						Log.e(TAG,
 								"hex to bin "
 										+ cmdResult
@@ -88,6 +94,8 @@ public class OBDProgressBarActivity extends Activity {
 										: false;
 							}
 						}
+						if(mPidAdapter!=null)
+							mPidAdapter.notifyDataSetChanged();
 					}
 					if (job.getCommand().getCommand().trim().equals("0120")) {
 						cmdResult = job.getCommand().getFormattedResult()
@@ -109,6 +117,8 @@ public class OBDProgressBarActivity extends Activity {
 										: false;
 							}
 						}
+						if(mPidAdapter!=null)
+							mPidAdapter.notifyDataSetChanged();
 					}
 					if (job.getCommand().getCommand().trim().equals("0140")) {
 						cmdResult = job.getCommand().getFormattedResult()
@@ -130,6 +140,8 @@ public class OBDProgressBarActivity extends Activity {
 										: false;
 							}
 						}
+						if(mPidAdapter!=null)
+							mPidAdapter.notifyDataSetChanged();
 					}
 				}
 			}
@@ -191,7 +203,8 @@ public class OBDProgressBarActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.obd_progress_bar_list);
-		isSupported = new boolean[96];
+		isSupported = new boolean[100];
+		isGetSupportedOver = false;
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		mPids = new HashMap<String, PidValue>();
 		ImageButton plus = (ImageButton) findViewById(R.id.add_pid);
@@ -204,7 +217,6 @@ public class OBDProgressBarActivity extends Activity {
 		if (pids != null) {
 			mShow_pids = new ArrayList<String>(Arrays.asList(pids.split(",")));
 		}
-		
 		plus.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -212,50 +224,18 @@ public class OBDProgressBarActivity extends Activity {
 				if (mServiceConnection != null && isBound) {
 					LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 					View customView = inflater.inflate(R.layout.obd_progress_bar_pid_list, null, false);
-					ListView pidsList = (ListView) customView.findViewById(R.id.listView1);
-					pidsList.setAdapter(new PidsAdapter(OBDProgressBarActivity.this, mPid_decs));
+					ListView pidsList = (ListView) customView.findViewById(R.id.pidslist);
+					mPidAdapter = new PidsAdapter(OBDProgressBarActivity.this, mPid_decs);
+					pidsList.setAdapter(mPidAdapter);
 					
 					AlertDialog dialog = new AlertDialog.Builder(
 							OBDProgressBarActivity.this)
 							.setTitle(R.string.obd_pid)
 							.setIcon(android.R.drawable.ic_dialog_info)
-							.setView(pidsList)
-//							.setMultiChoiceItems(mPid_decs, mPid_show,
-//									new OnMultiChoiceClickListener() {
-//
-//										@Override
-//										public void onClick(
-//												DialogInterface dialog,
-//												int which, boolean isChecked) {
-//											OBDEnums pid = mPidsEnum[which];
-//											if (isChecked) {
-//												mShow_pids.add(pid.getCommand());
-//												mEnums_pids.add(pid);
-//												OBDCommand cmd = new OBDCommand(pid);
-//												cmd.setPriority(1);
-//												ObdCommandJob job = new ObdCommandJob(cmd);
-//												mServiceConnection.addJobToQueue(job);
-//												PidValue pv = new PidValue();
-//												pv.jobObj = job;
-//												mPids.put(pid.getCommand(),
-//														pv);
-//												mAdapter.notifyDataSetChanged();
-//											} else {
-//												mShow_pids.remove(pid
-//														.getCommand());
-//												mEnums_pids.remove(pid);
-//												PidValue pv = mPids.get(pid
-//														.getCommand());
-//												mServiceConnection.removeJobFromQueue(pv.jobObj);
-//												mPids.remove(pid
-//														.getCommand());
-//												mAdapter.notifyDataSetChanged();
-//											}
-//
-//										}
-//									})
+							.setView(customView)
 							.setNegativeButton(android.R.string.ok, null)
 							.show();
+					dialog.setCanceledOnTouchOutside(false);
 					dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
 						@Override
@@ -271,8 +251,10 @@ public class OBDProgressBarActivity extends Activity {
 							}
 							editor.putString("PIDS", pids);
 							editor.commit();
+							mPidAdapter = null;
 						}
 					});
+					pidsList.setOnItemClickListener(OBDProgressBarActivity.this);
 				}else{
 					Toast.makeText(getBaseContext(), R.string.device_unconn, Toast.LENGTH_LONG).show();
 				}
@@ -338,7 +320,7 @@ public class OBDProgressBarActivity extends Activity {
 			TextView current = (TextView) convertView
 					.findViewById(R.id.obd_pid_current_value);
 			if (isSupported[Integer.valueOf(mEnums_pids.get(position)
-					.getCommand().substring(3), 16)]) {
+					.getCommand().substring(3), 16)]||!isGetSupportedOver) {
 				if (mPids.get(mEnums_pids.get(position).getCommand()) != null)
 					current.setText(mPids.get(mEnums_pids.get(position)
 							.getCommand()).value == DEFAULT_VALUE ? "NODATE"
@@ -433,19 +415,15 @@ public class OBDProgressBarActivity extends Activity {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
+			if(isSupported[mPidsEnum[position].getId()]){
+				convertView.setBackgroundResource(R.drawable.pid_item_bg);
+			}else{
+				convertView.setBackgroundResource(android.R.color.black);
+			}
 			holder.title.setText(mData[position]);
+			holder.checkBox.setTag(position);
 			holder.checkBox.setChecked(mPid_show[position]);
-			holder.checkBox.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					// if(isSelected.get(position)){
-					// isSelected.put(position, false);
-					// }else{
-					// isSelected.put(position, true);
-					// }
-					// notifyDataSetChanged();
-				}
-			});
+			holder.checkBox.setOnClickListener(OBDProgressBarActivity.this);
 			return convertView;
 		}
 
@@ -453,6 +431,82 @@ public class OBDProgressBarActivity extends Activity {
 			TextView title;
 			CheckBox checkBox;
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> listView, View view, int position, long arg3) {
+		Log.e(TAG, "position = "+position);
+		CheckBox checkbox = (CheckBox) view.findViewById(R.id.checkBox1);
+		if(checkbox.isChecked()){
+			checkbox.setChecked(false);
+		}else{
+			checkbox.setChecked(true);
+		}
+		OBDEnums pid = mPidsEnum[position];
+		if (checkbox.isChecked()) {
+			mPid_show[position] = true;
+			mShow_pids.add(pid.getCommand());
+			mEnums_pids.add(pid);
+			OBDCommand cmd = new OBDCommand(pid);
+			cmd.setPriority(1);
+			ObdCommandJob job = new ObdCommandJob(cmd);
+			mServiceConnection.addJobToQueue(job);
+			PidValue pv = new PidValue();
+			pv.jobObj = job;
+			mPids.put(pid.getCommand(),
+					pv);
+			mAdapter.notifyDataSetChanged();
+		} else {
+			mPid_show[position] = false;
+			mShow_pids.remove(pid
+					.getCommand());
+			mEnums_pids.remove(pid);
+			PidValue pv = mPids.get(pid
+					.getCommand());
+			if(pv!=null){
+				mServiceConnection.removeJobFromQueue(pv.jobObj);
+				mPids.remove(pid
+						.getCommand());
+				mAdapter.notifyDataSetChanged();
+			}
+		}
+
+	}
+
+	@Override
+	public void onClick(View view) {
+		CheckBox checkbox = (CheckBox) view;
+		int position = (Integer) checkbox.getTag();
+		OBDEnums pid = mPidsEnum[position];
+		if (checkbox.isChecked()) {
+			mPid_show[position] = true;
+			mShow_pids.add(pid.getCommand());
+			mEnums_pids.add(pid);
+			OBDCommand cmd = new OBDCommand(pid);
+			cmd.setPriority(1);
+			ObdCommandJob job = new ObdCommandJob(cmd);
+			mServiceConnection.addJobToQueue(job);
+			PidValue pv = new PidValue();
+			pv.jobObj = job;
+			mPids.put(pid.getCommand(),
+					pv);
+			mAdapter.notifyDataSetChanged();
+		} else {
+			mPid_show[position] = false;
+			mShow_pids.remove(pid
+					.getCommand());
+			mEnums_pids.remove(pid);
+			PidValue pv = mPids.get(pid
+					.getCommand());
+			if(pv!=null){
+			mServiceConnection.removeJobFromQueue(pv.jobObj);
+			mPids.remove(pid
+					.getCommand());
+			mAdapter.notifyDataSetChanged();
+			}
+		}
+
+		
 	}
 
 }

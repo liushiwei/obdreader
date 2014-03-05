@@ -3,10 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-<ListView
+
+    <ListView
         android:id="@+id/pidslist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent" >
     </ListView>
+
 </LinearLayout>

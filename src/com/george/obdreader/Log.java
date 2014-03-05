@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.os.Environment;
+
 /**
  * 带日志文件输入的，又可控开关的日志调试
  * 
@@ -19,7 +21,7 @@ public class Log {
     private static Boolean MYLOG_SWITCH=true; // 日志文件总开关
     private static Boolean MYLOG_WRITE_TO_FILE=true;// 日志写入文件开关
     private static char MYLOG_TYPE='v';// 输入日志类型，w代表只输出告警信息等，v代表输出所有信息
-    private static String MYLOG_PATH_SDCARD_DIR="/sdcard/";// 日志文件在sdcard中的路径
+    private static String MYLOG_PATH_SDCARD_DIR= Environment.getExternalStorageDirectory()+"/";// 日志文件在sdcard中的路径
     private static int SDCARD_LOG_FILE_SAVE_DAYS = 0;// sd卡中日志文件的最多保存天数
     private static String MYLOGFILEName = "Log.txt";// 本类输出的日志文件名称
     private static SimpleDateFormat myLogSdf = new SimpleDateFormat(
@@ -78,15 +80,15 @@ public class Log {
     private static void log(String tag, String msg, char level) {
         if (MYLOG_SWITCH) {
             if ('e' == level && ('e' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) { // 输出错误信息
-                Log.e(tag, msg);
+                android.util.Log.e(tag, msg);
             } else if ('w' == level && ('w' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) {
-                Log.w(tag, msg);
+            	android.util.Log.w(tag, msg);
             } else if ('d' == level && ('d' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) {
-                Log.d(tag, msg);
+            	android.util.Log.d(tag, msg);
             } else if ('i' == level && ('d' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) {
-                Log.i(tag, msg);
+            	android.util.Log.i(tag, msg);
             } else {
-                Log.v(tag, msg);
+            	android.util.Log.v(tag, msg);
             }
             if (MYLOG_WRITE_TO_FILE)
                 writeLogtoFile(String.valueOf(level), tag, msg);
