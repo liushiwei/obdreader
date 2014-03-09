@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gauge="http://schemas.android.com/apk/res/com.george.obdreader"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="-50dp"
+    android:gravity="center_horizontal"
+    android:visibility="visible" >
+
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="75dp"
+        android:orientation="vertical" >
+
+        <com.george.obdreader.GaugeView
+            android:id="@+id/fuel_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            gauge:divisions="5"
+            gauge:rangeColors="@array/fuel_rangeColors"
+            gauge:rangeValues="@array/fuel_ranges"
+            gauge:scaleEndValue="20"
+            gauge:showInnerRim="true"
+            gauge:showOuterBorder="false"
+            gauge:showOuterRim="false"
+            gauge:showOuterShadow="true"
+            gauge:subdivisions="4" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="75dp"
+        android:orientation="vertical" >
+
+        <com.george.obdreader.GaugeView
+            android:id="@+id/speed_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            gauge:divisions="5"
+            gauge:rangeColors="@array/speed_rangeColors"
+            gauge:rangeValues="@array/speed_ranges"
+            gauge:scaleEndValue="220"
+            gauge:showInnerRim="true"
+            gauge:showOuterBorder="false"
+            gauge:showOuterRim="false"
+            gauge:showOuterShadow="true"
+            gauge:subdivisions="8" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="285dp"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:padding="20dp" >
+
+        <FrameLayout
+            android:id="@+id/left_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:visibility="gone" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fly_left" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/right_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/left_top"
+            android:layout_toRightOf="@+id/left_top"
+            android:visibility="gone" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fly_right" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/left_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fly_bottom_left" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/right_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/left_bottom"
+            android:visibility="gone" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fly_bottom_right" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="390dp"
+        android:layout_height="285dp"
+        android:layout_gravity="center"
+        android:paddingBottom="65dp"
+        android:paddingTop="65dp" >
+
+        <ImageView
+            android:id="@+id/stopwatch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/stopwatch_icon"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/obd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/obd_icon"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/trouble_codes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/trouble_codes_icon"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/money_icon"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/maintenance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/maintenance_icon"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="285dp"
+        android:layout_height="285dp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:src="@drawable/light_blue"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:src="@drawable/gauge" />
+
+        <com.george.obdreader.GaugeView
+            android:id="@+id/rpm_view"
+            android:layout_width="285dp"
+            android:layout_height="285dp"
+            gauge:divisions="5"
+            gauge:rangeColors="@array/rpm_rangeColors"
+            gauge:rangeValues="@array/rpm_ranges"
+            gauge:scaleEndValue="12000"
+            gauge:showInnerRim="true"
+            gauge:showOuterBorder="false"
+            gauge:showOuterRim="false"
+            gauge:showOuterShadow="true"
+            gauge:subdivisions="2" />
+    </FrameLayout>
+
+</FrameLayout>
