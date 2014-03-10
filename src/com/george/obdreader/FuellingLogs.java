@@ -1,5 +1,7 @@
 package com.george.obdreader;
 
-public class FuellingLogs {
+import android.app.Activity;
+
+public class FuellingLogs extends Activity{
 
 }
