@@ -3,56 +3,10 @@
     xmlns:gauge="http://schemas.android.com/apk/res/com.george.obdreader"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_marginTop="-50dp"
     android:gravity="center_horizontal"
     android:visibility="visible" >
 
-    <FrameLayout
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="75dp"
-        android:orientation="vertical" >
-
-        <com.george.obdreader.GaugeView
-            android:id="@+id/fuel_view"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:visibility="gone"
-            gauge:divisions="5"
-            gauge:rangeColors="@array/fuel_rangeColors"
-            gauge:rangeValues="@array/fuel_ranges"
-            gauge:scaleEndValue="20"
-            gauge:showInnerRim="true"
-            gauge:showOuterBorder="false"
-            gauge:showOuterRim="false"
-            gauge:showOuterShadow="true"
-            gauge:subdivisions="4" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="75dp"
-        android:orientation="vertical" >
-
-        <com.george.obdreader.GaugeView
-            android:id="@+id/speed_view"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:visibility="gone"
-            gauge:divisions="5"
-            gauge:rangeColors="@array/speed_rangeColors"
-            gauge:rangeValues="@array/speed_ranges"
-            gauge:scaleEndValue="220"
-            gauge:showInnerRim="true"
-            gauge:showOuterBorder="false"
-            gauge:showOuterRim="false"
-            gauge:showOuterShadow="true"
-            gauge:subdivisions="8" />
-    </FrameLayout>
-
+    
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="285dp"
@@ -201,5 +155,7 @@
             gauge:showOuterShadow="true"
             gauge:subdivisions="2" />
     </FrameLayout>
+
+    
 
 </FrameLayout>

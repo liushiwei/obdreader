@@ -1,6 +1,7 @@
 package com.george.obdreader;
 
-import android.app.Activity;
+import java.util.ArrayList;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -9,10 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.StrictMode;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -27,7 +31,6 @@ import com.george.obdreader.io.IPostListener;
 import com.george.obdreader.io.ObdCommandJob;
 import com.george.obdreader.io.ObdGatewayService;
 import com.george.obdreader.io.ObdGatewayServiceConnection;
-import com.george.utils.Device;
 
 import eu.lighthouselabs.obd.commands.SpeedObdCommand;
 import eu.lighthouselabs.obd.commands.control.DtcNumberObdCommand;
@@ -37,11 +40,16 @@ import eu.lighthouselabs.obd.commands.engine.EngineRPMObdCommand;
 import eu.lighthouselabs.obd.commands.pressure.IntakeManifoldPressureObdCommand;
 import eu.lighthouselabs.obd.commands.temperature.AirIntakeTemperatureObdCommand;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	
 	private Intent mServiceIntent = null;
 	private ObdGatewayServiceConnection mServiceConnection;
+	
+	private ViewPager mPager;
+	private ArrayList<Fragment> fragmentsList;
+	private FirstIndexFragment mFirstfragment;
+	
 	private boolean isBound;
 	private boolean isConnected;
 	private int speed = 1;
@@ -109,40 +117,40 @@ public class MainActivity extends Activity implements OnClickListener {
 				}
 				switch (job.getCommand().getId()) {
 				case ENGINE_RPM:
-					GaugeView rpm_view = (GaugeView) findViewById(R.id.rpm_view);
+					GaugeView rpm_view = (GaugeView) mFirstfragment.getRootView().findViewById(R.id.rpm_view);
 					rpm_view.setTargetValue(((EngineRPMObdCommand) job
 							.getCommand()).getRPM());
 					fuel_rpm = ((EngineRPMObdCommand) job.getCommand())
 							.getRPM();
 					break;
 				case SPEED:
-					GaugeView speed_view = (GaugeView) findViewById(R.id.speed_view);
+//					GaugeView speed_view = (GaugeView) findViewById(R.id.speed_view);
 					speed = ((SpeedObdCommand) job.getCommand())
 							.getMetricSpeed();
-					speed_view.setTargetValue(speed);
+//					speed_view.setTargetValue(speed);
 
 					break;
 				case INTAKE_MANIFOLD_PRESSURE:
-					TextView intake_manifold_pressure = (TextView) findViewById(R.id.intake_manifold_pressure);
+					//TextView intake_manifold_pressure = (TextView) findViewById(R.id.intake_manifold_pressure);
 					String result = job.getCommand().getFormattedResult();
-					intake_manifold_pressure.setText(result);
+					//intake_manifold_pressure.setText(result);
 					fuel_press = ((IntakeManifoldPressureObdCommand) job
 							.getCommand()).getMetricUnit();
 					break;
 				case AIR_INTAKE_TEMP:
-					TextView intake_temperature = (TextView) findViewById(R.id.intake_temperature);
+					//TextView intake_temperature = (TextView) findViewById(R.id.intake_temperature);
 					String intake_temperature_result = job.getCommand()
 							.getFormattedResult();
-					intake_temperature.setText(intake_temperature_result);
+					//intake_temperature.setText(intake_temperature_result);
 					fuel_airTemp = ((AirIntakeTemperatureObdCommand) job
 							.getCommand()).getTemperature() - 40;
 					// fuel_airTemp = 30;
 					break;
 
 				case FUEL_ECONOMY_WITHOUT_MAF:
-					TextView fuel = (TextView) findViewById(R.id.result);
-					String fuel_result = job.getCommand().getFormattedResult();
-					fuel.setText(fuel_result);
+					//TextView fuel = (TextView) findViewById(R.id.result);
+					//String fuel_result = job.getCommand().getFormattedResult();
+					//fuel.setText(fuel_result);
 					break;
 				case DTC_NUMBER:
 					Log.e(TAG,
@@ -202,11 +210,11 @@ public class MainActivity extends Activity implements OnClickListener {
 					} else {
 						fuel = 0;
 					}
-					TextView fuel_view = (TextView) findViewById(R.id.result);
-					fuel_view.setText((int) fuel + "L/100KM");
-					GaugeView rpm_view = (GaugeView) findViewById(R.id.fuel_view);
-					rpm_view.setTargetValue((float) fuel);
-					mHandler.sendEmptyMessageDelayed(HANDLER_FUEL, 500);
+//					TextView fuel_view = (TextView) findViewById(R.id.result);
+//					fuel_view.setText((int) fuel + "L/100KM");
+//					GaugeView rpm_view = (GaugeView) findViewById(R.id.fuel_view);
+//					rpm_view.setTargetValue((float) fuel);
+//					mHandler.sendEmptyMessageDelayed(HANDLER_FUEL, 500);
 					break;
 				case INIT_ANIM:
 					initAnim();
@@ -215,15 +223,15 @@ public class MainActivity extends Activity implements OnClickListener {
 					Animation right = AnimationUtils.loadAnimation(
 							MainActivity.this, msg.arg1);
 					// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
-					findViewById(msg.arg2).setVisibility(View.VISIBLE);
+					mFirstfragment.getRootView().findViewById(msg.arg2).setVisibility(View.VISIBLE);
 					// findViewById(msg.arg2).setAlpha(0);
 					// right.setDuration(300);
-					findViewById(msg.arg2).startAnimation(right);
+					mFirstfragment.getRootView().findViewById(msg.arg2).startAnimation(right);
 					right.setAnimationListener(new AnimationListener() {
 
 						@Override
 						public void onAnimationStart(Animation animation) {
-							// TODO Auto-generated method stub
+							Log.e(TAG, "Animation start");
 
 						}
 
@@ -235,6 +243,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 						@Override
 						public void onAnimationEnd(Animation animation) {
+							Log.e(TAG, "Animation end");
 							Message msg = new Message();
 							msg.what = SHOW_MENU;
 							msg.arg1 = R.anim.right_out;
@@ -292,16 +301,17 @@ public class MainActivity extends Activity implements OnClickListener {
 					Animation show_menu = AnimationUtils.loadAnimation(
 							MainActivity.this, R.anim.right_out);
 					// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
-					findViewById(R.id.right_top).setVisibility(View.VISIBLE);
-					findViewById(R.id.right_top).startAnimation(show_menu);
-					findViewById(R.id.right_bottom).setVisibility(View.VISIBLE);
-					findViewById(R.id.right_bottom).startAnimation(show_menu);
+					View view = mFirstfragment.getRootView();
+					view.findViewById(R.id.right_top).setVisibility(View.VISIBLE);
+					view.findViewById(R.id.right_top).startAnimation(show_menu);
+					view.findViewById(R.id.right_bottom).setVisibility(View.VISIBLE);
+					view.findViewById(R.id.right_bottom).startAnimation(show_menu);
 					show_menu = AnimationUtils.loadAnimation(MainActivity.this,
 							R.anim.left_out);
-					findViewById(R.id.left_top).setVisibility(View.VISIBLE);
-					findViewById(R.id.left_top).startAnimation(show_menu);
-					findViewById(R.id.left_bottom).setVisibility(View.VISIBLE);
-					findViewById(R.id.left_bottom).startAnimation(show_menu);
+					view.findViewById(R.id.left_top).setVisibility(View.VISIBLE);
+					view.findViewById(R.id.left_top).startAnimation(show_menu);
+					view.findViewById(R.id.left_bottom).setVisibility(View.VISIBLE);
+					view.findViewById(R.id.left_bottom).startAnimation(show_menu);
 					show_menu.setAnimationListener(new AnimationListener() {
 
 						@Override
@@ -325,14 +335,15 @@ public class MainActivity extends Activity implements OnClickListener {
 				case SHOW_ICON:
 					Animation show_icon = AnimationUtils.loadAnimation(
 							MainActivity.this, R.anim.show_out);
-					findViewById(R.id.stopwatch).setVisibility(View.VISIBLE);
-					findViewById(R.id.stopwatch).startAnimation(show_icon);
-					findViewById(R.id.obd).setVisibility(View.VISIBLE);
-					findViewById(R.id.obd).startAnimation(show_icon);
-					findViewById(R.id.trouble_codes).setVisibility(View.VISIBLE);
-					findViewById(R.id.trouble_codes).startAnimation(show_icon);
-					findViewById(R.id.maintenance).setVisibility(View.VISIBLE);
-					findViewById(R.id.maintenance).startAnimation(show_icon);
+					View view1 = mFirstfragment.getRootView();
+					view1.findViewById(R.id.stopwatch).setVisibility(View.VISIBLE);
+					view1.findViewById(R.id.stopwatch).startAnimation(show_icon);
+					view1.findViewById(R.id.obd).setVisibility(View.VISIBLE);
+					view1.findViewById(R.id.obd).startAnimation(show_icon);
+					view1.findViewById(R.id.trouble_codes).setVisibility(View.VISIBLE);
+					view1.findViewById(R.id.trouble_codes).startAnimation(show_icon);
+					view1.findViewById(R.id.maintenance).setVisibility(View.VISIBLE);
+					view1.findViewById(R.id.maintenance).startAnimation(show_icon);
 					break;
 					
 				case WIFI_CONNECT_FAILED:
@@ -357,6 +368,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	};
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -367,23 +379,22 @@ public class MainActivity extends Activity implements OnClickListener {
 //		}
 		setContentView(R.layout.activity_main);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		GaugeView mGaugeView1 = (GaugeView) findViewById(R.id.speed_view);
-		speed = 0;
-		mGaugeView1.setTargetValue(speed);
-		mGaugeView1 = (GaugeView) findViewById(R.id.rpm_view);
-		mGaugeView1.setTargetValue(0);
-		mGaugeView1 = (GaugeView) findViewById(R.id.fuel_view);
-		mGaugeView1.setTargetValue(0);
-
-
 		
+		mPager = (ViewPager) findViewById(R.id.vPager);
+        fragmentsList = new ArrayList<Fragment>();
 
-		findViewById(R.id.obd).setOnClickListener(this);
-		findViewById(R.id.stopwatch).setOnClickListener(this);
-		findViewById(R.id.trouble_codes).setOnClickListener(this);
-		findViewById(R.id.maintenance).setOnClickListener(this);
-		findViewById(R.id.obd_connected).setOnClickListener(this);
-		findViewById(R.id.obd_config).setOnClickListener(this);
+        mFirstfragment = new FirstIndexFragment();
+        SecondIndexFragment secondFragment = new SecondIndexFragment();
+
+        fragmentsList.add(mFirstfragment);
+        fragmentsList.add(secondFragment);
+        
+        mPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentsList));
+        mPager.setCurrentItem(0);
+        mPager.setOnPageChangeListener(new MyOnPageChangeListener());
+        
+        findViewById(R.id.obd_connected).setOnClickListener(this);
+        findViewById(R.id.obd_config).setOnClickListener(this);
 		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 500);
 		
 		Intent service = new Intent(this,OBDService.class);  
@@ -448,13 +459,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		// mServiceConnection.addJobToQueue(new ObdCommandJob(inMFP));
 		// mServiceConnection.addJobToQueue(new ObdCommandJob(inAT));
 		// mServiceConnection.addJobToQueue(new ObdCommandJob(fuel));
-		// mServiceConnection.addJobToQueue(maf);
-		// mServiceConnection.addJobToQueue(fuelLevel);
-		// mServiceConnection.addJobToQueue(equiv);
-		// mServiceConnection.addJobToQueue(ltft1);
-		// mServiceConnection.addJobToQueue(ltft2);
-		// mServiceConnection.addJobToQueue(stft1);
-		// mServiceConnection.addJobToQueue(stft2);
 
 	}
 
@@ -587,22 +591,34 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void initAnim() {
-		// Animation right = AnimationUtils.loadAnimation(this,
-		// R.anim.right_out);
-		// Animation left = AnimationUtils.loadAnimation(this, R.anim.left_out);
-		//
-		// findViewById(R.id.imageView4).startAnimation(right);
-		// findViewById(R.id.imageView5).startAnimation(right);
-		// findViewById(R.id.imageView6).startAnimation(right);
-		// findViewById(R.id.imageView1).startAnimation(left);
-		// findViewById(R.id.imageView2).startAnimation(left);
-		// findViewById(R.id.imageView3).startAnimation(left);
 		Message msg = new Message();
 		msg.what = START_ANIM;
 		msg.arg1 = R.anim.show_out;
 		msg.arg2 = R.id.light;
 		mHandler.sendMessageDelayed(msg, 10);
 
+	}
+	
+	public class MyOnPageChangeListener implements OnPageChangeListener {
+
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onPageSelected(int arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 
 }

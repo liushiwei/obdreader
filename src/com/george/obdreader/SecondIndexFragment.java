@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 
 public class SecondIndexFragment extends Fragment {
-	private static final String TAG = "FirstIndexFragment";
+	private static final String TAG = "SecondIndexFragment";
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -20,7 +20,7 @@ public class SecondIndexFragment extends Fragment {
 	    @Override
 	    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 	        Log.d(TAG, "TestFragment-----onCreateView");
-	        View view = inflater.inflate(R.layout.first_index, container, false);
+	        View view = inflater.inflate(R.layout.second_index, container, false);
 	       
 	        return view;
 
