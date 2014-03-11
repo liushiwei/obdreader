@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:visibility="gone" >
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/left_top"
             android:layout_toRightOf="@+id/left_top"
-            android:visibility="gone" >
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:visibility="gone" >
+             >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/left_bottom"
-            android:visibility="gone" >
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -82,8 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/stopwatch_icon"
-            android:visibility="gone" />
+            android:background="@drawable/stopwatch_icon"
+            />
 
         <ImageView
             android:id="@+id/obd"
@@ -91,8 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/obd_icon"
-            android:visibility="gone" />
+            android:background="@drawable/obd_icon"
+            />
 
         <ImageView
             android:id="@+id/trouble_codes"
@@ -100,8 +100,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/trouble_codes_icon"
-            android:visibility="gone" />
+            android:background="@drawable/trouble_codes_icon"
+            />
 
         <ImageView
             android:id="@+id/money"
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/money_icon"
+            android:background="@drawable/money_icon"
             android:visibility="gone" />
 
         <ImageView
@@ -118,8 +118,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/maintenance_icon"
-            android:visibility="gone" />
+            android:background="@drawable/maintenance_icon"
+            />
     </RelativeLayout>
 
     <FrameLayout
@@ -132,8 +132,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:src="@drawable/light_blue"
-            android:visibility="gone" />
+            android:background="@drawable/light_blue"
+            />
 
         <ImageView
             android:layout_width="wrap_content"

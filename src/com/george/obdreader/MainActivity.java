@@ -223,11 +223,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					Animation right = AnimationUtils.loadAnimation(
 							MainActivity.this, msg.arg1);
 					// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
-					mFirstfragment.getRootView().findViewById(msg.arg2).setVisibility(View.VISIBLE);
+					// mFirstfragment.getRootView().findViewById(msg.arg2).setVisibility(View.VISIBLE);
 					// findViewById(msg.arg2).setAlpha(0);
 					// right.setDuration(300);
-					mFirstfragment.getRootView().findViewById(msg.arg2).startAnimation(right);
-					right.setAnimationListener(new AnimationListener() {
+					AlphaAnimation anim = new AlphaAnimation(0.01f, 1.0f);
+					anim.setDuration(500);
+					
+					mFirstfragment.getRootView().findViewById(R.id.light).startAnimation(anim);
+					anim.setAnimationListener(new AnimationListener() {
 
 						@Override
 						public void onAnimationStart(Animation animation) {
@@ -249,68 +252,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 							msg.arg1 = R.anim.right_out;
 							msg.arg2 = R.id.right_top;
 							mHandler.sendMessageDelayed(msg, 50);
-							// msg = new Message();
-							// msg.what = SHOW_MENU;
-							// msg.arg1 = R.anim.right_out;
-							// msg.arg2 = R.id.right_bottom;
-							// mHandler.sendMessageDelayed(msg, 100);
-							//
-							// msg = new Message();
-							// msg.what = SHOW_MENU;
-							// msg.arg1 = R.anim.left_out;
-							// msg.arg2 = R.id.left_top;
-							// mHandler.sendMessageDelayed(msg, 200);
-							// msg = new Message();
-							// msg.what = SHOW_MENU;
-							// msg.arg1 = R.anim.left_out;
-							// msg.arg2 = R.id.left_bottom;
-							// mHandler.sendMessageDelayed(msg, 100);
-
+							
 						}
 					});
+					anim.start();
 					break;
 
 				case SHOW_MENU:
-					/*
-					 * Animation show_menu =
-					 * AnimationUtils.loadAnimation(MainActivity.this,msg.arg1);
-					 * //AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
-					 * findViewById(msg.arg2).setVisibility(View.VISIBLE);
-					 * //findViewById(msg.arg2).setAlpha(0);
-					 * //right.setDuration(300);
-					 * findViewById(msg.arg2).startAnimation(show_menu);
-					 * show_menu.setAnimationListener(new AnimationListener() {
-					 * 
-					 * @Override public void onAnimationStart(Animation
-					 * animation) { // TODO Auto-generated method stub
-					 * 
-					 * }
-					 * 
-					 * @Override public void onAnimationRepeat(Animation
-					 * animation) { // TODO Auto-generated method stub
-					 * 
-					 * }
-					 * 
-					 * @Override public void onAnimationEnd(Animation animation)
-					 * { Message msg = new Message(); msg.what = SHOW_ICON;
-					 * msg.arg1 = R.anim.show_out; msg.arg2 = R.id.stopwatch;
-					 * mHandler.sendMessageDelayed(msg, 200);
-					 * 
-					 * } });
-					 */
+					
 					Animation show_menu = AnimationUtils.loadAnimation(
 							MainActivity.this, R.anim.right_out);
 					// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
 					View view = mFirstfragment.getRootView();
-					view.findViewById(R.id.right_top).setVisibility(View.VISIBLE);
 					view.findViewById(R.id.right_top).startAnimation(show_menu);
-					view.findViewById(R.id.right_bottom).setVisibility(View.VISIBLE);
 					view.findViewById(R.id.right_bottom).startAnimation(show_menu);
 					show_menu = AnimationUtils.loadAnimation(MainActivity.this,
 							R.anim.left_out);
-					view.findViewById(R.id.left_top).setVisibility(View.VISIBLE);
 					view.findViewById(R.id.left_top).startAnimation(show_menu);
-					view.findViewById(R.id.left_bottom).setVisibility(View.VISIBLE);
 					view.findViewById(R.id.left_bottom).startAnimation(show_menu);
 					show_menu.setAnimationListener(new AnimationListener() {
 
@@ -336,13 +294,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					Animation show_icon = AnimationUtils.loadAnimation(
 							MainActivity.this, R.anim.show_out);
 					View view1 = mFirstfragment.getRootView();
-					view1.findViewById(R.id.stopwatch).setVisibility(View.VISIBLE);
 					view1.findViewById(R.id.stopwatch).startAnimation(show_icon);
-					view1.findViewById(R.id.obd).setVisibility(View.VISIBLE);
 					view1.findViewById(R.id.obd).startAnimation(show_icon);
-					view1.findViewById(R.id.trouble_codes).setVisibility(View.VISIBLE);
 					view1.findViewById(R.id.trouble_codes).startAnimation(show_icon);
-					view1.findViewById(R.id.maintenance).setVisibility(View.VISIBLE);
 					view1.findViewById(R.id.maintenance).startAnimation(show_icon);
 					break;
 					
@@ -399,7 +353,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		
 		Intent service = new Intent(this,OBDService.class);  
 	    startService(service);    
-
+	    hideView();
+	    
 	}
 
 	private void stopLiveData() {
@@ -602,23 +557,31 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public class MyOnPageChangeListener implements OnPageChangeListener {
 
 		@Override
-		public void onPageScrollStateChanged(int arg0) {
-			// TODO Auto-generated method stub
+		public void onPageScrollStateChanged(int state) {
+			Log.d(TAG, "onPageScrollStateChanged = "+state);
 			
 		}
 
 		@Override
-		public void onPageScrolled(int arg0, float arg1, int arg2) {
-			// TODO Auto-generated method stub
+		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+			Log.d(TAG, "onPageScrolled = "+position+" arg1="+positionOffset+" arg2= "+positionOffsetPixels +" mPager.getCurrentItem()="+mPager.getCurrentItem());
+			if(position==0){
+					findViewById(R.id.left_light).getBackground().setAlpha((int) (255*positionOffset));
+					findViewById(R.id.right_light).getBackground().setAlpha((int) (255*(1-positionOffset)));
+			}
 			
 		}
 
 		@Override
-		public void onPageSelected(int arg0) {
-			// TODO Auto-generated method stub
+		public void onPageSelected(int position) {
+			Log.d(TAG, "onPageSelected = "+position);
 			
 		}
 		
+	}
+	
+	private void hideView(){
+		findViewById(R.id.left_light).getBackground().setAlpha(0);
 	}
 
 }
