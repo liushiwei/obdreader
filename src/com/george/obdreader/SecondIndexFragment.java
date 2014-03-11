@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -120,7 +121,7 @@ public class SecondIndexFragment extends Fragment {
 			@Override
 			public int getCount() {
 				// TODO Auto-generated method stub
-				return mList.size();
+				return 8;
 			}
 
 			@Override
@@ -139,10 +140,13 @@ public class SecondIndexFragment extends Fragment {
 			public View getView(int position, View convertView, ViewGroup parent) {
 				LayoutInflater inflater = getActivity().getLayoutInflater();
 	              View row = inflater.inflate(R.layout.app_item, parent, false);
-	              ImageView imageView = (ImageView) row.findViewById(R.id.mycj_icon);
-	              TextView tv = (TextView) row.findViewById(R.id.mycj_app_name);
-                  tv.setText(mList.get(position).loadLabel(mPackageManager).toString());
-                  imageView.setBackgroundResource(mList.get(position).getIconResource());
+	              row.setBackgroundResource(R.drawable.app_item_bg);
+	              if(position<mList.size()){
+	            	  ImageView imageView = (ImageView) row.findViewById(R.id.mycj_icon);
+	            	  TextView tv = (TextView) row.findViewById(R.id.mycj_app_name);
+	            	  tv.setText(mList.get(position).loadLabel(mPackageManager).toString());
+	            	  imageView.setBackgroundResource(mList.get(position).getIconResource());
+	              }
 				return row;
 			}
 

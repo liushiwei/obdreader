@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:gauge="http://schemas.android.com/apk/res/com.george.obdreader"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background"
-    android:orientation="vertical" >
+    >
+	<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+         >
 
+        <ImageView
+            android:id="@+id/right_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            
+            android:background="@drawable/left_light" 
+            />
+
+       <ImageView
+            android:id="@+id/left_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/right_light" 
+            android:visibility="invisible"/>
+    </RelativeLayout>
+    
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" >
+    </android.support.v4.view.ViewPager>
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -13,10 +45,10 @@
 
         <ImageButton
             android:id="@+id/obd_config"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/preferencesicon" />
 
@@ -57,14 +89,6 @@
             android:layout_toLeftOf="@+id/intake_temperature"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
+    
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vPager"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:flipInterval="30"
-        android:persistentDrawingCache="animation" >
-    </android.support.v4.view.ViewPager>
-
-</LinearLayout>
+</FrameLayout>
