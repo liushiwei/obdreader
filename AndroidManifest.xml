@@ -45,7 +45,7 @@
             android:name="com.george.obdreader.MaintenanceTip"
             android:theme="@style/DialogStyle" />
         
-        <activity android:name=".FuellingLogs" android:label="@string/fuelling_logs" android:icon="@drawable/money">
+        <activity android:name=".FuellingLogs" android:label="@string/fuelling_logs" android:icon="@drawable/refuel_log_icon">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.george.obdreader.category.APP" />

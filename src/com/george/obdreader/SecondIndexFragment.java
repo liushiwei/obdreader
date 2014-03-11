@@ -6,16 +6,18 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -23,7 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class SecondIndexFragment extends Fragment {
+public class SecondIndexFragment extends Fragment implements OnClickListener {
 	private static final String TAG = "SecondIndexFragment";
 	private List<ResolveInfo> mList ;
 	private PackageManager mPackageManager;
@@ -140,12 +142,30 @@ public class SecondIndexFragment extends Fragment {
 			public View getView(int position, View convertView, ViewGroup parent) {
 				LayoutInflater inflater = getActivity().getLayoutInflater();
 	              View row = inflater.inflate(R.layout.app_item, parent, false);
+	              row.setTag(position);
+	              row.setOnClickListener(SecondIndexFragment.this);
 	              row.setBackgroundResource(R.drawable.app_item_bg);
 	              if(position<mList.size()){
-	            	  ImageView imageView = (ImageView) row.findViewById(R.id.mycj_icon);
-	            	  TextView tv = (TextView) row.findViewById(R.id.mycj_app_name);
-	            	  tv.setText(mList.get(position).loadLabel(mPackageManager).toString());
-	            	  imageView.setBackgroundResource(mList.get(position).getIconResource());
+	            	  Log.d(TAG, "package = "+mList.get(position).activityInfo.packageName);
+	            	  if(mList.get(position).activityInfo.packageName.equals(getActivity().getPackageName())){
+	            		  
+	            		  ImageView imageView = (ImageView) row.findViewById(R.id.mycj_icon);
+	            		  TextView tv = (TextView) row.findViewById(R.id.mycj_app_name);
+	            		  tv.setText(mList.get(position).loadLabel(mPackageManager).toString());
+	            		  imageView.setBackgroundResource(mList.get(position).getIconResource());
+	            	  }else{
+	            		  try {
+							Context remoteContext = getActivity().createPackageContext(mList.get(position).activityInfo.packageName,
+								      Context.CONTEXT_IGNORE_SECURITY| Context.CONTEXT_INCLUDE_CODE);
+							ImageView imageView = (ImageView) row.findViewById(R.id.mycj_icon);
+							TextView tv = (TextView) row.findViewById(R.id.mycj_app_name);
+							tv.setText(mList.get(position).loadLabel(mPackageManager).toString());
+							imageView.setBackgroundDrawable(remoteContext.getResources().getDrawable(mList.get(position).getIconResource()));
+						} catch (NameNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+	            	  }
 	              }
 				return row;
 			}
@@ -153,5 +173,14 @@ public class SecondIndexFragment extends Fragment {
 			
 	    	
 	    }
+
+		@Override
+		public void onClick(View v) {
+			 Intent i = new Intent();  
+			 Log.d(TAG, mList.get((Integer) v.getTag()).activityInfo.name);
+			 i.setClassName(mList.get((Integer) v.getTag()).activityInfo.packageName, mList.get((Integer) v.getTag()).activityInfo.name);
+             startActivity(i); 	
+			
+		}
 
 }
