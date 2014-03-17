@@ -41,7 +41,6 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.d("=====>", "MaintenanceLog onCreateView");
 		View root = inflater
 				.inflate(R.layout.maintenance_log, container, false);
 		mLogListView = (ListView) root.findViewById(R.id.listView1);

@@ -33,9 +33,13 @@ public class DatabaseProvider extends ContentProvider {
 
 	private static final UriMatcher sUriMatcher;
 
-	private static final int MAINTENANCE_LOG_TABLE_NO = 0;
+	private static final int MAINTENANCE_LOG_TABLE_NO = 0x00;
 
-	private static final int MAINTENANCE_LOG_TABLE_ID = 1;
+	private static final int MAINTENANCE_LOG_TABLE_ID = 0x01;
+	
+	private static final int FUELLING_LOG_TABLE_NO = 0x10;
+
+	private static final int FUELLING_LOG_TABLE_ID = 0x11;
 
 	
 
@@ -44,6 +48,8 @@ public class DatabaseProvider extends ContentProvider {
 		 switch (sUriMatcher.match(uri)) {
          case MAINTENANCE_LOG_TABLE_NO:
              return MaintenanceLogTable.CONTENT_TYPE;
+         case FUELLING_LOG_TABLE_NO:
+             return FuellingLogTable.CONTENT_TYPE;
 
          default:
              throw new IllegalArgumentException("Unknown URI " + uri);
@@ -52,9 +58,7 @@ public class DatabaseProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        if (sUriMatcher.match(uri) != MAINTENANCE_LOG_TABLE_NO) {
-            throw new IllegalArgumentException("Unknown URI " + uri);
-        }
+       
 
         ContentValues value;
         if (values != null) {
@@ -66,18 +70,39 @@ public class DatabaseProvider extends ContentProvider {
         // Make sure that the fields are all set
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        try {
-            long rowId = db.insert(MaintenanceLogTable.TABLE_NAME, MaintenanceLogTable.TIME, value);
-            if (rowId > 0) {
-                Uri noteUri = ContentUris.withAppendedId(MaintenanceLogTable.CONTENT_URI, rowId);
-                getContext().getContentResolver().notifyChange(noteUri, null);
-                return noteUri;
-            }
+        switch(sUriMatcher.match(uri)){
+        case MAINTENANCE_LOG_TABLE_NO:
+        	try {
+                long rowId = db.insert(MaintenanceLogTable.TABLE_NAME, MaintenanceLogTable.TIME, value);
+                if (rowId > 0) {
+                    Uri noteUri = ContentUris.withAppendedId(MaintenanceLogTable.CONTENT_URI, rowId);
+                    getContext().getContentResolver().notifyChange(noteUri, null);
+                    return noteUri;
+                }
 
-            // throw new SQLException("Failed to insert row into " + uri);
-        } catch (SQLiteConstraintException e) {
-            e.printStackTrace();
+                // throw new SQLException("Failed to insert row into " + uri);
+            } catch (SQLiteConstraintException e) {
+                e.printStackTrace();
+            }
+        	break;
+        case FUELLING_LOG_TABLE_NO:
+        	try {
+                long rowId = db.insert(FuellingLogTable.TABLE_NAME, FuellingLogTable.TIME, value);
+                if (rowId > 0) {
+                    Uri noteUri = ContentUris.withAppendedId(FuellingLogTable.CONTENT_URI, rowId);
+                    getContext().getContentResolver().notifyChange(noteUri, null);
+                    return noteUri;
+                }
+
+                // throw new SQLException("Failed to insert row into " + uri);
+            } catch (SQLiteConstraintException e) {
+                e.printStackTrace();
+            }
+        	break;
+        	default:
+        		throw new IllegalArgumentException("Unknown URI " + uri);
         }
+        
         return null;
     }
 
@@ -97,6 +122,19 @@ public class DatabaseProvider extends ContentProvider {
                         		MaintenanceLogTable._ID
                                         + "="
                                         + callLogId
+                                        + (!TextUtils.isEmpty(selection) ? " AND (" + selection
+                                                + ')' : ""), selectionArgs);
+                break;
+            case FUELLING_LOG_TABLE_NO:
+            	count = db.delete(FuellingLogTable.TABLE_NAME, selection, selectionArgs);
+            	
+            	break;
+            case FUELLING_LOG_TABLE_ID:
+                count = db
+                        .delete(FuellingLogTable.TABLE_NAME,
+                        		FuellingLogTable._ID
+                                        + "="
+                                        + uri.getPathSegments().get(1)
                                         + (!TextUtils.isEmpty(selection) ? " AND (" + selection
                                                 + ')' : ""), selectionArgs);
                 break;
@@ -123,27 +161,37 @@ public class DatabaseProvider extends ContentProvider {
 			String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(MaintenanceLogTable.TABLE_NAME);
-
+        // If no sort order is specified use the default
+        String orderBy;
         switch (sUriMatcher.match(uri)) {
             case MAINTENANCE_LOG_TABLE_NO:
                 qb.setProjectionMap(sLocationTableProjectionMap);
+                orderBy = MaintenanceLogTable.DEFAULT_SORT_ORDER;
                 break;
 
             case MAINTENANCE_LOG_TABLE_ID:
                 qb.setProjectionMap(sLocationTableProjectionMap);
                 qb.appendWhere(MaintenanceLogTable._ID + "=" + uri.getPathSegments().get(1));
+                orderBy = MaintenanceLogTable.DEFAULT_SORT_ORDER;
+                break;
+            case FUELLING_LOG_TABLE_NO:
+                qb.setProjectionMap(sLocationTableProjectionMap);
+                orderBy = FuellingLogTable.DEFAULT_SORT_ORDER;
+                break;
+
+            case FUELLING_LOG_TABLE_ID:
+                qb.setProjectionMap(sLocationTableProjectionMap);
+                qb.appendWhere(MaintenanceLogTable._ID + "=" + uri.getPathSegments().get(1));
+                orderBy = FuellingLogTable.DEFAULT_SORT_ORDER;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
 
-        // If no sort order is specified use the default
-        String orderBy;
-        if (TextUtils.isEmpty(sortOrder)) {
-            orderBy = MaintenanceLogTable.DEFAULT_SORT_ORDER;
-        } else {
+       
+        if (!TextUtils.isEmpty(sortOrder)) {
             orderBy = sortOrder;
-        }
+        } 
 
         // Get the database and run the query
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
@@ -176,6 +224,14 @@ public class DatabaseProvider extends ContentProvider {
 					+ " INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,"
 					+ "content TEXT," + "cost INT," + "time INTEGER NOT NULL"
 					+ ");");
+			
+			db.execSQL("CREATE TABLE " + FuellingLogTable.TABLE_NAME + " ("
+					+ FuellingLogTable._ID
+					+ " INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,"
+					+ "content TEXT," + "cost INT," + "isFull BOOLEAN,"  + "isAlert BOOLEAN," + "mileage FLOAT,"+ "price FLOAT," + "forgetLast BOOLEAN," +"gasType INT,"+"amount INT,"
+					+ "time INTEGER NOT NULL"
+					+ ");");
+			
 			// db.execSQL("insert into [MaintenanceLogTable.TABLE_NAME] (appName,className,packageName,isSys,imagePath,backgroundImagePath,time,type) values('news', 'com.netease.newsreader.activity.MainIndexActivity', 'com.netease.newsreader.activity', 1, 'btn_src_news', 'app_item_bg1',"
 			// + new Date().getTime() + ",1);");
 		}

@@ -45,6 +45,7 @@
     <string name="check_not_error">没有查询到任何故障</string>
     <!-- 保养 -->
     <string name="maintenance_logs">保养维修记录</string>
+    <string name="fuell_logs">油耗记录</string>
     <string name="maintenance_settings">保养设置</string>
     <string name="choice_date">请选择保养间隔时间</string>
     <string name="set_date">设置保养间隔时间</string>
