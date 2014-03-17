@@ -28,7 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.george.obdreader.db.FuellingLogTable;
-import com.george.obdreader.db.MaintenanceLogTable;
+
 
 public class FuellingLogsFragment extends Fragment implements OnClickListener {
 
@@ -47,7 +47,6 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
         ContentResolver resolver = getActivity().getContentResolver();
         Cursor cursor = resolver.query(FuellingLogTable.CONTENT_URI, null,
                 null, null, FuellingLogTable.DEFAULT_SORT_ORDER);
-
         mAdapter = new SimpleCursorAdapter(getActivity(), cursor, true);
         mLogListView.setAdapter(mAdapter);
         ImageButton add = (ImageButton) getActivity()
@@ -136,10 +135,10 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
                                             int which) {
                                         ContentResolver resolver = getActivity().getContentResolver();
                                         ContentValues values = new ContentValues();  
-                                        values.put(MaintenanceLogTable.CONTENT, mMaintenanceSelected.toString());  
-                                        values.put(MaintenanceLogTable.COST, edtInput.getText().toString());  
-                                        values.put(MaintenanceLogTable.TIME, maintenanceDate.getTimeInMillis());  
-                                        resolver.insert(MaintenanceLogTable.CONTENT_URI, values);  
+                                        values.put(FuellingLogTable.CONTENT, mMaintenanceSelected.toString());  
+                                        values.put(FuellingLogTable.COST, edtInput.getText().toString());  
+                                        values.put(FuellingLogTable.TIME, maintenanceDate.getTimeInMillis());  
+                                        resolver.insert(FuellingLogTable.CONTENT_URI, values);  
                                         mAdapter.notifyDataSetChanged();
                                     }
 
@@ -176,11 +175,11 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
             // TODO Auto-generated method stub
             ViewHolder holder = (ViewHolder) view.getTag();
             long time = cursor.getLong(cursor
-                    .getColumnIndex(MaintenanceLogTable.TIME));
+                    .getColumnIndex(FuellingLogTable.TIME));
             int cost = cursor.getInt(cursor
-                    .getColumnIndex(MaintenanceLogTable.COST));
+                    .getColumnIndex(FuellingLogTable.COST));
             String content = cursor.getString(cursor
-                    .getColumnIndex(MaintenanceLogTable.CONTENT));
+                    .getColumnIndex(FuellingLogTable.CONTENT));
             holder.cost.setText(cost + "");
             holder.content.setText(content);
             holder.time.setText(new SimpleDateFormat("yyyy-MM-dd")
