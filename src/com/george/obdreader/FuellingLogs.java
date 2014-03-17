@@ -1,14 +1,40 @@
 package com.george.obdreader;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import com.george.obdreader.MaintenanceLog.SimpleCursorAdapter;
+import com.george.obdreader.MaintenanceLog.ViewHolder;
+import com.george.obdreader.db.MaintenanceLogTable;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.DatePicker.OnDateChangedListener;
 
 public class FuellingLogs extends FragmentActivity {
     private FragmentTabHost mTabHost;
@@ -30,7 +56,7 @@ public class FuellingLogs extends FragmentActivity {
     }
     
     private void setTabs() {
-    	addTab(getString(R.string.fuell_logs), R.drawable.money_icon, MaintenanceLog.class);
+    	addTab(getString(R.string.fuell_logs), R.drawable.money_icon, FuellingLogsFragment.class);
    }
    
    
@@ -56,6 +82,6 @@ public class FuellingLogs extends FragmentActivity {
        //TODO: http://androil.sinaapp.com/models/spec.php?cheXing=11021
        
    }
-    
+   
 
 }
