@@ -160,29 +160,33 @@ public class DatabaseProvider extends ContentProvider {
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-        qb.setTables(MaintenanceLogTable.TABLE_NAME);
+        
         // If no sort order is specified use the default
         String orderBy;
         switch (sUriMatcher.match(uri)) {
             case MAINTENANCE_LOG_TABLE_NO:
                 qb.setProjectionMap(sLocationTableProjectionMap);
                 orderBy = MaintenanceLogTable.DEFAULT_SORT_ORDER;
+                qb.setTables(MaintenanceLogTable.TABLE_NAME);
                 break;
 
             case MAINTENANCE_LOG_TABLE_ID:
                 qb.setProjectionMap(sLocationTableProjectionMap);
                 qb.appendWhere(MaintenanceLogTable._ID + "=" + uri.getPathSegments().get(1));
                 orderBy = MaintenanceLogTable.DEFAULT_SORT_ORDER;
+                qb.setTables(MaintenanceLogTable.TABLE_NAME);
                 break;
             case FUELLING_LOG_TABLE_NO:
                 qb.setProjectionMap(sLocationTableProjectionMap);
                 orderBy = FuellingLogTable.DEFAULT_SORT_ORDER;
+                qb.setTables(FuellingLogTable.TABLE_NAME);
                 break;
 
             case FUELLING_LOG_TABLE_ID:
                 qb.setProjectionMap(sLocationTableProjectionMap);
-                qb.appendWhere(MaintenanceLogTable._ID + "=" + uri.getPathSegments().get(1));
+                qb.appendWhere(FuellingLogTable._ID + "=" + uri.getPathSegments().get(1));
                 orderBy = FuellingLogTable.DEFAULT_SORT_ORDER;
+                qb.setTables(FuellingLogTable.TABLE_NAME);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
@@ -261,6 +265,31 @@ public class DatabaseProvider extends ContentProvider {
 				MaintenanceLogTable.COST);
 		sLocationTableProjectionMap.put(MaintenanceLogTable.CONTENT,
 				MaintenanceLogTable.CONTENT);
+		
+		sUriMatcher.addURI(AUTHORITY,
+				FuellingLogTable.TABLE_NAME, FUELLING_LOG_TABLE_NO);
+		sUriMatcher.addURI(AUTHORITY,
+				FuellingLogTable.TABLE_NAME + "/#", FUELLING_LOG_TABLE_ID);
+
+		sLocationTableProjectionMap = new HashMap<String, String>();
+		sLocationTableProjectionMap.put(FuellingLogTable._ID,
+				FuellingLogTable._ID);
+		sLocationTableProjectionMap.put(FuellingLogTable.TIME,
+				FuellingLogTable.TIME);
+		sLocationTableProjectionMap.put(FuellingLogTable.COST,
+				FuellingLogTable.COST);
+		sLocationTableProjectionMap.put(FuellingLogTable.CONTENT,
+				FuellingLogTable.CONTENT);
+		sLocationTableProjectionMap.put(FuellingLogTable.AMOUNT,
+				FuellingLogTable.AMOUNT);
+		sLocationTableProjectionMap.put(FuellingLogTable.FORGETLAST,
+				FuellingLogTable.FORGETLAST);
+		sLocationTableProjectionMap.put(FuellingLogTable.ISALERT,
+				FuellingLogTable.ISALERT);
+		sLocationTableProjectionMap.put(FuellingLogTable.GASTYPE,
+				FuellingLogTable.GASTYPE);
+		sLocationTableProjectionMap.put(FuellingLogTable.PRICE,
+				FuellingLogTable.PRICE);
 	}
 
 }
