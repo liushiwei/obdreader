@@ -67,5 +67,14 @@
       <item name="android:maxHeight">16dip</item>
   </style>
   
+  <style name="SpinnerAppTheme" parent="android:Widget.Spinner">
+      <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_light</item>
+  </style>
+
+  <style name="SpinnerDropDownItemAppTheme" parent="android:Widget.DropDownItem.Spinner">
+      <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
+  </style>
+  
 
 </resources>
