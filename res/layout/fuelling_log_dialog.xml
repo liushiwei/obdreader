@@ -13,8 +13,8 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="记录时间"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
             android:id="@+id/editText1"
@@ -39,8 +39,8 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="油箱加满"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="油箱已经加满"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
                 android:id="@+id/checkBox1"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="油灯亮了"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
                 android:id="@+id/checkBox1"
@@ -66,21 +66,159 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-        <TextView
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="油箱加满"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="上次没有记录"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
                 android:id="@+id/checkBox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1" >
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前里程"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="86dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="right"
+                android:hint="公里"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前油价"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="right"
+                android:hint="元/升"
+                android:inputType="number" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本次金额"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="86dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="right"
+                android:hint="元"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本次加油量"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="right"
+                android:hint="升"
+                android:inputType="number" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+    </LinearLayout>
 
 </LinearLayout>

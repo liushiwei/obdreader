@@ -70,7 +70,8 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(
 				getActivity());
 		builder.setCancelable(false);
-		builder.setTitle(getString(R.string.selecte_maintenance_options));
+		//builder.setTitle(getString(R.string.selecte_maintenance_options));
+		builder.setView(textEntryView);
 		builder.setPositiveButton(getString(android.R.string.ok),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
