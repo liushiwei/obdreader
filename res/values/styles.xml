@@ -18,6 +18,8 @@
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
         <item name="android:spinnerStyle">@style/SpinnerAppTheme</item>
     	<item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppTheme</item>
+    	<item name="android:editTextStyle">@style/EditTextAppTheme</item>
+    	<item name="android:textColorHighlight">#9933b5e5</item>
     </style>
 
     <style name="DialogStyle" parent="AppTheme">

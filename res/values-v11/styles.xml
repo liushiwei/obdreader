@@ -7,5 +7,8 @@
     <style name="AppBaseTheme" parent="android:Theme.Holo.NoActionBar">
         <!-- API 11 theme customizations can go here. -->
     </style>
-
+ 	<style name="SpinnerAppTheme" parent="android:Widget.Holo.Light.Spinner">
+      <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_light</item>
+  	</style>
 </resources>
