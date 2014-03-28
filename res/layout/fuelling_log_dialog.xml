@@ -101,7 +101,8 @@
                 android:id="@+id/spinner1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" 
-                android:entries="@array/fuel_types"/>
+                android:entries="@array/fuel_types"
+                />
         </LinearLayout>
     </LinearLayout>
 

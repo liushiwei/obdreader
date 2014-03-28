@@ -11,9 +11,11 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.george.obdreader.db.FuellingLogTable;
@@ -51,6 +54,7 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 				.findViewById(R.id.add_pid);
 		add.setVisibility(View.VISIBLE);
 		add.setOnClickListener(this);
+		
 		return root;
 	}
 
@@ -63,15 +67,18 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 
-		final View textEntryView = LayoutInflater.from(getActivity()).inflate(
+		final View view = LayoutInflater.from(getActivity()).inflate(
 				R.layout.fuelling_log_dialog, null);
-		final EditText edtInput = (EditText) textEntryView
+		Spinner spinner = (Spinner) view.findViewById(R.id.spinner1);
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		spinner.setSelection(preferences.getInt("last_time_fule_type", 2));
+		final EditText edtInput = (EditText) view
 				.findViewById(R.id.editText1);
 		final AlertDialog.Builder builder = new AlertDialog.Builder(
 				getActivity());
 		builder.setCancelable(false);
 		//builder.setTitle(getString(R.string.selecte_maintenance_options));
-		builder.setView(textEntryView);
+		builder.setView(view);
 		builder.setPositiveButton(getString(android.R.string.ok),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
