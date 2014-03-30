@@ -1,18 +1,16 @@
 package com.george.obdreader;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,7 +21,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -39,7 +36,9 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 	private Date mTime;
 	private ListView mLogListView;
 	private SimpleCursorAdapter mAdapter;
-
+	private View mRootView;
+	private View mDialogView;
+	private long mLogTime;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -54,8 +53,8 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 				.findViewById(R.id.add_pid);
 		add.setVisibility(View.VISIBLE);
 		add.setOnClickListener(this);
-		
-		return root;
+		mRootView = root;
+		return mRootView;
 	}
 
 	@Override
@@ -67,18 +66,33 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 
-		final View view = LayoutInflater.from(getActivity()).inflate(
+	    mDialogView = LayoutInflater.from(getActivity()).inflate(
 				R.layout.fuelling_log_dialog, null);
-		Spinner spinner = (Spinner) view.findViewById(R.id.spinner1);
+		Spinner spinner = (Spinner) mDialogView.findViewById(R.id.spinner1);
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		spinner.setSelection(preferences.getInt("last_time_fule_type", 2));
-		final EditText edtInput = (EditText) view
-				.findViewById(R.id.editText1);
+		final EditText edtInput = (EditText) mDialogView
+				.findViewById(R.id.today);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		edtInput.setText(sdf.format(new Date()));
+		edtInput.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar today = Calendar.getInstance();
+                DatePickerDialog dialog = new DatePickerDialog(FuellingLogsFragment.this.getActivity(),
+                        dateListener,
+                        today.get(Calendar.YEAR),
+                        today.get(Calendar.MONTH),
+                        today.get(Calendar.DAY_OF_MONTH));
+                dialog.show();
+            }
+        });
 		final AlertDialog.Builder builder = new AlertDialog.Builder(
 				getActivity());
 		builder.setCancelable(false);
 		//builder.setTitle(getString(R.string.selecte_maintenance_options));
-		builder.setView(view);
+		builder.setView(mDialogView);
 		builder.setPositiveButton(getString(android.R.string.ok),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
@@ -138,5 +152,21 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 		TextView content;
 		TextView time;
 	}
+	
+	DatePickerDialog.OnDateSetListener dateListener = 
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, 
+                        int year, int month, int dayOfMonth) {
+                    EditText editText = 
+                        (EditText) mDialogView.findViewById(R.id.today);
+                    editText.setText( year + "-" + 
+                            (month+1) + "-" + dayOfMonth );
+                    Calendar today = Calendar.getInstance();
+                    today.set(year, month, dayOfMonth);
+                    mLogTime = today.getTimeInMillis();
+                    
+                }
+            };
 
 }
