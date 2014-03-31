@@ -123,7 +123,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/currentDic"
+                android:id="@+id/currentMileage"
                 android:layout_width="86dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -139,20 +139,19 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="当前油价"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="right"
                 android:hint="元/升"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
         </LinearLayout>
     </LinearLayout>
 
@@ -169,11 +168,11 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="本次金额"
+                android:text="本次费用"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/cost"
                 android:layout_width="86dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -196,13 +195,13 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="right"
                 android:hint="升"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
         </LinearLayout>
     </LinearLayout>
 
@@ -215,11 +214,11 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="备注"
+            android:text="备注(可选)"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10" />

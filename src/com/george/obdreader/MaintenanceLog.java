@@ -51,7 +51,7 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 		mAdapter = new SimpleCursorAdapter(getActivity(), cursor, true);
 		mLogListView.setAdapter(mAdapter);
 		ImageButton add = (ImageButton) getActivity()
-				.findViewById(R.id.add_pid);
+				.findViewById(R.id.add);
 		add.setVisibility(View.VISIBLE);
 		add.setOnClickListener(this);
 		return root;
@@ -60,7 +60,7 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 	@Override
 	public void onDestroyView() {
 		Log.d("=====>", "MaintenanceLog onDestroyView");
-		getActivity().findViewById(R.id.add_pid).setVisibility(View.GONE);
+		getActivity().findViewById(R.id.add).setVisibility(View.GONE);
 		super.onDestroyView();
 	}
 
