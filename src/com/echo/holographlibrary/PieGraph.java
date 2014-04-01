@@ -36,6 +36,7 @@ public class PieGraph extends View {
 
 	private ArrayList<PieSlice> slices = new ArrayList<PieSlice>();
 	private Paint paint = new Paint();
+	private Paint textPaint = new Paint();
 	private Path path = new Path();
 	
 	private int indexSelected = -1;
@@ -88,7 +89,8 @@ public class PieGraph extends View {
 			slice.setPath(p);
 			slice.setRegion(new Region((int)(midX-radius), (int)(midY-radius), (int)(midX+radius), (int)(midY+radius)));
 			canvas.drawPath(p, paint);
-			
+			Point point = getTextPoint(new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerX(),new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerY(),radius,(currentSweep - 2*padding-currentAngle)/2);
+			canvas.drawText("Test", point.x-50,point.y, paint);
 			if (indexSelected == count && listener != null){
 				path.reset();
 				paint.setColor(slice.getColor());
@@ -184,6 +186,13 @@ public class PieGraph extends View {
 
 	public static interface OnSliceClickedListener {
 		public abstract void onClick(int index);
+	}
+	
+	private Point getTextPoint(float x ,float y, float r, float angle){
+	    Point point = new Point();
+	    point.x = (int) (x+r*Math.cos(angle*3.1415/180));
+	    point.y= (int) (y+r*Math.sin(angle*3.1415/180));
+	    return point;
 	}
 
 }
