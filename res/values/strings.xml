@@ -128,5 +128,6 @@
     <string name="pid_not_supported">Not Supported</string>
     
     <string name="fuelling_logs">加油记录</string>
+    <string name="cost">费用统计</string>
 
 </resources>

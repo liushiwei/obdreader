@@ -51,6 +51,13 @@
                 <category android:name="com.george.obdreader.category.APP" />
             </intent-filter>
         </activity>
+        <activity android:name=".Cost" android:label="@string/cost" android:icon="@drawable/money">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.george.obdreader.category.APP" />
+            </intent-filter>
+        </activity>
+        
 
         <service
             android:name=".io.ObdGatewayService"
