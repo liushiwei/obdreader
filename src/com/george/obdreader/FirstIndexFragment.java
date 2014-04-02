@@ -21,7 +21,7 @@ public class FirstIndexFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.d(TAG, "TestFragment-----onCreateView");
+		Log.d(TAG, "TestFragment-----onCreateView this = "+this);
 		mRoot = inflater.inflate(R.layout.first_index, container, false);
 		GaugeView mGaugeView1 = (GaugeView) mRoot.findViewById(R.id.rpm_view);
 		mGaugeView1.setTargetValue(0);

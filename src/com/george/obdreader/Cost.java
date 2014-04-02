@@ -3,8 +3,10 @@ package com.george.obdreader;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.echo.holographlibrary.PieGraph;
+import com.echo.holographlibrary.PieGraph.OnSliceClickedListener;
 import com.echo.holographlibrary.PieSlice;
 
 public class Cost extends Activity{
@@ -26,6 +28,14 @@ public class Cost extends Activity{
         slice.setColor(Color.parseColor("#AA66CC"));
         slice.setValue(8);
         pg.addSlice(slice);
+        pg.setOnSliceClickedListener(new OnSliceClickedListener() {
+            
+            @Override
+            public void onClick(int index) {
+               Toast.makeText(getBaseContext(), "click index="+index, Toast.LENGTH_LONG).show();
+                
+            }
+        });
     }
 
     

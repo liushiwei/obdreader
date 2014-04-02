@@ -23,10 +23,12 @@
 
 package com.echo.holographlibrary;
 
+import android.R.integer;
 import android.content.Context;
 import android.graphics.*;
 import android.graphics.Path.Direction;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -37,6 +39,7 @@ public class PieGraph extends View {
 	private ArrayList<PieSlice> slices = new ArrayList<PieSlice>();
 	private Paint paint = new Paint();
 	private Paint textPaint = new Paint();
+	private int textPadding = 5;
 	private Path path = new Path();
 	
 	private int indexSelected = -1;
@@ -53,6 +56,7 @@ public class PieGraph extends View {
 	
 	public void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.TRANSPARENT);
+		textPaint.setColor(Color.WHITE);
 		paint.reset();
 		paint.setAntiAlias(true);
 		float midX, midY, radius, innerRadius;
@@ -89,8 +93,18 @@ public class PieGraph extends View {
 			slice.setPath(p);
 			slice.setRegion(new Region((int)(midX-radius), (int)(midY-radius), (int)(midX+radius), (int)(midY+radius)));
 			canvas.drawPath(p, paint);
-			Point point = getTextPoint(new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerX(),new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerY(),radius,(currentSweep - 2*padding-currentAngle)/2);
-			canvas.drawText("Test", point.x-50,point.y, paint);
+			float angle = (currentAngle+padding+(currentSweep - padding)/2>360?currentAngle+padding+(currentSweep - padding)/2-360:currentAngle+padding+(currentSweep - padding)/2);
+			Log.e("PieGraph", "angle = "+angle);
+			Point point = getTextPoint(new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerX(),new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerY(),radius,angle);
+			Rect rect = new Rect();  
+            String textString = angle+"";
+            textPaint.getTextBounds(textString, 0, textString.length(), rect); 
+			if(angle>90&& angle<270){
+			     
+			    canvas.drawText(angle+"", point.x-rect.width()-textPadding,point.y, textPaint);
+			}else{
+			    canvas.drawText(angle+"", point.x+textPadding,point.y, textPaint);
+			}
 			if (indexSelected == count && listener != null){
 				path.reset();
 				paint.setColor(slice.getColor());

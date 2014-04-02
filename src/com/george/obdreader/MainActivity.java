@@ -220,84 +220,103 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					initAnim();
 					break;
 				case START_ANIM:
-					Animation right = AnimationUtils.loadAnimation(
-							MainActivity.this, msg.arg1);
-					// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
-					// mFirstfragment.getRootView().findViewById(msg.arg2).setVisibility(View.VISIBLE);
-					// findViewById(msg.arg2).setAlpha(0);
-					// right.setDuration(300);
-					AlphaAnimation anim = new AlphaAnimation(0.01f, 1.0f);
-					anim.setDuration(500);
+				    Log.d("FirstIndexFragment", "mFirstfragment="+mFirstfragment);
+				    View first = mPager.getChildAt(mPager.getCurrentItem());
+				    if(first.findViewById(R.id.light)!=null){
+				        Animation right = AnimationUtils.loadAnimation(
+	                            MainActivity.this, msg.arg1);
+	                    // AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
+	                    // mFirstfragment.getRootView().findViewById(msg.arg2).setVisibility(View.VISIBLE);
+	                    // findViewById(msg.arg2).setAlpha(0);
+	                    // right.setDuration(300);
+	                    AlphaAnimation anim = new AlphaAnimation(0.01f, 1.0f);
+	                    anim.setDuration(500);
+	                    
+	                    first.findViewById(R.id.light).startAnimation(anim);
+	                    anim.setAnimationListener(new AnimationListener() {
+
+	                        @Override
+	                        public void onAnimationStart(Animation animation) {
+	                            Log.e(TAG, "Animation start");
+
+	                        }
+
+	                        @Override
+	                        public void onAnimationRepeat(Animation animation) {
+	                            // TODO Auto-generated method stub
+
+	                        }
+
+	                        @Override
+	                        public void onAnimationEnd(Animation animation) {
+	                            Log.e(TAG, "Animation end");
+	                            Message msg = new Message();
+	                            msg.what = SHOW_MENU;
+	                            msg.arg1 = R.anim.right_out;
+	                            msg.arg2 = R.id.right_top;
+	                            mHandler.sendMessageDelayed(msg, 50);
+	                            
+	                        }
+	                    });
+	                    anim.start();
+				    }else{
+				        Log.d("FirstIndexFragment","view is null");
+				        Message ms = new Message();
+				        ms.what = START_ANIM;
+				        ms.arg1 = R.anim.show_out;
+				        ms.arg2 = R.id.light;
+				        mHandler.sendMessageDelayed(ms, 100);
+				    }
 					
-					mFirstfragment.getRootView().findViewById(R.id.light).startAnimation(anim);
-					anim.setAnimationListener(new AnimationListener() {
-
-						@Override
-						public void onAnimationStart(Animation animation) {
-							Log.e(TAG, "Animation start");
-
-						}
-
-						@Override
-						public void onAnimationRepeat(Animation animation) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void onAnimationEnd(Animation animation) {
-							Log.e(TAG, "Animation end");
-							Message msg = new Message();
-							msg.what = SHOW_MENU;
-							msg.arg1 = R.anim.right_out;
-							msg.arg2 = R.id.right_top;
-							mHandler.sendMessageDelayed(msg, 50);
-							
-						}
-					});
-					anim.start();
 					break;
 
 				case SHOW_MENU:
+				    View view = mPager.getChildAt(mPager.getCurrentItem());
+				    if(view.findViewById(R.id.right_top)!=null){
+				        Animation show_menu = AnimationUtils.loadAnimation(
+	                            MainActivity.this, R.anim.right_out);
+	                    // AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
+	                    
+	                    view.findViewById(R.id.right_top).startAnimation(show_menu);
+	                    view.findViewById(R.id.right_bottom).startAnimation(show_menu);
+	                    show_menu = AnimationUtils.loadAnimation(MainActivity.this,
+	                            R.anim.left_out);
+	                    view.findViewById(R.id.left_top).startAnimation(show_menu);
+	                    view.findViewById(R.id.left_bottom).startAnimation(show_menu);
+	                    show_menu.setAnimationListener(new AnimationListener() {
+
+	                        @Override
+	                        public void onAnimationStart(Animation animation) {
+	                            // TODO Auto-generated method stub
+
+	                        }
+
+	                        @Override
+	                        public void onAnimationRepeat(Animation animation) {
+	                            // TODO Auto-generated method stub
+
+	                        }
+
+	                        @Override
+	                        public void onAnimationEnd(Animation animation) {
+	                            mHandler.sendEmptyMessage(SHOW_ICON);
+	                        }
+	                    }); 
+				    }
 					
-					Animation show_menu = AnimationUtils.loadAnimation(
-							MainActivity.this, R.anim.right_out);
-					// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
-					View view = mFirstfragment.getRootView();
-					view.findViewById(R.id.right_top).startAnimation(show_menu);
-					view.findViewById(R.id.right_bottom).startAnimation(show_menu);
-					show_menu = AnimationUtils.loadAnimation(MainActivity.this,
-							R.anim.left_out);
-					view.findViewById(R.id.left_top).startAnimation(show_menu);
-					view.findViewById(R.id.left_bottom).startAnimation(show_menu);
-					show_menu.setAnimationListener(new AnimationListener() {
-
-						@Override
-						public void onAnimationStart(Animation animation) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void onAnimationRepeat(Animation animation) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void onAnimationEnd(Animation animation) {
-							mHandler.sendEmptyMessage(SHOW_ICON);
-						}
-					});
 					break;
 				case SHOW_ICON:
-					Animation show_icon = AnimationUtils.loadAnimation(
-							MainActivity.this, R.anim.show_out);
-					View view1 = mFirstfragment.getRootView();
-					view1.findViewById(R.id.stopwatch).startAnimation(show_icon);
-					view1.findViewById(R.id.obd).startAnimation(show_icon);
-					view1.findViewById(R.id.trouble_codes).startAnimation(show_icon);
-					view1.findViewById(R.id.maintenance).startAnimation(show_icon);
+				    View view1 = mPager.getChildAt(mPager.getCurrentItem());
+				    if(view1.findViewById(R.id.stopwatch)!=null){
+				        Animation show_icon = AnimationUtils.loadAnimation(
+	                            MainActivity.this, R.anim.show_out);
+	                    
+	                    view1.findViewById(R.id.stopwatch).startAnimation(show_icon);
+	                    view1.findViewById(R.id.obd).startAnimation(show_icon);
+	                    view1.findViewById(R.id.trouble_codes).startAnimation(show_icon);
+	                    view1.findViewById(R.id.maintenance).startAnimation(show_icon);
+				    }
+					
 					break;
 					
 				case WIFI_CONNECT_FAILED:
@@ -332,12 +351,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 //					.penaltyLog().build());
 //		}
 		setContentView(R.layout.activity_main);
+		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
 		mPager = (ViewPager) findViewById(R.id.vPager);
         fragmentsList = new ArrayList<Fragment>();
 
         mFirstfragment = new FirstIndexFragment();
+        Log.d("FirstIndexFragment", "onCreate() mFirstfragment="+mFirstfragment);
         SecondIndexFragment secondFragment = new SecondIndexFragment();
 
         fragmentsList.add(mFirstfragment);
