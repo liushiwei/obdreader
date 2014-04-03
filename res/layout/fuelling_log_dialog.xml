@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp" >
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,8 +53,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="20dp" >
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1" >
 
             <TextView
                 android:id="@+id/textView2"
@@ -95,7 +95,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1" >
 
             <Spinner
@@ -119,14 +119,14 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="当前里程"
+                android:text="总里程"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/currentMileage"
-                android:layout_width="86dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:hint="公里"
                 android:inputType="number" />
@@ -141,14 +141,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="当前油价"
+                android:text="油价"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/price"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:hint="元/升"
                 android:inputType="numberDecimal" />
@@ -168,14 +168,14 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="本次费用"
+                android:text="费用"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/cost"
-                android:layout_width="86dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:hint="元"
                 android:inputType="number" />
@@ -191,14 +191,14 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="本次加油量"
+                android:text="加油量"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/amount"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:hint="升"
                 android:inputType="numberDecimal" />
@@ -219,8 +219,9 @@
 
         <EditText
             android:id="@+id/content"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:ems="10" />
     </LinearLayout>
 

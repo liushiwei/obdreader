@@ -26,7 +26,7 @@ public class Log {
 			.getExternalStorageDirectory() + "/";// 日志文件在sdcard中的路径
 	private static int SDCARD_LOG_FILE_SAVE_DAYS = 0;// sd卡中日志文件的最多保存天数
 	private static String MYLOGFILEName = "Log.txt";// 本类输出的日志文件名称
-	private static String mTag = "FirstIndexFragment";
+	private static String mTag = "FuellingLog";
 	private static SimpleDateFormat myLogSdf = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");// 日志的输出格式
 	private static SimpleDateFormat logfile = new SimpleDateFormat("yyyy-MM-dd");// 日志文件格式

@@ -17,9 +17,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,11 +29,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.george.obdreader.db.FuellingLogTable;
 
-public class FuellingLogsFragment extends Fragment implements OnClickListener {
+public class FuellingLogsFragment extends Fragment implements OnClickListener,OnFocusChangeListener {
 
 	private List<String> mMaintenanceSelected;
 	private int mTake;
@@ -81,10 +84,13 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 			edtInput.setOnClickListener(this);
 			edtInput = (EditText) mDialogView.findViewById(R.id.price);
 			edtInput.setOnClickListener(this);
+			edtInput.setOnFocusChangeListener(this);
 			edtInput = (EditText) mDialogView.findViewById(R.id.cost);
 			edtInput.setOnClickListener(this);
+			edtInput.setOnFocusChangeListener(this);
 			edtInput = (EditText) mDialogView.findViewById(R.id.amount);
 			edtInput.setOnClickListener(this);
+			edtInput.setOnFocusChangeListener(this);
 			final AlertDialog.Builder builder = new AlertDialog.Builder(
 					getActivity());
 			builder.setCancelable(false);
@@ -120,54 +126,6 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 					today.get(Calendar.YEAR), today.get(Calendar.MONTH),
 					today.get(Calendar.DAY_OF_MONTH));
 			dialog.show();
-			break;
-		case R.id.price: {
-			Log.e("FuellingLog", "cost");
-			EditText cost = (EditText) mDialogView.findViewById(R.id.cost);
-			EditText amount = (EditText) mDialogView.findViewById(R.id.amount);
-			String c = cost.getText().toString().trim();
-			String a = amount.getText().toString().trim();
-			if (c.length() != 0 && a.length() != 0) {
-				float p = Float.valueOf(c) / Float.valueOf(a);
-				EditText price = (EditText) v;
-				NumberFormat format = NumberFormat.getInstance();
-				format.setMaximumFractionDigits(2);
-				price.setText(format.format(p));
-				Log.e("FuellingLog", "cost = "+format.format(a));
-			}
-			break;
-		}
-		case R.id.cost: {
-			Log.e("FuellingLog", "cost");
-			EditText price = (EditText) mDialogView.findViewById(R.id.price);
-			EditText amount = (EditText) mDialogView.findViewById(R.id.amount);
-			String p = price.getText().toString().trim();
-			String a = amount.getText().toString().trim();
-			if (p.length() != 0 && a.length() != 0) {
-				float c = Float.valueOf(p)* Float.valueOf(a);
-				EditText cost = (EditText)v;
-				NumberFormat format = NumberFormat.getInstance();
-				format.setMaximumFractionDigits(2);
-				cost.setText(format.format(c));
-				Log.e("FuellingLog", "cost = "+format.format(a));
-			}
-		}
-			break;
-		case R.id.amount: {
-			Log.e("FuellingLog", "amount");
-			EditText price = (EditText) mDialogView.findViewById(R.id.price);
-			EditText cost = (EditText) mDialogView.findViewById(R.id.cost);
-			String p = price.getText().toString().trim();
-			String c = cost.getText().toString().trim();
-			if (p.length() != 0 && c.length() != 0) {
-				float a = Float.valueOf(c)/ Float.valueOf(p);
-				EditText amount = (EditText)v;
-				NumberFormat format = NumberFormat.getInstance();
-				format.setMaximumFractionDigits(2);
-				amount.setText(format.format(a));
-				Log.e("FuellingLog", "amount = "+format.format(a));
-			}
-		}
 			break;
 
 		}
@@ -231,5 +189,67 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener {
 
 		}
 	};
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(hasFocus){
+            switch (v.getId()) {
+                case R.id.price: {
+                    Log.e("FuellingLog", "cost");
+                    EditText cost = (EditText) mDialogView.findViewById(R.id.cost);
+                    EditText amount = (EditText) mDialogView.findViewById(R.id.amount);
+                    String c = cost.getText().toString().trim();
+                    String a = amount.getText().toString().trim();
+                    if (c.length() != 0 && a.length() != 0) {
+                        float p = Float.valueOf(c) / Float.valueOf(a);
+                        EditText price = (EditText) v;
+                        NumberFormat format = NumberFormat.getInstance();
+                        format.setMaximumFractionDigits(2);
+                        price.setText(format.format(p));
+                        Log.e("FuellingLog", "price = "+format.format(p));
+                    }
+                    break;
+                }
+                case R.id.cost: {
+                    Log.e("FuellingLog", "cost");
+                    EditText price = (EditText) mDialogView.findViewById(R.id.price);
+                    EditText amount = (EditText) mDialogView.findViewById(R.id.amount);
+                    String p = price.getText().toString().trim();
+                    String a = amount.getText().toString().trim();
+                    if (p.length() != 0 && a.length() != 0) {
+                        float c = Float.valueOf(p)* Float.valueOf(a);
+                        EditText cost = (EditText)v;
+                        NumberFormat format = NumberFormat.getInstance();
+                        format.setMaximumFractionDigits(2);
+                        cost.setText(format.format(c));
+                        Log.e("FuellingLog", "cost = "+format.format(c));
+                    }
+                }
+                    break;
+                case R.id.amount: {
+                    Log.e("FuellingLog", "amount");
+                    EditText price = (EditText) mDialogView.findViewById(R.id.price);
+                    EditText cost = (EditText) mDialogView.findViewById(R.id.cost);
+                    String p = price.getText().toString().trim();
+                    String c = cost.getText().toString().trim();
+                    if (p.length() != 0 && c.length() != 0) {
+                        float a = Float.valueOf(c)/ Float.valueOf(p);
+                        EditText amount = (EditText)v;
+                        NumberFormat format = NumberFormat.getInstance();
+                        format.setMaximumFractionDigits(2);
+                        amount.setText(format.format(a));
+                        Log.e("FuellingLog", "amount = "+format.format(a));
+                    }
+                }
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+      
+        
+    }
 
 }
