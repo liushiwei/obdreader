@@ -145,7 +145,8 @@ public class PieGraph extends View {
             if (r.contains(point.x, point.y) && event.getAction() == MotionEvent.ACTION_DOWN) {
                 indexSelected = count;
 	    	} else if (event.getAction() == MotionEvent.ACTION_UP){
-                if (r.contains(point.x, point.y) && listener != null) {
+//                if (r.contains(point.x, point.y) && listener != null) {
+	    		  if (listener != null) {
                     if (indexSelected > -1){
 		    			listener.onClick(indexSelected);
 	    			}
