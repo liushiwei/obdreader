@@ -25,7 +25,9 @@ public class DatabaseProvider extends ContentProvider {
 
 	private static final int DATABASE_VERSION = 1;
 
-	private static HashMap<String, String> sLocationTableProjectionMap;
+	private static HashMap<String, String> sMaintenanceLogTableProjectionMap;
+	
+	private static HashMap<String, String> sFuellingLogTableProjectionMap;
 
 	private DatabaseHelper mOpenHelper;
 	
@@ -165,25 +167,25 @@ public class DatabaseProvider extends ContentProvider {
         String orderBy;
         switch (sUriMatcher.match(uri)) {
             case MAINTENANCE_LOG_TABLE_NO:
-                qb.setProjectionMap(sLocationTableProjectionMap);
+                qb.setProjectionMap(sMaintenanceLogTableProjectionMap);
                 orderBy = MaintenanceLogTable.DEFAULT_SORT_ORDER;
                 qb.setTables(MaintenanceLogTable.TABLE_NAME);
                 break;
 
             case MAINTENANCE_LOG_TABLE_ID:
-                qb.setProjectionMap(sLocationTableProjectionMap);
+                qb.setProjectionMap(sMaintenanceLogTableProjectionMap);
                 qb.appendWhere(MaintenanceLogTable._ID + "=" + uri.getPathSegments().get(1));
                 orderBy = MaintenanceLogTable.DEFAULT_SORT_ORDER;
                 qb.setTables(MaintenanceLogTable.TABLE_NAME);
                 break;
             case FUELLING_LOG_TABLE_NO:
-                qb.setProjectionMap(sLocationTableProjectionMap);
+                qb.setProjectionMap(sFuellingLogTableProjectionMap);
                 orderBy = FuellingLogTable.DEFAULT_SORT_ORDER;
                 qb.setTables(FuellingLogTable.TABLE_NAME);
                 break;
 
             case FUELLING_LOG_TABLE_ID:
-                qb.setProjectionMap(sLocationTableProjectionMap);
+                qb.setProjectionMap(sFuellingLogTableProjectionMap);
                 qb.appendWhere(FuellingLogTable._ID + "=" + uri.getPathSegments().get(1));
                 orderBy = FuellingLogTable.DEFAULT_SORT_ORDER;
                 qb.setTables(FuellingLogTable.TABLE_NAME);
@@ -232,7 +234,7 @@ public class DatabaseProvider extends ContentProvider {
 			db.execSQL("CREATE TABLE " + FuellingLogTable.TABLE_NAME + " ("
 					+ FuellingLogTable._ID
 					+ " INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,"
-					+ "content TEXT," + "cost INT," + "isFull BOOLEAN,"  + "isAlert BOOLEAN," + "mileage FLOAT,"+ "price FLOAT," + "forgetLast BOOLEAN," +"gasType INT,"+"amount INT,"
+					+ "content TEXT," + "cost FLOAT," + "isFull BOOLEAN,"  + "isAlert BOOLEAN," + "mileage INTEGER,"+ "price FLOAT," + "forgetLast BOOLEAN," +"gasType INT,"+"amount FLOAT,"
 					+ "time INTEGER NOT NULL"
 					+ ");");
 			
@@ -256,14 +258,14 @@ public class DatabaseProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY,
 				MaintenanceLogTable.TABLE_NAME + "/#", MAINTENANCE_LOG_TABLE_ID);
 
-		sLocationTableProjectionMap = new HashMap<String, String>();
-		sLocationTableProjectionMap.put(MaintenanceLogTable._ID,
+		sMaintenanceLogTableProjectionMap = new HashMap<String, String>();
+		sMaintenanceLogTableProjectionMap.put(MaintenanceLogTable._ID,
 				MaintenanceLogTable._ID);
-		sLocationTableProjectionMap.put(MaintenanceLogTable.TIME,
+		sMaintenanceLogTableProjectionMap.put(MaintenanceLogTable.TIME,
 				MaintenanceLogTable.TIME);
-		sLocationTableProjectionMap.put(MaintenanceLogTable.COST,
+		sMaintenanceLogTableProjectionMap.put(MaintenanceLogTable.COST,
 				MaintenanceLogTable.COST);
-		sLocationTableProjectionMap.put(MaintenanceLogTable.CONTENT,
+		sMaintenanceLogTableProjectionMap.put(MaintenanceLogTable.CONTENT,
 				MaintenanceLogTable.CONTENT);
 		
 		sUriMatcher.addURI(AUTHORITY,
@@ -271,24 +273,24 @@ public class DatabaseProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY,
 				FuellingLogTable.TABLE_NAME + "/#", FUELLING_LOG_TABLE_ID);
 
-		sLocationTableProjectionMap = new HashMap<String, String>();
-		sLocationTableProjectionMap.put(FuellingLogTable._ID,
+		sFuellingLogTableProjectionMap = new HashMap<String, String>();
+		sFuellingLogTableProjectionMap.put(FuellingLogTable._ID,
 				FuellingLogTable._ID);
-		sLocationTableProjectionMap.put(FuellingLogTable.TIME,
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.TIME,
 				FuellingLogTable.TIME);
-		sLocationTableProjectionMap.put(FuellingLogTable.COST,
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.COST,
 				FuellingLogTable.COST);
-		sLocationTableProjectionMap.put(FuellingLogTable.CONTENT,
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.CONTENT,
 				FuellingLogTable.CONTENT);
-		sLocationTableProjectionMap.put(FuellingLogTable.AMOUNT,
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.AMOUNT,
 				FuellingLogTable.AMOUNT);
-		sLocationTableProjectionMap.put(FuellingLogTable.FORGETLAST,
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.FORGETLAST,
 				FuellingLogTable.FORGETLAST);
-		sLocationTableProjectionMap.put(FuellingLogTable.ISALERT,
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.ISALERT,
 				FuellingLogTable.ISALERT);
-		sLocationTableProjectionMap.put(FuellingLogTable.GASTYPE,
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.GASTYPE,
 				FuellingLogTable.GASTYPE);
-		sLocationTableProjectionMap.put(FuellingLogTable.PRICE,
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.PRICE,
 				FuellingLogTable.PRICE);
 	}
 

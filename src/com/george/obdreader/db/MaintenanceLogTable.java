@@ -7,7 +7,7 @@ public class MaintenanceLogTable implements BaseColumns {
 	public static final String TABLE_NAME = "maintenance_log";
 	
 	public static final Uri CONTENT_URI = Uri.parse("content://" + DatabaseProvider.AUTHORITY
-			+ "/maintenance_log");
+			+ "/"+TABLE_NAME);
 	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.george.maintenance_log";
 	public static final String DEFAULT_SORT_ORDER = "time ASC";
 	public static final String TIME = "time";

@@ -129,5 +129,5 @@
     
     <string name="fuelling_logs">加油记录</string>
     <string name="cost">费用统计</string>
-
+	<string name="not_null">必填字段不能为空</string>
 </resources>
