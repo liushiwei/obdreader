@@ -234,7 +234,7 @@ public class DatabaseProvider extends ContentProvider {
 			db.execSQL("CREATE TABLE " + FuellingLogTable.TABLE_NAME + " ("
 					+ FuellingLogTable._ID
 					+ " INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,"
-					+ "content TEXT," + "cost FLOAT," + "isFull BOOLEAN,"  + "isAlert BOOLEAN," + "mileage INTEGER,"+ "price FLOAT," + "forgetLast BOOLEAN," +"gasType INT,"+"amount FLOAT,"
+					+ "content TEXT," + "cost FLOAT," + "isFull BOOLEAN,"  + "isAlert BOOLEAN," + "mileage FLOAT,"+ "price FLOAT," + "forgetLast BOOLEAN," +"gasType INT,"+"amount FLOAT,"
 					+ "time INTEGER NOT NULL"
 					+ ");");
 			
@@ -292,6 +292,8 @@ public class DatabaseProvider extends ContentProvider {
 				FuellingLogTable.GASTYPE);
 		sFuellingLogTableProjectionMap.put(FuellingLogTable.PRICE,
 				FuellingLogTable.PRICE);
+		sFuellingLogTableProjectionMap.put(FuellingLogTable.MILEAGE,
+                FuellingLogTable.MILEAGE);
 	}
 
 }

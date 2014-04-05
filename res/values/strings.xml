@@ -60,7 +60,10 @@
     <string name="no_maintenance_log">没有保养记录</string>
     <string name="take">费用:</string>
     <string name="selecte_maintenance_options">选择保养项目</string>
-    <string name="unit">元</string>
+    <string name="yuan">元</string>
+    <string name="yuansheng">元/升</string>
+    <string name="sheng">升</string>
+    <string name="km">公里</string>
     <!-- 基本设置 -->
     <string name="base_settings">基本设置</string>
     <string name="configuration_settings">基本设置</string>
@@ -124,10 +127,9 @@
     <string name="wifi_menu_forget">Forget network</string>
     <!-- Menu option to modify a WLAN network configuration -->
     <string name="wifi_menu_modify">Modify network</string>
-    
     <string name="pid_not_supported">Not Supported</string>
-    
     <string name="fuelling_logs">加油记录</string>
     <string name="cost">费用统计</string>
-	<string name="not_null">必填字段不能为空</string>
+    <string name="not_null">必填字段不能为空</string>
+
 </resources>
