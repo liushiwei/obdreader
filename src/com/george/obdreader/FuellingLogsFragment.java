@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -15,12 +16,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +41,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.george.obdreader.db.DatabaseProvider;
 import com.george.obdreader.db.FuellingLogTable;
 import com.george.obdreader.ui.CustomerSpinner;
 
@@ -66,6 +68,9 @@ private String[] fuelTypes;
 				null, null, FuellingLogTable.DEFAULT_SORT_ORDER);
 		mAdapter = new CursorTreeAdapterExample(cursor,getActivity(),  true);
 		mLogListView.setAdapter(mAdapter);
+		NumberFormat format = NumberFormat.getInstance();
+        format.setMaximumFractionDigits(2);
+		((TextView)root.findViewById(R.id.costs)).setText(format.format(getSumCost()));
 		ImageButton add = (ImageButton) getActivity().findViewById(R.id.add);
 		add.setVisibility(View.VISIBLE);
 		add.setOnClickListener(this);
@@ -206,6 +211,9 @@ private String[] fuelTypes;
 		            values.put(FuellingLogTable.GASTYPE, mFuelType);
 		            resolver.insert(FuellingLogTable.CONTENT_URI, values);  
 		            mAdapter.notifyDataSetChanged();
+		            NumberFormat format = NumberFormat.getInstance();
+		            format.setMaximumFractionDigits(2);
+		            ((TextView)mRootView.findViewById(R.id.costs)).setText(format.format(getSumCost()));
 					alertDialog.dismiss();
 					
 				}
@@ -226,54 +234,6 @@ private String[] fuelTypes;
 
 	}
 
-	class SimpleCursorAdapter extends CursorAdapter {
-
-		public SimpleCursorAdapter(Context context, Cursor c,
-				boolean autoRequery) {
-			super(context, c, autoRequery);
-			// TODO Auto-generated constructor stub
-		}
-
-		@Override
-		public void bindView(View view, Context arg1, Cursor cursor) {
-			// TODO Auto-generated method stub
-			ViewHolder holder = (ViewHolder) view.getTag();
-			long time = cursor.getLong(cursor
-					.getColumnIndex(FuellingLogTable.TIME));
-			float cost = cursor.getFloat(cursor
-					.getColumnIndex(FuellingLogTable.COST));
-			float price = cursor.getFloat(cursor
-                    .getColumnIndex(FuellingLogTable.PRICE));
-			float mileage = cursor.getInt(cursor
-                    .getColumnIndex(FuellingLogTable.MILEAGE));
-			String content = cursor.getString(cursor
-					.getColumnIndex(FuellingLogTable.CONTENT));
-			NumberFormat format = NumberFormat.getInstance();
-			format.setMaximumFractionDigits(2);
-			holder.cost.setText(format.format(cost));
-			holder.price.setText(format.format(price));
-			holder.mileage.setText(format.format(mileage));
-			holder.content.setText(content);
-			holder.time.setText(new SimpleDateFormat("yyyy-MM-dd")
-					.format(new Date(time)));
-		}
-
-		@Override
-		public View newView(Context arg0, Cursor arg1, ViewGroup arg2) {
-			ViewHolder holder = new ViewHolder();
-			LayoutInflater inflater = getActivity().getLayoutInflater();
-			View inflate = inflater
-					.inflate(R.layout.fuelling_log_item, null);
-			holder.cost = (TextView) inflate.findViewById(R.id.cost);
-			holder.content = (TextView) inflate.findViewById(R.id.content);
-			holder.time = (TextView) inflate.findViewById(R.id.time);
-			holder.price = (TextView) inflate.findViewById(R.id.price);
-			holder.mileage = (TextView) inflate.findViewById(R.id.mileage);
-			inflate.setTag(holder);
-			return inflate;// 返回的view传给bindView。
-		}
-
-	}
 
 	class ViewHolder {
 		TextView cost;
@@ -457,5 +417,17 @@ private String[] fuelTypes;
             return inflate;// 返回的view传给bindView。
         }
     }
+	
+	private float getSumCost(){
+	    ContentProviderClient client =  getActivity().getContentResolver().acquireContentProviderClient(DatabaseProvider.AUTHORITY);
+	    SQLiteDatabase dbHandle= ((DatabaseProvider)client.getLocalContentProvider()).getDbHandle();
+	    Cursor cursor = dbHandle.rawQuery("SELECT sum("+FuellingLogTable.COST+") FROM "+FuellingLogTable.TABLE_NAME , null);
+	    cursor.moveToFirst();
+	    float cnt =  cursor.getFloat(0);
+	    cursor.close();
+	    cursor.deactivate();
+	    client.release();
+	    return cnt;
+	}
 
 }

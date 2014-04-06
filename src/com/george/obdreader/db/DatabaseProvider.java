@@ -250,6 +250,10 @@ public class DatabaseProvider extends ContentProvider {
 			onCreate(db);
 		}
 	}
+	
+	public SQLiteDatabase getDbHandle() {
+        return mOpenHelper.getWritableDatabase();
+    }
 
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
