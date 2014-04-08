@@ -1,5 +1,6 @@
 package com.george.obdreader;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,12 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
@@ -28,6 +31,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.george.obdreader.db.DatabaseProvider;
+import com.george.obdreader.db.FuellingLogTable;
 import com.george.obdreader.db.MaintenanceLogTable;
 
 public class MaintenanceLog extends Fragment implements OnClickListener {
@@ -37,13 +42,14 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 	private Date mTime;
 	private ListView mLogListView;
 	private SimpleCursorAdapter mAdapter;
+	private View mRootView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View root = inflater
+		mRootView = inflater
 				.inflate(R.layout.maintenance_log, container, false);
-		mLogListView = (ListView) root.findViewById(R.id.listView1);
+		mLogListView = (ListView) mRootView.findViewById(R.id.listView1);
 		ContentResolver resolver = getActivity().getContentResolver();
 		Cursor cursor = resolver.query(MaintenanceLogTable.CONTENT_URI, null,
 				null, null, MaintenanceLogTable.DEFAULT_SORT_ORDER);
@@ -54,7 +60,10 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 				.findViewById(R.id.add);
 		add.setVisibility(View.VISIBLE);
 		add.setOnClickListener(this);
-		return root;
+		NumberFormat format = NumberFormat.getInstance();
+        format.setMaximumFractionDigits(2);
+		((TextView)mRootView.findViewById(R.id.costs)).setText(format.format(getSumCost()));
+		return mRootView;
 	}
 
 	@Override
@@ -142,6 +151,9 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 							            values.put(MaintenanceLogTable.TIME, maintenanceDate.getTimeInMillis());  
 							            resolver.insert(MaintenanceLogTable.CONTENT_URI, values);  
 							            mAdapter.notifyDataSetChanged();
+							            NumberFormat format = NumberFormat.getInstance();
+							            format.setMaximumFractionDigits(2);
+							    		((TextView)mRootView.findViewById(R.id.costs)).setText(format.format(getSumCost()));
 									}
 
 								});
@@ -207,6 +219,18 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 		TextView cost;
 		TextView content;
 		TextView time;
+	}
+	
+	private float getSumCost(){
+	    ContentProviderClient client =  getActivity().getContentResolver().acquireContentProviderClient(DatabaseProvider.AUTHORITY);
+	    SQLiteDatabase dbHandle= ((DatabaseProvider)client.getLocalContentProvider()).getDbHandle();
+	    Cursor cursor = dbHandle.rawQuery("SELECT sum("+MaintenanceLogTable.COST+") FROM "+MaintenanceLogTable.TABLE_NAME , null);
+	    cursor.moveToFirst();
+	    float cnt =  cursor.getFloat(0);
+	    cursor.close();
+	    cursor.deactivate();
+	    client.release();
+	    return cnt;
 	}
 
 }

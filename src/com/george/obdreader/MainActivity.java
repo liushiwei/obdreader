@@ -221,7 +221,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					break;
 				case START_ANIM:
 				    Log.d("FirstIndexFragment", "mFirstfragment="+mFirstfragment);
-				    View first = mPager.getChildAt(mPager.getCurrentItem());
+				    View first = mPager.getChildAt(0);
 				    if(first.findViewById(R.id.light)!=null){
 				        Animation right = AnimationUtils.loadAnimation(
 	                            MainActivity.this, msg.arg1);
@@ -271,7 +271,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					break;
 
 				case SHOW_MENU:
-				    View view = mPager.getChildAt(mPager.getCurrentItem());
+				    View view = mPager.getChildAt(0);
 				    if(view.findViewById(R.id.right_top)!=null){
 				        Animation show_menu = AnimationUtils.loadAnimation(
 	                            MainActivity.this, R.anim.right_out);
@@ -306,7 +306,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					
 					break;
 				case SHOW_ICON:
-				    View view1 = mPager.getChildAt(mPager.getCurrentItem());
+				    View view1 = mPager.getChildAt(0);
 				    if(view1.findViewById(R.id.stopwatch)!=null){
 				        Animation show_icon = AnimationUtils.loadAnimation(
 	                            MainActivity.this, R.anim.show_out);
