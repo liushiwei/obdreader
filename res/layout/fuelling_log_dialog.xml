@@ -129,7 +129,8 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:hint="公里"
-                android:inputType="number" />
+                android:inputType="numberDecimal"
+                android:nextFocusForward="@+id/price"/>
         </LinearLayout>
 
         <LinearLayout
@@ -151,7 +152,8 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:hint="元/升"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal" 
+                android:nextFocusForward="@+id/cost"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -178,7 +180,8 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:hint="元"
-                android:inputType="number" />
+                android:inputType="numberDecimal"
+                android:nextFocusForward="@+id/amount"/>
         </LinearLayout>
 
         <LinearLayout
