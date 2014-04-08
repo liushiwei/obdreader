@@ -58,6 +58,7 @@ public class BarGraph extends View {
     private Boolean append = false;
     private Rect r2 = new Rect();
     private Rect r3 = new Rect();
+    private float mBarWidth;
 
     public BarGraph(Context context) {
         super(context);
@@ -119,14 +120,19 @@ public class BarGraph extends View {
             }
 
 
-            p.setColor(Color.BLACK);
+            p.setColor(Color.WHITE);
             p.setStrokeWidth(2);
             p.setAlpha(50);
             p.setAntiAlias(true);
 
             canvas.drawLine(0, getHeight() - bottomPadding + 10, getWidth(), getHeight() - bottomPadding + 10, p);
-
-            float barWidth = (getWidth() - (padding * 2) * points.size()) / points.size();
+            float barWidth ;
+            if(mBarWidth==0){
+            	
+            	barWidth = (getWidth() - (padding * 2) * points.size()) / points.size();
+            }else{
+            	barWidth = mBarWidth;
+            }
 
             for (Bar p : points) {
                 maxValue += p.getValue();
@@ -213,5 +219,9 @@ public class BarGraph extends View {
 
     public interface OnBarClickedListener {
         abstract void onClick(int index);
+    }
+    
+    public void setBarWidth(float width){
+    	mBarWidth = width;
     }
 }

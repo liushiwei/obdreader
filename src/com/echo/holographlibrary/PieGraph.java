@@ -40,6 +40,7 @@ public class PieGraph extends View {
 	private Paint paint = new Paint();
 	private Paint textPaint = new Paint();
 	private int textPadding = 5;
+	private int padding = 2;
 	private Path path = new Path();
 	
 	private int indexSelected = -1;
@@ -56,6 +57,7 @@ public class PieGraph extends View {
 	
 	public void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.TRANSPARENT);
+		textPaint.setAntiAlias(true);
 		textPaint.setColor(Color.WHITE);
 		paint.reset();
 		paint.setAntiAlias(true);
@@ -65,7 +67,7 @@ public class PieGraph extends View {
 		float currentAngle = 270;
         float currentSweep;
         int totalValue = 0;
-		float padding = 2;
+		float slicePadding = 2;
 		
 		midX = getWidth()/2;
 		midY = getHeight()/2;
@@ -86,24 +88,31 @@ public class PieGraph extends View {
 			Path p = new Path();
 			paint.setColor(slice.getColor());
 			currentSweep = (slice.getValue()/totalValue)*(360);
-			p.arcTo(new RectF(midX-radius, midY-radius, midX+radius, midY+radius), currentAngle+padding, currentSweep - padding);
-			p.arcTo(new RectF(midX-innerRadius, midY-innerRadius, midX+innerRadius, midY+innerRadius), (currentAngle+padding) + (currentSweep - padding), -(currentSweep-padding));
+			p.arcTo(new RectF(midX-radius, midY-radius, midX+radius, midY+radius), currentAngle+slicePadding, currentSweep - slicePadding);
+			p.arcTo(new RectF(midX-innerRadius, midY-innerRadius, midX+innerRadius, midY+innerRadius), (currentAngle+slicePadding) + (currentSweep - slicePadding), -(currentSweep-slicePadding));
 			p.close();
 			
 			slice.setPath(p);
 			slice.setRegion(new Region((int)(midX-radius), (int)(midY-radius), (int)(midX+radius), (int)(midY+radius)));
 			canvas.drawPath(p, paint);
-			float angle = (currentAngle+padding+(currentSweep - padding)/2>360?currentAngle+padding+(currentSweep - padding)/2-360:currentAngle+padding+(currentSweep - padding)/2);
-			Log.e("PieGraph", "angle = "+angle);
-			Point point = getTextPoint(new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerX(),new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerY(),radius,angle);
-			Rect rect = new Rect();  
-            String textString = angle+"";
-            textPaint.getTextBounds(textString, 0, textString.length(), rect); 
-			if(angle>90&& angle<270){
-			     
-			    canvas.drawText(angle+"", point.x-rect.width()-textPadding,point.y, textPaint);
-			}else{
-			    canvas.drawText(angle+"", point.x+textPadding,point.y, textPaint);
+			if(slice.getTitle()!=null&&slice.getTitle().length()>0){
+				float angle = (currentAngle+slicePadding+(currentSweep - slicePadding)/2>360?currentAngle+slicePadding+(currentSweep - slicePadding)/2-360:currentAngle+slicePadding+(currentSweep - slicePadding)/2);
+				Log.e("PieGraph", "angle = "+angle);
+				Point point = getTextPoint(new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerX(),new RectF(midX-radius, midY-radius, midX+radius, midY+radius).centerY(),radius,angle);
+				Rect rect = new Rect();  
+				textPaint.getTextBounds(slice.getTitle(), 0, slice.getTitle().length(), rect); 
+				if(angle>90&& angle<270){
+					if(angle<120){
+						canvas.drawText(slice.getTitle(), point.x-rect.width()-textPadding,point.y+rect.height(), textPaint);
+					}else if(angle>240){
+						canvas.drawText(slice.getTitle(), point.x-rect.width()-textPadding,point.y-rect.height(), textPaint);
+					}else{
+						canvas.drawText(slice.getTitle(), point.x-rect.width()-textPadding,point.y, textPaint);
+					}
+				}else{
+					canvas.drawText(slice.getTitle(), point.x+textPadding,point.y, textPaint);
+				}
+				
 			}
 			if (indexSelected == count && listener != null){
 				path.reset();
@@ -112,11 +121,11 @@ public class PieGraph extends View {
 				paint.setAlpha(100);
 				
 				if (slices.size() > 1) {
-					path.arcTo(new RectF(midX-radius-(padding*2), midY-radius-(padding*2), midX+radius+(padding*2), midY+radius+(padding*2)), currentAngle, currentSweep+padding);
-					path.arcTo(new RectF(midX-innerRadius+(padding*2), midY-innerRadius+(padding*2), midX+innerRadius-(padding*2), midY+innerRadius-(padding*2)), currentAngle + currentSweep + padding, -(currentSweep + padding));
+					path.arcTo(new RectF(midX-radius-(slicePadding*2), midY-radius-(slicePadding*2), midX+radius+(slicePadding*2), midY+radius+(slicePadding*2)), currentAngle, currentSweep+slicePadding);
+					path.arcTo(new RectF(midX-innerRadius+(slicePadding*2), midY-innerRadius+(slicePadding*2), midX+innerRadius-(slicePadding*2), midY+innerRadius-(slicePadding*2)), currentAngle + currentSweep + slicePadding, -(currentSweep + slicePadding));
 					path.close();
 				} else {
-					path.addCircle(midX, midY, radius+padding, Direction.CW);
+					path.addCircle(midX, midY, radius+slicePadding, Direction.CW);
 				}
 				
 				canvas.drawPath(path, paint);
@@ -208,6 +217,21 @@ public class PieGraph extends View {
 	    point.x = (int) (x+r*Math.cos(angle*3.1415/180));
 	    point.y= (int) (y+r*Math.sin(angle*3.1415/180));
 	    return point;
+	}
+	
+	public  void setTextPadding(int padding){
+		textPadding = padding;
+	}
+	
+	public  void setPadding(int padding){
+		this.padding = padding;
+	}
+	
+	public void setTextColor(int color){
+		textPaint.setColor(color);
+	}
+	public void setTextSize(float size){
+		textPaint.setTextSize(size);
 	}
 
 }
