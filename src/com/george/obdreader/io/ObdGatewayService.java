@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.george.obdreader.Log;
 import com.george.obdreader.MainActivity;
 import com.george.obdreader.R;
+import com.george.obdreader.config.BaseSetting;
 import com.george.obdreader.config.ConfigActivity;
 import com.george.obdreader.io.ObdCommandJob.ObdCommandJobState;
 import com.george.utils.Device;
@@ -76,7 +77,7 @@ public class ObdGatewayService extends Service {
 	// private static final String SERVER_IP = "192.168.43.1";
 	private static final String SERVER_IP = "192.168.0.10";
 	private Socket socket;
-	
+
 	private int mConnectTime;
 
 	private Handler mHandler;
@@ -109,7 +110,7 @@ public class ObdGatewayService extends Service {
 		_notifManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		showNotification();
 		mHandler = new Handler();
-		
+
 	}
 
 	@Override
@@ -142,38 +143,7 @@ public class ObdGatewayService extends Service {
 		 */
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
-
-		// /*
-		// * Let's get the remote Bluetooth device
-		// */
-		// String remoteDevice = prefs.getString(
-		// ConfigActivity.BLUETOOTH_LIST_KEY, null);
-		// if (remoteDevice == null || "".equals(remoteDevice)) {
-		// Toast.makeText(this, "No Bluetooth device selected",
-		// Toast.LENGTH_LONG).show();
-		//
-		// // log error
-		// Log.e(TAG, "No Bluetooth device has been selected.");
-		//
-		// // TODO kill this service gracefully
-		// stopService();
-		// }
-		//
-		// final BluetoothAdapter btAdapter =
-		// BluetoothAdapter.getDefaultAdapter();
-		// _dev = btAdapter.getRemoteDevice(remoteDevice);
-
-		/*
-		 * TODO put this as deprecated Determine if upload is enabled
-		 */
-		// boolean uploadEnabled = prefs.getBoolean(
-		// ConfigActivity.UPLOAD_DATA_KEY, false);
-		// String uploadUrl = null;
-		// if (uploadEnabled) {
-		// uploadUrl = prefs.getString(ConfigActivity.UPLOAD_URL_KEY,
-		// null);
-		// }
-
+		
 		/*
 		 * Get GPS
 		 */
@@ -210,7 +180,8 @@ public class ObdGatewayService extends Service {
 		// Log.d(TAG, "Stopping Bluetooth discovery.");
 		// btAdapter.cancelDiscovery();
 
-		Toast.makeText(this, "Starting OBD connection..", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Starting OBD connection..", Toast.LENGTH_SHORT)
+				.show();
 
 		// try {
 		// startObdConnection();
@@ -231,7 +202,6 @@ public class ObdGatewayService extends Service {
 	private void startObdConnection() throws IOException {
 		Log.d(TAG, "Starting OBD connection..");
 
-		
 		Log.d(TAG, "Queing jobs for connection configuration..");
 		queueJob(new ObdCommandJob(new ObdResetCommand())); // ATZ
 		queueJob(new ObdCommandJob(new EchoOffObdCommand()));// ATE0
@@ -245,9 +215,12 @@ public class ObdGatewayService extends Service {
 		queueJob(new ObdCommandJob(new EchoOffObdCommand()));// ATE0
 		queueJob(new ObdCommandJob(new MemoryOffObdCommand()));// ATM0
 		queueJob(new ObdCommandJob(new LineFeedOffObdCommand()));// ATL0
-		queueJob(new ObdCommandJob(new SimpleObdCommand("AT DP", "Describe the Current Protocol ")));
-		queueJob(new ObdCommandJob(new SimpleObdCommand("AT SP A5", "Set Protocol to ISO 14230-4")));// ATS0
-		queueJob(new ObdCommandJob(new SimpleObdCommand("AT DP", "Describe the Current Protocol ")));
+		queueJob(new ObdCommandJob(new SimpleObdCommand("AT DP",
+				"Describe the Current Protocol ")));
+		queueJob(new ObdCommandJob(new SimpleObdCommand("AT SP A5",
+				"Set Protocol to ISO 14230-4")));// ATS0
+		queueJob(new ObdCommandJob(new SimpleObdCommand("AT DP",
+				"Describe the Current Protocol ")));
 		queueJob(new ObdCommandJob(new SimpleObdCommand("AT S0", "Space Off")));// ATS0
 		queueJob(new ObdCommandJob(new SimpleObdCommand("AT @1",
 				"Display Device Description")));// ATS0
@@ -256,7 +229,6 @@ public class ObdGatewayService extends Service {
 		queueJob(new ObdCommandJob(new SimpleObdCommand("AT AT0",
 				"Adaptive Timing off")));// ATS0
 		queueJob(new ObdCommandJob(new TimeoutObdCommand(62)));
-
 
 		// For now set protocol to AUTO
 		queueJob(new ObdCommandJob(new SelectProtocolObdCommand(
@@ -267,7 +239,6 @@ public class ObdGatewayService extends Service {
 		Log.d(TAG, "Initialization jobs queued.");
 
 		// Service is running..
-		
 
 		// Set queue execution counter
 		_queueCounter = 0L;
@@ -365,11 +336,11 @@ public class ObdGatewayService extends Service {
 		Log.d(TAG, "Job queued successfully.");
 		return _queueCounter;
 	}
-	
-	public boolean removeJob(ObdCommandJob job){
-		if(_queue!=null&&_queue.size()>0){
+
+	public boolean removeJob(ObdCommandJob job) {
+		if (_queue != null && _queue.size() > 0) {
 			return _queue.remove(job);
-		}else
+		} else
 			return false;
 	}
 
@@ -384,11 +355,11 @@ public class ObdGatewayService extends Service {
 		_isQueueRunning.set(false);
 		_callback = null;
 		_isRunning.set(false);
-
+		mConnectTime=100;
 		// close socket
-		new Thread( new Runnable() {     
-		    public void run() {     
-		    	try {
+		new Thread(new Runnable() {
+			public void run() {
+				try {
 					// _sock.close();
 					if (socket != null) {
 						Log.d(TAG, "Socket close");
@@ -396,14 +367,13 @@ public class ObdGatewayService extends Service {
 						socket.shutdownOutput();
 						socket.close();
 					}
-					if(ioThread!=null &&ioThread.isAlive())
-					ioThread.interrupt();
+					if (ioThread != null && ioThread.isAlive())
+						ioThread.interrupt();
 				} catch (IOException e) {
 					Log.e(TAG, e.getMessage());
-				}   
-		     }            
+				}
+			}
 		}).start();
-		
 
 		// kill service
 		stopSelf();
@@ -443,7 +413,7 @@ public class ObdGatewayService extends Service {
 	public class LocalBinder extends Binder implements IPostMonitor {
 		public void setListener(IPostListener callback) {
 			_callback = callback;
-			if(_isRunning.get()){
+			if (_isRunning.get()) {
 				_callback.deviceConnected("WIFI");
 			}
 		}
@@ -457,9 +427,9 @@ public class ObdGatewayService extends Service {
 		}
 
 		public long addJobToQueue(ObdCommandJob job) {
-//			Log.d(TAG, "Adding job [" + job.getCommand().getName()
-//					+ "] to queue.");
-//			_queue.add(job);
+			// Log.d(TAG, "Adding job [" + job.getCommand().getName()
+			// + "] to queue.");
+			// _queue.add(job);
 			return queueJob(job);
 			// if (!_isQueueRunning.get())
 			// _executeQueue();
@@ -467,9 +437,9 @@ public class ObdGatewayService extends Service {
 
 		@Override
 		public void clearQueue() {
-			if(_queue!=null && _isRunning.get()&&_queueCounter>0){
+			if (_queue != null && _isRunning.get() && _queueCounter > 0) {
 				_queue.clear();
-				_queueCounter=0l;
+				_queueCounter = 0l;
 			}
 		}
 
@@ -481,10 +451,10 @@ public class ObdGatewayService extends Service {
 
 		@Override
 		public void connectDevice() {
-			if(mConnectTime==0&&!_isRunning.get()){
+			if (mConnectTime == 0 && !_isRunning.get()) {
 				new Thread(connectRunnable).start();
 			}
-			
+
 		}
 	}
 
@@ -494,7 +464,7 @@ public class ObdGatewayService extends Service {
 		public void run() {
 
 			try {
-				
+
 				startObdConnection();
 				_executeQueue();
 				_isRunning.set(true);
@@ -517,90 +487,100 @@ public class ObdGatewayService extends Service {
 		@Override
 		public void run() {
 			Log.e(TAG, "connectRunnable run");
-			if(_callback!=null){
+			if (_callback != null) {
 				_callback.connectingDevice("WIFI");
 				Log.e(TAG, "connecting device");
 			}
-			while(true){
+			while (true) {
 				try {
-					if(mConnectTime>30){
-						if(_callback!=null){
+					if (mConnectTime > 30) {
+						if (_callback != null) {
 							_callback.connectFailed("WIFI");
 							Log.e(TAG, "connectFailed");
-						}else{
+						} else {
 							Log.e(TAG, "_callback is null");
 						}
-						mConnectTime=0;
+						mConnectTime = 0;
 						return;
 					}
-					if(Device.getNetConnect(getBaseContext())>-1){
-					InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+					if (Device.getNetConnect(getBaseContext()) > -1) {
+						SharedPreferences preferences = PreferenceManager
+								.getDefaultSharedPreferences(getBaseContext());
+						String ip = preferences.getString(BaseSetting.CUSTOMER_IP, "192.168.0.10");
+						int port = preferences.getInt(BaseSetting.CUSTOMER_PORT, 35000);
+						InetAddress serverAddr = InetAddress
+								.getByName(ip);
 
-					socket = new Socket(serverAddr, SERVERPORT);
-					socket.setSoLinger(true, 30000);  
-					  
-					  
-					//Socket的可用选项  
-					//TcpNodelay发送不延迟，当数据包很小的时候会等待连接到大包上一起  
-					//发送出去，设置了这个就可以关闭这个功能，立刻发送出去不延迟  
-					//socket.setTcpNoDelay(true);  
-					//so_reuseaddr设置这个可以使多个Socket对象绑在同一个端口上  
-					socket.setReuseAddress(true);  
-					//so_timeout读取数据延迟  
-					socket.setSoTimeout(5000);  
-					//so_sndbuf默认情况下发送缓冲大小为8KB，可以在这里改这个值  
-					socket.getSendBufferSize();  
-					socket.setSendBufferSize(10*1024);  
-					//so_rcvbuf接收缓冲大小，默认也为8KB  
-					socket.getReceiveBufferSize();  
-					socket.setReceiveBufferSize(10*1024);  
-					//so_keepalive 默认关闭，如果将这个 Socket 选项打开，客户端 Socket 每隔一段时间（大约两个小时）就会利用空闲的  
-					//连接向服务器发送一个数据包。这个数据包并没有其他的作用，只是为了检测一下服务器是否仍处  
-					//于活动状态。  
-					//socket.setKeepAlive(true);  
-					//so_oobinline 如果这个 Socket 选项打开，可以通过 Socket 类的 sendUrgentData 方法向服务器发送一个单字  
-					//节的数据。这个单字节数据并不经过输出缓冲区，而是立即发出。  
-					Log.d(TAG, "Create socket");
-					ObdCommandJob job = new ObdCommandJob(new ObdResetCommand());
-					job.getCommand().run(socket.getInputStream(),
-							socket.getOutputStream());
-					job  = new ObdCommandJob(new EchoOffObdCommand());
-					job.getCommand().run(socket.getInputStream(),
-							socket.getOutputStream());
-					if(job.getCommand().getResult()!=null &&job.getCommand().getResult().length()>0){
-						Log.d(TAG, "reset obd OK");
-						
-						break;
-					}else{
-						socket.close();
-						//mHandler.postDelayed(connectRunnable, 500);
-					}
-					Log.d(TAG, "reset result is "+job.getCommand().getResult());
+						socket = new Socket(serverAddr, port);
+						socket.setSoLinger(true, 30000);
+
+						// Socket的可用选项
+						// TcpNodelay发送不延迟，当数据包很小的时候会等待连接到大包上一起
+						// 发送出去，设置了这个就可以关闭这个功能，立刻发送出去不延迟
+						// socket.setTcpNoDelay(true);
+						// so_reuseaddr设置这个可以使多个Socket对象绑在同一个端口上
+						socket.setReuseAddress(true);
+						// so_timeout读取数据延迟
+						socket.setSoTimeout(5000);
+						// so_sndbuf默认情况下发送缓冲大小为8KB，可以在这里改这个值
+						socket.getSendBufferSize();
+						socket.setSendBufferSize(10 * 1024);
+						// so_rcvbuf接收缓冲大小，默认也为8KB
+						socket.getReceiveBufferSize();
+						socket.setReceiveBufferSize(10 * 1024);
+						// so_keepalive 默认关闭，如果将这个 Socket 选项打开，客户端 Socket
+						// 每隔一段时间（大约两个小时）就会利用空闲的
+						// 连接向服务器发送一个数据包。这个数据包并没有其他的作用，只是为了检测一下服务器是否仍处
+						// 于活动状态。
+						// socket.setKeepAlive(true);
+						// so_oobinline 如果这个 Socket 选项打开，可以通过 Socket 类的
+						// sendUrgentData 方法向服务器发送一个单字
+						// 节的数据。这个单字节数据并不经过输出缓冲区，而是立即发出。
+						Log.d(TAG, "Create socket");
+						ObdCommandJob job = new ObdCommandJob(
+								new ObdResetCommand());
+						job.getCommand().run(socket.getInputStream(),
+								socket.getOutputStream());
+						job = new ObdCommandJob(new EchoOffObdCommand());
+						job.getCommand().run(socket.getInputStream(),
+								socket.getOutputStream());
+						if (job.getCommand().getResult() != null
+								&& job.getCommand().getResult().length() > 0) {
+							Log.d(TAG, "reset obd OK");
+
+							break;
+						} else {
+							socket.close();
+							// mHandler.postDelayed(connectRunnable, 500);
+						}
+						Log.d(TAG, "reset result is "
+								+ job.getCommand().getResult());
 					}
 					Thread.sleep(200);
 					mConnectTime++;
-					
+
 				} catch (UnknownHostException e1) {
-					mConnectTime+=3;
+					mConnectTime += 3;
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					mConnectTime+=3;
+					mConnectTime += 3;
 					e1.printStackTrace();
 				} catch (InterruptedException e) {
-					mConnectTime+=3;
+					mConnectTime += 3;
 					e.printStackTrace();
 				}
-				
+
 			}
 			ioThread = new Thread(new ClientThread());
 			ioThread.start();
-				
+
 		}
 	};
-	
-	private void resetDeivce(){
-		Log.e(TAG, "set AT command reset Device" );
-		queueJob(new ObdCommandJob(new SimpleObdCommand("AT SP A5", "Set Protocol to ISO 14230-4")));// ATS0
+
+	private void resetDeivce() {
+		Log.e(TAG, "set AT command reset Device");
+		queueJob(new ObdCommandJob(new SimpleObdCommand("AT SP A5",
+				"Set Protocol to ISO 14230-4")));// ATS0
 	}
 
 }

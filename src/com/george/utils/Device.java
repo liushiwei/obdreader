@@ -5,11 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
+import android.preference.PreferenceManager;
 
 import com.george.obdreader.Log;
+import com.george.obdreader.config.BaseSetting;
 
 public class Device {
 
@@ -41,6 +44,7 @@ public class Device {
 	public static int getNetConnect(Context context) {
 		ConnectivityManager connManager = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
 		// State state = connManager.getActiveNetworkInfo().getState();
 		NetworkInfo activeInfo = connManager.getActiveNetworkInfo();
 		if (activeInfo == null) {
@@ -88,6 +92,7 @@ public class Device {
 					Log.e(TAG, "正在断开GPRS网络");
 					break;
 				}
+
 			}
 		}
 		return -1;

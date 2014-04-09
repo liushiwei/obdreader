@@ -131,5 +131,12 @@
     <string name="fuelling_logs">加油记录</string>
     <string name="cost">费用统计</string>
     <string name="not_null">必填字段不能为空</string>
-
+	<string name="customer_connect_title">自定义WIFI连接</string>
+    <string name="customer_connect_summary">当前连接地址：</string>
+    <string name="customer_connect_ip">IP：</string>
+    <string name="customer_connect_port">端口：</string>
+    <string name="customer_connect_ip_error">IP输入格式错误！</string>
+    <string name="customer_connect_port_error">端口输入错误！</string>
+    <string name="reboot">连接信息已经修改，重新启动应用后生效</string>
+    <string name="wifi_connect_wrong">WIFI当前连接的设备不是:<xliff:g id="wifi_security">%1$s</xliff:g></string>
 </resources>

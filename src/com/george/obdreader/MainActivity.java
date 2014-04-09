@@ -7,9 +7,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -23,14 +27,15 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.george.obdreader.config.BaseSetting;
 import com.george.obdreader.config.ConfigurationActivity;
 import com.george.obdreader.io.IPostListener;
 import com.george.obdreader.io.ObdCommandJob;
 import com.george.obdreader.io.ObdGatewayService;
 import com.george.obdreader.io.ObdGatewayServiceConnection;
+import com.george.utils.Device;
 
 import eu.lighthouselabs.obd.commands.SpeedObdCommand;
 import eu.lighthouselabs.obd.commands.control.DtcNumberObdCommand;
@@ -42,14 +47,13 @@ import eu.lighthouselabs.obd.commands.temperature.AirIntakeTemperatureObdCommand
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 
-	
 	private Intent mServiceIntent = null;
 	private ObdGatewayServiceConnection mServiceConnection;
-	
+
 	private ViewPager mPager;
 	private ArrayList<Fragment> fragmentsList;
 	private FirstIndexFragment mFirstfragment;
-	
+
 	private boolean isBound;
 	private boolean isConnected;
 	private int speed = 1;
@@ -69,13 +73,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private final static int SHOW_MENU = 0x04;
 
 	private final static int SHOW_ICON = 0x05;
-	
+
 	private final static int WIFI_CONNECT_FAILED = 0x06;
-	
+
 	private final static int WIFI_CONNECTING = 0x07;
 
 	private static final String TAG = "MainActivity";
-	
+
 	private IPostListener mListener = new IPostListener() {
 		public void stateUpdate(ObdCommandJob job) {
 			mHandler.obtainMessage(0, job).sendToTarget();
@@ -117,40 +121,45 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				}
 				switch (job.getCommand().getId()) {
 				case ENGINE_RPM:
-					GaugeView rpm_view = (GaugeView) mFirstfragment.getRootView().findViewById(R.id.rpm_view);
+					GaugeView rpm_view = (GaugeView) mFirstfragment
+							.getRootView().findViewById(R.id.rpm_view);
 					rpm_view.setTargetValue(((EngineRPMObdCommand) job
 							.getCommand()).getRPM());
 					fuel_rpm = ((EngineRPMObdCommand) job.getCommand())
 							.getRPM();
 					break;
 				case SPEED:
-//					GaugeView speed_view = (GaugeView) findViewById(R.id.speed_view);
+					// GaugeView speed_view = (GaugeView)
+					// findViewById(R.id.speed_view);
 					speed = ((SpeedObdCommand) job.getCommand())
 							.getMetricSpeed();
-//					speed_view.setTargetValue(speed);
+					// speed_view.setTargetValue(speed);
 
 					break;
 				case INTAKE_MANIFOLD_PRESSURE:
-					//TextView intake_manifold_pressure = (TextView) findViewById(R.id.intake_manifold_pressure);
+					// TextView intake_manifold_pressure = (TextView)
+					// findViewById(R.id.intake_manifold_pressure);
 					String result = job.getCommand().getFormattedResult();
-					//intake_manifold_pressure.setText(result);
+					// intake_manifold_pressure.setText(result);
 					fuel_press = ((IntakeManifoldPressureObdCommand) job
 							.getCommand()).getMetricUnit();
 					break;
 				case AIR_INTAKE_TEMP:
-					//TextView intake_temperature = (TextView) findViewById(R.id.intake_temperature);
+					// TextView intake_temperature = (TextView)
+					// findViewById(R.id.intake_temperature);
 					String intake_temperature_result = job.getCommand()
 							.getFormattedResult();
-					//intake_temperature.setText(intake_temperature_result);
+					// intake_temperature.setText(intake_temperature_result);
 					fuel_airTemp = ((AirIntakeTemperatureObdCommand) job
 							.getCommand()).getTemperature() - 40;
 					// fuel_airTemp = 30;
 					break;
 
 				case FUEL_ECONOMY_WITHOUT_MAF:
-					//TextView fuel = (TextView) findViewById(R.id.result);
-					//String fuel_result = job.getCommand().getFormattedResult();
-					//fuel.setText(fuel_result);
+					// TextView fuel = (TextView) findViewById(R.id.result);
+					// String fuel_result =
+					// job.getCommand().getFormattedResult();
+					// fuel.setText(fuel_result);
 					break;
 				case DTC_NUMBER:
 					Log.e(TAG,
@@ -210,115 +219,125 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					} else {
 						fuel = 0;
 					}
-//					TextView fuel_view = (TextView) findViewById(R.id.result);
-//					fuel_view.setText((int) fuel + "L/100KM");
-//					GaugeView rpm_view = (GaugeView) findViewById(R.id.fuel_view);
-//					rpm_view.setTargetValue((float) fuel);
-//					mHandler.sendEmptyMessageDelayed(HANDLER_FUEL, 500);
+					// TextView fuel_view = (TextView)
+					// findViewById(R.id.result);
+					// fuel_view.setText((int) fuel + "L/100KM");
+					// GaugeView rpm_view = (GaugeView)
+					// findViewById(R.id.fuel_view);
+					// rpm_view.setTargetValue((float) fuel);
+					// mHandler.sendEmptyMessageDelayed(HANDLER_FUEL, 500);
 					break;
 				case INIT_ANIM:
 					initAnim();
 					break;
 				case START_ANIM:
-				    Log.d("FirstIndexFragment", "mFirstfragment="+mFirstfragment);
-				    View first = mPager.getChildAt(0);
-				    if(first.findViewById(R.id.light)!=null){
-				        Animation right = AnimationUtils.loadAnimation(
-	                            MainActivity.this, msg.arg1);
-	                    // AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
-	                    // mFirstfragment.getRootView().findViewById(msg.arg2).setVisibility(View.VISIBLE);
-	                    // findViewById(msg.arg2).setAlpha(0);
-	                    // right.setDuration(300);
-	                    AlphaAnimation anim = new AlphaAnimation(0.01f, 1.0f);
-	                    anim.setDuration(500);
-	                    
-	                    first.findViewById(R.id.light).startAnimation(anim);
-	                    anim.setAnimationListener(new AnimationListener() {
+					Log.d("FirstIndexFragment", "mFirstfragment="
+							+ mFirstfragment);
+					View first = mPager.getChildAt(0);
+					if (first.findViewById(R.id.light) != null) {
+						Animation right = AnimationUtils.loadAnimation(
+								MainActivity.this, msg.arg1);
+						// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
+						// mFirstfragment.getRootView().findViewById(msg.arg2).setVisibility(View.VISIBLE);
+						// findViewById(msg.arg2).setAlpha(0);
+						// right.setDuration(300);
+						AlphaAnimation anim = new AlphaAnimation(0.01f, 1.0f);
+						anim.setDuration(500);
 
-	                        @Override
-	                        public void onAnimationStart(Animation animation) {
-	                            Log.e(TAG, "Animation start");
+						first.findViewById(R.id.light).startAnimation(anim);
+						anim.setAnimationListener(new AnimationListener() {
 
-	                        }
+							@Override
+							public void onAnimationStart(Animation animation) {
+								Log.e(TAG, "Animation start");
 
-	                        @Override
-	                        public void onAnimationRepeat(Animation animation) {
-	                            // TODO Auto-generated method stub
+							}
 
-	                        }
+							@Override
+							public void onAnimationRepeat(Animation animation) {
+								// TODO Auto-generated method stub
 
-	                        @Override
-	                        public void onAnimationEnd(Animation animation) {
-	                            Log.e(TAG, "Animation end");
-	                            Message msg = new Message();
-	                            msg.what = SHOW_MENU;
-	                            msg.arg1 = R.anim.right_out;
-	                            msg.arg2 = R.id.right_top;
-	                            mHandler.sendMessageDelayed(msg, 50);
-	                            
-	                        }
-	                    });
-	                    anim.start();
-				    }else{
-				        Log.d("FirstIndexFragment","view is null");
-				        Message ms = new Message();
-				        ms.what = START_ANIM;
-				        ms.arg1 = R.anim.show_out;
-				        ms.arg2 = R.id.light;
-				        mHandler.sendMessageDelayed(ms, 100);
-				    }
-					
+							}
+
+							@Override
+							public void onAnimationEnd(Animation animation) {
+								Log.e(TAG, "Animation end");
+								Message msg = new Message();
+								msg.what = SHOW_MENU;
+								msg.arg1 = R.anim.right_out;
+								msg.arg2 = R.id.right_top;
+								mHandler.sendMessageDelayed(msg, 50);
+
+							}
+						});
+						anim.start();
+					} else {
+						Log.d("FirstIndexFragment", "view is null");
+						Message ms = new Message();
+						ms.what = START_ANIM;
+						ms.arg1 = R.anim.show_out;
+						ms.arg2 = R.id.light;
+						mHandler.sendMessageDelayed(ms, 100);
+					}
+
 					break;
 
 				case SHOW_MENU:
-				    View view = mPager.getChildAt(0);
-				    if(view.findViewById(R.id.right_top)!=null){
-				        Animation show_menu = AnimationUtils.loadAnimation(
-	                            MainActivity.this, R.anim.right_out);
-	                    // AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
-	                    
-	                    view.findViewById(R.id.right_top).startAnimation(show_menu);
-	                    view.findViewById(R.id.right_bottom).startAnimation(show_menu);
-	                    show_menu = AnimationUtils.loadAnimation(MainActivity.this,
-	                            R.anim.left_out);
-	                    view.findViewById(R.id.left_top).startAnimation(show_menu);
-	                    view.findViewById(R.id.left_bottom).startAnimation(show_menu);
-	                    show_menu.setAnimationListener(new AnimationListener() {
+					View view = mPager.getChildAt(0);
+					if (view.findViewById(R.id.right_top) != null) {
+						Animation show_menu = AnimationUtils.loadAnimation(
+								MainActivity.this, R.anim.right_out);
+						// AlphaAnimation right=new AlphaAnimation(0.1f, 1.0f);
 
-	                        @Override
-	                        public void onAnimationStart(Animation animation) {
-	                            // TODO Auto-generated method stub
+						view.findViewById(R.id.right_top).startAnimation(
+								show_menu);
+						view.findViewById(R.id.right_bottom).startAnimation(
+								show_menu);
+						show_menu = AnimationUtils.loadAnimation(
+								MainActivity.this, R.anim.left_out);
+						view.findViewById(R.id.left_top).startAnimation(
+								show_menu);
+						view.findViewById(R.id.left_bottom).startAnimation(
+								show_menu);
+						show_menu.setAnimationListener(new AnimationListener() {
 
-	                        }
+							@Override
+							public void onAnimationStart(Animation animation) {
+								// TODO Auto-generated method stub
 
-	                        @Override
-	                        public void onAnimationRepeat(Animation animation) {
-	                            // TODO Auto-generated method stub
+							}
 
-	                        }
+							@Override
+							public void onAnimationRepeat(Animation animation) {
+								// TODO Auto-generated method stub
 
-	                        @Override
-	                        public void onAnimationEnd(Animation animation) {
-	                            mHandler.sendEmptyMessage(SHOW_ICON);
-	                        }
-	                    }); 
-				    }
-					
+							}
+
+							@Override
+							public void onAnimationEnd(Animation animation) {
+								mHandler.sendEmptyMessage(SHOW_ICON);
+							}
+						});
+					}
+
 					break;
 				case SHOW_ICON:
-				    View view1 = mPager.getChildAt(0);
-				    if(view1.findViewById(R.id.stopwatch)!=null){
-				        Animation show_icon = AnimationUtils.loadAnimation(
-	                            MainActivity.this, R.anim.show_out);
-	                    
-	                    view1.findViewById(R.id.stopwatch).startAnimation(show_icon);
-	                    view1.findViewById(R.id.obd).startAnimation(show_icon);
-	                    view1.findViewById(R.id.trouble_codes).startAnimation(show_icon);
-	                    view1.findViewById(R.id.maintenance).startAnimation(show_icon);
-				    }
-					
+					View view1 = mPager.getChildAt(0);
+					if (view1.findViewById(R.id.stopwatch) != null) {
+						Animation show_icon = AnimationUtils.loadAnimation(
+								MainActivity.this, R.anim.show_out);
+
+						view1.findViewById(R.id.stopwatch).startAnimation(
+								show_icon);
+						view1.findViewById(R.id.obd).startAnimation(show_icon);
+						view1.findViewById(R.id.trouble_codes).startAnimation(
+								show_icon);
+						view1.findViewById(R.id.maintenance).startAnimation(
+								show_icon);
+					}
+
 					break;
-					
+
 				case WIFI_CONNECT_FAILED:
 					ImageView con = (ImageView) findViewById(R.id.obd_connected);
 					con.clearAnimation();
@@ -327,7 +346,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				case WIFI_CONNECTING:
 					final Animation animation = new AlphaAnimation(1, 0);
 					animation.setDuration(400);
-					animation.setInterpolator(new AccelerateDecelerateInterpolator());
+					animation
+							.setInterpolator(new AccelerateDecelerateInterpolator());
 					animation.setRepeatCount(Animation.INFINITE);
 					animation.setRepeatMode(Animation.REVERSE);
 					final ImageView btn = (ImageView) findViewById(R.id.obd_connected);
@@ -341,41 +361,42 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	};
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		if (true) {
-//			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-//					.detectDiskReads().detectDiskWrites().detectNetwork()
-//					.penaltyLog().build());
-//		}
+		// if (true) {
+		// StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+		// .detectDiskReads().detectDiskWrites().detectNetwork()
+		// .penaltyLog().build());
+		// }
 		setContentView(R.layout.activity_main);
-		
+
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		
+
 		mPager = (ViewPager) findViewById(R.id.vPager);
-        fragmentsList = new ArrayList<Fragment>();
+		fragmentsList = new ArrayList<Fragment>();
 
-        mFirstfragment = new FirstIndexFragment();
-        Log.d("FirstIndexFragment", "onCreate() mFirstfragment="+mFirstfragment);
-        SecondIndexFragment secondFragment = new SecondIndexFragment();
+		mFirstfragment = new FirstIndexFragment();
+		Log.d("FirstIndexFragment", "onCreate() mFirstfragment="
+				+ mFirstfragment);
+		SecondIndexFragment secondFragment = new SecondIndexFragment();
 
-        fragmentsList.add(mFirstfragment);
-        fragmentsList.add(secondFragment);
-        
-        mPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentsList));
-        mPager.setCurrentItem(0);
-        mPager.setOnPageChangeListener(new MyOnPageChangeListener());
-        
-        findViewById(R.id.obd_connected).setOnClickListener(this);
-        findViewById(R.id.obd_config).setOnClickListener(this);
+		fragmentsList.add(mFirstfragment);
+		fragmentsList.add(secondFragment);
+
+		mPager.setAdapter(new MyFragmentPagerAdapter(
+				getSupportFragmentManager(), fragmentsList));
+		mPager.setCurrentItem(0);
+		mPager.setOnPageChangeListener(new MyOnPageChangeListener());
+
+		findViewById(R.id.obd_connected).setOnClickListener(this);
+		findViewById(R.id.obd_config).setOnClickListener(this);
 		mHandler.sendEmptyMessageDelayed(INIT_ANIM, 500);
-		
-		Intent service = new Intent(this,OBDService.class);  
-	    startService(service);    
-	    hideView();
-	    
+
+		Intent service = new Intent(this, OBDService.class);
+		startService(service);
+		hideView();
+
 	}
 
 	private void stopLiveData() {
@@ -477,19 +498,45 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	@Override
 	protected void onResume() {
-//		if (Device.getNetConnect(MainActivity.this) < 0) {
-//			// showDialog(0);
-//		} else {
-			if (mServiceConnection == null) {
-				mServiceIntent = new Intent(this, ObdGatewayService.class);
-				mServiceConnection = new ObdGatewayServiceConnection();
-				isBound = getApplicationContext().bindService(mServiceIntent,
-						mServiceConnection, Context.BIND_AUTO_CREATE);
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		String mConnect_type = preferences.getString(BaseSetting.CONNECT_TYPE,
+				null);
+		String ssid = preferences.getString(BaseSetting.CONNECT_DEVICE, null);
+		if (mConnect_type == null || Integer.valueOf(mConnect_type) == 0) {
+			WifiManager mWifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+
+			if (!mWifi.isWifiEnabled()) {
+				mWifi.setWifiEnabled(true);
 			}
-			mServiceConnection.setServiceListener(mListener);
-			mHandler.post(getConnectStatusRunable);
-			mHandler.sendEmptyMessageDelayed(HANDLER_FUEL, 500);
-//		}
+
+			WifiInfo wifiInfo = mWifi.getConnectionInfo();
+
+			if (wifiInfo.getMacAddress() == null) {
+				showDialog(0);
+			} else if (ssid != null && !wifiInfo.getSSID().equals(ssid)) {
+				Toast.makeText(
+						this,
+						String.format(getString(R.string.wifi_connect_wrong),
+								ssid), Toast.LENGTH_LONG).show();
+			}
+			// if (Device.getNetConnect(MainActivity.this) < 0) {
+			//
+			// showDialog(0);
+			// }
+
+		} else if (Integer.valueOf(mConnect_type) == 1) {
+
+		}
+		if (mServiceConnection == null) {
+			mServiceIntent = new Intent(this, ObdGatewayService.class);
+			mServiceConnection = new ObdGatewayServiceConnection();
+			isBound = getApplicationContext().bindService(mServiceIntent,
+					mServiceConnection, Context.BIND_AUTO_CREATE);
+		}
+		mServiceConnection.setServiceListener(mListener);
+		mHandler.post(getConnectStatusRunable);
+		mHandler.sendEmptyMessageDelayed(HANDLER_FUEL, 500);
 		super.onResume();
 	}
 
@@ -522,7 +569,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				Toast.makeText(getBaseContext(), R.string.device_unconn,
 						Toast.LENGTH_LONG).show();
 			}
-				
+
 			break;
 		case R.id.stopwatch:
 			if (isConnected)
@@ -546,9 +593,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		case R.id.maintenance:
 			startActivity(new Intent(this, MaintenanceActivity.class));
 			break;
-			
+
 		case R.id.obd_connected:
-			if(mServiceConnection!=null){
+			if (mServiceConnection != null) {
 				mServiceConnection.connectDevice();
 			}
 			break;
@@ -574,34 +621,39 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		mHandler.sendMessageDelayed(msg, 10);
 
 	}
-	
+
 	public class MyOnPageChangeListener implements OnPageChangeListener {
 
 		@Override
 		public void onPageScrollStateChanged(int state) {
-			Log.d(TAG, "onPageScrollStateChanged = "+state);
-			
+			Log.d(TAG, "onPageScrollStateChanged = " + state);
+
 		}
 
 		@Override
-		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-			Log.d(TAG, "onPageScrolled = "+position+" arg1="+positionOffset+" arg2= "+positionOffsetPixels +" mPager.getCurrentItem()="+mPager.getCurrentItem());
-			if(position==0){
-					findViewById(R.id.left_light).getBackground().setAlpha((int) (255*positionOffset));
-					findViewById(R.id.right_light).getBackground().setAlpha((int) (255*(1-positionOffset)));
+		public void onPageScrolled(int position, float positionOffset,
+				int positionOffsetPixels) {
+			Log.d(TAG, "onPageScrolled = " + position + " arg1="
+					+ positionOffset + " arg2= " + positionOffsetPixels
+					+ " mPager.getCurrentItem()=" + mPager.getCurrentItem());
+			if (position == 0) {
+				findViewById(R.id.left_light).getBackground().setAlpha(
+						(int) (255 * positionOffset));
+				findViewById(R.id.right_light).getBackground().setAlpha(
+						(int) (255 * (1 - positionOffset)));
 			}
-			
+
 		}
 
 		@Override
 		public void onPageSelected(int position) {
-			Log.d(TAG, "onPageSelected = "+position);
-			
+			Log.d(TAG, "onPageSelected = " + position);
+
 		}
-		
+
 	}
-	
-	private void hideView(){
+
+	private void hideView() {
 		findViewById(R.id.left_light).getBackground().setAlpha(0);
 	}
 

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-  <ListPreference
-            android:dialogTitle="@string/connect_type_title"
-            android:entries="@array/connect_type"
-            android:entryValues="@array/connect_type_value"
-            android:key="connect_type"
-            android:summary="@string/connect_type_summary"
-            android:title="@string/connect_type_title" />
-       
-        <Preference
-            android:key="connect_device"
-            android:summary="@string/connect_device_summary"
-            android:title="@string/connect_device_title"
-             >
-        </Preference>
-        
+    <ListPreference
+        android:dialogTitle="@string/connect_type_title"
+        android:entries="@array/connect_type"
+        android:entryValues="@array/connect_type_value"
+        android:key="connect_type"
+        android:summary="@string/connect_type_summary"
+        android:title="@string/connect_type_title" />
+
+    <Preference
+        android:key="connect_device"
+        android:summary="@string/connect_device_summary"
+        android:title="@string/connect_device_title" >
+    </Preference>
+    <Preference
+        android:key="customer_connect"
+        android:summary="@string/customer_connect_summary"
+        android:title="@string/customer_connect_title" >
+    </Preference>
 
 </PreferenceScreen>

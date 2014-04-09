@@ -331,7 +331,7 @@ public class WifiDeviceListActivity extends PreferenceActivity implements
 		if (preference instanceof AccessPoint) {
 			mSelected = (AccessPoint) preference;
 			Log.e(TAG,"ssid = "+mSelected.ssid+" networkid = "+mSelected.networkId);
-			//connect(mSelected.networkId);
+			connect(mSelected.networkId);
 			Intent intent = new Intent();
             intent.putExtra(BaseSetting.EXTRA_DEVICE_ADDRESS, mSelected.ssid);
 
