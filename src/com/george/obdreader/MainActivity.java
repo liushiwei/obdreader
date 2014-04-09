@@ -512,7 +512,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			WifiInfo wifiInfo = mWifi.getConnectionInfo();
 
-			if (wifiInfo.getMacAddress() == null) {
+			if (wifiInfo.getIpAddress() == 0) {
 				showDialog(0);
 			} else if (ssid != null && !wifiInfo.getSSID().equals(ssid)) {
 				Toast.makeText(
