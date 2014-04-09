@@ -85,11 +85,11 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 												cmdResult, 16)));
 						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
 								16));
-						for (int i = 0; i < 32; i++) {
-							if (i < 32 - cmdResult.length()) {
+						for (int i = 1; i < 33; i++) {
+							if (i < 33 - cmdResult.length()) {
 								isSupported[i] = false;
 							} else {
-								isSupported[i] = cmdResult.charAt(i - 32
+								isSupported[i] = cmdResult.charAt(i - 33
 										+ cmdResult.length()) == '1' ? true
 										: false;
 							}
@@ -108,11 +108,11 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 												cmdResult, 16)));
 						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
 								16));
-						for (int i = 32; i < 64; i++) {
-							if (i < 64 - cmdResult.length()) {
+						for (int i = 33; i < 65; i++) {
+							if (i < 65 - cmdResult.length()) {
 								isSupported[i] = false;
 							} else {
-								isSupported[i] = cmdResult.charAt(i - 64
+								isSupported[i] = cmdResult.charAt(i - 65
 										+ cmdResult.length()) == '1' ? true
 										: false;
 							}
@@ -131,11 +131,11 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 												cmdResult, 16)));
 						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
 								16));
-						for (int i = 64; i < 96; i++) {
-							if (i < 96 - cmdResult.length()) {
+						for (int i = 65; i < 97; i++) {
+							if (i < 97 - cmdResult.length()) {
 								isSupported[i] = false;
 							} else {
-								isSupported[i] = cmdResult.charAt(i - 96
+								isSupported[i] = cmdResult.charAt(i - 97
 										+ cmdResult.length()) == '1' ? true
 										: false;
 							}
