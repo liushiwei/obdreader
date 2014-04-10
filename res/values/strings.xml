@@ -138,5 +138,6 @@
     <string name="customer_connect_ip_error">IP输入格式错误！</string>
     <string name="customer_connect_port_error">端口输入错误！</string>
     <string name="reboot">连接信息已经修改，重新启动应用后生效</string>
-    <string name="wifi_connect_wrong">WIFI当前连接的设备不是:<xliff:g id="wifi_security">%1$s</xliff:g></string>
+    <string name="wifi_connect_wrong">WIFI当前连接的设备不是:<xliff:g id="wifi_security">%1$s</xliff:g>,要更改吗？</string>
+    <string name="wifi_open">WIFI连接没有打开，要打开WIFI连接吗？</string>
 </resources>

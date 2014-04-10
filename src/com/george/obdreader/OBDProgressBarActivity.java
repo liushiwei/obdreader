@@ -77,14 +77,18 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 					if (job.getCommand().getCommand().trim().equals("0100")) {
 						cmdResult = job.getCommand().getFormattedResult();
 						cmdResult = 	cmdResult.substring(cmdResult.length()-8);
-						Log.e(TAG,
-								"hex to bin "
-										+ cmdResult
-										+ " ="
-										+ Long.toBinaryString(Long.valueOf(
-												cmdResult, 16)));
-						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
-								16));
+						try{
+							Log.e(TAG,
+									"hex to bin "
+											+ cmdResult
+											+ " ="
+											+ Long.toBinaryString(Long.valueOf(
+													cmdResult, 16)));
+							cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
+									16));
+							}catch(Exception e){
+								return;
+							}
 						for (int i = 1; i < 33; i++) {
 							if (i < 33 - cmdResult.length()) {
 								isSupported[i] = false;
@@ -100,14 +104,18 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 					if (job.getCommand().getCommand().trim().equals("0120")) {
 						cmdResult = job.getCommand().getFormattedResult()
 								.substring(4);
-						Log.e(TAG,
-								"hex to bin "
-										+ cmdResult
-										+ " ="
-										+ Long.toBinaryString(Long.valueOf(
-												cmdResult, 16)));
-						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
-								16));
+						try{
+							Log.e(TAG,
+									"hex to bin "
+											+ cmdResult
+											+ " ="
+											+ Long.toBinaryString(Long.valueOf(
+													cmdResult, 16)));
+							cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
+									16));
+							}catch(Exception e){
+								return;
+							}
 						for (int i = 33; i < 65; i++) {
 							if (i < 65 - cmdResult.length()) {
 								isSupported[i] = false;
@@ -123,6 +131,62 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 					if (job.getCommand().getCommand().trim().equals("0140")) {
 						cmdResult = job.getCommand().getFormattedResult()
 								.substring(4);
+						try{
+							Log.e(TAG,
+									"hex to bin "
+											+ cmdResult
+											+ " ="
+											+ Long.toBinaryString(Long.valueOf(
+													cmdResult, 16)));
+							cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
+									16));
+							}catch(Exception e){
+								return;
+							}
+						for (int i = 65; i < 97; i++) {
+							if (i < 97 - cmdResult.length()) {
+								isSupported[i] = false;
+							} else {
+								isSupported[i] = cmdResult.charAt(i - 97
+										+ cmdResult.length()) == '1' ? true
+										: false;
+							}
+						}
+						if(mPidAdapter!=null)
+							mPidAdapter.notifyDataSetChanged();
+					}
+					if (job.getCommand().getCommand().trim().equals("0160")) {
+						cmdResult = job.getCommand().getFormattedResult()
+								.substring(4);
+						try{
+							Log.e(TAG,
+									"hex to bin "
+											+ cmdResult
+											+ " ="
+											+ Long.toBinaryString(Long.valueOf(
+													cmdResult, 16)));
+							cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
+									16));
+						}catch(Exception e){
+							return;
+						}
+						
+						for (int i = 97; i < 129; i++) {
+							if (i < 129 - cmdResult.length()) {
+								isSupported[i] = false;
+							} else {
+								isSupported[i] = cmdResult.charAt(i - 129
+										+ cmdResult.length()) == '1' ? true
+										: false;
+							}
+						}
+						if(mPidAdapter!=null)
+							mPidAdapter.notifyDataSetChanged();
+					}
+					if (job.getCommand().getCommand().trim().equals("0180")) {
+						cmdResult = job.getCommand().getFormattedResult()
+								.substring(4);
+						try{
 						Log.e(TAG,
 								"hex to bin "
 										+ cmdResult
@@ -131,11 +195,14 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 												cmdResult, 16)));
 						cmdResult = Long.toBinaryString(Long.valueOf(cmdResult,
 								16));
-						for (int i = 65; i < 97; i++) {
-							if (i < 97 - cmdResult.length()) {
+						}catch(Exception e){
+							return;
+						}
+						for (int i = 129; i < 161; i++) {
+							if (i < 161 - cmdResult.length()) {
 								isSupported[i] = false;
 							} else {
-								isSupported[i] = cmdResult.charAt(i - 97
+								isSupported[i] = cmdResult.charAt(i - 161
 										+ cmdResult.length()) == '1' ? true
 										: false;
 							}
@@ -162,6 +229,10 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 					new SimpleObdCommand("01 20", "PIDs supported [21 - 40]")));
 			mServiceConnection.addJobToQueue(new ObdCommandJob(
 					new SimpleObdCommand("01 40", "PIDs supported [41 - 60]")));
+			mServiceConnection.addJobToQueue(new ObdCommandJob(
+					new SimpleObdCommand("01 60", "PIDs supported [61 - 80]")));
+			mServiceConnection.addJobToQueue(new ObdCommandJob(
+					new SimpleObdCommand("01 80", "PIDs supported [81 - A0]")));
 			Log.e(TAG, "deviceConnected deviceName = " + deviceName);
 			for (int i = 0; i < mPidsEnum.length; i++) {
 				mPid_decs[i] = getString(mPidsEnum[i].getDesc());
@@ -198,12 +269,13 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 	private Intent mServiceIntent = null;
 	private ObdGatewayServiceConnection mServiceConnection;
 	private static final String TAG = "OBDProgressBarActivity";
+	private static final int SUPPORT_SIZE = 161;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.obd_progress_bar_list);
-		isSupported = new boolean[100];
+		isSupported = new boolean[SUPPORT_SIZE];
 		isGetSupportedOver = false;
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		mPids = new HashMap<String, PidValue>();
@@ -415,6 +487,7 @@ public class OBDProgressBarActivity extends Activity implements OnItemClickListe
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
+			Log.e(TAG, "position = "+position +" mPidsEnum[position].getId()="+mPidsEnum[position].getId());
 			if(isSupported[mPidsEnum[position].getId()]){
 				convertView.setBackgroundResource(R.drawable.pid_item_bg);
 			}else{

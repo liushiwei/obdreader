@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.george.obdreader.config.BaseSetting;
 import com.george.obdreader.config.ConfigurationActivity;
+import com.george.obdreader.config.WifiDeviceListActivity;
 import com.george.obdreader.io.IPostListener;
 import com.george.obdreader.io.ObdCommandJob;
 import com.george.obdreader.io.ObdGatewayService;
@@ -121,8 +122,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				}
 				switch (job.getCommand().getId()) {
 				case ENGINE_RPM:
-					GaugeView rpm_view = (GaugeView) mFirstfragment
-							.getRootView().findViewById(R.id.rpm_view);
+					GaugeView rpm_view = (GaugeView) mPager.getChildAt(0).findViewById(R.id.rpm_view);
 					rpm_view.setTargetValue(((EngineRPMObdCommand) job
 							.getCommand()).getRPM());
 					fuel_rpm = ((EngineRPMObdCommand) job.getCommand())
@@ -504,21 +504,53 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				null);
 		String ssid = preferences.getString(BaseSetting.CONNECT_DEVICE, null);
 		if (mConnect_type == null || Integer.valueOf(mConnect_type) == 0) {
+			Log.e(TAG, "onResume()");
 			WifiManager mWifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
 			if (!mWifi.isWifiEnabled()) {
-				mWifi.setWifiEnabled(true);
+				//mWifi.setWifiEnabled(true);
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				builder.setMessage(R.string.wifi_open);
+				builder.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+								startActivity(new Intent(MainActivity.this,WifiDeviceListActivity.class	));
+							}
+						});
+
+				builder.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+								//MainActivity.this.finish();
+							}
+						});
+				builder.create().show();
 			}
 
 			WifiInfo wifiInfo = mWifi.getConnectionInfo();
 
 			if (wifiInfo.getIpAddress() == 0) {
-				showDialog(0);
+				//showDialog(0);
+				
 			} else if (ssid != null && !wifiInfo.getSSID().equals(ssid)) {
-				Toast.makeText(
-						this,
-						String.format(getString(R.string.wifi_connect_wrong),
-								ssid), Toast.LENGTH_LONG).show();
+				Log.e(TAG, "connect wrong");
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				builder.setMessage(String.format(getString(R.string.wifi_connect_wrong),
+						ssid));
+				builder.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+								startActivity(new Intent(MainActivity.this,WifiDeviceListActivity.class	));
+							}
+						});
+
+				builder.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+								//MainActivity.this.finish();
+							}
+						});
+				builder.create().show();
 			}
 			// if (Device.getNetConnect(MainActivity.this) < 0) {
 			//
@@ -529,10 +561,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		}
 		if (mServiceConnection == null) {
+			Log.e(TAG, "mServiceConnection == null");
 			mServiceIntent = new Intent(this, ObdGatewayService.class);
 			mServiceConnection = new ObdGatewayServiceConnection();
 			isBound = getApplicationContext().bindService(mServiceIntent,
 					mServiceConnection, Context.BIND_AUTO_CREATE);
+		}
+		if (!mServiceConnection.isConnected()
+				|| !mServiceConnection.isRunning()) {
+			mServiceConnection.connectDevice();
 		}
 		mServiceConnection.setServiceListener(mListener);
 		mHandler.post(getConnectStatusRunable);
@@ -546,6 +583,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		public void run() {
 			if (!mServiceConnection.isConnected()
 					|| !mServiceConnection.isRunning()) {
+				Log.e(TAG, "mServiceConnection.connectDevice()");
 				mHandler.postDelayed(getConnectStatusRunable, 500);
 			} else {
 				findViewById(R.id.obd_connected).clearAnimation();

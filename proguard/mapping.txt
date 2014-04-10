@@ -30,10 +30,11 @@ android.support.v4.app.BackStackRecord -> android.support.v4.app.b:
     android.support.v4.app.FragmentTransaction attach(android.support.v4.app.Fragment) -> b
     void bumpBackStackNesting(int) -> a
     int commit() -> a
+    int commitAllowingStateLoss() -> b
     int commitInternal(boolean) -> a
     void run() -> run
     void popFromBackStack(boolean) -> b
-    java.lang.String getName() -> b
+    java.lang.String getName() -> c
 android.support.v4.app.BackStackRecord$Op -> android.support.v4.app.c:
     android.support.v4.app.BackStackRecord$Op next -> a
     android.support.v4.app.BackStackRecord$Op prev -> b
@@ -117,8 +118,13 @@ android.support.v4.app.Fragment -> android.support.v4.app.Fragment:
     android.support.v4.app.FragmentActivity getActivity() -> b
     android.content.res.Resources getResources() -> c
     java.lang.String getString(int) -> a
-    boolean isDetached() -> d
+    boolean isAdded() -> d
+    boolean isDetached() -> e
+    boolean isHidden() -> f
     void onHiddenChanged(boolean) -> a
+    void setMenuVisibility(boolean) -> b
+    void setUserVisibleHint(boolean) -> c
+    void startActivity(android.content.Intent) -> a
     void startActivityForResult(android.content.Intent,int) -> a
     void onActivityResult(int,int,android.content.Intent) -> a
     android.view.LayoutInflater getLayoutInflater(android.os.Bundle) -> b
@@ -128,47 +134,47 @@ android.support.v4.app.Fragment -> android.support.v4.app.Fragment:
     void onCreate(android.os.Bundle) -> c
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onViewCreated(android.view.View,android.os.Bundle) -> a
-    android.view.View getView() -> e
+    android.view.View getView() -> g
     void onActivityCreated(android.os.Bundle) -> d
     void onViewStateRestored(android.os.Bundle) -> e
-    void onStart() -> f
-    void onResume() -> g
+    void onStart() -> h
+    void onResume() -> i
     void onSaveInstanceState(android.os.Bundle) -> f
     void onConfigurationChanged(android.content.res.Configuration) -> onConfigurationChanged
-    void onPause() -> h
-    void onStop() -> i
+    void onPause() -> j
+    void onStop() -> k
     void onLowMemory() -> onLowMemory
-    void onDestroyView() -> j
-    void onDestroy() -> k
-    void initState() -> l
-    void onDetach() -> m
+    void onDestroyView() -> l
+    void onDestroy() -> m
+    void initState() -> n
+    void onDetach() -> o
     void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
     void onPrepareOptionsMenu(android.view.Menu) -> a
-    void onDestroyOptionsMenu() -> n
+    void onDestroyOptionsMenu() -> p
     boolean onOptionsItemSelected(android.view.MenuItem) -> a
     void onOptionsMenuClosed(android.view.Menu) -> b
     void onCreateContextMenu(android.view.ContextMenu,android.view.View,android.view.ContextMenu$ContextMenuInfo) -> onCreateContextMenu
     boolean onContextItemSelected(android.view.MenuItem) -> b
     void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
-    void instantiateChildFragmentManager() -> o
+    void instantiateChildFragmentManager() -> q
     void performCreate(android.os.Bundle) -> g
     android.view.View performCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> b
     void performActivityCreated(android.os.Bundle) -> h
-    void performStart() -> p
-    void performResume() -> q
+    void performStart() -> r
+    void performResume() -> s
     void performConfigurationChanged(android.content.res.Configuration) -> a
-    void performLowMemory() -> r
+    void performLowMemory() -> t
     boolean performCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> b
     boolean performPrepareOptionsMenu(android.view.Menu) -> c
     boolean performOptionsItemSelected(android.view.MenuItem) -> c
     boolean performContextItemSelected(android.view.MenuItem) -> d
     void performOptionsMenuClosed(android.view.Menu) -> d
     void performSaveInstanceState(android.os.Bundle) -> i
-    void performPause() -> s
-    void performStop() -> t
-    void performReallyStop() -> u
-    void performDestroyView() -> v
-    void performDestroy() -> w
+    void performPause() -> u
+    void performStop() -> v
+    void performReallyStop() -> w
+    void performDestroyView() -> x
+    void performDestroy() -> y
 android.support.v4.app.Fragment$1 -> android.support.v4.app.e:
     android.support.v4.app.Fragment this$0 -> a
     android.view.View findViewById(int) -> a
@@ -365,6 +371,21 @@ android.support.v4.app.FragmentManagerState$1 -> android.support.v4.app.s:
     android.support.v4.app.FragmentManagerState[] newArray(int) -> a
     java.lang.Object[] newArray(int) -> newArray
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+android.support.v4.app.FragmentPagerAdapter -> android.support.v4.app.t:
+    android.support.v4.app.FragmentManager mFragmentManager -> a
+    android.support.v4.app.FragmentTransaction mCurTransaction -> b
+    android.support.v4.app.Fragment mCurrentPrimaryItem -> c
+    android.support.v4.app.Fragment getItem(int) -> a
+    void startUpdate(android.view.ViewGroup) -> a
+    java.lang.Object instantiateItem(android.view.ViewGroup,int) -> a
+    void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> a
+    void setPrimaryItem(android.view.ViewGroup,int,java.lang.Object) -> b
+    void finishUpdate(android.view.ViewGroup) -> b
+    boolean isViewFromObject(android.view.View,java.lang.Object) -> a
+    android.os.Parcelable saveState() -> a
+    void restoreState(android.os.Parcelable,java.lang.ClassLoader) -> a
+    long getItemId(int) -> b
+    java.lang.String makeFragmentName(int,long) -> a
 android.support.v4.app.FragmentState -> android.support.v4.app.FragmentState:
     java.lang.String mClassName -> a
     int mIndex -> b
@@ -381,7 +402,7 @@ android.support.v4.app.FragmentState -> android.support.v4.app.FragmentState:
     android.support.v4.app.Fragment instantiate(android.support.v4.app.FragmentActivity,android.support.v4.app.Fragment) -> a
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
-android.support.v4.app.FragmentState$1 -> android.support.v4.app.t:
+android.support.v4.app.FragmentState$1 -> android.support.v4.app.u:
     android.support.v4.app.FragmentState createFromParcel(android.os.Parcel) -> a
     android.support.v4.app.FragmentState[] newArray(int) -> a
     java.lang.Object[] newArray(int) -> newArray
@@ -407,8 +428,8 @@ android.support.v4.app.FragmentTabHost -> android.support.v4.app.FragmentTabHost
     void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
     void onTabChanged(java.lang.String) -> onTabChanged
     android.support.v4.app.FragmentTransaction doTabChanged(java.lang.String,android.support.v4.app.FragmentTransaction) -> a
-android.support.v4.app.FragmentTabHost$1 -> android.support.v4.app.u:
-android.support.v4.app.FragmentTabHost$DummyTabFactory -> android.support.v4.app.v:
+android.support.v4.app.FragmentTabHost$1 -> android.support.v4.app.v:
+android.support.v4.app.FragmentTabHost$DummyTabFactory -> android.support.v4.app.w:
     android.content.Context mContext -> a
     android.view.View createTabContent(java.lang.String) -> createTabContent
 android.support.v4.app.FragmentTabHost$SavedState -> android.support.v4.app.FragmentTabHost$SavedState:
@@ -416,12 +437,12 @@ android.support.v4.app.FragmentTabHost$SavedState -> android.support.v4.app.Frag
     android.os.Parcelable$Creator CREATOR -> CREATOR
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
     java.lang.String toString() -> toString
-android.support.v4.app.FragmentTabHost$SavedState$1 -> android.support.v4.app.w:
+android.support.v4.app.FragmentTabHost$SavedState$1 -> android.support.v4.app.x:
     android.support.v4.app.FragmentTabHost$SavedState createFromParcel(android.os.Parcel) -> a
     android.support.v4.app.FragmentTabHost$SavedState[] newArray(int) -> a
     java.lang.Object[] newArray(int) -> newArray
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-android.support.v4.app.FragmentTabHost$TabInfo -> android.support.v4.app.x:
+android.support.v4.app.FragmentTabHost$TabInfo -> android.support.v4.app.y:
     java.lang.String tag -> a
     java.lang.Class clss -> b
     android.os.Bundle args -> c
@@ -431,18 +452,19 @@ android.support.v4.app.FragmentTabHost$TabInfo -> android.support.v4.app.x:
     java.lang.String access$200(android.support.v4.app.FragmentTabHost$TabInfo) -> b
     java.lang.Class access$300(android.support.v4.app.FragmentTabHost$TabInfo) -> c
     android.os.Bundle access$400(android.support.v4.app.FragmentTabHost$TabInfo) -> d
-android.support.v4.app.FragmentTransaction -> android.support.v4.app.y:
+android.support.v4.app.FragmentTransaction -> android.support.v4.app.z:
     android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String) -> a
     android.support.v4.app.FragmentTransaction detach(android.support.v4.app.Fragment) -> a
     android.support.v4.app.FragmentTransaction attach(android.support.v4.app.Fragment) -> b
     int commit() -> a
-android.support.v4.app.LoaderManager -> android.support.v4.app.z:
+    int commitAllowingStateLoss() -> b
+android.support.v4.app.LoaderManager -> android.support.v4.app.aa:
     boolean hasRunningLoaders() -> a
-android.support.v4.app.LoaderManager$LoaderCallbacks -> android.support.v4.app.aa:
+android.support.v4.app.LoaderManager$LoaderCallbacks -> android.support.v4.app.ab:
     android.support.v4.content.Loader onCreateLoader(int,android.os.Bundle) -> a
     void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> a
     void onLoaderReset(android.support.v4.content.Loader) -> a
-android.support.v4.app.LoaderManagerImpl -> android.support.v4.app.ab:
+android.support.v4.app.LoaderManagerImpl -> android.support.v4.app.ac:
     boolean DEBUG -> a
     android.support.v4.util.SparseArrayCompat mLoaders -> b
     android.support.v4.util.SparseArrayCompat mInactiveLoaders -> c
@@ -461,7 +483,7 @@ android.support.v4.app.LoaderManagerImpl -> android.support.v4.app.ab:
     java.lang.String toString() -> toString
     void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
     boolean hasRunningLoaders() -> a
-android.support.v4.app.LoaderManagerImpl$LoaderInfo -> android.support.v4.app.ac:
+android.support.v4.app.LoaderManagerImpl$LoaderInfo -> android.support.v4.app.ad:
     int mId -> a
     android.os.Bundle mArgs -> b
     android.support.v4.app.LoaderManager$LoaderCallbacks mCallbacks -> c
@@ -486,11 +508,11 @@ android.support.v4.app.LoaderManagerImpl$LoaderInfo -> android.support.v4.app.ac
     void callOnLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> a
     java.lang.String toString() -> toString
     void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
-android.support.v4.app.NoSaveStateFrameLayout -> android.support.v4.app.ad:
+android.support.v4.app.NoSaveStateFrameLayout -> android.support.v4.app.ae:
     android.view.ViewGroup wrap(android.view.View) -> a
     void dispatchSaveInstanceState(android.util.SparseArray) -> dispatchSaveInstanceState
     void dispatchRestoreInstanceState(android.util.SparseArray) -> dispatchRestoreInstanceState
-android.support.v4.app.SuperNotCalledException -> android.support.v4.app.ae:
+android.support.v4.app.SuperNotCalledException -> android.support.v4.app.af:
 android.support.v4.content.Loader -> android.support.v4.a.a:
     int mId -> a
     android.support.v4.content.Loader$OnLoadCompleteListener mListener -> b
@@ -537,22 +559,22 @@ android.support.v4.preference.PreferenceFragment -> android.support.v4.c.a:
     void onCreate(android.os.Bundle) -> c
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onActivityCreated(android.os.Bundle) -> d
-    void onStart() -> f
-    void onStop() -> i
-    void onDestroyView() -> j
-    void onDestroy() -> k
+    void onStart() -> h
+    void onStop() -> k
+    void onDestroyView() -> l
+    void onDestroy() -> m
     void onSaveInstanceState(android.os.Bundle) -> f
     void onActivityResult(int,int,android.content.Intent) -> a
     void setPreferenceScreen(android.preference.PreferenceScreen) -> a
-    android.preference.PreferenceScreen getPreferenceScreen() -> x
+    android.preference.PreferenceScreen getPreferenceScreen() -> z
     void addPreferencesFromResource(int) -> b
     boolean onPreferenceTreeClick(android.preference.PreferenceScreen,android.preference.Preference) -> a
     android.preference.Preference findPreference(java.lang.CharSequence) -> a
-    void requirePreferenceManager() -> z
-    void postBindPreferences() -> A
-    void bindPreferences() -> B
-    android.widget.ListView getListView() -> y
-    void ensureList() -> C
+    void requirePreferenceManager() -> B
+    void postBindPreferences() -> C
+    void bindPreferences() -> D
+    android.widget.ListView getListView() -> A
+    void ensureList() -> E
     void access$0(android.support.v4.preference.PreferenceFragment) -> a
     android.widget.ListView access$1(android.support.v4.preference.PreferenceFragment) -> b
 android.support.v4.preference.PreferenceFragment$1 -> android.support.v4.c.b:
@@ -604,45 +626,171 @@ android.support.v4.util.SparseArrayCompat -> android.support.v4.d.c:
     void clear() -> b
     int idealByteArraySize(int) -> c
     int idealIntArraySize(int) -> d
-android.support.v4.view.GravityCompat -> android.support.v4.view.a:
+android.support.v4.view.AccessibilityDelegateCompat -> android.support.v4.view.a:
+    android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateImpl IMPL -> b
+    java.lang.Object DEFAULT_DELEGATE -> c
+    java.lang.Object mBridge -> a
+    java.lang.Object getBridge() -> a
+    void sendAccessibilityEvent(android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    boolean dispatchPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    void onInitializeAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+    void onInitializeAccessibilityNodeInfo(android.view.View,android.support.v4.view.accessibility.AccessibilityNodeInfoCompat) -> a
+    boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    android.support.v4.view.accessibility.AccessibilityNodeProviderCompat getAccessibilityNodeProvider(android.view.View) -> a
+    boolean performAccessibilityAction(android.view.View,int,android.os.Bundle) -> a
+android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateIcsImpl -> android.support.v4.view.b:
+    java.lang.Object newAccessiblityDelegateDefaultImpl() -> a
+    java.lang.Object newAccessiblityDelegateBridge(android.support.v4.view.AccessibilityDelegateCompat) -> a
+    boolean dispatchPopulateAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void onInitializeAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onInitializeAccessibilityNodeInfo(java.lang.Object,android.view.View,android.support.v4.view.accessibility.AccessibilityNodeInfoCompat) -> a
+    void onPopulateAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    boolean onRequestSendAccessibilityEvent(java.lang.Object,android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void sendAccessibilityEvent(java.lang.Object,android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateIcsImpl$1 -> android.support.v4.view.c:
+    android.support.v4.view.AccessibilityDelegateCompat val$compat -> a
+    android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateIcsImpl this$0 -> b
+    boolean dispatchPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void onInitializeAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onInitializeAccessibilityNodeInfo(android.view.View,java.lang.Object) -> a
+    void onPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void sendAccessibilityEvent(android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateImpl -> android.support.v4.view.d:
+    java.lang.Object newAccessiblityDelegateDefaultImpl() -> a
+    java.lang.Object newAccessiblityDelegateBridge(android.support.v4.view.AccessibilityDelegateCompat) -> a
+    boolean dispatchPopulateAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void onInitializeAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onInitializeAccessibilityNodeInfo(java.lang.Object,android.view.View,android.support.v4.view.accessibility.AccessibilityNodeInfoCompat) -> a
+    void onPopulateAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    boolean onRequestSendAccessibilityEvent(java.lang.Object,android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void sendAccessibilityEvent(java.lang.Object,android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+    android.support.v4.view.accessibility.AccessibilityNodeProviderCompat getAccessibilityNodeProvider(java.lang.Object,android.view.View) -> a
+    boolean performAccessibilityAction(java.lang.Object,android.view.View,int,android.os.Bundle) -> a
+android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateJellyBeanImpl -> android.support.v4.view.e:
+    java.lang.Object newAccessiblityDelegateBridge(android.support.v4.view.AccessibilityDelegateCompat) -> a
+    android.support.v4.view.accessibility.AccessibilityNodeProviderCompat getAccessibilityNodeProvider(java.lang.Object,android.view.View) -> a
+    boolean performAccessibilityAction(java.lang.Object,android.view.View,int,android.os.Bundle) -> a
+android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateJellyBeanImpl$1 -> android.support.v4.view.f:
+    android.support.v4.view.AccessibilityDelegateCompat val$compat -> a
+    android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateJellyBeanImpl this$0 -> b
+    boolean dispatchPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void onInitializeAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onInitializeAccessibilityNodeInfo(android.view.View,java.lang.Object) -> a
+    void onPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void sendAccessibilityEvent(android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+    java.lang.Object getAccessibilityNodeProvider(android.view.View) -> a
+    boolean performAccessibilityAction(android.view.View,int,android.os.Bundle) -> a
+android.support.v4.view.AccessibilityDelegateCompat$AccessibilityDelegateStubImpl -> android.support.v4.view.g:
+    java.lang.Object newAccessiblityDelegateDefaultImpl() -> a
+    java.lang.Object newAccessiblityDelegateBridge(android.support.v4.view.AccessibilityDelegateCompat) -> a
+    boolean dispatchPopulateAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void onInitializeAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onInitializeAccessibilityNodeInfo(java.lang.Object,android.view.View,android.support.v4.view.accessibility.AccessibilityNodeInfoCompat) -> a
+    void onPopulateAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    boolean onRequestSendAccessibilityEvent(java.lang.Object,android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void sendAccessibilityEvent(java.lang.Object,android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+    android.support.v4.view.accessibility.AccessibilityNodeProviderCompat getAccessibilityNodeProvider(java.lang.Object,android.view.View) -> a
+    boolean performAccessibilityAction(java.lang.Object,android.view.View,int,android.os.Bundle) -> a
+android.support.v4.view.AccessibilityDelegateCompatIcs -> android.support.v4.view.h:
+    java.lang.Object newAccessibilityDelegateDefaultImpl() -> a
+    java.lang.Object newAccessibilityDelegateBridge(android.support.v4.view.AccessibilityDelegateCompatIcs$AccessibilityDelegateBridge) -> a
+    boolean dispatchPopulateAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void onInitializeAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onInitializeAccessibilityNodeInfo(java.lang.Object,android.view.View,java.lang.Object) -> a
+    void onPopulateAccessibilityEvent(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    boolean onRequestSendAccessibilityEvent(java.lang.Object,android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void sendAccessibilityEvent(java.lang.Object,android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(java.lang.Object,android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+android.support.v4.view.AccessibilityDelegateCompatIcs$1 -> android.support.v4.view.i:
+    android.support.v4.view.AccessibilityDelegateCompatIcs$AccessibilityDelegateBridge val$bridge -> a
+    boolean dispatchPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> dispatchPopulateAccessibilityEvent
+    void onInitializeAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> onInitializeAccessibilityEvent
+    void onInitializeAccessibilityNodeInfo(android.view.View,android.view.accessibility.AccessibilityNodeInfo) -> onInitializeAccessibilityNodeInfo
+    void onPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> onPopulateAccessibilityEvent
+    boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> onRequestSendAccessibilityEvent
+    void sendAccessibilityEvent(android.view.View,int) -> sendAccessibilityEvent
+    void sendAccessibilityEventUnchecked(android.view.View,android.view.accessibility.AccessibilityEvent) -> sendAccessibilityEventUnchecked
+android.support.v4.view.AccessibilityDelegateCompatIcs$AccessibilityDelegateBridge -> android.support.v4.view.j:
+    boolean dispatchPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void onInitializeAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onInitializeAccessibilityNodeInfo(android.view.View,java.lang.Object) -> a
+    void onPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void sendAccessibilityEvent(android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+android.support.v4.view.AccessibilityDelegateCompatJellyBean -> android.support.v4.view.k:
+    java.lang.Object newAccessibilityDelegateBridge(android.support.v4.view.AccessibilityDelegateCompatJellyBean$AccessibilityDelegateBridgeJellyBean) -> a
+    java.lang.Object getAccessibilityNodeProvider(java.lang.Object,android.view.View) -> a
+    boolean performAccessibilityAction(java.lang.Object,android.view.View,int,android.os.Bundle) -> a
+android.support.v4.view.AccessibilityDelegateCompatJellyBean$1 -> android.support.v4.view.l:
+    android.support.v4.view.AccessibilityDelegateCompatJellyBean$AccessibilityDelegateBridgeJellyBean val$bridge -> a
+    boolean dispatchPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> dispatchPopulateAccessibilityEvent
+    void onInitializeAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> onInitializeAccessibilityEvent
+    void onInitializeAccessibilityNodeInfo(android.view.View,android.view.accessibility.AccessibilityNodeInfo) -> onInitializeAccessibilityNodeInfo
+    void onPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> onPopulateAccessibilityEvent
+    boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> onRequestSendAccessibilityEvent
+    void sendAccessibilityEvent(android.view.View,int) -> sendAccessibilityEvent
+    void sendAccessibilityEventUnchecked(android.view.View,android.view.accessibility.AccessibilityEvent) -> sendAccessibilityEventUnchecked
+    android.view.accessibility.AccessibilityNodeProvider getAccessibilityNodeProvider(android.view.View) -> getAccessibilityNodeProvider
+    boolean performAccessibilityAction(android.view.View,int,android.os.Bundle) -> performAccessibilityAction
+android.support.v4.view.AccessibilityDelegateCompatJellyBean$AccessibilityDelegateBridgeJellyBean -> android.support.v4.view.m:
+    boolean dispatchPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void onInitializeAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> b
+    void onInitializeAccessibilityNodeInfo(android.view.View,java.lang.Object) -> a
+    void onPopulateAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> c
+    boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent) -> a
+    void sendAccessibilityEvent(android.view.View,int) -> a
+    void sendAccessibilityEventUnchecked(android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+    java.lang.Object getAccessibilityNodeProvider(android.view.View) -> a
+    boolean performAccessibilityAction(android.view.View,int,android.os.Bundle) -> a
+android.support.v4.view.GravityCompat -> android.support.v4.view.n:
     android.support.v4.view.GravityCompat$GravityCompatImpl IMPL -> a
     int getAbsoluteGravity(int,int) -> a
-android.support.v4.view.GravityCompat$GravityCompatImpl -> android.support.v4.view.b:
+android.support.v4.view.GravityCompat$GravityCompatImpl -> android.support.v4.view.o:
     int getAbsoluteGravity(int,int) -> a
-android.support.v4.view.GravityCompat$GravityCompatImplBase -> android.support.v4.view.c:
+android.support.v4.view.GravityCompat$GravityCompatImplBase -> android.support.v4.view.p:
     int getAbsoluteGravity(int,int) -> a
-android.support.v4.view.GravityCompat$GravityCompatImplJellybeanMr1 -> android.support.v4.view.d:
+android.support.v4.view.GravityCompat$GravityCompatImplJellybeanMr1 -> android.support.v4.view.q:
     int getAbsoluteGravity(int,int) -> a
-android.support.v4.view.GravityCompatJellybeanMr1 -> android.support.v4.view.e:
+android.support.v4.view.GravityCompatJellybeanMr1 -> android.support.v4.view.r:
     int getAbsoluteGravity(int,int) -> a
-android.support.v4.view.KeyEventCompat -> android.support.v4.view.f:
+android.support.v4.view.KeyEventCompat -> android.support.v4.view.s:
     android.support.v4.view.KeyEventCompat$KeyEventVersionImpl IMPL -> a
     boolean hasModifiers(android.view.KeyEvent,int) -> a
     boolean hasNoModifiers(android.view.KeyEvent) -> a
     void startTracking(android.view.KeyEvent) -> b
-android.support.v4.view.KeyEventCompat$BaseKeyEventVersionImpl -> android.support.v4.view.g:
+android.support.v4.view.KeyEventCompat$BaseKeyEventVersionImpl -> android.support.v4.view.t:
     int metaStateFilterDirectionalModifiers(int,int,int,int,int) -> a
     int normalizeMetaState(int) -> a
     boolean metaStateHasModifiers(int,int) -> a
     boolean metaStateHasNoModifiers(int) -> b
     void startTracking(android.view.KeyEvent) -> a
-android.support.v4.view.KeyEventCompat$EclairKeyEventVersionImpl -> android.support.v4.view.h:
+android.support.v4.view.KeyEventCompat$EclairKeyEventVersionImpl -> android.support.v4.view.u:
     void startTracking(android.view.KeyEvent) -> a
-android.support.v4.view.KeyEventCompat$HoneycombKeyEventVersionImpl -> android.support.v4.view.i:
+android.support.v4.view.KeyEventCompat$HoneycombKeyEventVersionImpl -> android.support.v4.view.v:
     int normalizeMetaState(int) -> a
     boolean metaStateHasModifiers(int,int) -> a
     boolean metaStateHasNoModifiers(int) -> b
-android.support.v4.view.KeyEventCompat$KeyEventVersionImpl -> android.support.v4.view.j:
+android.support.v4.view.KeyEventCompat$KeyEventVersionImpl -> android.support.v4.view.w:
     boolean metaStateHasModifiers(int,int) -> a
     boolean metaStateHasNoModifiers(int) -> b
     void startTracking(android.view.KeyEvent) -> a
-android.support.v4.view.KeyEventCompatEclair -> android.support.v4.view.k:
+android.support.v4.view.KeyEventCompatEclair -> android.support.v4.view.x:
     void startTracking(android.view.KeyEvent) -> a
-android.support.v4.view.KeyEventCompatHoneycomb -> android.support.v4.view.l:
+android.support.v4.view.KeyEventCompatHoneycomb -> android.support.v4.view.y:
     int normalizeMetaState(int) -> a
     boolean metaStateHasModifiers(int,int) -> a
     boolean metaStateHasNoModifiers(int) -> b
-android.support.v4.view.MotionEventCompat -> android.support.v4.view.m:
+android.support.v4.view.MotionEventCompat -> android.support.v4.view.z:
     android.support.v4.view.MotionEventCompat$MotionEventVersionImpl IMPL -> a
     int getActionMasked(android.view.MotionEvent) -> a
     int getActionIndex(android.view.MotionEvent) -> b
@@ -651,33 +799,33 @@ android.support.v4.view.MotionEventCompat -> android.support.v4.view.m:
     float getX(android.view.MotionEvent,int) -> c
     float getY(android.view.MotionEvent,int) -> d
     int getPointerCount(android.view.MotionEvent) -> c
-android.support.v4.view.MotionEventCompat$BaseMotionEventVersionImpl -> android.support.v4.view.n:
+android.support.v4.view.MotionEventCompat$BaseMotionEventVersionImpl -> android.support.v4.view.aa:
     int findPointerIndex(android.view.MotionEvent,int) -> a
     int getPointerId(android.view.MotionEvent,int) -> b
     float getX(android.view.MotionEvent,int) -> c
     float getY(android.view.MotionEvent,int) -> d
     int getPointerCount(android.view.MotionEvent) -> a
-android.support.v4.view.MotionEventCompat$EclairMotionEventVersionImpl -> android.support.v4.view.o:
+android.support.v4.view.MotionEventCompat$EclairMotionEventVersionImpl -> android.support.v4.view.ab:
     int findPointerIndex(android.view.MotionEvent,int) -> a
     int getPointerId(android.view.MotionEvent,int) -> b
     float getX(android.view.MotionEvent,int) -> c
     float getY(android.view.MotionEvent,int) -> d
     int getPointerCount(android.view.MotionEvent) -> a
-android.support.v4.view.MotionEventCompat$MotionEventVersionImpl -> android.support.v4.view.p:
+android.support.v4.view.MotionEventCompat$MotionEventVersionImpl -> android.support.v4.view.ac:
     int findPointerIndex(android.view.MotionEvent,int) -> a
     int getPointerId(android.view.MotionEvent,int) -> b
     float getX(android.view.MotionEvent,int) -> c
     float getY(android.view.MotionEvent,int) -> d
     int getPointerCount(android.view.MotionEvent) -> a
-android.support.v4.view.MotionEventCompatEclair -> android.support.v4.view.q:
+android.support.v4.view.MotionEventCompatEclair -> android.support.v4.view.ad:
     int findPointerIndex(android.view.MotionEvent,int) -> a
     int getPointerId(android.view.MotionEvent,int) -> b
     float getX(android.view.MotionEvent,int) -> c
     float getY(android.view.MotionEvent,int) -> d
     int getPointerCount(android.view.MotionEvent) -> a
-android.support.v4.view.PagerAdapter -> android.support.v4.view.r:
+android.support.v4.view.PagerAdapter -> android.support.v4.view.ae:
     android.database.DataSetObservable mObservable -> a
-    int getCount() -> a
+    int getCount() -> b
     void startUpdate(android.view.ViewGroup) -> a
     java.lang.Object instantiateItem(android.view.ViewGroup,int) -> a
     void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> a
@@ -689,91 +837,117 @@ android.support.v4.view.PagerAdapter -> android.support.v4.view.r:
     void setPrimaryItem(android.view.View,int,java.lang.Object) -> b
     void finishUpdate(android.view.View) -> b
     boolean isViewFromObject(android.view.View,java.lang.Object) -> a
-    android.os.Parcelable saveState() -> b
+    android.os.Parcelable saveState() -> a
     void restoreState(android.os.Parcelable,java.lang.ClassLoader) -> a
     int getItemPosition(java.lang.Object) -> a
     void registerDataSetObserver(android.database.DataSetObserver) -> a
     void unregisterDataSetObserver(android.database.DataSetObserver) -> b
-    float getPageWidth(int) -> a
-android.support.v4.view.VelocityTrackerCompat -> android.support.v4.view.s:
+    float getPageWidth(int) -> c
+android.support.v4.view.VelocityTrackerCompat -> android.support.v4.view.af:
     android.support.v4.view.VelocityTrackerCompat$VelocityTrackerVersionImpl IMPL -> a
     float getXVelocity(android.view.VelocityTracker,int) -> a
     float getYVelocity(android.view.VelocityTracker,int) -> b
-android.support.v4.view.VelocityTrackerCompat$BaseVelocityTrackerVersionImpl -> android.support.v4.view.t:
+android.support.v4.view.VelocityTrackerCompat$BaseVelocityTrackerVersionImpl -> android.support.v4.view.ag:
     float getXVelocity(android.view.VelocityTracker,int) -> a
     float getYVelocity(android.view.VelocityTracker,int) -> b
-android.support.v4.view.VelocityTrackerCompat$HoneycombVelocityTrackerVersionImpl -> android.support.v4.view.u:
+android.support.v4.view.VelocityTrackerCompat$HoneycombVelocityTrackerVersionImpl -> android.support.v4.view.ah:
     float getXVelocity(android.view.VelocityTracker,int) -> a
     float getYVelocity(android.view.VelocityTracker,int) -> b
-android.support.v4.view.VelocityTrackerCompat$VelocityTrackerVersionImpl -> android.support.v4.view.v:
+android.support.v4.view.VelocityTrackerCompat$VelocityTrackerVersionImpl -> android.support.v4.view.ai:
     float getXVelocity(android.view.VelocityTracker,int) -> a
     float getYVelocity(android.view.VelocityTracker,int) -> b
-android.support.v4.view.VelocityTrackerCompatHoneycomb -> android.support.v4.view.w:
+android.support.v4.view.VelocityTrackerCompatHoneycomb -> android.support.v4.view.aj:
     float getXVelocity(android.view.VelocityTracker,int) -> a
     float getYVelocity(android.view.VelocityTracker,int) -> b
-android.support.v4.view.ViewCompat -> android.support.v4.view.x:
+android.support.v4.view.ViewCompat -> android.support.v4.view.ak:
     android.support.v4.view.ViewCompat$ViewCompatImpl IMPL -> a
     boolean canScrollHorizontally(android.view.View,int) -> a
     int getOverScrollMode(android.view.View) -> a
+    void setAccessibilityDelegate(android.view.View,android.support.v4.view.AccessibilityDelegateCompat) -> a
     void postInvalidateOnAnimation(android.view.View) -> b
     void postInvalidateOnAnimation(android.view.View,int,int,int,int) -> a
     void postOnAnimation(android.view.View,java.lang.Runnable) -> a
+    int getImportantForAccessibility(android.view.View) -> c
+    void setImportantForAccessibility(android.view.View,int) -> b
     void setLayerType(android.view.View,int,android.graphics.Paint) -> a
-    int getLayerType(android.view.View) -> c
+    int getLayerType(android.view.View) -> d
     void setLayerPaint(android.view.View,android.graphics.Paint) -> a
-    int getLayoutDirection(android.view.View) -> d
-android.support.v4.view.ViewCompat$BaseViewCompatImpl -> android.support.v4.view.y:
+    int getLayoutDirection(android.view.View) -> e
+android.support.v4.view.ViewCompat$BaseViewCompatImpl -> android.support.v4.view.al:
     boolean canScrollHorizontally(android.view.View,int) -> a
     int getOverScrollMode(android.view.View) -> a
+    void setAccessibilityDelegate(android.view.View,android.support.v4.view.AccessibilityDelegateCompat) -> a
     void postInvalidateOnAnimation(android.view.View) -> b
     void postInvalidateOnAnimation(android.view.View,int,int,int,int) -> a
     void postOnAnimation(android.view.View,java.lang.Runnable) -> a
     long getFrameTime() -> a
+    int getImportantForAccessibility(android.view.View) -> c
+    void setImportantForAccessibility(android.view.View,int) -> b
     void setLayerType(android.view.View,int,android.graphics.Paint) -> a
-    int getLayerType(android.view.View) -> c
+    int getLayerType(android.view.View) -> d
     void setLayerPaint(android.view.View,android.graphics.Paint) -> a
-    int getLayoutDirection(android.view.View) -> d
-android.support.v4.view.ViewCompat$GBViewCompatImpl -> android.support.v4.view.z:
+    int getLayoutDirection(android.view.View) -> e
+android.support.v4.view.ViewCompat$GBViewCompatImpl -> android.support.v4.view.am:
     int getOverScrollMode(android.view.View) -> a
-android.support.v4.view.ViewCompat$HCViewCompatImpl -> android.support.v4.view.aa:
+android.support.v4.view.ViewCompat$HCViewCompatImpl -> android.support.v4.view.an:
     long getFrameTime() -> a
     void setLayerType(android.view.View,int,android.graphics.Paint) -> a
-    int getLayerType(android.view.View) -> c
+    int getLayerType(android.view.View) -> d
     void setLayerPaint(android.view.View,android.graphics.Paint) -> a
-android.support.v4.view.ViewCompat$ICSViewCompatImpl -> android.support.v4.view.ab:
+android.support.v4.view.ViewCompat$ICSViewCompatImpl -> android.support.v4.view.ao:
     boolean canScrollHorizontally(android.view.View,int) -> a
-android.support.v4.view.ViewCompat$JBViewCompatImpl -> android.support.v4.view.ac:
+    void setAccessibilityDelegate(android.view.View,android.support.v4.view.AccessibilityDelegateCompat) -> a
+android.support.v4.view.ViewCompat$JBViewCompatImpl -> android.support.v4.view.ap:
     void postInvalidateOnAnimation(android.view.View) -> b
     void postInvalidateOnAnimation(android.view.View,int,int,int,int) -> a
     void postOnAnimation(android.view.View,java.lang.Runnable) -> a
-android.support.v4.view.ViewCompat$JbMr1ViewCompatImpl -> android.support.v4.view.ad:
+    int getImportantForAccessibility(android.view.View) -> c
+    void setImportantForAccessibility(android.view.View,int) -> b
+android.support.v4.view.ViewCompat$JbMr1ViewCompatImpl -> android.support.v4.view.aq:
     void setLayerPaint(android.view.View,android.graphics.Paint) -> a
-    int getLayoutDirection(android.view.View) -> d
-android.support.v4.view.ViewCompat$ViewCompatImpl -> android.support.v4.view.ae:
+    int getLayoutDirection(android.view.View) -> e
+android.support.v4.view.ViewCompat$ViewCompatImpl -> android.support.v4.view.ar:
     boolean canScrollHorizontally(android.view.View,int) -> a
     int getOverScrollMode(android.view.View) -> a
+    void setAccessibilityDelegate(android.view.View,android.support.v4.view.AccessibilityDelegateCompat) -> a
     void postInvalidateOnAnimation(android.view.View) -> b
     void postInvalidateOnAnimation(android.view.View,int,int,int,int) -> a
     void postOnAnimation(android.view.View,java.lang.Runnable) -> a
+    int getImportantForAccessibility(android.view.View) -> c
+    void setImportantForAccessibility(android.view.View,int) -> b
     void setLayerType(android.view.View,int,android.graphics.Paint) -> a
-    int getLayerType(android.view.View) -> c
+    int getLayerType(android.view.View) -> d
     void setLayerPaint(android.view.View,android.graphics.Paint) -> a
-    int getLayoutDirection(android.view.View) -> d
-android.support.v4.view.ViewCompatGingerbread -> android.support.v4.view.af:
+    int getLayoutDirection(android.view.View) -> e
+android.support.v4.view.ViewCompatGingerbread -> android.support.v4.view.as:
     int getOverScrollMode(android.view.View) -> a
-android.support.v4.view.ViewCompatHC -> android.support.v4.view.ag:
+android.support.v4.view.ViewCompatHC -> android.support.v4.view.at:
     long getFrameTime() -> a
     void setLayerType(android.view.View,int,android.graphics.Paint) -> a
     int getLayerType(android.view.View) -> a
-android.support.v4.view.ViewCompatICS -> android.support.v4.view.ah:
+android.support.v4.view.ViewCompatICS -> android.support.v4.view.au:
     boolean canScrollHorizontally(android.view.View,int) -> a
-android.support.v4.view.ViewCompatJB -> android.support.v4.view.ai:
+    void setAccessibilityDelegate(android.view.View,java.lang.Object) -> a
+android.support.v4.view.ViewCompatJB -> android.support.v4.view.av:
     void postInvalidateOnAnimation(android.view.View) -> a
     void postInvalidateOnAnimation(android.view.View,int,int,int,int) -> a
     void postOnAnimation(android.view.View,java.lang.Runnable) -> a
-android.support.v4.view.ViewCompatJellybeanMr1 -> android.support.v4.view.aj:
+    int getImportantForAccessibility(android.view.View) -> b
+    void setImportantForAccessibility(android.view.View,int) -> a
+android.support.v4.view.ViewCompatJellybeanMr1 -> android.support.v4.view.aw:
     void setLayerPaint(android.view.View,android.graphics.Paint) -> a
     int getLayoutDirection(android.view.View) -> a
+android.support.v4.view.ViewConfigurationCompat -> android.support.v4.view.ax:
+    android.support.v4.view.ViewConfigurationCompat$ViewConfigurationVersionImpl IMPL -> a
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewConfigurationCompat$BaseViewConfigurationVersionImpl -> android.support.v4.view.ay:
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewConfigurationCompat$FroyoViewConfigurationVersionImpl -> android.support.v4.view.az:
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewConfigurationCompat$ViewConfigurationVersionImpl -> android.support.v4.view.ba:
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewConfigurationCompatFroyo -> android.support.v4.view.bb:
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
 android.support.v4.view.ViewPager -> android.support.v4.view.ViewPager:
     int[] LAYOUT_ATTRS -> a
     int mExpectedAdapterCount -> b
@@ -833,10 +1007,11 @@ android.support.v4.view.ViewPager -> android.support.v4.view.ViewPager:
     android.support.v4.view.ViewPager$ViewPositionComparator sPositionComparator -> af
     java.lang.Runnable mEndScrollRunnable -> ag
     int mScrollState -> ah
+    void initViewPager() -> a
     void onDetachedFromWindow() -> onDetachedFromWindow
     void setScrollState(int) -> setScrollState
     void setAdapter(android.support.v4.view.PagerAdapter) -> setAdapter
-    void removeNonDecorViews() -> f
+    void removeNonDecorViews() -> g
     android.support.v4.view.PagerAdapter getAdapter() -> getAdapter
     void setOnAdapterChangeListener(android.support.v4.view.ViewPager$OnAdapterChangeListener) -> setOnAdapterChangeListener
     int getClientWidth() -> getClientWidth
@@ -860,10 +1035,10 @@ android.support.v4.view.ViewPager -> android.support.v4.view.ViewPager:
     float distanceInfluenceForSnapDuration(float) -> a
     void smoothScrollTo(int,int,int) -> a
     android.support.v4.view.ViewPager$ItemInfo addNewItem(int,int) -> a
-    void dataSetChanged() -> a
-    void populate() -> b
+    void dataSetChanged() -> b
+    void populate() -> c
     void populate(int) -> a
-    void sortChildDrawingOrder() -> g
+    void sortChildDrawingOrder() -> h
     void calculatePageOffsets(android.support.v4.view.ViewPager$ItemInfo,int,android.support.v4.view.ViewPager$ItemInfo) -> a
     android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
     void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
@@ -886,20 +1061,20 @@ android.support.v4.view.ViewPager -> android.support.v4.view.ViewPager:
     boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
     boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
     boolean performDrag(float) -> b
-    android.support.v4.view.ViewPager$ItemInfo infoForCurrentScrollPosition() -> h
+    android.support.v4.view.ViewPager$ItemInfo infoForCurrentScrollPosition() -> i
     int determineTargetPage(int,float,int,int) -> a
     void draw(android.graphics.Canvas) -> draw
     void onDraw(android.graphics.Canvas) -> onDraw
     void onSecondaryPointerUp(android.view.MotionEvent) -> a
-    void endDrag() -> i
+    void endDrag() -> j
     void setScrollingCacheEnabled(boolean) -> setScrollingCacheEnabled
     boolean canScroll(android.view.View,boolean,int,int,int) -> a
     boolean dispatchKeyEvent(android.view.KeyEvent) -> dispatchKeyEvent
     boolean executeKeyEvent(android.view.KeyEvent) -> a
     boolean arrowScroll(int) -> c
     android.graphics.Rect getChildRectInPagerCoordinates(android.graphics.Rect,android.view.View) -> a
-    boolean pageLeft() -> c
-    boolean pageRight() -> d
+    boolean pageLeft() -> d
+    boolean pageRight() -> e
     void addFocusables(java.util.ArrayList,int,int) -> addFocusables
     void addTouchables(java.util.ArrayList) -> addTouchables
     boolean onRequestFocusInDescendants(int,android.graphics.Rect) -> onRequestFocusInDescendants
@@ -908,35 +1083,46 @@ android.support.v4.view.ViewPager -> android.support.v4.view.ViewPager:
     android.view.ViewGroup$LayoutParams generateLayoutParams(android.view.ViewGroup$LayoutParams) -> generateLayoutParams
     boolean checkLayoutParams(android.view.ViewGroup$LayoutParams) -> checkLayoutParams
     android.view.ViewGroup$LayoutParams generateLayoutParams(android.util.AttributeSet) -> generateLayoutParams
-    int[] access$400() -> e
-android.support.v4.view.ViewPager$1 -> android.support.v4.view.ak:
+    void access$000(android.support.v4.view.ViewPager,int) -> a
+    android.support.v4.view.PagerAdapter access$200(android.support.v4.view.ViewPager) -> a
+    int access$300(android.support.v4.view.ViewPager) -> b
+    int[] access$400() -> f
+android.support.v4.view.ViewPager$1 -> android.support.v4.view.bc:
     int compare(android.support.v4.view.ViewPager$ItemInfo,android.support.v4.view.ViewPager$ItemInfo) -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
-android.support.v4.view.ViewPager$2 -> android.support.v4.view.al:
+android.support.v4.view.ViewPager$2 -> android.support.v4.view.bd:
     float getInterpolation(float) -> getInterpolation
-android.support.v4.view.ViewPager$Decor -> android.support.v4.view.am:
-android.support.v4.view.ViewPager$ItemInfo -> android.support.v4.view.an:
+android.support.v4.view.ViewPager$3 -> android.support.v4.view.be:
+    android.support.v4.view.ViewPager this$0 -> a
+    void run() -> run
+android.support.v4.view.ViewPager$Decor -> android.support.v4.view.bf:
+android.support.v4.view.ViewPager$ItemInfo -> android.support.v4.view.bg:
     java.lang.Object object -> a
     int position -> b
     boolean scrolling -> c
     float widthFactor -> d
     float offset -> e
-android.support.v4.view.ViewPager$LayoutParams -> android.support.v4.view.ao:
+android.support.v4.view.ViewPager$LayoutParams -> android.support.v4.view.bh:
     boolean isDecor -> a
     int gravity -> b
     float widthFactor -> c
     boolean needsMeasure -> d
     int position -> e
     int childIndex -> f
-android.support.v4.view.ViewPager$OnAdapterChangeListener -> android.support.v4.view.ap:
+android.support.v4.view.ViewPager$MyAccessibilityDelegate -> android.support.v4.view.bi:
+    android.support.v4.view.ViewPager this$0 -> b
+    void onInitializeAccessibilityEvent(android.view.View,android.view.accessibility.AccessibilityEvent) -> d
+    void onInitializeAccessibilityNodeInfo(android.view.View,android.support.v4.view.accessibility.AccessibilityNodeInfoCompat) -> a
+    boolean performAccessibilityAction(android.view.View,int,android.os.Bundle) -> a
+android.support.v4.view.ViewPager$OnAdapterChangeListener -> android.support.v4.view.bj:
     void onAdapterChanged(android.support.v4.view.PagerAdapter,android.support.v4.view.PagerAdapter) -> a
-android.support.v4.view.ViewPager$OnPageChangeListener -> android.support.v4.view.aq:
+android.support.v4.view.ViewPager$OnPageChangeListener -> android.support.v4.view.bk:
     void onPageScrolled(int,float,int) -> a
     void onPageSelected(int) -> a
     void onPageScrollStateChanged(int) -> b
-android.support.v4.view.ViewPager$PageTransformer -> android.support.v4.view.ar:
+android.support.v4.view.ViewPager$PageTransformer -> android.support.v4.view.bl:
     void transformPage(android.view.View,float) -> a
-android.support.v4.view.ViewPager$PagerObserver -> android.support.v4.view.as:
+android.support.v4.view.ViewPager$PagerObserver -> android.support.v4.view.bm:
     android.support.v4.view.ViewPager this$0 -> a
     void onChanged() -> onChanged
     void onInvalidated() -> onInvalidated
@@ -947,14 +1133,70 @@ android.support.v4.view.ViewPager$SavedState -> android.support.v4.view.ViewPage
     android.os.Parcelable$Creator CREATOR -> CREATOR
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
     java.lang.String toString() -> toString
-android.support.v4.view.ViewPager$SavedState$1 -> android.support.v4.view.at:
+android.support.v4.view.ViewPager$SavedState$1 -> android.support.v4.view.bn:
     android.support.v4.view.ViewPager$SavedState createFromParcel(android.os.Parcel,java.lang.ClassLoader) -> b
     android.support.v4.view.ViewPager$SavedState[] newArray(int) -> b
     java.lang.Object[] newArray(int) -> a
     java.lang.Object createFromParcel(android.os.Parcel,java.lang.ClassLoader) -> a
-android.support.v4.view.ViewPager$ViewPositionComparator -> android.support.v4.view.au:
+android.support.v4.view.ViewPager$ViewPositionComparator -> android.support.v4.view.bo:
     int compare(android.view.View,android.view.View) -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
+android.support.v4.view.accessibility.AccessibilityNodeInfoCompat -> android.support.v4.view.a.a:
+    android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityNodeInfoImpl IMPL -> a
+    java.lang.Object mInfo -> b
+    java.lang.Object getInfo() -> a
+    void addAction(int) -> a
+    void setScrollable(boolean) -> a
+    void setClassName(java.lang.CharSequence) -> a
+    int hashCode() -> hashCode
+    boolean equals(java.lang.Object) -> equals
+android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityNodeInfoIcsImpl -> android.support.v4.view.a.b:
+    void addAction(java.lang.Object,int) -> a
+    void setClassName(java.lang.Object,java.lang.CharSequence) -> a
+    void setScrollable(java.lang.Object,boolean) -> a
+android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityNodeInfoImpl -> android.support.v4.view.a.c:
+    void addAction(java.lang.Object,int) -> a
+    void setScrollable(java.lang.Object,boolean) -> a
+    void setClassName(java.lang.Object,java.lang.CharSequence) -> a
+android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityNodeInfoJellybeanImpl -> android.support.v4.view.a.d:
+android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityNodeInfoStubImpl -> android.support.v4.view.a.e:
+    void addAction(java.lang.Object,int) -> a
+    void setClassName(java.lang.Object,java.lang.CharSequence) -> a
+    void setScrollable(java.lang.Object,boolean) -> a
+android.support.v4.view.accessibility.AccessibilityNodeInfoCompatIcs -> android.support.v4.view.a.f:
+    void addAction(java.lang.Object,int) -> a
+    void setClassName(java.lang.Object,java.lang.CharSequence) -> a
+    void setScrollable(java.lang.Object,boolean) -> a
+android.support.v4.view.accessibility.AccessibilityNodeProviderCompat -> android.support.v4.view.a.g:
+    android.support.v4.view.accessibility.AccessibilityNodeProviderCompat$AccessibilityNodeProviderImpl IMPL -> a
+    java.lang.Object mProvider -> b
+    java.lang.Object getProvider() -> a
+    android.support.v4.view.accessibility.AccessibilityNodeInfoCompat createAccessibilityNodeInfo(int) -> a
+    boolean performAction(int,int,android.os.Bundle) -> a
+    java.util.List findAccessibilityNodeInfosByText(java.lang.String,int) -> a
+android.support.v4.view.accessibility.AccessibilityNodeProviderCompat$AccessibilityNodeProviderImpl -> android.support.v4.view.a.h:
+    java.lang.Object newAccessibilityNodeProviderBridge(android.support.v4.view.accessibility.AccessibilityNodeProviderCompat) -> a
+android.support.v4.view.accessibility.AccessibilityNodeProviderCompat$AccessibilityNodeProviderJellyBeanImpl -> android.support.v4.view.a.i:
+    java.lang.Object newAccessibilityNodeProviderBridge(android.support.v4.view.accessibility.AccessibilityNodeProviderCompat) -> a
+android.support.v4.view.accessibility.AccessibilityNodeProviderCompat$AccessibilityNodeProviderJellyBeanImpl$1 -> android.support.v4.view.a.j:
+    android.support.v4.view.accessibility.AccessibilityNodeProviderCompat val$compat -> a
+    android.support.v4.view.accessibility.AccessibilityNodeProviderCompat$AccessibilityNodeProviderJellyBeanImpl this$0 -> b
+    boolean performAction(int,int,android.os.Bundle) -> a
+    java.util.List findAccessibilityNodeInfosByText(java.lang.String,int) -> a
+    java.lang.Object createAccessibilityNodeInfo(int) -> a
+android.support.v4.view.accessibility.AccessibilityNodeProviderCompat$AccessibilityNodeProviderStubImpl -> android.support.v4.view.a.k:
+    java.lang.Object newAccessibilityNodeProviderBridge(android.support.v4.view.accessibility.AccessibilityNodeProviderCompat) -> a
+android.support.v4.view.accessibility.AccessibilityNodeProviderCompatJellyBean -> android.support.v4.view.a.l:
+    java.lang.Object newAccessibilityNodeProviderBridge(android.support.v4.view.accessibility.AccessibilityNodeProviderCompatJellyBean$AccessibilityNodeInfoBridge) -> a
+android.support.v4.view.accessibility.AccessibilityNodeProviderCompatJellyBean$1 -> android.support.v4.view.a.m:
+    android.support.v4.view.accessibility.AccessibilityNodeProviderCompatJellyBean$AccessibilityNodeInfoBridge val$bridge -> a
+    android.view.accessibility.AccessibilityNodeInfo createAccessibilityNodeInfo(int) -> createAccessibilityNodeInfo
+    java.util.List findAccessibilityNodeInfosByText(java.lang.String,int) -> findAccessibilityNodeInfosByText
+    boolean performAction(int,int,android.os.Bundle) -> performAction
+android.support.v4.view.accessibility.AccessibilityNodeProviderCompatJellyBean$AccessibilityNodeInfoBridge -> android.support.v4.view.a.n:
+    java.lang.Object createAccessibilityNodeInfo(int) -> a
+    boolean performAction(int,int,android.os.Bundle) -> a
+    java.util.List findAccessibilityNodeInfosByText(java.lang.String,int) -> a
 android.support.v4.widget.CursorAdapter -> android.support.v4.widget.a:
     boolean mDataValid -> a
     boolean mAutoRequery -> b
@@ -1118,6 +1360,7 @@ android.support.v4.widget.EdgeEffectCompat -> android.support.v4.widget.k:
     boolean onRelease() -> c
     boolean draw(android.graphics.Canvas) -> a
 android.support.v4.widget.EdgeEffectCompat$BaseEdgeEffectImpl -> android.support.v4.widget.l:
+    java.lang.Object newEdgeEffect(android.content.Context) -> a
     void setSize(java.lang.Object,int,int) -> a
     boolean isFinished(java.lang.Object) -> a
     void finish(java.lang.Object) -> b
@@ -1125,6 +1368,7 @@ android.support.v4.widget.EdgeEffectCompat$BaseEdgeEffectImpl -> android.support
     boolean onRelease(java.lang.Object) -> c
     boolean draw(java.lang.Object,android.graphics.Canvas) -> a
 android.support.v4.widget.EdgeEffectCompat$EdgeEffectIcsImpl -> android.support.v4.widget.m:
+    java.lang.Object newEdgeEffect(android.content.Context) -> a
     void setSize(java.lang.Object,int,int) -> a
     boolean isFinished(java.lang.Object) -> a
     void finish(java.lang.Object) -> b
@@ -1132,6 +1376,7 @@ android.support.v4.widget.EdgeEffectCompat$EdgeEffectIcsImpl -> android.support.
     boolean onRelease(java.lang.Object) -> c
     boolean draw(java.lang.Object,android.graphics.Canvas) -> a
 android.support.v4.widget.EdgeEffectCompat$EdgeEffectImpl -> android.support.v4.widget.n:
+    java.lang.Object newEdgeEffect(android.content.Context) -> a
     void setSize(java.lang.Object,int,int) -> a
     boolean isFinished(java.lang.Object) -> a
     void finish(java.lang.Object) -> b
@@ -1139,6 +1384,7 @@ android.support.v4.widget.EdgeEffectCompat$EdgeEffectImpl -> android.support.v4.
     boolean onRelease(java.lang.Object) -> c
     boolean draw(java.lang.Object,android.graphics.Canvas) -> a
 android.support.v4.widget.EdgeEffectCompatIcs -> android.support.v4.widget.o:
+    java.lang.Object newEdgeEffect(android.content.Context) -> a
     void setSize(java.lang.Object,int,int) -> a
     boolean isFinished(java.lang.Object) -> a
     void finish(java.lang.Object) -> b
@@ -1437,12 +1683,130 @@ com.echo.holographlibrary.LinePoint -> com.echo.holographlibrary.c:
     void setRegion(android.graphics.Region) -> a
     android.graphics.Path getPath() -> d
     void setPath(android.graphics.Path) -> a
-com.echo.holographlibrary.ValueTitle -> com.echo.holographlibrary.d:
+com.echo.holographlibrary.PieGraph -> com.echo.holographlibrary.PieGraph:
+    java.util.ArrayList slices -> a
+    android.graphics.Paint paint -> b
+    android.graphics.Paint textPaint -> c
+    int textPadding -> d
+    int padding -> e
+    android.graphics.Path path -> f
+    int indexSelected -> g
+    int thickness -> h
+    com.echo.holographlibrary.PieGraph$OnSliceClickedListener listener -> i
+    void onDraw(android.graphics.Canvas) -> onDraw
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    java.util.ArrayList getSlices() -> getSlices
+    void setSlices(java.util.ArrayList) -> setSlices
+    void addSlice(com.echo.holographlibrary.PieSlice) -> a
+    void setOnSliceClickedListener(com.echo.holographlibrary.PieGraph$OnSliceClickedListener) -> setOnSliceClickedListener
+    int getThickness() -> getThickness
+    void setThickness(int) -> setThickness
+    android.graphics.Point getTextPoint(float,float,float,float) -> a
+    void setTextPadding(int) -> setTextPadding
+    void setPadding(int) -> setPadding
+    void setTextColor(int) -> setTextColor
+    void setTextSize(float) -> setTextSize
+com.echo.holographlibrary.PieGraph$OnSliceClickedListener -> com.echo.holographlibrary.d:
+    void onClick(int) -> a
+com.echo.holographlibrary.PieSlice -> com.echo.holographlibrary.e:
+    int color -> a
+    float value -> b
+    java.lang.String title -> c
+    android.graphics.Path path -> d
+    android.graphics.Region region -> e
+    java.lang.String getTitle() -> a
+    void setTitle(java.lang.String) -> a
+    int getColor() -> b
+    void setColor(int) -> a
+    float getValue() -> c
+    void setValue(float) -> a
+    android.graphics.Path getPath() -> d
+    void setPath(android.graphics.Path) -> a
+    android.graphics.Region getRegion() -> e
+    void setRegion(android.graphics.Region) -> a
+com.echo.holographlibrary.ValueTitle -> com.echo.holographlibrary.f:
     java.lang.String title -> a
     float value -> b
 com.george.obdreader.BootReceiver -> com.george.obdreader.BootReceiver:
     java.lang.String TAG -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.george.obdreader.Cost -> com.george.obdreader.Cost:
+    void onCreate(android.os.Bundle) -> onCreate
+    float getFuelSumCost() -> a
+    float getMaintenanceSumCost() -> b
+com.george.obdreader.Cost$1 -> com.george.obdreader.a:
+    com.george.obdreader.Cost this$0 -> a
+    void onClick(int) -> a
+com.george.obdreader.FirstIndexFragment -> com.george.obdreader.b:
+    android.view.View mRoot -> P
+    void onCreate(android.os.Bundle) -> c
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onDestroy() -> m
+com.george.obdreader.FuellingLogs -> com.george.obdreader.FuellingLogs:
+    android.support.v4.app.FragmentTabHost mTabHost -> n
+    void setupTabHost() -> f
+    void onCreate(android.os.Bundle) -> onCreate
+    void setTabs() -> g
+    void onWindowFocusChanged(boolean) -> onWindowFocusChanged
+    void addTab(java.lang.String,int,java.lang.Class) -> a
+com.george.obdreader.FuellingLogsFragment -> com.george.obdreader.c:
+    android.widget.ExpandableListView mLogListView -> Q
+    com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample mAdapter -> R
+    android.view.View mRootView -> S
+    android.view.View mDialogView -> T
+    long mLogTime -> U
+    int mFuelType -> V
+    java.lang.String[] fuelTypes -> W
+    android.app.DatePickerDialog$OnDateSetListener dateListener -> P
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onDestroyView() -> l
+    void onClick(android.view.View) -> onClick
+    void onFocusChange(android.view.View,boolean) -> onFocusChange
+    float getSumCost() -> z
+    android.view.View access$0(com.george.obdreader.FuellingLogsFragment) -> a
+    void access$1(com.george.obdreader.FuellingLogsFragment,long) -> a
+    java.lang.String[] access$2(com.george.obdreader.FuellingLogsFragment) -> b
+    void access$3(com.george.obdreader.FuellingLogsFragment,int) -> a
+    long access$4(com.george.obdreader.FuellingLogsFragment) -> c
+    int access$5(com.george.obdreader.FuellingLogsFragment) -> d
+    com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample access$6(com.george.obdreader.FuellingLogsFragment) -> e
+    android.view.View access$7(com.george.obdreader.FuellingLogsFragment) -> f
+    float access$8(com.george.obdreader.FuellingLogsFragment) -> g
+com.george.obdreader.FuellingLogsFragment$1 -> com.george.obdreader.d:
+    com.george.obdreader.FuellingLogsFragment this$0 -> a
+    void onDateSet(android.widget.DatePicker,int,int,int) -> onDateSet
+com.george.obdreader.FuellingLogsFragment$2 -> com.george.obdreader.e:
+    com.george.obdreader.FuellingLogsFragment this$0 -> a
+    void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
+    void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
+com.george.obdreader.FuellingLogsFragment$3 -> com.george.obdreader.f:
+    com.george.obdreader.FuellingLogsFragment this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.FuellingLogsFragment$4 -> com.george.obdreader.g:
+    com.george.obdreader.FuellingLogsFragment this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.FuellingLogsFragment$5 -> com.george.obdreader.h:
+    com.george.obdreader.FuellingLogsFragment this$0 -> a
+    android.app.AlertDialog val$alertDialog -> b
+    void onClick(android.view.View) -> onClick
+com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample -> com.george.obdreader.i:
+    int mGroupIdColumnIndex -> b
+    android.view.LayoutInflater mInflater -> c
+    com.george.obdreader.FuellingLogsFragment this$0 -> a
+    void bindChildView(android.view.View,android.content.Context,android.database.Cursor,boolean) -> bindChildView
+    void bindGroupView(android.view.View,android.content.Context,android.database.Cursor,boolean) -> bindGroupView
+    android.database.Cursor getChildrenCursor(android.database.Cursor) -> getChildrenCursor
+    android.view.View newChildView(android.content.Context,android.database.Cursor,boolean,android.view.ViewGroup) -> newChildView
+    android.view.View newGroupView(android.content.Context,android.database.Cursor,boolean,android.view.ViewGroup) -> newGroupView
+com.george.obdreader.FuellingLogsFragment$ViewHolder -> com.george.obdreader.j:
+    android.widget.TextView cost -> a
+    android.widget.TextView price -> b
+    android.widget.TextView mileage -> c
+    android.widget.TextView content -> d
+    android.widget.TextView amount -> e
+    android.widget.TextView fueltype -> f
+    android.widget.TextView time -> g
+    com.george.obdreader.FuellingLogsFragment this$0 -> h
 com.george.obdreader.GaugeView -> com.george.obdreader.GaugeView:
     int[] OUTER_SHADOW_COLORS -> a
     float[] OUTER_SHADOW_POS -> b
@@ -1559,82 +1923,123 @@ com.george.obdreader.GaugeView -> com.george.obdreader.GaugeView:
     float getAngleForValue(float) -> c
     void computeCurrentValue() -> h
     void setTargetValue(float) -> setTargetValue
+com.george.obdreader.Log -> com.george.obdreader.k:
+    java.lang.Boolean MYLOG_SWITCH -> a
+    java.lang.Boolean MYLOG_FILTER -> b
+    java.lang.Boolean MYLOG_WRITE_TO_FILE -> c
+    char MYLOG_TYPE -> d
+    java.lang.String MYLOG_PATH_SDCARD_DIR -> e
+    int SDCARD_LOG_FILE_SAVE_DAYS -> f
+    java.lang.String MYLOGFILEName -> g
+    java.lang.String mTag -> h
+    java.text.SimpleDateFormat myLogSdf -> i
+    java.text.SimpleDateFormat logfile -> j
+    void w(java.lang.String,java.lang.String) -> a
+    void e(java.lang.String,java.lang.String) -> b
+    void d(java.lang.String,java.lang.String) -> c
+    void v(java.lang.String,java.lang.String) -> d
+    void w(java.lang.String,java.lang.String,java.lang.Throwable) -> a
+    void log(java.lang.String,java.lang.String,char) -> a
+    void writeLogtoFile(java.lang.String,java.lang.String,java.lang.String) -> a
 com.george.obdreader.MainActivity -> com.george.obdreader.MainActivity:
-    android.content.Intent mServiceIntent -> b
-    com.george.obdreader.io.ObdGatewayServiceConnection mServiceConnection -> c
-    boolean isBound -> d
-    boolean isConnected -> e
-    int speed -> f
-    double fuel_rpm -> g
-    double fuel_displacement -> h
-    double fuel_airTemp -> i
-    double fuel_press -> j
-    double fuel -> k
-    com.george.obdreader.io.IPostListener mListener -> l
-    android.os.Handler mHandler -> m
-    java.lang.Runnable mQueueCommands -> n
-    java.lang.Runnable getConnectStatusRunable -> a
+    android.content.Intent mServiceIntent -> o
+    com.george.obdreader.io.ObdGatewayServiceConnection mServiceConnection -> p
+    android.support.v4.view.ViewPager mPager -> q
+    java.util.ArrayList fragmentsList -> r
+    com.george.obdreader.FirstIndexFragment mFirstfragment -> s
+    boolean isBound -> t
+    boolean isConnected -> u
+    int speed -> v
+    double fuel_rpm -> w
+    double fuel_displacement -> x
+    double fuel_airTemp -> y
+    double fuel_press -> z
+    double fuel -> A
+    com.george.obdreader.io.IPostListener mListener -> B
+    android.os.Handler mHandler -> C
+    java.lang.Runnable mQueueCommands -> D
+    java.lang.Runnable getConnectStatusRunable -> n
     void onCreate(android.os.Bundle) -> onCreate
-    void stopLiveData() -> a
-    void queueCommands() -> b
+    void stopLiveData() -> f
+    void queueCommands() -> g
     void onPause() -> onPause
     void onStop() -> onStop
     android.app.Dialog onCreateDialog(int) -> onCreateDialog
     void onResume() -> onResume
     void onClick(android.view.View) -> onClick
     void onDestroy() -> onDestroy
-    void initAnim() -> c
+    void initAnim() -> h
+    void hideView() -> i
     android.os.Handler access$0(com.george.obdreader.MainActivity) -> a
-    void access$1(com.george.obdreader.MainActivity,double) -> a
-    void access$2(com.george.obdreader.MainActivity,int) -> a
-    int access$3(com.george.obdreader.MainActivity) -> b
+    android.support.v4.view.ViewPager access$1(com.george.obdreader.MainActivity) -> b
+    void access$2(com.george.obdreader.MainActivity,double) -> a
+    void access$3(com.george.obdreader.MainActivity,int) -> a
     void access$4(com.george.obdreader.MainActivity,double) -> b
     void access$5(com.george.obdreader.MainActivity,double) -> c
     com.george.obdreader.io.ObdGatewayServiceConnection access$6(com.george.obdreader.MainActivity) -> c
-    double access$7(com.george.obdreader.MainActivity) -> d
+    int access$7(com.george.obdreader.MainActivity) -> d
     double access$8(com.george.obdreader.MainActivity) -> e
     double access$9(com.george.obdreader.MainActivity) -> f
-    void access$10(com.george.obdreader.MainActivity,double) -> d
-    double access$11(com.george.obdreader.MainActivity) -> g
+    double access$10(com.george.obdreader.MainActivity) -> g
+    void access$11(com.george.obdreader.MainActivity,double) -> d
     double access$12(com.george.obdreader.MainActivity) -> h
-    void access$13(com.george.obdreader.MainActivity) -> i
+    double access$13(com.george.obdreader.MainActivity) -> i
     void access$14(com.george.obdreader.MainActivity) -> j
-    java.lang.Runnable access$15(com.george.obdreader.MainActivity) -> k
-    void access$16(com.george.obdreader.MainActivity,boolean) -> a
-com.george.obdreader.MainActivity$1 -> com.george.obdreader.a:
+    com.george.obdreader.FirstIndexFragment access$15(com.george.obdreader.MainActivity) -> k
+    void access$16(com.george.obdreader.MainActivity) -> l
+    java.lang.Runnable access$17(com.george.obdreader.MainActivity) -> m
+    void access$18(com.george.obdreader.MainActivity,boolean) -> a
+com.george.obdreader.MainActivity$1 -> com.george.obdreader.l:
     com.george.obdreader.MainActivity this$0 -> a
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
     void deviceConnected(java.lang.String) -> a
     void connectFailed(java.lang.String) -> b
     void connectingDevice(java.lang.String) -> c
-com.george.obdreader.MainActivity$2 -> com.george.obdreader.b:
+com.george.obdreader.MainActivity$10 -> com.george.obdreader.m:
+    com.george.obdreader.MainActivity this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.MainActivity$2 -> com.george.obdreader.n:
     com.george.obdreader.MainActivity this$0 -> a
     int[] $SWITCH_TABLE$eu$lighthouselabs$obd$enums$AvailableCommandNames -> b
     void handleMessage(android.os.Message) -> handleMessage
     int[] $SWITCH_TABLE$eu$lighthouselabs$obd$enums$AvailableCommandNames() -> a
     com.george.obdreader.MainActivity access$1(com.george.obdreader.MainActivity$2) -> a
-com.george.obdreader.MainActivity$2$1 -> com.george.obdreader.c:
+com.george.obdreader.MainActivity$2$1 -> com.george.obdreader.o:
     com.george.obdreader.MainActivity$2 this$1 -> a
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-com.george.obdreader.MainActivity$2$2 -> com.george.obdreader.d:
+com.george.obdreader.MainActivity$2$2 -> com.george.obdreader.p:
     com.george.obdreader.MainActivity$2 this$1 -> a
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-com.george.obdreader.MainActivity$3 -> com.george.obdreader.e:
+com.george.obdreader.MainActivity$3 -> com.george.obdreader.q:
     com.george.obdreader.MainActivity this$0 -> a
     void run() -> run
-com.george.obdreader.MainActivity$4 -> com.george.obdreader.f:
+com.george.obdreader.MainActivity$4 -> com.george.obdreader.r:
     com.george.obdreader.MainActivity this$0 -> a
     void run() -> run
-com.george.obdreader.MainActivity$5 -> com.george.obdreader.g:
+com.george.obdreader.MainActivity$5 -> com.george.obdreader.s:
     com.george.obdreader.MainActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MainActivity$6 -> com.george.obdreader.h:
+com.george.obdreader.MainActivity$6 -> com.george.obdreader.t:
     com.george.obdreader.MainActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.MainActivity$7 -> com.george.obdreader.u:
+    com.george.obdreader.MainActivity this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.MainActivity$8 -> com.george.obdreader.v:
+    com.george.obdreader.MainActivity this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.MainActivity$9 -> com.george.obdreader.w:
+    com.george.obdreader.MainActivity this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.MainActivity$MyOnPageChangeListener -> com.george.obdreader.x:
+    com.george.obdreader.MainActivity this$0 -> a
+    void onPageScrollStateChanged(int) -> b
+    void onPageScrolled(int,float,int) -> a
+    void onPageSelected(int) -> a
 com.george.obdreader.MaintenanceActivity -> com.george.obdreader.MaintenanceActivity:
     android.support.v4.app.FragmentTabHost mTabHost -> n
     void setupTabHost() -> f
@@ -1642,48 +2047,52 @@ com.george.obdreader.MaintenanceActivity -> com.george.obdreader.MaintenanceActi
     void setTabs() -> g
     void onWindowFocusChanged(boolean) -> onWindowFocusChanged
     void addTab(java.lang.String,int,java.lang.Class) -> a
-com.george.obdreader.MaintenanceLog -> com.george.obdreader.i:
+com.george.obdreader.MaintenanceLog -> com.george.obdreader.y:
     java.util.List mMaintenanceSelected -> P
     android.widget.ListView mLogListView -> Q
     com.george.obdreader.MaintenanceLog$SimpleCursorAdapter mAdapter -> R
+    android.view.View mRootView -> S
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
-    void onDestroyView() -> j
+    void onDestroyView() -> l
     void onClick(android.view.View) -> onClick
+    float getSumCost() -> z
     java.util.List access$0(com.george.obdreader.MaintenanceLog) -> a
     com.george.obdreader.MaintenanceLog$SimpleCursorAdapter access$1(com.george.obdreader.MaintenanceLog) -> b
-com.george.obdreader.MaintenanceLog$1 -> com.george.obdreader.j:
+    android.view.View access$2(com.george.obdreader.MaintenanceLog) -> c
+    float access$3(com.george.obdreader.MaintenanceLog) -> d
+com.george.obdreader.MaintenanceLog$1 -> com.george.obdreader.z:
     com.george.obdreader.MaintenanceLog this$0 -> a
     java.lang.String[] val$options -> b
     void onClick(android.content.DialogInterface,int,boolean) -> onClick
-com.george.obdreader.MaintenanceLog$2 -> com.george.obdreader.k:
+com.george.obdreader.MaintenanceLog$2 -> com.george.obdreader.aa:
     com.george.obdreader.MaintenanceLog this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
     com.george.obdreader.MaintenanceLog access$0(com.george.obdreader.MaintenanceLog$2) -> a
-com.george.obdreader.MaintenanceLog$2$1 -> com.george.obdreader.l:
+com.george.obdreader.MaintenanceLog$2$1 -> com.george.obdreader.ab:
     com.george.obdreader.MaintenanceLog$2 this$1 -> a
     java.util.Calendar val$maintenanceDate -> b
     void onDateChanged(android.widget.DatePicker,int,int,int) -> onDateChanged
-com.george.obdreader.MaintenanceLog$2$2 -> com.george.obdreader.m:
+com.george.obdreader.MaintenanceLog$2$2 -> com.george.obdreader.ac:
     com.george.obdreader.MaintenanceLog$2 this$1 -> a
     android.widget.EditText val$edtInput -> b
     java.util.Calendar val$maintenanceDate -> c
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MaintenanceLog$2$3 -> com.george.obdreader.n:
+com.george.obdreader.MaintenanceLog$2$3 -> com.george.obdreader.ad:
     com.george.obdreader.MaintenanceLog$2 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MaintenanceLog$3 -> com.george.obdreader.o:
+com.george.obdreader.MaintenanceLog$3 -> com.george.obdreader.ae:
     com.george.obdreader.MaintenanceLog this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MaintenanceLog$SimpleCursorAdapter -> com.george.obdreader.p:
+com.george.obdreader.MaintenanceLog$SimpleCursorAdapter -> com.george.obdreader.af:
     com.george.obdreader.MaintenanceLog this$0 -> j
     void bindView(android.view.View,android.content.Context,android.database.Cursor) -> a
     android.view.View newView(android.content.Context,android.database.Cursor,android.view.ViewGroup) -> a
-com.george.obdreader.MaintenanceLog$ViewHolder -> com.george.obdreader.q:
+com.george.obdreader.MaintenanceLog$ViewHolder -> com.george.obdreader.ag:
     android.widget.TextView cost -> a
     android.widget.TextView content -> b
     android.widget.TextView time -> c
     com.george.obdreader.MaintenanceLog this$0 -> d
-com.george.obdreader.MaintenanceSetting -> com.george.obdreader.r:
+com.george.obdreader.MaintenanceSetting -> com.george.obdreader.ah:
     void onCreate(android.os.Bundle) -> c
     boolean onPreferenceChange(android.preference.Preference,java.lang.Object) -> onPreferenceChange
 com.george.obdreader.MaintenanceTip -> com.george.obdreader.MaintenanceTip:
@@ -1696,7 +2105,12 @@ com.george.obdreader.MoneyActivity -> com.george.obdreader.MoneyActivity:
     void onResume() -> onResume
     void setTabs() -> g
     void onWindowFocusChanged(boolean) -> onWindowFocusChanged
-com.george.obdreader.OBDCommand -> com.george.obdreader.s:
+com.george.obdreader.MyFragmentPagerAdapter -> com.george.obdreader.ai:
+    java.util.ArrayList fragmentsList -> a
+    int getCount() -> b
+    android.support.v4.app.Fragment getItem(int) -> a
+    int getItemPosition(java.lang.Object) -> a
+com.george.obdreader.OBDCommand -> com.george.obdreader.aj:
     com.george.obdreader.OBDEnums command -> g
     float A -> h
     float B -> i
@@ -1708,103 +2122,102 @@ com.george.obdreader.OBDCommand -> com.george.obdreader.s:
     eu.lighthouselabs.obd.enums.AvailableCommandNames getId() -> c
     com.george.obdreader.OBDEnums getEnums() -> d
     float getValue() -> e
-    float valueFormula() -> i
-com.george.obdreader.OBDEnums -> com.george.obdreader.t:
-    com.george.obdreader.OBDEnums MONITOR_STATUS -> a
-    com.george.obdreader.OBDEnums FREEZE_DTC -> b
-    com.george.obdreader.OBDEnums ENGINE_LOAD -> c
-    com.george.obdreader.OBDEnums ENGINE_COOLANT_TEMP -> d
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1 -> e
-    com.george.obdreader.OBDEnums LONG_TERM_BANK_1 -> f
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2 -> g
-    com.george.obdreader.OBDEnums LONG_TERM_BANK_2 -> h
-    com.george.obdreader.OBDEnums FUEL_PRESSURE -> i
-    com.george.obdreader.OBDEnums INTAKE_MANIFOLD_PRESSURE -> j
-    com.george.obdreader.OBDEnums ENGINE_RPM -> k
-    com.george.obdreader.OBDEnums SPEED -> l
-    com.george.obdreader.OBDEnums TIMING_ADVANCE -> m
-    com.george.obdreader.OBDEnums AIR_INTAKE_TEMP -> n
-    com.george.obdreader.OBDEnums MAF -> o
-    com.george.obdreader.OBDEnums THROTTLE_POS -> p
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1_SENSOR_1 -> q
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1_SENSOR_2 -> r
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1_SENSOR_3 -> s
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1_SENSOR_4 -> t
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2_SENSOR_1 -> u
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2_SENSOR_2 -> v
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2_SENSOR_3 -> w
-    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2_SENSOR_4 -> x
-    com.george.obdreader.OBDEnums RUN_TIME -> y
-    com.george.obdreader.OBDEnums DISTANCE_TRAVELED_MIL -> z
-    com.george.obdreader.OBDEnums FUEL_RAIL_PRESSURE_MANIFOLD_VACUUM -> A
-    com.george.obdreader.OBDEnums FUEL_RAIL_PRESSURE_DIRECT_INJECT -> B
-    com.george.obdreader.OBDEnums O2S1_WR_LAMBDA_V -> C
-    com.george.obdreader.OBDEnums O2S2_WR_LAMBDA_V -> D
-    com.george.obdreader.OBDEnums O2S3_WR_LAMBDA_V -> E
-    com.george.obdreader.OBDEnums O2S4_WR_LAMBDA_V -> F
-    com.george.obdreader.OBDEnums O2S5_WR_LAMBDA_V -> G
-    com.george.obdreader.OBDEnums O2S6_WR_LAMBDA_V -> H
-    com.george.obdreader.OBDEnums O2S7_WR_LAMBDA_V -> I
-    com.george.obdreader.OBDEnums O2S8_WR_LAMBDA_V -> J
-    com.george.obdreader.OBDEnums COMMANDED_EGR -> K
-    com.george.obdreader.OBDEnums EGR_ERROR -> L
-    com.george.obdreader.OBDEnums COMMANDED_EVAPORATIVE_PURGE -> M
-    com.george.obdreader.OBDEnums FUEL_LEVEL_INPUT -> N
-    com.george.obdreader.OBDEnums WARM_UPS_CODES_CLEARED -> O
-    com.george.obdreader.OBDEnums DISTANCE_TRAVELED_CODES_CLEARED -> P
-    com.george.obdreader.OBDEnums SYSTEM_VAPOR_PRESSURE -> Q
-    com.george.obdreader.OBDEnums BAROMETRIC_PRESSURE -> R
-    com.george.obdreader.OBDEnums O2S1_WR_LAMBDA_C -> S
-    com.george.obdreader.OBDEnums O2S2_WR_LAMBDA_C -> T
-    com.george.obdreader.OBDEnums O2S3_WR_LAMBDA_C -> U
-    com.george.obdreader.OBDEnums O2S4_WR_LAMBDA_C -> V
-    com.george.obdreader.OBDEnums O2S5_WR_LAMBDA_C -> W
-    com.george.obdreader.OBDEnums O2S6_WR_LAMBDA_C -> X
-    com.george.obdreader.OBDEnums O2S7_WR_LAMBDA_C -> Y
-    com.george.obdreader.OBDEnums O2S8_WR_LAMBDA_C -> Z
-    com.george.obdreader.OBDEnums CATALYST_TEMPERATURE_BANK_1_SENSOR_1 -> aa
-    com.george.obdreader.OBDEnums CATALYST_TEMPERATURE_BANK_2_SENSOR_1 -> ab
-    com.george.obdreader.OBDEnums CATALYST_TEMPERATURE_BANK_1_SENSOR_2 -> ac
-    com.george.obdreader.OBDEnums CATALYST_TEMPERATURE_BANK_2_SENSOR_2 -> ad
-    com.george.obdreader.OBDEnums CONTROL_MODULE_VOLTAGE -> ae
-    com.george.obdreader.OBDEnums ABSOLUTE_LOAD_VALUE -> af
-    com.george.obdreader.OBDEnums COMMAND_EQUIVALENCE_RATIO -> ag
-    com.george.obdreader.OBDEnums RELATIVE_THROTTLE_POSITION -> ah
-    com.george.obdreader.OBDEnums AMBIENT_AIR_TEMPERATURE -> ai
-    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_B -> aj
-    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_C -> ak
-    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_D -> al
-    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_E -> am
-    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_F -> an
-    com.george.obdreader.OBDEnums COMMANDED_THROTTLE_ACTUATOR -> ao
-    com.george.obdreader.OBDEnums TIME_RUN_WITH_MIL -> ap
-    com.george.obdreader.OBDEnums TIME_SINCE_TROUBLE_CODES_CLEARED -> aq
-    com.george.obdreader.OBDEnums MAXIMUM_VALUE_AIR_FLOW -> ar
-    com.george.obdreader.OBDEnums ETHANOL_FUEL -> as
-    com.george.obdreader.OBDEnums ABSOLUTE_EVAP_SYSTEM_VAPOR_PRESSURE -> at
-    com.george.obdreader.OBDEnums EVAP_SYSTEM_VAPOR_PRESSURE -> au
-    com.george.obdreader.OBDEnums SECONDARY_OXYGEN_SENSOR_SHORT_TERM_BANK_1_BANK_3 -> av
-    com.george.obdreader.OBDEnums SECONDARY_OXYGEN_SENSOR_LONG_TERM_BANK_1_BANK_3 -> aw
-    com.george.obdreader.OBDEnums SECONDARY_OXYGEN_SENSOR_SHORT_TERM_BANK_2_BANK_4 -> ax
-    com.george.obdreader.OBDEnums SECONDARY_OXYGEN_SENSOR_LONG_TERM_BANK_2_BANK_4 -> ay
-    com.george.obdreader.OBDEnums FUEL_RAIL_PRESSURE -> az
-    com.george.obdreader.OBDEnums RELATIVE_ACCELERATOR_PEDAL_POSITION -> aA
-    com.george.obdreader.OBDEnums HYBRID_BATTERY_PACK_REMAINING_LIFE -> aB
-    com.george.obdreader.OBDEnums ENGINE_OIL_TEMPERATURE -> aC
-    com.george.obdreader.OBDEnums FUEL_INJECTION_TIMING -> aD
-    com.george.obdreader.OBDEnums ENGINE_FUEL_RATE -> aE
-    com.george.obdreader.OBDEnums DRIVER_DEMAND_ENGINE_TORQUE -> aF
-    com.george.obdreader.OBDEnums ACTUAL_ENGINE_TORQUE -> aG
-    com.george.obdreader.OBDEnums ENGINE_REFERENCE_TORQUE -> aH
-    com.george.obdreader.OBDEnums ENGINE_PERCENT_TORQUE_DATA -> aI
-    java.lang.String command -> aJ
-    int resultSize -> aK
-    int desc -> aL
-    float min -> aM
-    float max -> aN
-    java.lang.String unit -> aO
-    int formula -> aP
-    com.george.obdreader.OBDEnums[] ENUM$VALUES -> aQ
+    float valueFormula() -> j
+com.george.obdreader.OBDEnums -> com.george.obdreader.ak:
+    com.george.obdreader.OBDEnums ENGINE_LOAD -> a
+    com.george.obdreader.OBDEnums ENGINE_COOLANT_TEMP -> b
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1 -> c
+    com.george.obdreader.OBDEnums LONG_TERM_BANK_1 -> d
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2 -> e
+    com.george.obdreader.OBDEnums LONG_TERM_BANK_2 -> f
+    com.george.obdreader.OBDEnums FUEL_PRESSURE -> g
+    com.george.obdreader.OBDEnums INTAKE_MANIFOLD_PRESSURE -> h
+    com.george.obdreader.OBDEnums ENGINE_RPM -> i
+    com.george.obdreader.OBDEnums SPEED -> j
+    com.george.obdreader.OBDEnums TIMING_ADVANCE -> k
+    com.george.obdreader.OBDEnums AIR_INTAKE_TEMP -> l
+    com.george.obdreader.OBDEnums MAF -> m
+    com.george.obdreader.OBDEnums THROTTLE_POS -> n
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1_SENSOR_1 -> o
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1_SENSOR_2 -> p
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1_SENSOR_3 -> q
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_1_SENSOR_4 -> r
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2_SENSOR_1 -> s
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2_SENSOR_2 -> t
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2_SENSOR_3 -> u
+    com.george.obdreader.OBDEnums SHORT_TERM_BANK_2_SENSOR_4 -> v
+    com.george.obdreader.OBDEnums RUN_TIME -> w
+    com.george.obdreader.OBDEnums DISTANCE_TRAVELED_MIL -> x
+    com.george.obdreader.OBDEnums FUEL_RAIL_PRESSURE_MANIFOLD_VACUUM -> y
+    com.george.obdreader.OBDEnums FUEL_RAIL_PRESSURE_DIRECT_INJECT -> z
+    com.george.obdreader.OBDEnums O2S1_WR_LAMBDA_V -> A
+    com.george.obdreader.OBDEnums O2S2_WR_LAMBDA_V -> B
+    com.george.obdreader.OBDEnums O2S3_WR_LAMBDA_V -> C
+    com.george.obdreader.OBDEnums O2S4_WR_LAMBDA_V -> D
+    com.george.obdreader.OBDEnums O2S5_WR_LAMBDA_V -> E
+    com.george.obdreader.OBDEnums O2S6_WR_LAMBDA_V -> F
+    com.george.obdreader.OBDEnums O2S7_WR_LAMBDA_V -> G
+    com.george.obdreader.OBDEnums O2S8_WR_LAMBDA_V -> H
+    com.george.obdreader.OBDEnums COMMANDED_EGR -> I
+    com.george.obdreader.OBDEnums EGR_ERROR -> J
+    com.george.obdreader.OBDEnums COMMANDED_EVAPORATIVE_PURGE -> K
+    com.george.obdreader.OBDEnums FUEL_LEVEL_INPUT -> L
+    com.george.obdreader.OBDEnums WARM_UPS_CODES_CLEARED -> M
+    com.george.obdreader.OBDEnums DISTANCE_TRAVELED_CODES_CLEARED -> N
+    com.george.obdreader.OBDEnums SYSTEM_VAPOR_PRESSURE -> O
+    com.george.obdreader.OBDEnums BAROMETRIC_PRESSURE -> P
+    com.george.obdreader.OBDEnums O2S1_WR_LAMBDA_C -> Q
+    com.george.obdreader.OBDEnums O2S2_WR_LAMBDA_C -> R
+    com.george.obdreader.OBDEnums O2S3_WR_LAMBDA_C -> S
+    com.george.obdreader.OBDEnums O2S4_WR_LAMBDA_C -> T
+    com.george.obdreader.OBDEnums O2S5_WR_LAMBDA_C -> U
+    com.george.obdreader.OBDEnums O2S6_WR_LAMBDA_C -> V
+    com.george.obdreader.OBDEnums O2S7_WR_LAMBDA_C -> W
+    com.george.obdreader.OBDEnums O2S8_WR_LAMBDA_C -> X
+    com.george.obdreader.OBDEnums CATALYST_TEMPERATURE_BANK_1_SENSOR_1 -> Y
+    com.george.obdreader.OBDEnums CATALYST_TEMPERATURE_BANK_2_SENSOR_1 -> Z
+    com.george.obdreader.OBDEnums CATALYST_TEMPERATURE_BANK_1_SENSOR_2 -> aa
+    com.george.obdreader.OBDEnums CATALYST_TEMPERATURE_BANK_2_SENSOR_2 -> ab
+    com.george.obdreader.OBDEnums CONTROL_MODULE_VOLTAGE -> ac
+    com.george.obdreader.OBDEnums ABSOLUTE_LOAD_VALUE -> ad
+    com.george.obdreader.OBDEnums COMMAND_EQUIVALENCE_RATIO -> ae
+    com.george.obdreader.OBDEnums RELATIVE_THROTTLE_POSITION -> af
+    com.george.obdreader.OBDEnums AMBIENT_AIR_TEMPERATURE -> ag
+    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_B -> ah
+    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_C -> ai
+    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_D -> aj
+    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_E -> ak
+    com.george.obdreader.OBDEnums ABSOLUTE_THROTTLE_POSITION_F -> al
+    com.george.obdreader.OBDEnums COMMANDED_THROTTLE_ACTUATOR -> am
+    com.george.obdreader.OBDEnums TIME_RUN_WITH_MIL -> an
+    com.george.obdreader.OBDEnums TIME_SINCE_TROUBLE_CODES_CLEARED -> ao
+    com.george.obdreader.OBDEnums MAXIMUM_VALUE_AIR_FLOW -> ap
+    com.george.obdreader.OBDEnums ETHANOL_FUEL -> aq
+    com.george.obdreader.OBDEnums ABSOLUTE_EVAP_SYSTEM_VAPOR_PRESSURE -> ar
+    com.george.obdreader.OBDEnums EVAP_SYSTEM_VAPOR_PRESSURE -> as
+    com.george.obdreader.OBDEnums SECONDARY_OXYGEN_SENSOR_SHORT_TERM_BANK_1_BANK_3 -> at
+    com.george.obdreader.OBDEnums SECONDARY_OXYGEN_SENSOR_LONG_TERM_BANK_1_BANK_3 -> au
+    com.george.obdreader.OBDEnums SECONDARY_OXYGEN_SENSOR_SHORT_TERM_BANK_2_BANK_4 -> av
+    com.george.obdreader.OBDEnums SECONDARY_OXYGEN_SENSOR_LONG_TERM_BANK_2_BANK_4 -> aw
+    com.george.obdreader.OBDEnums FUEL_RAIL_PRESSURE -> ax
+    com.george.obdreader.OBDEnums RELATIVE_ACCELERATOR_PEDAL_POSITION -> ay
+    com.george.obdreader.OBDEnums HYBRID_BATTERY_PACK_REMAINING_LIFE -> az
+    com.george.obdreader.OBDEnums ENGINE_OIL_TEMPERATURE -> aA
+    com.george.obdreader.OBDEnums FUEL_INJECTION_TIMING -> aB
+    com.george.obdreader.OBDEnums ENGINE_FUEL_RATE -> aC
+    com.george.obdreader.OBDEnums DRIVER_DEMAND_ENGINE_TORQUE -> aD
+    com.george.obdreader.OBDEnums ACTUAL_ENGINE_TORQUE -> aE
+    com.george.obdreader.OBDEnums ENGINE_REFERENCE_TORQUE -> aF
+    com.george.obdreader.OBDEnums ENGINE_PERCENT_TORQUE_DATA -> aG
+    int id -> aH
+    java.lang.String command -> aI
+    int resultSize -> aJ
+    int desc -> aK
+    float min -> aL
+    float max -> aM
+    java.lang.String unit -> aN
+    int formula -> aO
+    com.george.obdreader.OBDEnums[] ENUM$VALUES -> aP
     java.lang.String getCommand() -> a
     int getResultSize() -> b
     int getDesc() -> c
@@ -1812,6 +2225,7 @@ com.george.obdreader.OBDEnums -> com.george.obdreader.t:
     float getMax() -> e
     java.lang.String getUnit() -> f
     int getFormula() -> g
+    int getId() -> h
     com.george.obdreader.OBDEnums[] values() -> values
     com.george.obdreader.OBDEnums valueOf(java.lang.String) -> valueOf
 com.george.obdreader.OBDProgressBarActivity -> com.george.obdreader.OBDProgressBarActivity:
@@ -1823,48 +2237,68 @@ com.george.obdreader.OBDProgressBarActivity -> com.george.obdreader.OBDProgressB
     java.util.Map mPids -> f
     com.george.obdreader.OBDProgressBarActivity$ProgressBarAdapter mAdapter -> g
     boolean isBound -> h
-    android.os.Handler mHandler -> i
-    com.george.obdreader.io.IPostListener mListener -> j
-    android.content.Intent mServiceIntent -> k
-    com.george.obdreader.io.ObdGatewayServiceConnection mServiceConnection -> l
+    boolean isGetSupportedOver -> i
+    boolean[] isSupported -> j
+    com.george.obdreader.OBDProgressBarActivity$PidsAdapter mPidAdapter -> k
+    android.os.Handler mHandler -> l
+    com.george.obdreader.io.IPostListener mListener -> m
+    android.content.Intent mServiceIntent -> n
+    com.george.obdreader.io.ObdGatewayServiceConnection mServiceConnection -> o
     void onCreate(android.os.Bundle) -> onCreate
     void onResume() -> onResume
     void onDestroy() -> onDestroy
     void stopLiveData() -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    void onClick(android.view.View) -> onClick
     java.util.Map access$0(com.george.obdreader.OBDProgressBarActivity) -> a
     com.george.obdreader.OBDProgressBarActivity$ProgressBarAdapter access$1(com.george.obdreader.OBDProgressBarActivity) -> b
-    android.os.Handler access$2(com.george.obdreader.OBDProgressBarActivity) -> c
-    com.george.obdreader.OBDEnums[] access$3(com.george.obdreader.OBDProgressBarActivity) -> d
-    java.lang.String[] access$4(com.george.obdreader.OBDProgressBarActivity) -> e
-    java.util.List access$5(com.george.obdreader.OBDProgressBarActivity) -> f
-    boolean[] access$6(com.george.obdreader.OBDProgressBarActivity) -> g
-    java.util.List access$7(com.george.obdreader.OBDProgressBarActivity) -> h
-    com.george.obdreader.io.ObdGatewayServiceConnection access$8(com.george.obdreader.OBDProgressBarActivity) -> i
-    boolean access$9(com.george.obdreader.OBDProgressBarActivity) -> j
-com.george.obdreader.OBDProgressBarActivity$1 -> com.george.obdreader.u:
+    boolean[] access$2(com.george.obdreader.OBDProgressBarActivity) -> c
+    com.george.obdreader.OBDProgressBarActivity$PidsAdapter access$3(com.george.obdreader.OBDProgressBarActivity) -> d
+    android.os.Handler access$4(com.george.obdreader.OBDProgressBarActivity) -> e
+    com.george.obdreader.io.ObdGatewayServiceConnection access$5(com.george.obdreader.OBDProgressBarActivity) -> f
+    com.george.obdreader.OBDEnums[] access$6(com.george.obdreader.OBDProgressBarActivity) -> g
+    java.lang.String[] access$7(com.george.obdreader.OBDProgressBarActivity) -> h
+    java.util.List access$8(com.george.obdreader.OBDProgressBarActivity) -> i
+    boolean[] access$9(com.george.obdreader.OBDProgressBarActivity) -> j
+    java.util.List access$10(com.george.obdreader.OBDProgressBarActivity) -> k
+    boolean access$11(com.george.obdreader.OBDProgressBarActivity) -> l
+    boolean access$12(com.george.obdreader.OBDProgressBarActivity) -> m
+    void access$13(com.george.obdreader.OBDProgressBarActivity,com.george.obdreader.OBDProgressBarActivity$PidsAdapter) -> a
+com.george.obdreader.OBDProgressBarActivity$1 -> com.george.obdreader.al:
     com.george.obdreader.OBDProgressBarActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.george.obdreader.OBDProgressBarActivity$2 -> com.george.obdreader.v:
+com.george.obdreader.OBDProgressBarActivity$2 -> com.george.obdreader.am:
     com.george.obdreader.OBDProgressBarActivity this$0 -> a
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
     void deviceConnected(java.lang.String) -> a
     void connectFailed(java.lang.String) -> b
     void connectingDevice(java.lang.String) -> c
-com.george.obdreader.OBDProgressBarActivity$3 -> com.george.obdreader.w:
+com.george.obdreader.OBDProgressBarActivity$3 -> com.george.obdreader.an:
     com.george.obdreader.OBDProgressBarActivity this$0 -> a
     void onClick(android.view.View) -> onClick
     com.george.obdreader.OBDProgressBarActivity access$0(com.george.obdreader.OBDProgressBarActivity$3) -> a
-com.george.obdreader.OBDProgressBarActivity$3$1 -> com.george.obdreader.x:
-    com.george.obdreader.OBDProgressBarActivity$3 this$1 -> a
-    void onClick(android.content.DialogInterface,int,boolean) -> onClick
-com.george.obdreader.OBDProgressBarActivity$3$2 -> com.george.obdreader.y:
+com.george.obdreader.OBDProgressBarActivity$3$1 -> com.george.obdreader.ao:
     com.george.obdreader.OBDProgressBarActivity$3 this$1 -> a
     void onDismiss(android.content.DialogInterface) -> onDismiss
-com.george.obdreader.OBDProgressBarActivity$PidValue -> com.george.obdreader.z:
+com.george.obdreader.OBDProgressBarActivity$PidValue -> com.george.obdreader.ap:
     float value -> a
     com.george.obdreader.io.ObdCommandJob jobObj -> b
     com.george.obdreader.OBDProgressBarActivity this$0 -> c
-com.george.obdreader.OBDProgressBarActivity$ProgressBarAdapter -> com.george.obdreader.aa:
+com.george.obdreader.OBDProgressBarActivity$PidsAdapter -> com.george.obdreader.aq:
+    android.content.Context mContext -> a
+    java.lang.String[] mData -> b
+    android.view.LayoutInflater mInflater -> c
+    com.george.obdreader.OBDProgressBarActivity$PidsAdapter$ViewHolder holder -> d
+    com.george.obdreader.OBDProgressBarActivity this$0 -> e
+    int getCount() -> getCount
+    java.lang.Object getItem(int) -> getItem
+    long getItemId(int) -> getItemId
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+com.george.obdreader.OBDProgressBarActivity$PidsAdapter$ViewHolder -> com.george.obdreader.ar:
+    android.widget.TextView title -> a
+    android.widget.CheckBox checkBox -> b
+    com.george.obdreader.OBDProgressBarActivity$PidsAdapter this$1 -> c
+com.george.obdreader.OBDProgressBarActivity$ProgressBarAdapter -> com.george.obdreader.as:
     android.view.LayoutInflater mInflater -> b
     com.george.obdreader.OBDProgressBarActivity this$0 -> a
     int getCount() -> getCount
@@ -1874,11 +2308,11 @@ com.george.obdreader.OBDProgressBarActivity$ProgressBarAdapter -> com.george.obd
 com.george.obdreader.OBDService -> com.george.obdreader.OBDService:
     android.os.IBinder onBind(android.content.Intent) -> onBind
     void onCreate() -> onCreate
-com.george.obdreader.OBDService$TimeTickBroadcast -> com.george.obdreader.ab:
+com.george.obdreader.OBDService$TimeTickBroadcast -> com.george.obdreader.at:
     com.george.obdreader.OBDService this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.george.obdreader.R -> com.george.obdreader.ac:
-com.george.obdreader.R$styleable -> com.george.obdreader.ad:
+com.george.obdreader.R -> com.george.obdreader.au:
+com.george.obdreader.R$styleable -> com.george.obdreader.av:
     int[] DragableSpace -> DragableSpace
     int DragableSpace_default_screen -> DragableSpace_default_screen
     int DragableSpace_xorientation -> DragableSpace_xorientation
@@ -1921,6 +2355,26 @@ com.george.obdreader.R$styleable -> com.george.obdreader.ad:
     int TabWidget_tabStripRight -> TabWidget_tabStripRight
     int[] WifiEncryptionState -> WifiEncryptionState
     int WifiEncryptionState_state_encrypted -> WifiEncryptionState_state_encrypted
+com.george.obdreader.SecondIndexFragment -> com.george.obdreader.aw:
+    java.util.List mList -> P
+    android.content.pm.PackageManager mPackageManager -> Q
+    java.util.Comparator sDisplayNameComparator -> R
+    void onCreate(android.os.Bundle) -> c
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onDestroy() -> m
+    void onClick(android.view.View) -> onClick
+    java.util.List access$0(com.george.obdreader.SecondIndexFragment) -> a
+    android.content.pm.PackageManager access$1(com.george.obdreader.SecondIndexFragment) -> b
+com.george.obdreader.SecondIndexFragment$1 -> com.george.obdreader.ax:
+    java.text.Collator collator -> a
+    int compare(java.util.Map,java.util.Map) -> a
+    int compare(java.lang.Object,java.lang.Object) -> compare
+com.george.obdreader.SecondIndexFragment$MyAdapter -> com.george.obdreader.ay:
+    com.george.obdreader.SecondIndexFragment this$0 -> a
+    int getCount() -> getCount
+    java.lang.Object getItem(int) -> getItem
+    long getItemId(int) -> getItemId
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.george.obdreader.SpeedUpTest -> com.george.obdreader.SpeedUpTest:
     int mSpeed -> f
     com.george.obdreader.SpeedUpTest$TimerHandler timerHandler -> a
@@ -1950,23 +2404,23 @@ com.george.obdreader.SpeedUpTest -> com.george.obdreader.SpeedUpTest:
     void access$6(com.george.obdreader.SpeedUpTest,boolean) -> b
     android.os.Handler access$7(com.george.obdreader.SpeedUpTest) -> f
     com.george.obdreader.io.ObdGatewayServiceConnection access$8(com.george.obdreader.SpeedUpTest) -> g
-com.george.obdreader.SpeedUpTest$1 -> com.george.obdreader.ae:
+com.george.obdreader.SpeedUpTest$1 -> com.george.obdreader.az:
     com.george.obdreader.SpeedUpTest this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.george.obdreader.SpeedUpTest$2 -> com.george.obdreader.af:
+com.george.obdreader.SpeedUpTest$2 -> com.george.obdreader.ba:
     com.george.obdreader.SpeedUpTest this$0 -> a
     void onClick(int,int) -> a
-com.george.obdreader.SpeedUpTest$3 -> com.george.obdreader.ag:
+com.george.obdreader.SpeedUpTest$3 -> com.george.obdreader.bb:
     com.george.obdreader.SpeedUpTest this$0 -> a
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
     void deviceConnected(java.lang.String) -> a
     void connectFailed(java.lang.String) -> b
     void connectingDevice(java.lang.String) -> c
-com.george.obdreader.SpeedUpTest$MyTimerTask -> com.george.obdreader.ah:
+com.george.obdreader.SpeedUpTest$MyTimerTask -> com.george.obdreader.bc:
     com.george.obdreader.SpeedUpTest me -> b
     com.george.obdreader.SpeedUpTest this$0 -> a
     void run() -> run
-com.george.obdreader.SpeedUpTest$TimerHandler -> com.george.obdreader.ai:
+com.george.obdreader.SpeedUpTest$TimerHandler -> com.george.obdreader.bd:
     com.george.obdreader.SpeedUpTest me -> b
     com.george.obdreader.SpeedUpTest this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
@@ -1992,13 +2446,13 @@ com.george.obdreader.TroubleCodes -> com.george.obdreader.TroubleCodes:
     java.util.List access$2(com.george.obdreader.TroubleCodes) -> b
     android.widget.SimpleAdapter access$3(com.george.obdreader.TroubleCodes) -> c
     android.os.Handler access$4(com.george.obdreader.TroubleCodes) -> d
-com.george.obdreader.TroubleCodes$1 -> com.george.obdreader.aj:
+com.george.obdreader.TroubleCodes$1 -> com.george.obdreader.be:
     com.george.obdreader.TroubleCodes this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.george.obdreader.TroubleCodes$2 -> com.george.obdreader.ak:
+com.george.obdreader.TroubleCodes$2 -> com.george.obdreader.bf:
     com.george.obdreader.TroubleCodes this$0 -> a
     void run() -> run
-com.george.obdreader.TroubleCodes$3 -> com.george.obdreader.al:
+com.george.obdreader.TroubleCodes$3 -> com.george.obdreader.bg:
     com.george.obdreader.TroubleCodes this$0 -> a
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
     void deviceConnected(java.lang.String) -> a
@@ -2048,7 +2502,10 @@ com.george.obdreader.config.BTDeviceListActivity$3 -> com.george.obdreader.confi
     void onClick(android.view.View) -> onClick
 com.george.obdreader.config.BaseSetting -> com.george.obdreader.config.e:
     java.lang.String EXTRA_DEVICE_ADDRESS -> P
-    java.lang.String mConnect_type -> Q
+    java.lang.String CUSTOMER_CONNECT -> Q
+    java.lang.String CUSTOMER_IP -> R
+    java.lang.String CUSTOMER_PORT -> S
+    java.lang.String mConnect_type -> T
     void onCreate(android.os.Bundle) -> c
     boolean onPreferenceChange(android.preference.Preference,java.lang.Object) -> onPreferenceChange
     void onActivityResult(int,int,android.content.Intent) -> a
@@ -2056,14 +2513,29 @@ com.george.obdreader.config.BaseSetting -> com.george.obdreader.config.e:
 com.george.obdreader.config.BaseSetting$1 -> com.george.obdreader.config.f:
     com.george.obdreader.config.BaseSetting this$0 -> a
     boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
-com.george.obdreader.config.ConfigActivity -> com.george.obdreader.config.g:
+com.george.obdreader.config.BaseSetting$2 -> com.george.obdreader.config.g:
+    com.george.obdreader.config.BaseSetting this$0 -> a
+    boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
+    com.george.obdreader.config.BaseSetting access$0(com.george.obdreader.config.BaseSetting$2) -> a
+com.george.obdreader.config.BaseSetting$2$1 -> com.george.obdreader.config.h:
+    com.george.obdreader.config.BaseSetting$2 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.config.BaseSetting$2$2 -> com.george.obdreader.config.i:
+    com.george.obdreader.config.BaseSetting$2 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.config.BaseSetting$2$3 -> com.george.obdreader.config.j:
+    com.george.obdreader.config.BaseSetting$2 this$1 -> a
+    android.view.View val$mDialogView -> b
+    android.app.AlertDialog val$alertDialog -> c
+    void onClick(android.view.View) -> onClick
+com.george.obdreader.config.ConfigActivity -> com.george.obdreader.config.k:
     void onCreate(android.os.Bundle) -> onCreate
     boolean onPreferenceChange(android.preference.Preference,java.lang.Object) -> onPreferenceChange
     int getUpdatePeriod(android.content.SharedPreferences) -> a
     double getVolumetricEfficieny(android.content.SharedPreferences) -> b
     double getEngineDisplacement(android.content.SharedPreferences) -> c
     java.util.ArrayList getObdCommands(android.content.SharedPreferences) -> d
-com.george.obdreader.config.ConfigActivity$1 -> com.george.obdreader.config.h:
+com.george.obdreader.config.ConfigActivity$1 -> com.george.obdreader.config.l:
     com.george.obdreader.config.ConfigActivity this$0 -> a
     android.bluetooth.BluetoothAdapter val$mBtAdapter -> b
     android.app.Activity val$thisActivity -> c
@@ -2075,13 +2547,13 @@ com.george.obdreader.config.ConfigurationActivity -> com.george.obdreader.config
     void setTabs() -> g
     void onWindowFocusChanged(boolean) -> onWindowFocusChanged
     void addTab(java.lang.String,int,java.lang.Class) -> a
-com.george.obdreader.config.ObdConfig -> com.george.obdreader.config.i:
+com.george.obdreader.config.ObdConfig -> com.george.obdreader.config.m:
     java.util.ArrayList getCommands() -> a
 com.george.obdreader.config.ProgressCategory -> com.george.obdreader.config.ProgressCategory:
     boolean mProgress -> a
     void onBindView(android.view.View) -> onBindView
     void setProgress(boolean) -> a
-com.george.obdreader.config.Summary -> com.george.obdreader.config.j:
+com.george.obdreader.config.Summary -> com.george.obdreader.config.n:
     java.lang.String get(android.content.Context,java.lang.String,android.net.NetworkInfo$DetailedState) -> a
     java.lang.String get(android.content.Context,android.net.NetworkInfo$DetailedState) -> a
 com.george.obdreader.config.WifiDeviceListActivity -> com.george.obdreader.config.WifiDeviceListActivity:
@@ -2103,25 +2575,27 @@ com.george.obdreader.config.WifiDeviceListActivity -> com.george.obdreader.confi
     void onClick(android.content.DialogInterface,int) -> onClick
     void onResume() -> onResume
     void onPause() -> onPause
+    void connect(int) -> a
     void enableNetworks() -> a
-    void updateAccessPoints() -> b
+    void saveNetworks() -> b
+    void updateAccessPoints() -> c
     void handleEvent(android.content.Intent) -> a
     void updateConnectionState(android.net.NetworkInfo$DetailedState) -> a
-    void updateWifiState(int) -> a
+    void updateWifiState(int) -> b
     boolean onPreferenceTreeClick(android.preference.PreferenceScreen,android.preference.Preference) -> onPreferenceTreeClick
     com.george.obdreader.config.ProgressCategory access$0(com.george.obdreader.config.WifiDeviceListActivity) -> a
     android.net.wifi.WifiManager access$1(com.george.obdreader.config.WifiDeviceListActivity) -> b
     void access$2(com.george.obdreader.config.WifiDeviceListActivity,android.content.Intent) -> a
-com.george.obdreader.config.WifiDeviceListActivity$1 -> com.george.obdreader.config.k:
+com.george.obdreader.config.WifiDeviceListActivity$1 -> com.george.obdreader.config.o:
     com.george.obdreader.config.WifiDeviceListActivity this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.george.obdreader.config.WifiDeviceListActivity$Scanner -> com.george.obdreader.config.l:
+com.george.obdreader.config.WifiDeviceListActivity$Scanner -> com.george.obdreader.config.p:
     int mRetry -> b
     com.george.obdreader.config.WifiDeviceListActivity this$0 -> a
     void resume() -> a
     void pause() -> b
     void handleMessage(android.os.Message) -> handleMessage
-com.george.obdreader.config.WifiEnabler -> com.george.obdreader.config.m:
+com.george.obdreader.config.WifiEnabler -> com.george.obdreader.config.q:
     android.content.Context mContext -> a
     android.preference.CheckBoxPreference mCheckBox -> b
     java.lang.CharSequence mOriginalSummary -> c
@@ -2135,19 +2609,21 @@ com.george.obdreader.config.WifiEnabler -> com.george.obdreader.config.m:
     void handleStateChanged(android.net.NetworkInfo$DetailedState) -> a
     void access$0(com.george.obdreader.config.WifiEnabler,int) -> a
     void access$1(com.george.obdreader.config.WifiEnabler,android.net.NetworkInfo$DetailedState) -> a
-com.george.obdreader.config.WifiEnabler$1 -> com.george.obdreader.config.n:
+com.george.obdreader.config.WifiEnabler$1 -> com.george.obdreader.config.r:
     com.george.obdreader.config.WifiEnabler this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
 com.george.obdreader.db.DatabaseProvider -> com.george.obdreader.db.DatabaseProvider:
-    java.util.HashMap sLocationTableProjectionMap -> a
-    com.george.obdreader.db.DatabaseProvider$DatabaseHelper mOpenHelper -> b
-    android.content.UriMatcher sUriMatcher -> c
+    java.util.HashMap sMaintenanceLogTableProjectionMap -> a
+    java.util.HashMap sFuellingLogTableProjectionMap -> b
+    com.george.obdreader.db.DatabaseProvider$DatabaseHelper mOpenHelper -> c
+    android.content.UriMatcher sUriMatcher -> d
     java.lang.String getType(android.net.Uri) -> getType
     android.net.Uri insert(android.net.Uri,android.content.ContentValues) -> insert
     int delete(android.net.Uri,java.lang.String,java.lang.String[]) -> delete
     boolean onCreate() -> onCreate
     android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String) -> query
     int update(android.net.Uri,android.content.ContentValues,java.lang.String,java.lang.String[]) -> update
+    android.database.sqlite.SQLiteDatabase getDbHandle() -> a
 com.george.obdreader.db.DatabaseProvider$DatabaseHelper -> com.george.obdreader.db.a:
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
@@ -2161,7 +2637,9 @@ com.george.obdreader.db.Databasehelper -> com.george.obdreader.db.b:
     void openDatabase() -> c
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
-com.george.obdreader.db.MaintenanceLogTable -> com.george.obdreader.db.c:
+com.george.obdreader.db.FuellingLogTable -> com.george.obdreader.db.c:
+    android.net.Uri CONTENT_URI -> a
+com.george.obdreader.db.MaintenanceLogTable -> com.george.obdreader.db.d:
     android.net.Uri CONTENT_URI -> a
 com.george.obdreader.io.IPostListener -> com.george.obdreader.io.a:
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
@@ -2220,6 +2698,7 @@ com.george.obdreader.io.ObdGatewayService -> com.george.obdreader.io.ObdGatewayS
     void stopService() -> a
     void showNotification() -> e
     void clearNotification() -> f
+    void resetDeivce() -> g
     com.george.obdreader.io.IPostListener access$0(com.george.obdreader.io.ObdGatewayService) -> a
     int access$1(com.george.obdreader.io.ObdGatewayService) -> b
     void access$2(com.george.obdreader.io.ObdGatewayService,int) -> a
@@ -2264,6 +2743,27 @@ com.george.obdreader.io.ObdGatewayServiceConnection -> com.george.obdreader.io.i
     boolean isConnected() -> b
     void clearQueue() -> c
     void connectDevice() -> d
+com.george.obdreader.ui.CustomerSpinner -> com.george.obdreader.ui.CustomerSpinner:
+    com.george.obdreader.ui.SelectDialog dialog -> a
+    java.lang.String[] list -> c
+    java.lang.String text -> b
+    boolean performClick() -> performClick
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    java.lang.String[] getList() -> getList
+    void setList(java.lang.String[]) -> setList
+    java.lang.String getText() -> getText
+    void setText(java.lang.String) -> setText
+com.george.obdreader.ui.ListviewAdapter -> com.george.obdreader.ui.a:
+    android.content.Context context -> a
+    java.lang.String[] list -> b
+    int getCount() -> getCount
+    java.lang.Object getItem(int) -> getItem
+    long getItemId(int) -> getItemId
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+com.george.obdreader.ui.SelectDialog -> com.george.obdreader.ui.b:
+    void onCreate(android.os.Bundle) -> onCreate
+com.george.obdreader.ui.ViewHolder -> com.george.obdreader.ui.c:
+    android.widget.TextView textView -> a
 com.george.utils.Device -> com.george.a.a:
     int[] $SWITCH_TABLE$android$net$NetworkInfo$State -> a
     int getNetConnect(android.content.Context) -> a
@@ -2281,11 +2781,12 @@ eu.lighthouselabs.obd.commands.ObdCommand -> a.a.a.a.a:
     void readResult(java.io.InputStream) -> a
     java.lang.String getResult() -> f
     java.lang.String getFormattedResult() -> a
+    java.lang.String getCommand() -> g
     java.lang.String getName() -> b
     eu.lighthouselabs.obd.enums.AvailableCommandNames getId() -> c
-    int getPriority() -> g
+    int getPriority() -> h
     void setPriority(int) -> a
-    int getCurrentPriority() -> h
+    int getCurrentPriority() -> i
     void setCurrentPriority(int) -> b
     void setDelay(int) -> c
 eu.lighthouselabs.obd.commands.PercentageObdCommand -> a.a.a.a.b:
@@ -2390,7 +2891,7 @@ eu.lighthouselabs.obd.commands.pressure.PressureObdCommand -> a.a.a.a.d.d:
     int preparePressureValue() -> d
     java.lang.String getFormattedResult() -> a
     int getMetricUnit() -> e
-    float getImperialUnit() -> i
+    float getImperialUnit() -> j
 eu.lighthouselabs.obd.commands.protocol.EchoOffObdCommand -> a.a.a.a.e.a:
     java.lang.String getFormattedResult() -> a
     java.lang.String getName() -> b
