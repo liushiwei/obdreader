@@ -19,5 +19,9 @@
         android:summary="@string/customer_connect_summary"
         android:title="@string/customer_connect_title" >
     </Preference>
+    <Preference
+        android:key="software_update"
+        android:title="@string/about_software" >
+    </Preference>
 
 </PreferenceScreen>

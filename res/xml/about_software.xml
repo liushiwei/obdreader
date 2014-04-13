@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <Preference
+        android:key="current_version"
+        android:title="@string/current_version" >
+    </Preference>
+
+    <CheckBoxPreference
+        android:key="auto_update"
+        android:title="@string/auto_update" />
+
+    <Preference
+        android:key="software_update"
+        android:title="@string/check_new_version" >
+    </Preference>
+
+</PreferenceScreen>

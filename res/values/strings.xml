@@ -131,7 +131,7 @@
     <string name="fuelling_logs">加油记录</string>
     <string name="cost">费用统计</string>
     <string name="not_null">必填字段不能为空</string>
-	<string name="customer_connect_title">自定义WIFI连接</string>
+    <string name="customer_connect_title">自定义WIFI连接</string>
     <string name="customer_connect_summary">当前连接地址：</string>
     <string name="customer_connect_ip">IP：</string>
     <string name="customer_connect_port">端口：</string>
@@ -140,4 +140,12 @@
     <string name="reboot">连接信息已经修改，重新启动应用后生效</string>
     <string name="wifi_connect_wrong">WIFI当前连接的设备不是:<xliff:g id="wifi_security">%1$s</xliff:g>,要更改吗？</string>
     <string name="wifi_open">WIFI连接没有打开，要打开WIFI连接吗？</string>
+    <string name="check_new_version">检测新版本</string>
+    <string name="current_version">当前版本</string>
+    <string name="about_software">关于软件</string>
+    <string name="auto_update">网络连接时自动检测</string>
+    <string name="no_new_verion">当前版本已经是最新版本</string>
+    <string name="download_new_version">最新版本:V<xliff:g id="wifi_security">%1$s</xliff:g>,要下载更新吗？</string>
+    <string name="new_version">最新版本:V<xliff:g id="wifi_security">%1$s</xliff:g></string>
+
 </resources>

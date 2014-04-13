@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="7"
+        android:minSdkVersion="9"
         android:targetSdkVersion="17" />
 
     <application
@@ -16,8 +16,7 @@
         <activity
             android:name="com.george.obdreader.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" 
-            >
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,6 +36,7 @@
         <activity android:name="com.george.obdreader.MoneyActivity" />
         <activity android:name=".OBDGaugeListActivity" />
         <activity android:name=".OBDProgressBarActivity" />
+        <activity android:name="com.george.obdreader.config.AboutSoftwareActivity" />
         <activity
             android:name="com.george.obdreader.config.BTDeviceListActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -44,20 +44,26 @@
         <activity
             android:name="com.george.obdreader.MaintenanceTip"
             android:theme="@style/DialogStyle" />
-        
-        <activity android:name=".FuellingLogs" android:label="@string/fuelling_logs" android:icon="@drawable/refuel_log_icon">
+        <activity
+            android:name=".FuellingLogs"
+            android:icon="@drawable/refuel_log_icon"
+            android:label="@string/fuelling_logs" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="com.george.obdreader.category.APP" />
             </intent-filter>
         </activity>
-        <activity android:name=".Cost" android:label="@string/cost" android:icon="@drawable/money">
+        <activity
+            android:name=".Cost"
+            android:icon="@drawable/money"
+            android:label="@string/cost" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="com.george.obdreader.category.APP" />
             </intent-filter>
         </activity>
-        
 
         <service
             android:name=".io.ObdGatewayService"
@@ -105,5 +111,6 @@
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
     </uses-permission>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 </manifest>

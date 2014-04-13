@@ -48,6 +48,9 @@ public class BaseSetting extends PreferenceFragment implements
 	public static String CUSTOMER_IP = "customer_ip";
 	
 	public static String CUSTOMER_PORT = "customer_port";
+	
+	public static String SOFTWARE_UPDATE = "software_update";
+
 
 	private String mConnect_type;
 
@@ -204,6 +207,16 @@ public class BaseSetting extends PreferenceFragment implements
 						return false;
 					}
 				});
+		
+		Preference software_update = findPreference(SOFTWARE_UPDATE);
+		software_update.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivity(new Intent(getActivity() ,AboutSoftwareActivity.class));
+                return false;
+            }
+        });
 
 	}
 
