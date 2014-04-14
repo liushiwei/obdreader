@@ -237,7 +237,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                         Log.d("FirstIndexFragment", "mFirstfragment="
                                 + mFirstfragment);
                         View first = mPager.getChildAt(0);
-                        if (first.findViewById(R.id.light) != null) {
+                        if (first!=null&& first.findViewById(R.id.light) != null) {
                             Animation right = AnimationUtils.loadAnimation(
                                     MainActivity.this, msg.arg1);
                             // AlphaAnimation right=new AlphaAnimation(0.1f,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">OBD</string>
     <string name="check_not_error">没有查询到任何故障</string>
@@ -36,5 +36,77 @@
     <string name="no_maintenance_log">没有保养记录</string>
     <string name="maintenance_settings">基本设置</string>
     <string name="obd_pid">PID</string>
+    
+    <string name="wifi_quick_toggle_title" msgid="874495178395350104">"WLAN"</string>
+    <string name="wifi_quick_toggle_summary" msgid="1047950931623694366">"打开 WLAN"</string>
+    <string name="wifi_settings" msgid="4746946030627213196">"WLAN 设置"</string>
+    <string name="wifi_settings_category" msgid="2810363951104753710">"WLAN 设置"</string>
+    <string name="wifi_settings_summary" msgid="668767638556052820">"设置和管理无线接入点"</string>
+    <string name="wifi_starting" msgid="6710266609710860129">"正在打开..."</string>
+    <string name="wifi_stopping" msgid="5952909472548218348">"正在关闭..."</string>
+    <string name="wifi_error" msgid="3207971103917128179">"出错"</string>
+    <string name="wifi_in_airplane_mode" msgid="7618393787965366655">"正处于飞行模式"</string>
+    <string name="wifi_fail_to_scan" msgid="6194542252808587669">"无法通过扫描查找网络"</string>
+    <string name="wifi_notify_open_networks" msgid="3755768188029653293">"网络通知"</string>
+    <string name="wifi_notify_open_networks_summary" msgid="3038290727701553612">"附近有开放网络时通知我"</string>
+    <string name="wifi_add_network" msgid="1671334951296205616">"添加 WLAN 网络"</string>
+    <string name="wifi_access_points" msgid="2664629396767022441">"WLAN 网络"</string>
+    <string name="wifi_menu_scan" msgid="1470911530412095868">"扫描"</string>
+    <string name="wifi_menu_advanced" msgid="7522252991919573664">"高级"</string>
+    <string name="wifi_menu_connect" msgid="4996220309848349408">"连接到网络"</string>
+    <string name="wifi_menu_forget" msgid="8736964302477327114">"不保存网络"</string>
+    <string name="wifi_menu_modify" msgid="2068554918652440105">"修改网络"</string>
+    <string name="wifi_ssid" msgid="641393708309146745">"网络 SSID"</string>
+    <string name="wifi_security" msgid="6603611185592956936">"安全性"</string>
+    <string name="wifi_signal" msgid="5514120261628065287">"信号强度"</string>
+    <string name="wifi_status" msgid="4824568012414605414">"状态消息"</string>
+    <string name="wifi_speed" msgid="3526198708812322037">"连接速度"</string>
+    <string name="wifi_ip_address" msgid="1440054061044402918">"IP 地址"</string>
+    <string name="wifi_eap_method" msgid="8529436133640730382">"EAP 方法"</string>
+    <string name="please_select_phase2" msgid="5231074529772044898">"阶段 2 身份验证"</string>
+    <string name="wifi_eap_ca_cert" msgid="3521574865488892851">"CA 证书"</string>
+    <string name="wifi_eap_user_cert" msgid="1291089413368160789">"用户证书"</string>
+    <string name="wifi_eap_identity" msgid="4359453783379679103">"身份"</string>
+    <string name="wifi_eap_anonymous" msgid="2989469344116577955">"匿名身份"</string>
+    <string name="wifi_password" msgid="5948219759936151048">"密码"</string>
+    <string name="wifi_show_password" msgid="4235237470701732009">"显示密码。"</string>
+    <string name="wifi_unchanged" msgid="3410422020930397102">"（未更改）"</string>
+    <string name="wifi_unspecified" msgid="5431501214192991253">"（未指定）"</string>
+    <string name="wifi_remembered" msgid="8426719916135950136">"已保存"</string>
+    <string name="wifi_disabled" msgid="2104752038187543712">"已停用"</string>
+    <string name="wifi_not_in_range" msgid="1136191511238508967">"不在范围内"</string>
+    <string name="wifi_secured" msgid="6759903183748011566">"通过 <xliff:g id="WIFI_SECURITY">%1$s</xliff:g> 进行保护"</string>
+    <string name="wifi_secured_with_status" msgid="6489317496506267302">"<xliff:g id="WIFI_STATUS">%2$s</xliff:g>，通过 <xliff:g id="WIFI_SECURITY">%1$s</xliff:g> 进行保护"</string>
+    <string name="wifi_connect" msgid="1076622875777072845">"连接"</string>
+    <string name="wifi_forget" msgid="8168174695608386644">"不保存"</string>
+    <string name="wifi_save" msgid="3331121567988522826">"保存"</string>
+    <string name="wifi_cancel" msgid="6763568902542968964">"取消"</string>
+    <string name="wifi_advanced_titlebar" msgid="5419052271935350999">"高级"</string>
+    <string name="wifi_setting_num_channels_title" msgid="694031537019656132">"调整域"</string>
+    <string name="wifi_setting_num_channels_summary" msgid="4889355096717099141">"设置要使用的频道个数"</string>
+    <string name="wifi_setting_num_channels_error" msgid="5765443843427870721">"设置调整域时出现问题。"</string>
+    <string name="wifi_setting_num_channels_channel_phrase" msgid="1269381923672908636">"<xliff:g id="NUM_CHANNELS">%1$d</xliff:g> 个频道"</string>
+    <string name="wifi_setting_sleep_policy_title" msgid="1367731352485585528">"WLAN 休眠策略"</string>
+    <string name="wifi_setting_sleep_policy_summary" msgid="7573693311804602041">"指定何时要从 WLAN 切换到设备数据"</string>
+    <string name="wifi_setting_sleep_policy_error" msgid="5103670439972135148">"设置休眠策略时出现问题。"</string>
+    <string name="wifi_advanced_mac_address_title" msgid="6571335466330978393">"MAC 地址"</string>
+    <string name="wifi_ip_settings_titlebar" msgid="4345739031248760326">"IP 设置"</string>
+    <string name="wifi_ip_settings_menu_save" msgid="7296724066102908366">"保存"</string>
+    <string name="wifi_ip_settings_menu_cancel" msgid="6582567330136502340">"取消"</string>
+    <string name="wifi_ip_settings_invalid_ip" msgid="8057085083985255580">"请输入有效的 IP 地址。"</string>
+    <string name="wifi_use_static_ip" msgid="2133464242165642230">"使用静态 IP"</string>
+    <string name="wifi_dns1" msgid="7344118050720080045">"域名 1"</string>
+    <string name="wifi_dns2" msgid="1368601006824882659">"域名 2"</string>
+    <string name="wifi_gateway" msgid="163914742461092086">"网关"</string>
+    <string name="wifi_netmask" msgid="4520635321425529085">"网络掩码"</string>
+    <string name="wifi_tether_checkbox_text" msgid="6961605862058056788">"便携式 WLAN 热点"</string>
+    <string name="wifi_tether_enabled_subtext" msgid="8948641212931906143">"便携式热点 <xliff:g id="NETWORK_SSID">%1$s</xliff:g> 已启用"</string>
+    <string name="wifi_tether_failed_subtext" msgid="2654888578056042315">"便携式 WLAN 热点错误"</string>
+    <string name="wifi_tether_settings_text" msgid="123573487844470195">"便携式 WLAN 热点设置"</string>
+    <string name="wifi_tether_settings_subtext" msgid="8064755682383367008">"设置与管理便携式 WLAN 热点"</string>
+    <string name="wifi_tether_settings_title" msgid="3749063216348284432">"便携式 WLAN 热点设置"</string>
+    <string name="wifi_tether_configure_ap_text" msgid="3474995108398156258">"配置 WLAN 热点"</string>
+    <string name="wifi_tether_configure_subtext" msgid="1927454307836232128">"<xliff:g id="NETWORK_SSID">%1$s</xliff:g><xliff:g id="NETWORK_SECURITY">%2$s</xliff:g> 便携式 WLAN 热点"</string>
+    <string name="wifi_tether_configure_ssid_default" msgid="8467525402622138547">"Android 热点"</string>
 
 </resources>

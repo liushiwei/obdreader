@@ -9,6 +9,10 @@
     <CheckBoxPreference
         android:key="auto_update"
         android:title="@string/auto_update" />
+    <CheckBoxPreference
+        android:key="wifi_update_only"
+        android:title="@string/wifi_update_only" />
+    
 
     <Preference
         android:key="software_update"

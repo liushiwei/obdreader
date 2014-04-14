@@ -141,11 +141,14 @@
     <string name="wifi_connect_wrong">WIFI当前连接的设备不是:<xliff:g id="wifi_security">%1$s</xliff:g>,要更改吗？</string>
     <string name="wifi_open">WIFI连接没有打开，要打开WIFI连接吗？</string>
     <string name="check_new_version">检测新版本</string>
+    <string name="checked_new_version">检测到新版本</string>
     <string name="current_version">当前版本</string>
     <string name="about_software">关于软件</string>
     <string name="auto_update">网络连接时自动检测</string>
+    <string name="wifi_update_only">只通过WIFI更新软件</string>
     <string name="no_new_verion">当前版本已经是最新版本</string>
     <string name="download_new_version">最新版本:V<xliff:g id="wifi_security">%1$s</xliff:g>,要下载更新吗？</string>
     <string name="new_version">最新版本:V<xliff:g id="wifi_security">%1$s</xliff:g></string>
-
+	<string name="checking_new_version">正在检测新版本 &#8230;</string>
+	<string name="current_connect_not_wifi">当前连接的不是WIFI网络</string>
 </resources>
