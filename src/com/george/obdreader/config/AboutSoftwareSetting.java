@@ -72,6 +72,16 @@ public class AboutSoftwareSetting extends PreferenceFragment {
 		wifi_update_only_value = preferences.getBoolean(WIFI_UPDATE_ONLY, true);
 		CheckBoxPreference wifi_update_only = (CheckBoxPreference) findPreference(WIFI_UPDATE_ONLY);
 		wifi_update_only.setChecked(wifi_update_only_value);
+		
+		wifi_update_only.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                CheckBoxPreference wifi_update_only = (CheckBoxPreference) preference;
+                wifi_update_only_value = wifi_update_only.isChecked();
+                return false;
+            }
+        });
 		Preference software_update = findPreference(SOFTWARE_UPDATE);
 		software_update
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
