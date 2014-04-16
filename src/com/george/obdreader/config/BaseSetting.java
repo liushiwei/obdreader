@@ -50,6 +50,8 @@ public class BaseSetting extends PreferenceFragment implements
 	public static String CUSTOMER_PORT = "customer_port";
 	
 	public static String SOFTWARE_UPDATE = "software_update";
+	
+	public static String REPORT = "report";
 
 
 	private String mConnect_type;
@@ -214,6 +216,16 @@ public class BaseSetting extends PreferenceFragment implements
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 startActivity(new Intent(getActivity() ,AboutSoftwareActivity.class));
+                return false;
+            }
+        });
+		
+		Preference report = findPreference(REPORT);
+		report.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivity(new Intent(getActivity() ,ReportActivity.class));
                 return false;
             }
         });
