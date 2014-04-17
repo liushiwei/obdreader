@@ -157,4 +157,7 @@
 	<string name="bugs">软件是否稳定</string>
 	<string name="email">Email(选填):</string>
 	<string name="opinion">意见(选填):</string>
+	<string name="submit">提交</string>
+	<string name="net_error">网络连接异常</string>
+	<string name="submit_success">提交成功</string>
 </resources>

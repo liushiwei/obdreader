@@ -156,5 +156,12 @@
         <item>-35#柴油</item>
         <item>天然气</item>
     </string-array>
+    <string-array name="report_values">
+        <item>烂透了</item>
+        <item>糟糕</item>
+        <item>一般</item>
+        <item>很好</item>
+        <item>太棒了</item>
+    </string-array>
 
 </resources>

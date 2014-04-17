@@ -54,7 +54,8 @@
                     android:id="@+id/ui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:rating="3" />
+                    android:rating="3"
+                    android:stepSize="1" />
 
                 <TextView
                     android:id="@+id/ui_text"
@@ -84,7 +85,8 @@
                     android:id="@+id/fun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:rating="3" />
+                    android:rating="3" 
+                    android:stepSize="1"/>
 
                 <TextView
                     android:id="@+id/fun_text"
@@ -114,7 +116,8 @@
                     android:id="@+id/bugs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:rating="3" />
+                    android:rating="3"
+                    android:stepSize="1" />
 
                 <TextView
                     android:id="@+id/bugs_text"
@@ -141,7 +144,7 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/editText1"
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -152,6 +155,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
 
+                
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -162,14 +166,23 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/editText1"
+                    android:id="@+id/option"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textMultiLine"
+                    android:minLines="5"/>
             </LinearLayout>
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit" 
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
         </LinearLayout>
     </ScrollView>
+
 
 </LinearLayout>
