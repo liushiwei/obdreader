@@ -68,7 +68,6 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 				mId = ((ViewHolder)view.getTag()).id;
 				final AlertDialog.Builder builder = new AlertDialog.Builder(
 						getActivity());
-				builder.setCancelable(false);
 				builder.setTitle(getString(R.string.delete_item));
 				builder.setPositiveButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {
@@ -76,13 +75,8 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								Toast.makeText(getActivity(), "delete",
-										Toast.LENGTH_SHORT).show();
 								ContentResolver resolver = getActivity().getContentResolver();
-//								Uri.Builder builder = FuellingLogTable.CONTENT_URI.buildUpon();
-//					            ContentUris.appendId(builder, mId);
-//					            Uri uri = builder.build();
-								resolver.delete(FuellingLogTable.CONTENT_URI, "_id="+mId, null);
+								resolver.delete(MaintenanceLogTable.CONTENT_URI, "_id="+mId, null);
 								reflash();
 							}
 						});
