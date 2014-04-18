@@ -26,9 +26,11 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -37,7 +39,7 @@ import android.util.Log;
  * incoming connections, a thread for connecting with a device, and a
  * thread for performing data transmissions when connected.
  */
-public class BluetoothService {
+public class BluetoothService  implements ObdConnecter{
     // Debugging
     private static final String TAG = "BluetoothChatService";
     private static final boolean D = true;
@@ -55,12 +57,9 @@ public class BluetoothService {
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
     private int mState;
+    private Context mContext;
 
-    // Constants that indicate the current connection state
-    public static final int STATE_NONE = 0;       // we're doing nothing
-    public static final int STATE_LISTEN = 1;     // now listening for incoming connections
-    public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
-    public static final int STATE_CONNECTED = 3;  // now connected to a remote device
+   
 
     /**
      * Constructor. Prepares a new BluetoothChat session.
@@ -71,6 +70,7 @@ public class BluetoothService {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
         mHandler = handler;
+        mContext = context;
     }
 
     /**
@@ -431,4 +431,18 @@ public class BluetoothService {
             }
         }
     }
+
+	@Override
+	public void connect() {
+		 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+		 String address = preferences.getString("bt_address", null);
+		 BluetoothDevice device = mAdapter.getRemoteDevice(address);
+		 connect(device);
+	}
+
+	@Override
+	public void restart() {
+		// TODO Auto-generated method stub
+		
+	}
 }
