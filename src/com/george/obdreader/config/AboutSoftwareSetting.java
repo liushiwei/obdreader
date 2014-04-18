@@ -103,15 +103,21 @@ public class AboutSoftwareSetting extends PreferenceFragment {
 										@Override
 										public void run() {
 
-											String responeString = Device
-													.getHttpResponse(
-															"http://obdreader.sinaapp.com/bin/update.txt",
-															Device.HTTP_METHOD_GET);
+											String responeString;
+											try {
+												responeString = Device
+														.getHttpResponse(
+																"http://obdreader.sinaapp.com/bin/update.txt",
+																Device.HTTP_METHOD_GET);
+												handler.obtainMessage(0,
+														responeString)
+														.sendToTarget();
+											} catch (Exception e) {
+												handler.sendEmptyMessage(3);
+												e.printStackTrace();
+											}
 
 											// 向handler发消息
-											handler.obtainMessage(0,
-													responeString)
-													.sendToTarget();
 
 										}
 									}.start();
@@ -129,14 +135,20 @@ public class AboutSoftwareSetting extends PreferenceFragment {
 									@Override
 									public void run() {
 
-										String responeString = Device
-												.getHttpResponse(
-														"http://obdreader.sinaapp.com/bin/update.txt",
-														Device.HTTP_METHOD_GET);
+										String responeString;
+										try {
+											responeString = Device
+													.getHttpResponse(
+															"http://obdreader.sinaapp.com/bin/update.txt",
+															Device.HTTP_METHOD_GET);
+											// 向handler发消息
+											handler.obtainMessage(0, responeString)
+											.sendToTarget();
+										} catch (Exception e) {
+											handler.sendEmptyMessage(3);
+											e.printStackTrace();
+										}
 
-										// 向handler发消息
-										handler.obtainMessage(0, responeString)
-												.sendToTarget();
 
 									}
 								}.start();
@@ -252,6 +264,9 @@ public class AboutSoftwareSetting extends PreferenceFragment {
 						});
 				builder.create().show();
 
+				break;
+			case 3:
+				Toast.makeText(getActivity(), R.string.net_error, Toast.LENGTH_SHORT).show();
 				break;
 			default:
 				break;

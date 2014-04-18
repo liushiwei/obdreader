@@ -37,6 +37,7 @@
         <activity android:name=".OBDGaugeListActivity" />
         <activity android:name=".OBDProgressBarActivity" />
         <activity android:name="com.george.obdreader.config.AboutSoftwareActivity" />
+        <activity android:name="com.george.obdreader.config.ReportActivity" />
         <activity
             android:name="com.george.obdreader.config.BTDeviceListActivity"
             android:configChanges="orientation|keyboardHidden"

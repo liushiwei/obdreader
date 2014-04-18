@@ -23,5 +23,9 @@
         android:key="software_update"
         android:title="@string/about_software" >
     </Preference>
+    <Preference
+        android:key="report"
+        android:title="@string/report" >
+    </Preference>
 
 </PreferenceScreen>

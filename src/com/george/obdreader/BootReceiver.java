@@ -14,6 +14,7 @@ import android.net.NetworkInfo.State;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.george.obdreader.config.AboutSoftwareActivity;
 import com.george.obdreader.config.AboutSoftwareSetting;
@@ -23,7 +24,7 @@ public class BootReceiver extends BroadcastReceiver {
 
 	private String TAG = "Boot_Receiver";
 	
-	private Context context;
+	private Context mContext;
 	
 	private Handler handler = new Handler() {
 
@@ -39,14 +40,14 @@ public class BootReceiver extends BroadcastReceiver {
 							.substring(0, respone.indexOf('\n'));
 					version = version.trim().substring(
 							version.indexOf(':') + 1, version.length());
-					String current_version_name = Device.getAppVersionName(context);
+					String current_version_name = Device.getAppVersionName(mContext);
 					if (current_version_name.compareTo(version) != 0) {
-						  NotificationManager m_NotificationManager=(NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
+						  NotificationManager m_NotificationManager=(NotificationManager)mContext.getSystemService(mContext.NOTIFICATION_SERVICE);
 					        
 					        //点击通知时转移内容
-						  Intent  m_Intent=new Intent(context,AboutSoftwareActivity.class);
+						  Intent  m_Intent=new Intent(mContext,AboutSoftwareActivity.class);
 					        
-						  PendingIntent  m_PendingIntent=PendingIntent.getActivity(context, 0, m_Intent, 0);
+						  PendingIntent  m_PendingIntent=PendingIntent.getActivity(mContext, 0, m_Intent, 0);
 					        
 						  Notification  m_Notification=new Notification();
 					        
@@ -55,18 +56,22 @@ public class BootReceiver extends BroadcastReceiver {
 					    m_Notification.icon=R.drawable.ic_launcher;
 					    
 					    //当我们点击通知时显示的内容
-					    m_Notification.tickerText=context.getString(R.string.checked_new_version);
+					    m_Notification.tickerText=mContext.getString(R.string.checked_new_version);
 					        
 					    //通知时发出的默认声音
 					    m_Notification.defaults=Notification.DEFAULT_SOUND;
 					    
 					    //设置通知显示的参数
-					    m_Notification.setLatestEventInfo(context, context.getString(R.string.checked_new_version), String.format(context.getString(R.string.new_version), version),m_PendingIntent );
+					    m_Notification.setLatestEventInfo(mContext, mContext.getString(R.string.checked_new_version), String.format(mContext.getString(R.string.new_version), version),m_PendingIntent );
 					    
 					    //这个可以理解为开始执行这个通知
 					    m_NotificationManager.notify(0,m_Notification);
 					}
 				}
+				break;
+			case 1:
+				Toast.makeText(mContext, R.string.net_error, Toast.LENGTH_SHORT).show();
+				break;
 			}
 		}
 	};
@@ -90,20 +95,20 @@ public class BootReceiver extends BroadcastReceiver {
 		 * next_maintenance_date && last_maintenance_date <
 		 * next_maintenance_date) { notifyObdManager(context); } }
 		 */
-		this.context = context;
+		this.mContext = context;
 		if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-			Intent service = new Intent(context, OBDService.class);
-			context.startService(service);
+			Intent service = new Intent(mContext, OBDService.class);
+			mContext.startService(service);
 		}
 		if ("android.net.conn.CONNECTIVITY_CHANGE".equals(intent.getAction())) {
 			SharedPreferences preferences = PreferenceManager
-					.getDefaultSharedPreferences(context);
+					.getDefaultSharedPreferences(mContext);
 			boolean auto_update_value = preferences.getBoolean(
 					AboutSoftwareSetting.AUTO_UPDATE, true);
 			boolean wifi_update_only_value = preferences.getBoolean(AboutSoftwareSetting.WIFI_UPDATE_ONLY, true);
 			if (auto_update_value) {
 
-				ConnectivityManager connManager = (ConnectivityManager) context
+				ConnectivityManager connManager = (ConnectivityManager) mContext
 						.getSystemService(Context.CONNECTIVITY_SERVICE);
 
 				// State state = connManager.getActiveNetworkInfo().getState();
@@ -126,11 +131,17 @@ public class BootReceiver extends BroadcastReceiver {
 
 								@Override
 								public void run() {
-									String responeString = Device
-											.getHttpResponse(
-													"http://obdreader.sinaapp.com/bin/update.txt",
-													Device.HTTP_METHOD_GET);
-									handler.obtainMessage(0, responeString).sendToTarget();
+									String responeString;
+									try {
+										responeString = Device
+												.getHttpResponse(
+														"http://obdreader.sinaapp.com/bin/update.txt",
+														Device.HTTP_METHOD_GET);
+										handler.obtainMessage(0, responeString).sendToTarget();
+									} catch (Exception e) {
+										handler.sendEmptyMessage(1);
+										e.printStackTrace();
+									}
 									super.run();
 								}
 								
@@ -161,11 +172,17 @@ public class BootReceiver extends BroadcastReceiver {
 
 									@Override
 									public void run() {
-										String responeString = Device
-												.getHttpResponse(
-														"http://obdreader.sinaapp.com/bin/update.txt",
-														Device.HTTP_METHOD_GET);
-										handler.obtainMessage(0, responeString).sendToTarget();
+										String responeString;
+										try {
+											responeString = Device
+													.getHttpResponse(
+															"http://obdreader.sinaapp.com/bin/update.txt",
+															Device.HTTP_METHOD_GET);
+											handler.obtainMessage(0, responeString).sendToTarget();
+										} catch (Exception e) {
+											handler.sendEmptyMessage(1);
+											e.printStackTrace();
+										}
 										super.run();
 									}
 									

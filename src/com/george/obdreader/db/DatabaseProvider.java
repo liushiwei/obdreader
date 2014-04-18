@@ -114,10 +114,12 @@ public class DatabaseProvider extends ContentProvider {
         int count;
         switch (sUriMatcher.match(uri)) {
             case MAINTENANCE_LOG_TABLE_NO:
+                Log.e(TAG, "MAINTENANCE_LOG_TABLE_NO match!");
                 count = db.delete(MaintenanceLogTable.TABLE_NAME, selection, selectionArgs);
                 break;
 
             case MAINTENANCE_LOG_TABLE_ID:
+                Log.e(TAG, "MAINTENANCE_LOG_TABLE_ID match!");
                 String callLogId = uri.getPathSegments().get(1);
                 count = db
                         .delete(MaintenanceLogTable.TABLE_NAME,

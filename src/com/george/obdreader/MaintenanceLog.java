@@ -10,26 +10,30 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
-import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.george.obdreader.db.DatabaseProvider;
 import com.george.obdreader.db.FuellingLogTable;
@@ -43,7 +47,7 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 	private ListView mLogListView;
 	private SimpleCursorAdapter mAdapter;
 	private View mRootView;
-
+	private int mId;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -56,13 +60,48 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 
 		mAdapter = new SimpleCursorAdapter(getActivity(), cursor, true);
 		mLogListView.setAdapter(mAdapter);
-		ImageButton add = (ImageButton) getActivity()
-				.findViewById(R.id.add);
+		mLogListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mId = ((ViewHolder)view.getTag()).id;
+				final AlertDialog.Builder builder = new AlertDialog.Builder(
+						getActivity());
+				builder.setTitle(getString(R.string.delete_item));
+				builder.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								ContentResolver resolver = getActivity().getContentResolver();
+								resolver.delete(MaintenanceLogTable.CONTENT_URI, "_id="+mId, null);
+								reflash();
+							}
+						});
+				builder.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								
+
+							}
+						});
+				builder.create().show();
+
+			}
+
+		});
+		ImageButton add = (ImageButton) getActivity().findViewById(R.id.add);
 		add.setVisibility(View.VISIBLE);
 		add.setOnClickListener(this);
 		NumberFormat format = NumberFormat.getInstance();
-        format.setMaximumFractionDigits(2);
-		((TextView)mRootView.findViewById(R.id.costs)).setText(format.format(getSumCost()));
+		format.setMaximumFractionDigits(2);
+		((TextView) mRootView.findViewById(R.id.costs)).setText(format
+				.format(getSumCost()));
 		return mRootView;
 	}
 
@@ -117,7 +156,9 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 						final DatePicker picker = (DatePicker) textEntryView
 								.findViewById(R.id.datePicker1);
 						final Calendar maintenanceDate = Calendar.getInstance();
-						picker.init(maintenanceDate.get(Calendar.YEAR), maintenanceDate.get(Calendar.MONTH), maintenanceDate.get(Calendar.DAY_OF_MONTH),
+						picker.init(maintenanceDate.get(Calendar.YEAR),
+								maintenanceDate.get(Calendar.MONTH),
+								maintenanceDate.get(Calendar.DAY_OF_MONTH),
 								new OnDateChangedListener() {
 
 									@Override
@@ -129,7 +170,8 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 												+ " monthOfYear = "
 												+ monthOfYear
 												+ " dayOfMonth = " + dayOfMonth);
-										maintenanceDate.set(year, monthOfYear, dayOfMonth);
+										maintenanceDate.set(year, monthOfYear,
+												dayOfMonth);
 									}
 								});
 						final AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -144,16 +186,20 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 									@Override
 									public void onClick(DialogInterface dialog,
 											int which) {
-										ContentResolver resolver = getActivity().getContentResolver();
-										ContentValues values = new ContentValues();  
-							            values.put(MaintenanceLogTable.CONTENT, mMaintenanceSelected.toString());  
-							            values.put(MaintenanceLogTable.COST, edtInput.getText().toString());  
-							            values.put(MaintenanceLogTable.TIME, maintenanceDate.getTimeInMillis());  
-							            resolver.insert(MaintenanceLogTable.CONTENT_URI, values);  
-							            mAdapter.notifyDataSetChanged();
-							            NumberFormat format = NumberFormat.getInstance();
-							            format.setMaximumFractionDigits(2);
-							    		((TextView)mRootView.findViewById(R.id.costs)).setText(format.format(getSumCost()));
+										ContentResolver resolver = getActivity()
+												.getContentResolver();
+										ContentValues values = new ContentValues();
+										values.put(MaintenanceLogTable.CONTENT,
+												mMaintenanceSelected.toString());
+										values.put(MaintenanceLogTable.COST,
+												edtInput.getText().toString());
+										values.put(MaintenanceLogTable.TIME,
+												maintenanceDate
+														.getTimeInMillis());
+										resolver.insert(
+												MaintenanceLogTable.CONTENT_URI,
+												values);
+										reflash();
 									}
 
 								});
@@ -198,6 +244,8 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 			holder.content.setText(content);
 			holder.time.setText(new SimpleDateFormat("yyyy-MM-dd")
 					.format(new Date(time)));
+			holder.id = cursor.getInt(cursor
+					.getColumnIndex(MaintenanceLogTable._ID));
 		}
 
 		@Override
@@ -219,18 +267,34 @@ public class MaintenanceLog extends Fragment implements OnClickListener {
 		TextView cost;
 		TextView content;
 		TextView time;
+		int id;
+	}
+
+	private float getSumCost() {
+		ContentProviderClient client = getActivity().getContentResolver()
+				.acquireContentProviderClient(DatabaseProvider.AUTHORITY);
+		SQLiteDatabase dbHandle = ((DatabaseProvider) client
+				.getLocalContentProvider()).getDbHandle();
+		Cursor cursor = dbHandle.rawQuery("SELECT sum("
+				+ MaintenanceLogTable.COST + ") FROM "
+				+ MaintenanceLogTable.TABLE_NAME, null);
+		cursor.moveToFirst();
+		float cnt = cursor.getFloat(0);
+		cursor.close();
+		cursor.deactivate();
+		client.release();
+		return cnt;
 	}
 	
-	private float getSumCost(){
-	    ContentProviderClient client =  getActivity().getContentResolver().acquireContentProviderClient(DatabaseProvider.AUTHORITY);
-	    SQLiteDatabase dbHandle= ((DatabaseProvider)client.getLocalContentProvider()).getDbHandle();
-	    Cursor cursor = dbHandle.rawQuery("SELECT sum("+MaintenanceLogTable.COST+") FROM "+MaintenanceLogTable.TABLE_NAME , null);
-	    cursor.moveToFirst();
-	    float cnt =  cursor.getFloat(0);
-	    cursor.close();
-	    cursor.deactivate();
-	    client.release();
-	    return cnt;
+	private void reflash(){
+		mAdapter.notifyDataSetChanged();
+		NumberFormat format = NumberFormat
+				.getInstance();
+		format.setMaximumFractionDigits(2);
+		((TextView) mRootView
+				.findViewById(R.id.costs))
+				.setText(format
+						.format(getSumCost()));
 	}
 
 }

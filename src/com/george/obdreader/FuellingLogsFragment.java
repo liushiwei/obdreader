@@ -30,6 +30,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -58,6 +60,7 @@ public class FuellingLogsFragment extends Fragment implements OnClickListener,
 	private long mLogTime;
     private int mFuelType;
 private String[] fuelTypes;
+protected int mId;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -68,6 +71,41 @@ private String[] fuelTypes;
 				null, null, FuellingLogTable.DEFAULT_SORT_ORDER);
 		mAdapter = new CursorTreeAdapterExample(cursor,getActivity(),  true);
 		mLogListView.setAdapter(mAdapter);
+		mLogListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                mId = ((ViewHolder)view.getTag()).id;
+                final AlertDialog.Builder builder = new AlertDialog.Builder(
+                        getActivity());
+                builder.setTitle(getString(R.string.delete_item));
+                builder.setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                ContentResolver resolver = getActivity().getContentResolver();
+                                resolver.delete(FuellingLogTable.CONTENT_URI, "_id="+mId, null);
+                                reflash();
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                
+
+                            }
+                        });
+                builder.create().show();
+                return false;
+            }
+		    
+        });
+		
 		NumberFormat format = NumberFormat.getInstance();
         format.setMaximumFractionDigits(2);
 		((TextView)root.findViewById(R.id.costs)).setText(format.format(getSumCost()));
@@ -210,10 +248,7 @@ private String[] fuelTypes;
 		            values.put(FuellingLogTable.TIME, mLogTime);  
 		            values.put(FuellingLogTable.GASTYPE, mFuelType);
 		            resolver.insert(FuellingLogTable.CONTENT_URI, values);  
-		            mAdapter.notifyDataSetChanged();
-		            NumberFormat format = NumberFormat.getInstance();
-		            format.setMaximumFractionDigits(2);
-		            ((TextView)mRootView.findViewById(R.id.costs)).setText(format.format(getSumCost()));
+		            reflash();
 					alertDialog.dismiss();
 					
 				}
@@ -243,6 +278,7 @@ private String[] fuelTypes;
 		TextView amount;
 		TextView fueltype;
 		TextView time;
+		int id;
 	}
 
 	DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
@@ -360,6 +396,7 @@ private String[] fuelTypes;
                     .getColumnIndex(FuellingLogTable.AMOUNT))+"");
             holder.fueltype.setText(fuelTypes[cursor.getInt(cursor
                     .getColumnIndex(FuellingLogTable.GASTYPE))]);
+            
         }
         @Override
         protected void bindGroupView(View view, Context context, Cursor cursor, boolean isExpanded) {
@@ -377,6 +414,7 @@ private String[] fuelTypes;
             holder.mileage.setText(format.format(mileage));
             holder.time.setText(new SimpleDateFormat("yyyy-MM-dd")
                     .format(new Date(time)));
+            holder.id = cursor.getInt(cursor.getColumnIndex(FuellingLogTable._ID));
         }
         //注意这里通过一次数据库查询才得到了二级项的数据
         @Override
@@ -429,5 +467,17 @@ private String[] fuelTypes;
 	    client.release();
 	    return cnt;
 	}
+	
+	private void reflash(){
+        mAdapter.notifyDataSetChanged();
+        NumberFormat format = NumberFormat
+                .getInstance();
+        format.setMaximumFractionDigits(2);
+        ((TextView) mRootView
+                .findViewById(R.id.costs))
+                .setText(format
+                        .format(getSumCost()));
+    }
+
 
 }

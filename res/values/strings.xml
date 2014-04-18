@@ -60,6 +60,7 @@
     <string name="no_maintenance_log">没有保养记录</string>
     <string name="take">费用:</string>
     <string name="selecte_maintenance_options">选择保养项目</string>
+    <string name="delete_item">要删除这条记录吗？</string>
     <string name="yuan">元</string>
     <string name="yuansheng">元/升</string>
     <string name="sheng">升</string>
@@ -144,6 +145,7 @@
     <string name="checked_new_version">检测到新版本</string>
     <string name="current_version">当前版本</string>
     <string name="about_software">关于软件</string>
+    <string name="report">意见反馈</string>
     <string name="auto_update">网络连接时自动检测</string>
     <string name="wifi_update_only">只通过WIFI更新软件</string>
     <string name="no_new_verion">当前版本已经是最新版本</string>
@@ -151,4 +153,12 @@
     <string name="new_version">最新版本:V<xliff:g id="wifi_security">%1$s</xliff:g></string>
 	<string name="checking_new_version">正在检测新版本 &#8230;</string>
 	<string name="current_connect_not_wifi">当前连接的不是WIFI网络</string>
+	<string name="ui">界面是否美观</string>
+	<string name="fun">功能是否完善</string>
+	<string name="bugs">软件是否稳定</string>
+	<string name="email">Email(选填):</string>
+	<string name="opinion">意见(选填):</string>
+	<string name="submit">提交</string>
+	<string name="net_error">网络连接异常</string>
+	<string name="submit_success">提交成功</string>
 </resources>
