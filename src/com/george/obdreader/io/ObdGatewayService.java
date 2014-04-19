@@ -70,29 +70,14 @@ public class ObdGatewayService extends Service {
 	private AtomicBoolean _isQueueRunning = new AtomicBoolean(false);
 	private Long _queueCounter = 0L;
 
-	private BluetoothDevice _dev = null;
-	private BluetoothSocket _sock = null;
-
-	private static final int SERVERPORT = 35000;
-	// private static final String SERVER_IP = "192.168.43.1";
-	private static final String SERVER_IP = "192.168.0.10";
+	
+	
 	private Socket socket;
 
 	private int mConnectTime;
 
 	private Handler mHandler;
-	/*
-	 * http://developer.android.com/reference/android/bluetooth/BluetoothDevice.html
-	 * #createRfcommSocketToServiceRecord(java.util.UUID)
-	 * 
-	 * "Hint: If you are connecting to a Bluetooth serial board then try using
-	 * the well-known SPP UUID 00001101-0000-1000-8000-00805F9B34FB. However if
-	 * you are connecting to an Android peer then please generate your own
-	 * unique UUID."
-	 */
-	private static final UUID MY_UUID = UUID
-			.fromString("00001101-0000-1000-8000-00805F9B34FB");
-
+	
 	private Thread ioThread;
 
 	/**
@@ -136,62 +121,7 @@ public class ObdGatewayService extends Service {
 
 	private void startService() {
 
-		Log.d(TAG, "Starting service..");
-
-		/*
-		 * Retrieve preferences
-		 */
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
 		
-		/*
-		 * Get GPS
-		 */
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		boolean gps = prefs.getBoolean(ConfigActivity.ENABLE_GPS_KEY, false);
-
-		/*
-		 * TODO clean
-		 * 
-		 * Get more preferences
-		 */
-		int period = ConfigActivity.getUpdatePeriod(prefs);
-		double ve = ConfigActivity.getVolumetricEfficieny(prefs);
-		double ed = ConfigActivity.getEngineDisplacement(prefs);
-		boolean imperialUnits = prefs.getBoolean(
-				ConfigActivity.IMPERIAL_UNITS_KEY, false);
-		ArrayList<ObdCommand> cmds = ConfigActivity.getObdCommands(prefs);
-
-		/*
-		 * Establish Bluetooth connection
-		 * 
-		 * Because discovery is a heavyweight procedure for the Bluetooth
-		 * adapter, this method should always be called before attempting to
-		 * connect to a remote device with connect(). Discovery is not managed
-		 * by the Activity, but is run as a system service, so an application
-		 * should always call cancel discovery even if it did not directly
-		 * request a discovery, just to be sure. If Bluetooth state is not
-		 * STATE_ON, this API will return false.
-		 * 
-		 * see
-		 * http://developer.android.com/reference/android/bluetooth/BluetoothAdapter
-		 * .html#cancelDiscovery()
-		 */
-		// Log.d(TAG, "Stopping Bluetooth discovery.");
-		// btAdapter.cancelDiscovery();
-
-		Toast.makeText(this, "Starting OBD connection..", Toast.LENGTH_SHORT)
-				.show();
-
-		// try {
-		// startObdConnection();
-		// } catch (Exception e) {
-		// Log.e(TAG, "There was an error while establishing connection. -> "
-		// + e.getMessage());
-		//
-		// // in case of failure, stop this service.
-		// stopService();
-		// }
 	}
 
 	/**
@@ -206,12 +136,7 @@ public class ObdGatewayService extends Service {
 		queueJob(new ObdCommandJob(new ObdResetCommand())); // ATZ
 		queueJob(new ObdCommandJob(new EchoOffObdCommand()));// ATE0
 
-		/*
-		 * Will send second-time based on tests.
-		 * 
-		 * TODO this can be done w/o having to queue jobs by just issuing
-		 * command.run(), command.getResult() and validate the result.
-		 */
+		
 		queueJob(new ObdCommandJob(new EchoOffObdCommand()));// ATE0
 		queueJob(new ObdCommandJob(new MemoryOffObdCommand()));// ATM0
 		queueJob(new ObdCommandJob(new LineFeedOffObdCommand()));// ATL0
@@ -238,9 +163,7 @@ public class ObdGatewayService extends Service {
 
 		Log.d(TAG, "Initialization jobs queued.");
 
-		// Service is running..
-
-		// Set queue execution counter
+		
 		_queueCounter = 0L;
 	}
 
@@ -427,12 +350,7 @@ public class ObdGatewayService extends Service {
 		}
 
 		public long addJobToQueue(ObdCommandJob job) {
-			// Log.d(TAG, "Adding job [" + job.getCommand().getName()
-			// + "] to queue.");
-			// _queue.add(job);
 			return queueJob(job);
-			// if (!_isQueueRunning.get())
-			// _executeQueue();
 		}
 
 		@Override
