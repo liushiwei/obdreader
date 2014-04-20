@@ -509,7 +509,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                     .getDefaultSharedPreferences(this);
             String mConnect_type = preferences.getString(BaseSetting.CONNECT_TYPE,
                     null);
-            String ssid = preferences.getString(BaseSetting.CONNECT_DEVICE, null);
+            String ssid = preferences.getString(BaseSetting.CONNECT_DEVICE_ADDRESS, null);
             if (mConnect_type == null || Integer.valueOf(mConnect_type) == 0) {
                 Log.e(TAG, "onResume()");
                 WifiManager mWifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -572,7 +572,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
                 }
             } else if (Integer.valueOf(mConnect_type) == 1) {
-
+                startConnect();
             }
         }
         super.onResume();

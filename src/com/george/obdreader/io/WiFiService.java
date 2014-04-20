@@ -1,12 +1,14 @@
 package com.george.obdreader.io;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
-public class WiFiService implements ObdConnecter {
+public class WiFiService extends ObdConnecter {
 	
 	// Debugging
     private static final String TAG = "WiFiService";
@@ -139,6 +141,20 @@ public class WiFiService implements ObdConnecter {
      * Return the current connection state. */
     public synchronized int getState() {
         return mState;
+    }
+
+
+    @Override
+    public InputStream getInputStream() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public OutputStream getOutputStream() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

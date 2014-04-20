@@ -14,6 +14,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import android.R.integer;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -27,6 +28,7 @@ import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
@@ -61,6 +63,10 @@ public class ObdGatewayService extends Service {
 
 	private static final String TAG = "ObdGatewayService";
 
+    public static final String TOAST = "Toast";
+
+    
+
 	private IPostListener _callback = null;
 	private final Binder _binder = new LocalBinder();
 	private AtomicBoolean _isRunning = new AtomicBoolean(false);
@@ -69,16 +75,43 @@ public class ObdGatewayService extends Service {
 	private BlockingQueue<ObdCommandJob> _queue = new LinkedBlockingQueue<ObdCommandJob>();
 	private AtomicBoolean _isQueueRunning = new AtomicBoolean(false);
 	private Long _queueCounter = 0L;
-
-	
-	
+	public static final int  MESSAGE_DEVICE_NAME = 0x01;
+	public static final int  MESSAGE_TOAST = 0x02;
+	public static final int MESSAGE_STATE_CHANGE = 0x03;
 	private Socket socket;
 
 	private int mConnectTime;
 
-	private Handler mHandler;
+	
 	
 	private Thread ioThread;
+	
+	private ObdConnecter mObdConnecter;
+	
+	private Handler mHandler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MESSAGE_DEVICE_NAME:
+                    
+                    break;
+                case MESSAGE_TOAST:
+                    String toastString = (String) msg.getData().get(TOAST);
+                    Toast.makeText(getBaseContext(), toastString, Toast.LENGTH_SHORT).show();
+                    break;
+                case MESSAGE_STATE_CHANGE:
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+	    
+	    
+        
+    };
 
 	/**
 	 * As long as the service is bound to another component, say an Activity, it
@@ -94,8 +127,9 @@ public class ObdGatewayService extends Service {
 		Log.d(TAG, "onCreate");
 		_notifManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		showNotification();
-		mHandler = new Handler();
-
+		
+		mObdConnecter = ObdConnecter.getConnecter(getApplicationContext(), mHandler);
+		mObdConnecter.start();
 	}
 
 	@Override
@@ -187,10 +221,10 @@ public class ObdGatewayService extends Service {
 
 				if (job.getState().equals(ObdCommandJobState.NEW)) {
 					// Log.d(TAG, "Job state is NEW. Run it..");
-					if (socket != null) {
+					if (mObdConnecter != null) {
 						job.setState(ObdCommandJobState.RUNNING);
-						job.getCommand().run(socket.getInputStream(),
-								socket.getOutputStream());
+						job.getCommand().run(mObdConnecter.getInputStream(),
+						        mObdConnecter.getOutputStream());
 					} else {
 						Log.e(TAG, "Socket is Null");
 					}
@@ -282,19 +316,14 @@ public class ObdGatewayService extends Service {
 		// close socket
 		new Thread(new Runnable() {
 			public void run() {
-				try {
-					// _sock.close();
-					if (socket != null) {
+				
+					if (mObdConnecter != null) {
 						Log.d(TAG, "Socket close");
-						socket.shutdownInput(); // 需要调此方法，不然mReader.readLine还傻傻挂着。
-						socket.shutdownOutput();
-						socket.close();
+						mObdConnecter.stop();
 					}
 					if (ioThread != null && ioThread.isAlive())
 						ioThread.interrupt();
-				} catch (IOException e) {
-					Log.e(TAG, e.getMessage());
-				}
+				
 			}
 		}).start();
 
@@ -370,7 +399,8 @@ public class ObdGatewayService extends Service {
 		@Override
 		public void connectDevice() {
 			if (mConnectTime == 0 && !_isRunning.get()) {
-				new Thread(connectRunnable).start();
+				//new Thread(connectRunnable).start();
+			    mObdConnecter.connect();
 			}
 
 		}

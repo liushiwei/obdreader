@@ -33,21 +33,26 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.george.obdreader.config.BaseSetting;
+
 /**
  * This class does all the work for setting up and managing Bluetooth
  * connections with other devices. It has a thread that listens for
  * incoming connections, a thread for connecting with a device, and a
  * thread for performing data transmissions when connected.
  */
-public class BluetoothService  implements ObdConnecter{
+public class BluetoothService  extends ObdConnecter{
     // Debugging
     private static final String TAG = "BluetoothChatService";
     private static final boolean D = true;
 
     // Name for the SDP record when creating server socket
-    private static final String NAME = "BluetoothChat";
+    private static final String NAME = "ObdGatewayService";
 
-    // Unique UUID for this application
+//    // Unique UUID for this application
+//    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
+    
+    //private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
 
     // Member fields
@@ -62,7 +67,7 @@ public class BluetoothService  implements ObdConnecter{
    
 
     /**
-     * Constructor. Prepares a new BluetoothChat session.
+     * Constructor. Prepares a new ObdGatewayService session.
      * @param context  The UI Activity Context
      * @param handler  A Handler to send messages back to the UI Activity
      */
@@ -82,7 +87,7 @@ public class BluetoothService  implements ObdConnecter{
         mState = state;
 
         // Give the new state to the Handler so the UI Activity can update
-//        mHandler.obtainMessage(BluetoothChat.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+        mHandler.obtainMessage(ObdGatewayService.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
 
     /**
@@ -154,11 +159,12 @@ public class BluetoothService  implements ObdConnecter{
         mConnectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
-//        Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_DEVICE_NAME);
+        Message msg = mHandler.obtainMessage(ObdGatewayService.MESSAGE_DEVICE_NAME);
 //        Bundle bundle = new Bundle();
-//        bundle.putString(BluetoothChat.DEVICE_NAME, device.getName());
+//        bundle.putString(ObdGatewayService.DEVICE_NAME, device.getName());
 //        msg.setData(bundle);
-//        mHandler.sendMessage(msg);
+        msg.obj = device.getName();
+        mHandler.sendMessage(msg);
 
         setState(STATE_CONNECTED);
     }
@@ -198,11 +204,11 @@ public class BluetoothService  implements ObdConnecter{
         setState(STATE_LISTEN);
 
         // Send a failure message back to the Activity
-//        Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_TOAST);
-//        Bundle bundle = new Bundle();
-//        bundle.putString(BluetoothChat.TOAST, "Unable to connect device");
-//        msg.setData(bundle);
-//        mHandler.sendMessage(msg);
+        Message msg = mHandler.obtainMessage(ObdGatewayService.MESSAGE_TOAST);
+        Bundle bundle = new Bundle();
+        bundle.putString(ObdGatewayService.TOAST, "Unable to connect device");
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
     }
 
     /**
@@ -212,11 +218,11 @@ public class BluetoothService  implements ObdConnecter{
         setState(STATE_LISTEN);
 
         // Send a failure message back to the Activity
-//        Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_TOAST);
-//        Bundle bundle = new Bundle();
-//        bundle.putString(BluetoothChat.TOAST, "Device connection was lost");
-//        msg.setData(bundle);
-//        mHandler.sendMessage(msg);
+        Message msg = mHandler.obtainMessage(ObdGatewayService.MESSAGE_TOAST);
+        Bundle bundle = new Bundle();
+        bundle.putString(ObdGatewayService.TOAST, "Device connection was lost");
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
     }
 
     /**
@@ -357,6 +363,9 @@ public class BluetoothService  implements ObdConnecter{
             }
         }
     }
+    
+    private  InputStream mmInStream;
+    private  OutputStream mmOutStream;
 
     /**
      * This thread runs during a connection with a remote device.
@@ -364,8 +373,7 @@ public class BluetoothService  implements ObdConnecter{
      */
     private class ConnectedThread extends Thread {
         private final BluetoothSocket mmSocket;
-        private final InputStream mmInStream;
-        private final OutputStream mmOutStream;
+       
 
         public ConnectedThread(BluetoothSocket socket) {
             Log.d(TAG, "create ConnectedThread");
@@ -397,7 +405,7 @@ public class BluetoothService  implements ObdConnecter{
                     bytes = mmInStream.read(buffer);
 
                     // Send the obtained bytes to the UI Activity
-//                    mHandler.obtainMessage(BluetoothChat.MESSAGE_READ, bytes, -1, buffer)
+//                    mHandler.obtainMessage(ObdGatewayService.MESSAGE_READ, bytes, -1, buffer)
 //                            .sendToTarget();
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
@@ -416,7 +424,7 @@ public class BluetoothService  implements ObdConnecter{
                 mmOutStream.write(buffer);
 
                 // Share the sent message back to the UI Activity
-//                mHandler.obtainMessage(BluetoothChat.MESSAGE_WRITE, -1, -1, buffer)
+//                mHandler.obtainMessage(ObdGatewayService.MESSAGE_WRITE, -1, -1, buffer)
 //                        .sendToTarget();
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);
@@ -435,7 +443,7 @@ public class BluetoothService  implements ObdConnecter{
 	@Override
 	public void connect() {
 		 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-		 String address = preferences.getString("bt_address", null);
+		 String address = preferences.getString(BaseSetting.CONNECT_DEVICE_ADDRESS, null);
 		 BluetoothDevice device = mAdapter.getRemoteDevice(address);
 		 connect(device);
 	}
@@ -445,4 +453,16 @@ public class BluetoothService  implements ObdConnecter{
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public InputStream getInputStream() {
+        // TODO Auto-generated method stub
+        return mmInStream;
+    }
+
+    @Override
+    public OutputStream getOutputStream() {
+        // TODO Auto-generated method stub
+        return mmOutStream;
+    }
 }

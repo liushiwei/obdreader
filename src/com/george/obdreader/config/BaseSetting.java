@@ -38,10 +38,16 @@ public class BaseSetting extends PreferenceFragment implements
 	private static final String TAG = "BaseSetting";
 
 	public static final String CONNECT_TYPE = "connect_type";
-
+	
 	public static final String CONNECT_DEVICE = "connect_device";
 
+	public static final String CONNECT_DEVICE_ADDRESS = "connect_device_address";
+	
+	public static final String CONNECT_DEVICE_NAME = "connect_device_name";
+
 	public static String EXTRA_DEVICE_ADDRESS = "device_address";
+	
+	public static String EXTRA_DEVICE_NAME = "device_name";
 
 	public static String CUSTOMER_CONNECT = "customer_connect";
 	
@@ -78,10 +84,15 @@ public class BaseSetting extends PreferenceFragment implements
 		Preference device = findPreference(CONNECT_DEVICE);
 
 		if (mConnect_type != null) {
-			String obd_device = preferences.getString(CONNECT_DEVICE, null);
-			if (obd_device != null)
+		    String obd_device_name = preferences.getString(CONNECT_DEVICE_NAME, null);
+			String obd_device = preferences.getString(CONNECT_DEVICE_ADDRESS, null);
+			if (obd_device_name != null)
 				device.setSummary(getString(R.string.current_obd_device)
-						+ obd_device);
+						+ obd_device_name);
+			else {
+			    device.setSummary(getString(R.string.current_obd_device)
+                        + obd_device);
+            }
 		}
 
 		device.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -255,14 +266,21 @@ public class BaseSetting extends PreferenceFragment implements
 				// Get the device MAC address
 				String address = data.getExtras().getString(
 						EXTRA_DEVICE_ADDRESS);
+				String name = data.getExtras().getString(
+                        EXTRA_DEVICE_NAME);
 				SharedPreferences preferences = PreferenceManager
 						.getDefaultSharedPreferences(getActivity());
 				Editor editor = preferences.edit();
-				editor.putString(CONNECT_DEVICE, address);
+				editor.putString(CONNECT_DEVICE_ADDRESS, address);
+				editor.putString(CONNECT_DEVICE_NAME, name);
 				editor.commit();
 				Preference device = findPreference(CONNECT_DEVICE);
+				if(name==null)
 				device.setSummary(getString(R.string.current_obd_device)
 						+ address);
+				else
+				    device.setSummary(getString(R.string.current_obd_device)
+	                        + name);
 			}
 		}
 	}
