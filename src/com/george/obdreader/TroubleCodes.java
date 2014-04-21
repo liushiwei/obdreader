@@ -1,10 +1,16 @@
 package com.george.obdreader;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -35,6 +41,7 @@ import com.george.obdreader.io.IPostListener;
 import com.george.obdreader.io.ObdCommandJob;
 import com.george.obdreader.io.ObdGatewayService;
 import com.george.obdreader.io.ObdGatewayServiceConnection;
+import com.george.utils.Device;
 
 import eu.lighthouselabs.obd.commands.control.DtcNumberObdCommand;
 import eu.lighthouselabs.obd.commands.control.PendingTroubleCodesObdCommand;
@@ -254,17 +261,36 @@ public class TroubleCodes extends Activity implements OnClickListener,
 					if(cursor.getCount()==0)
 						break;
 					cursor.moveToFirst();
-					item.put("CN_DESC",
-							cursor.getString(cursor.getColumnIndex("CN_Def")));
-					item.put("EN_DESC",
-							cursor.getString(cursor.getColumnIndex("EN_Def")));
-					item.put("CATEGORY",
-							cursor.getString(cursor.getColumnIndex("Category")));
-					item.put("KNOWLEDGE", cursor.getString(cursor
-							.getColumnIndex("Knowledge")));
+					try {
+						item.put("CN_DESC",
+								Device.deCrypto(cursor.getString(cursor.getColumnIndex("CN_Def")), null));
+						item.put("EN_DESC",
+								Device.deCrypto(cursor.getString(cursor.getColumnIndex("EN_Def")), null));
+						item.put("CATEGORY",
+								Device.deCrypto(cursor.getString(cursor.getColumnIndex("Category")), null));
+						item.put("KNOWLEDGE", Device.deCrypto(cursor.getString(cursor
+								.getColumnIndex("Knowledge")), null));
+					} catch (InvalidKeyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvalidKeySpecException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchPaddingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalBlockSizeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (BadPaddingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					cursor.close();
 				}
 				db.close();
+				dbHelper.close();
 				mHandler.sendEmptyMessage(UPDATEVIEW);
 				isSearching = false;
 			} catch (IOException e) {

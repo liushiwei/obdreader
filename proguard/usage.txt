@@ -85,6 +85,7 @@ android.support.v4.app.Fragment:
     760:766:public void setHasOptionsMenu(boolean)
     812:812:public boolean getUserVisibleHint()
     819:827:public android.support.v4.app.LoaderManager getLoaderManager()
+    846:850:public void startActivityForResult(android.content.Intent,int)
     1288:1289:public void registerForContextMenu(android.view.View)
     1299:1300:public void unregisterForContextMenu(android.view.View)
     1410:1416:android.support.v4.app.Fragment findFragmentByWho(java.lang.String)
@@ -1128,7 +1129,7 @@ com.george.obdreader.FuellingLogsFragment:
     private int mTake
     private java.util.Date mTime
 com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample:
-    329:334:public FuellingLogsFragment$CursorTreeAdapterExample(com.george.obdreader.FuellingLogsFragment,android.database.Cursor,android.content.Context)
+    365:370:public FuellingLogsFragment$CursorTreeAdapterExample(com.george.obdreader.FuellingLogsFragment,android.database.Cursor,android.content.Context)
 com.george.obdreader.GaugeView:
     public static final int SIZE
     public static final float TOP
@@ -1175,7 +1176,6 @@ com.george.obdreader.Log:
     75:76:public static void v(java.lang.String,java.lang.String,java.lang.Throwable)
     79:80:public static void i(java.lang.String,java.lang.String,java.lang.Throwable)
     83:84:public static void d(java.lang.String,java.lang.String,java.lang.Throwable)
-    91:92:public static void e(java.lang.String,java.lang.String,java.lang.Throwable)
     152:157:public static void delFile()
     163:168:private static java.util.Date getDateBefore()
 com.george.obdreader.MainActivity:
@@ -1227,7 +1227,7 @@ com.george.obdreader.R$menu
 com.george.obdreader.R$string
 com.george.obdreader.R$style
 com.george.obdreader.R$styleable:
-    1082:1082:public R$styleable()
+    1162:1162:public R$styleable()
 com.george.obdreader.R$xml
 com.george.obdreader.SecondIndexFragment:
     private static final java.lang.String TAG
@@ -1240,6 +1240,15 @@ com.george.obdreader.TroubleCodes:
     private static final java.lang.String TAG
     private static final int OBDCONNECTED
     private static final int UPDATEVIEW
+com.george.obdreader.config.AboutSoftwareSetting:
+    public static final java.lang.String CURRENT_VERSION
+    public static final java.lang.String AUTO_UPDATE
+    public static final java.lang.String WIFI_UPDATE_ONLY
+    public static final java.lang.String SOFTWARE_UPDATE
+    private static final java.lang.String TAG
+    300:301:private void stopQuery()
+    350:362:private java.lang.String statusMessage(int)
+    428:428:private int removeDownload(long)
 com.george.obdreader.config.AccessPoint:
     static final int SECURITY_NONE
     static final int SECURITY_WEP
@@ -1329,9 +1338,19 @@ com.george.obdreader.io.ObdGatewayServiceConnection:
 com.george.obdreader.ui.SelectDialog:
     14:15:public SelectDialog(android.content.Context)
 com.george.utils.Device:
+    public static final java.lang.String HTTP_METHOD_GET
+    public static final java.lang.String HTTP_METHOD_POST
     private static final java.lang.String TAG
-    17:17:public Device()
-    22:41:public static java.lang.String getDeviceId()
+    38:38:public Device()
+    46:65:public static java.lang.String getDeviceId()
+    223:223:public java.lang.String getHttpResponse(java.lang.String)
+com.george.utils.Parameters:
+    31:33:public void remove(java.lang.String)
+    36:39:public void remove(int)
+    43:46:public int getLocation(java.lang.String)
+    58:59:public java.lang.String getValue(java.lang.String)
+    74:78:public void addAll(com.george.utils.Parameters)
+    81:83:public void clear()
 eu.lighthouselabs.obd.commands.ObdCommand:
     55:56:public ObdCommand(eu.lighthouselabs.obd.commands.ObdCommand)
     109:120:protected void resendCommand(java.io.OutputStream)

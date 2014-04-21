@@ -125,7 +125,6 @@ android.support.v4.app.Fragment -> android.support.v4.app.Fragment:
     void setMenuVisibility(boolean) -> b
     void setUserVisibleHint(boolean) -> c
     void startActivity(android.content.Intent) -> a
-    void startActivityForResult(android.content.Intent,int) -> a
     void onActivityResult(int,int,android.content.Intent) -> a
     android.view.LayoutInflater getLayoutInflater(android.os.Bundle) -> b
     void onInflate(android.app.Activity,android.util.AttributeSet,android.os.Bundle) -> a
@@ -1729,15 +1728,31 @@ com.echo.holographlibrary.ValueTitle -> com.echo.holographlibrary.f:
     float value -> b
 com.george.obdreader.BootReceiver -> com.george.obdreader.BootReceiver:
     java.lang.String TAG -> a
+    android.content.Context mContext -> b
+    android.os.Handler handler -> c
+    int[] $SWITCH_TABLE$android$net$NetworkInfo$State -> d
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    java.lang.String access$0(com.george.obdreader.BootReceiver) -> a
+    android.content.Context access$1(com.george.obdreader.BootReceiver) -> b
+    android.os.Handler access$2(com.george.obdreader.BootReceiver) -> c
+    int[] $SWITCH_TABLE$android$net$NetworkInfo$State() -> a
+com.george.obdreader.BootReceiver$1 -> com.george.obdreader.a:
+    com.george.obdreader.BootReceiver this$0 -> a
+    void handleMessage(android.os.Message) -> handleMessage
+com.george.obdreader.BootReceiver$2 -> com.george.obdreader.b:
+    com.george.obdreader.BootReceiver this$0 -> a
+    void run() -> run
+com.george.obdreader.BootReceiver$3 -> com.george.obdreader.c:
+    com.george.obdreader.BootReceiver this$0 -> a
+    void run() -> run
 com.george.obdreader.Cost -> com.george.obdreader.Cost:
     void onCreate(android.os.Bundle) -> onCreate
     float getFuelSumCost() -> a
     float getMaintenanceSumCost() -> b
-com.george.obdreader.Cost$1 -> com.george.obdreader.a:
+com.george.obdreader.Cost$1 -> com.george.obdreader.d:
     com.george.obdreader.Cost this$0 -> a
     void onClick(int) -> a
-com.george.obdreader.FirstIndexFragment -> com.george.obdreader.b:
+com.george.obdreader.FirstIndexFragment -> com.george.obdreader.e:
     android.view.View mRoot -> P
     void onCreate(android.os.Bundle) -> c
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
@@ -1749,47 +1764,57 @@ com.george.obdreader.FuellingLogs -> com.george.obdreader.FuellingLogs:
     void setTabs() -> g
     void onWindowFocusChanged(boolean) -> onWindowFocusChanged
     void addTab(java.lang.String,int,java.lang.Class) -> a
-com.george.obdreader.FuellingLogsFragment -> com.george.obdreader.c:
-    android.widget.ExpandableListView mLogListView -> Q
-    com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample mAdapter -> R
-    android.view.View mRootView -> S
-    android.view.View mDialogView -> T
-    long mLogTime -> U
-    int mFuelType -> V
-    java.lang.String[] fuelTypes -> W
-    android.app.DatePickerDialog$OnDateSetListener dateListener -> P
+com.george.obdreader.FuellingLogsFragment -> com.george.obdreader.f:
+    android.widget.ExpandableListView mLogListView -> R
+    com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample mAdapter -> S
+    android.view.View mRootView -> T
+    android.view.View mDialogView -> U
+    long mLogTime -> V
+    int mFuelType -> W
+    java.lang.String[] fuelTypes -> X
+    int mId -> P
+    android.app.DatePickerDialog$OnDateSetListener dateListener -> Q
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onDestroyView() -> l
     void onClick(android.view.View) -> onClick
     void onFocusChange(android.view.View,boolean) -> onFocusChange
     float getSumCost() -> z
+    void reflash() -> A
     android.view.View access$0(com.george.obdreader.FuellingLogsFragment) -> a
     void access$1(com.george.obdreader.FuellingLogsFragment,long) -> a
     java.lang.String[] access$2(com.george.obdreader.FuellingLogsFragment) -> b
-    void access$3(com.george.obdreader.FuellingLogsFragment,int) -> a
-    long access$4(com.george.obdreader.FuellingLogsFragment) -> c
-    int access$5(com.george.obdreader.FuellingLogsFragment) -> d
-    com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample access$6(com.george.obdreader.FuellingLogsFragment) -> e
-    android.view.View access$7(com.george.obdreader.FuellingLogsFragment) -> f
-    float access$8(com.george.obdreader.FuellingLogsFragment) -> g
-com.george.obdreader.FuellingLogsFragment$1 -> com.george.obdreader.d:
+    void access$3(com.george.obdreader.FuellingLogsFragment) -> c
+    void access$4(com.george.obdreader.FuellingLogsFragment,int) -> a
+    long access$5(com.george.obdreader.FuellingLogsFragment) -> d
+    int access$6(com.george.obdreader.FuellingLogsFragment) -> e
+com.george.obdreader.FuellingLogsFragment$1 -> com.george.obdreader.g:
     com.george.obdreader.FuellingLogsFragment this$0 -> a
     void onDateSet(android.widget.DatePicker,int,int,int) -> onDateSet
-com.george.obdreader.FuellingLogsFragment$2 -> com.george.obdreader.e:
+com.george.obdreader.FuellingLogsFragment$2 -> com.george.obdreader.h:
+    com.george.obdreader.FuellingLogsFragment this$0 -> a
+    boolean onItemLongClick(android.widget.AdapterView,android.view.View,int,long) -> onItemLongClick
+    com.george.obdreader.FuellingLogsFragment access$0(com.george.obdreader.FuellingLogsFragment$2) -> a
+com.george.obdreader.FuellingLogsFragment$2$1 -> com.george.obdreader.i:
+    com.george.obdreader.FuellingLogsFragment$2 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.FuellingLogsFragment$2$2 -> com.george.obdreader.j:
+    com.george.obdreader.FuellingLogsFragment$2 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.FuellingLogsFragment$3 -> com.george.obdreader.k:
     com.george.obdreader.FuellingLogsFragment this$0 -> a
     void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
     void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
-com.george.obdreader.FuellingLogsFragment$3 -> com.george.obdreader.f:
+com.george.obdreader.FuellingLogsFragment$4 -> com.george.obdreader.l:
     com.george.obdreader.FuellingLogsFragment this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.FuellingLogsFragment$4 -> com.george.obdreader.g:
+com.george.obdreader.FuellingLogsFragment$5 -> com.george.obdreader.m:
     com.george.obdreader.FuellingLogsFragment this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.FuellingLogsFragment$5 -> com.george.obdreader.h:
+com.george.obdreader.FuellingLogsFragment$6 -> com.george.obdreader.n:
     com.george.obdreader.FuellingLogsFragment this$0 -> a
     android.app.AlertDialog val$alertDialog -> b
     void onClick(android.view.View) -> onClick
-com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample -> com.george.obdreader.i:
+com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample -> com.george.obdreader.o:
     int mGroupIdColumnIndex -> b
     android.view.LayoutInflater mInflater -> c
     com.george.obdreader.FuellingLogsFragment this$0 -> a
@@ -1798,7 +1823,7 @@ com.george.obdreader.FuellingLogsFragment$CursorTreeAdapterExample -> com.george
     android.database.Cursor getChildrenCursor(android.database.Cursor) -> getChildrenCursor
     android.view.View newChildView(android.content.Context,android.database.Cursor,boolean,android.view.ViewGroup) -> newChildView
     android.view.View newGroupView(android.content.Context,android.database.Cursor,boolean,android.view.ViewGroup) -> newGroupView
-com.george.obdreader.FuellingLogsFragment$ViewHolder -> com.george.obdreader.j:
+com.george.obdreader.FuellingLogsFragment$ViewHolder -> com.george.obdreader.p:
     android.widget.TextView cost -> a
     android.widget.TextView price -> b
     android.widget.TextView mileage -> c
@@ -1806,7 +1831,8 @@ com.george.obdreader.FuellingLogsFragment$ViewHolder -> com.george.obdreader.j:
     android.widget.TextView amount -> e
     android.widget.TextView fueltype -> f
     android.widget.TextView time -> g
-    com.george.obdreader.FuellingLogsFragment this$0 -> h
+    int id -> h
+    com.george.obdreader.FuellingLogsFragment this$0 -> i
 com.george.obdreader.GaugeView -> com.george.obdreader.GaugeView:
     int[] OUTER_SHADOW_COLORS -> a
     float[] OUTER_SHADOW_POS -> b
@@ -1923,7 +1949,7 @@ com.george.obdreader.GaugeView -> com.george.obdreader.GaugeView:
     float getAngleForValue(float) -> c
     void computeCurrentValue() -> h
     void setTargetValue(float) -> setTargetValue
-com.george.obdreader.Log -> com.george.obdreader.k:
+com.george.obdreader.Log -> com.george.obdreader.q:
     java.lang.Boolean MYLOG_SWITCH -> a
     java.lang.Boolean MYLOG_FILTER -> b
     java.lang.Boolean MYLOG_WRITE_TO_FILE -> c
@@ -1939,6 +1965,7 @@ com.george.obdreader.Log -> com.george.obdreader.k:
     void d(java.lang.String,java.lang.String) -> c
     void v(java.lang.String,java.lang.String) -> d
     void w(java.lang.String,java.lang.String,java.lang.Throwable) -> a
+    void e(java.lang.String,java.lang.String,java.lang.Throwable) -> b
     void log(java.lang.String,java.lang.String,char) -> a
     void writeLogtoFile(java.lang.String,java.lang.String,java.lang.String) -> a
 com.george.obdreader.MainActivity -> com.george.obdreader.MainActivity:
@@ -1955,9 +1982,10 @@ com.george.obdreader.MainActivity -> com.george.obdreader.MainActivity:
     double fuel_airTemp -> y
     double fuel_press -> z
     double fuel -> A
-    com.george.obdreader.io.IPostListener mListener -> B
-    android.os.Handler mHandler -> C
-    java.lang.Runnable mQueueCommands -> D
+    boolean isConnectReject -> B
+    com.george.obdreader.io.IPostListener mListener -> C
+    android.os.Handler mHandler -> D
+    java.lang.Runnable mQueueCommands -> E
     java.lang.Runnable getConnectStatusRunable -> n
     void onCreate(android.os.Bundle) -> onCreate
     void stopLiveData() -> f
@@ -1970,6 +1998,7 @@ com.george.obdreader.MainActivity -> com.george.obdreader.MainActivity:
     void onDestroy() -> onDestroy
     void initAnim() -> h
     void hideView() -> i
+    void startConnect() -> j
     android.os.Handler access$0(com.george.obdreader.MainActivity) -> a
     android.support.v4.view.ViewPager access$1(com.george.obdreader.MainActivity) -> b
     void access$2(com.george.obdreader.MainActivity,double) -> a
@@ -1989,53 +2018,54 @@ com.george.obdreader.MainActivity -> com.george.obdreader.MainActivity:
     void access$16(com.george.obdreader.MainActivity) -> l
     java.lang.Runnable access$17(com.george.obdreader.MainActivity) -> m
     void access$18(com.george.obdreader.MainActivity,boolean) -> a
-com.george.obdreader.MainActivity$1 -> com.george.obdreader.l:
+    void access$19(com.george.obdreader.MainActivity,boolean) -> b
+com.george.obdreader.MainActivity$1 -> com.george.obdreader.r:
     com.george.obdreader.MainActivity this$0 -> a
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
     void deviceConnected(java.lang.String) -> a
     void connectFailed(java.lang.String) -> b
     void connectingDevice(java.lang.String) -> c
-com.george.obdreader.MainActivity$10 -> com.george.obdreader.m:
+com.george.obdreader.MainActivity$10 -> com.george.obdreader.s:
     com.george.obdreader.MainActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MainActivity$2 -> com.george.obdreader.n:
+com.george.obdreader.MainActivity$2 -> com.george.obdreader.t:
     com.george.obdreader.MainActivity this$0 -> a
     int[] $SWITCH_TABLE$eu$lighthouselabs$obd$enums$AvailableCommandNames -> b
     void handleMessage(android.os.Message) -> handleMessage
     int[] $SWITCH_TABLE$eu$lighthouselabs$obd$enums$AvailableCommandNames() -> a
     com.george.obdreader.MainActivity access$1(com.george.obdreader.MainActivity$2) -> a
-com.george.obdreader.MainActivity$2$1 -> com.george.obdreader.o:
+com.george.obdreader.MainActivity$2$1 -> com.george.obdreader.u:
     com.george.obdreader.MainActivity$2 this$1 -> a
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-com.george.obdreader.MainActivity$2$2 -> com.george.obdreader.p:
+com.george.obdreader.MainActivity$2$2 -> com.george.obdreader.v:
     com.george.obdreader.MainActivity$2 this$1 -> a
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-com.george.obdreader.MainActivity$3 -> com.george.obdreader.q:
+com.george.obdreader.MainActivity$3 -> com.george.obdreader.w:
     com.george.obdreader.MainActivity this$0 -> a
     void run() -> run
-com.george.obdreader.MainActivity$4 -> com.george.obdreader.r:
+com.george.obdreader.MainActivity$4 -> com.george.obdreader.x:
     com.george.obdreader.MainActivity this$0 -> a
     void run() -> run
-com.george.obdreader.MainActivity$5 -> com.george.obdreader.s:
+com.george.obdreader.MainActivity$5 -> com.george.obdreader.y:
     com.george.obdreader.MainActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MainActivity$6 -> com.george.obdreader.t:
+com.george.obdreader.MainActivity$6 -> com.george.obdreader.z:
     com.george.obdreader.MainActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MainActivity$7 -> com.george.obdreader.u:
+com.george.obdreader.MainActivity$7 -> com.george.obdreader.aa:
     com.george.obdreader.MainActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MainActivity$8 -> com.george.obdreader.v:
+com.george.obdreader.MainActivity$8 -> com.george.obdreader.ab:
     com.george.obdreader.MainActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MainActivity$9 -> com.george.obdreader.w:
+com.george.obdreader.MainActivity$9 -> com.george.obdreader.ac:
     com.george.obdreader.MainActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MainActivity$MyOnPageChangeListener -> com.george.obdreader.x:
+com.george.obdreader.MainActivity$MyOnPageChangeListener -> com.george.obdreader.ad:
     com.george.obdreader.MainActivity this$0 -> a
     void onPageScrollStateChanged(int) -> b
     void onPageScrolled(int,float,int) -> a
@@ -2047,52 +2077,65 @@ com.george.obdreader.MaintenanceActivity -> com.george.obdreader.MaintenanceActi
     void setTabs() -> g
     void onWindowFocusChanged(boolean) -> onWindowFocusChanged
     void addTab(java.lang.String,int,java.lang.Class) -> a
-com.george.obdreader.MaintenanceLog -> com.george.obdreader.y:
+com.george.obdreader.MaintenanceLog -> com.george.obdreader.ae:
     java.util.List mMaintenanceSelected -> P
     android.widget.ListView mLogListView -> Q
     com.george.obdreader.MaintenanceLog$SimpleCursorAdapter mAdapter -> R
     android.view.View mRootView -> S
+    int mId -> T
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onDestroyView() -> l
     void onClick(android.view.View) -> onClick
     float getSumCost() -> z
-    java.util.List access$0(com.george.obdreader.MaintenanceLog) -> a
-    com.george.obdreader.MaintenanceLog$SimpleCursorAdapter access$1(com.george.obdreader.MaintenanceLog) -> b
-    android.view.View access$2(com.george.obdreader.MaintenanceLog) -> c
-    float access$3(com.george.obdreader.MaintenanceLog) -> d
-com.george.obdreader.MaintenanceLog$1 -> com.george.obdreader.z:
+    void reflash() -> A
+    void access$0(com.george.obdreader.MaintenanceLog,int) -> a
+    int access$1(com.george.obdreader.MaintenanceLog) -> a
+    void access$2(com.george.obdreader.MaintenanceLog) -> b
+    java.util.List access$3(com.george.obdreader.MaintenanceLog) -> c
+com.george.obdreader.MaintenanceLog$1 -> com.george.obdreader.af:
+    com.george.obdreader.MaintenanceLog this$0 -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    com.george.obdreader.MaintenanceLog access$0(com.george.obdreader.MaintenanceLog$1) -> a
+com.george.obdreader.MaintenanceLog$1$1 -> com.george.obdreader.ag:
+    com.george.obdreader.MaintenanceLog$1 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.MaintenanceLog$1$2 -> com.george.obdreader.ah:
+    com.george.obdreader.MaintenanceLog$1 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.MaintenanceLog$2 -> com.george.obdreader.ai:
     com.george.obdreader.MaintenanceLog this$0 -> a
     java.lang.String[] val$options -> b
     void onClick(android.content.DialogInterface,int,boolean) -> onClick
-com.george.obdreader.MaintenanceLog$2 -> com.george.obdreader.aa:
+com.george.obdreader.MaintenanceLog$3 -> com.george.obdreader.aj:
     com.george.obdreader.MaintenanceLog this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-    com.george.obdreader.MaintenanceLog access$0(com.george.obdreader.MaintenanceLog$2) -> a
-com.george.obdreader.MaintenanceLog$2$1 -> com.george.obdreader.ab:
-    com.george.obdreader.MaintenanceLog$2 this$1 -> a
+    com.george.obdreader.MaintenanceLog access$0(com.george.obdreader.MaintenanceLog$3) -> a
+com.george.obdreader.MaintenanceLog$3$1 -> com.george.obdreader.ak:
+    com.george.obdreader.MaintenanceLog$3 this$1 -> a
     java.util.Calendar val$maintenanceDate -> b
     void onDateChanged(android.widget.DatePicker,int,int,int) -> onDateChanged
-com.george.obdreader.MaintenanceLog$2$2 -> com.george.obdreader.ac:
-    com.george.obdreader.MaintenanceLog$2 this$1 -> a
+com.george.obdreader.MaintenanceLog$3$2 -> com.george.obdreader.al:
+    com.george.obdreader.MaintenanceLog$3 this$1 -> a
     android.widget.EditText val$edtInput -> b
     java.util.Calendar val$maintenanceDate -> c
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MaintenanceLog$2$3 -> com.george.obdreader.ad:
-    com.george.obdreader.MaintenanceLog$2 this$1 -> a
+com.george.obdreader.MaintenanceLog$3$3 -> com.george.obdreader.am:
+    com.george.obdreader.MaintenanceLog$3 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MaintenanceLog$3 -> com.george.obdreader.ae:
+com.george.obdreader.MaintenanceLog$4 -> com.george.obdreader.an:
     com.george.obdreader.MaintenanceLog this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.MaintenanceLog$SimpleCursorAdapter -> com.george.obdreader.af:
+com.george.obdreader.MaintenanceLog$SimpleCursorAdapter -> com.george.obdreader.ao:
     com.george.obdreader.MaintenanceLog this$0 -> j
     void bindView(android.view.View,android.content.Context,android.database.Cursor) -> a
     android.view.View newView(android.content.Context,android.database.Cursor,android.view.ViewGroup) -> a
-com.george.obdreader.MaintenanceLog$ViewHolder -> com.george.obdreader.ag:
+com.george.obdreader.MaintenanceLog$ViewHolder -> com.george.obdreader.ap:
     android.widget.TextView cost -> a
     android.widget.TextView content -> b
     android.widget.TextView time -> c
-    com.george.obdreader.MaintenanceLog this$0 -> d
-com.george.obdreader.MaintenanceSetting -> com.george.obdreader.ah:
+    int id -> d
+    com.george.obdreader.MaintenanceLog this$0 -> e
+com.george.obdreader.MaintenanceSetting -> com.george.obdreader.aq:
     void onCreate(android.os.Bundle) -> c
     boolean onPreferenceChange(android.preference.Preference,java.lang.Object) -> onPreferenceChange
 com.george.obdreader.MaintenanceTip -> com.george.obdreader.MaintenanceTip:
@@ -2105,12 +2148,12 @@ com.george.obdreader.MoneyActivity -> com.george.obdreader.MoneyActivity:
     void onResume() -> onResume
     void setTabs() -> g
     void onWindowFocusChanged(boolean) -> onWindowFocusChanged
-com.george.obdreader.MyFragmentPagerAdapter -> com.george.obdreader.ai:
+com.george.obdreader.MyFragmentPagerAdapter -> com.george.obdreader.ar:
     java.util.ArrayList fragmentsList -> a
     int getCount() -> b
     android.support.v4.app.Fragment getItem(int) -> a
     int getItemPosition(java.lang.Object) -> a
-com.george.obdreader.OBDCommand -> com.george.obdreader.aj:
+com.george.obdreader.OBDCommand -> com.george.obdreader.as:
     com.george.obdreader.OBDEnums command -> g
     float A -> h
     float B -> i
@@ -2123,7 +2166,7 @@ com.george.obdreader.OBDCommand -> com.george.obdreader.aj:
     com.george.obdreader.OBDEnums getEnums() -> d
     float getValue() -> e
     float valueFormula() -> j
-com.george.obdreader.OBDEnums -> com.george.obdreader.ak:
+com.george.obdreader.OBDEnums -> com.george.obdreader.at:
     com.george.obdreader.OBDEnums ENGINE_LOAD -> a
     com.george.obdreader.OBDEnums ENGINE_COOLANT_TEMP -> b
     com.george.obdreader.OBDEnums SHORT_TERM_BANK_1 -> c
@@ -2264,27 +2307,27 @@ com.george.obdreader.OBDProgressBarActivity -> com.george.obdreader.OBDProgressB
     boolean access$11(com.george.obdreader.OBDProgressBarActivity) -> l
     boolean access$12(com.george.obdreader.OBDProgressBarActivity) -> m
     void access$13(com.george.obdreader.OBDProgressBarActivity,com.george.obdreader.OBDProgressBarActivity$PidsAdapter) -> a
-com.george.obdreader.OBDProgressBarActivity$1 -> com.george.obdreader.al:
+com.george.obdreader.OBDProgressBarActivity$1 -> com.george.obdreader.au:
     com.george.obdreader.OBDProgressBarActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.george.obdreader.OBDProgressBarActivity$2 -> com.george.obdreader.am:
+com.george.obdreader.OBDProgressBarActivity$2 -> com.george.obdreader.av:
     com.george.obdreader.OBDProgressBarActivity this$0 -> a
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
     void deviceConnected(java.lang.String) -> a
     void connectFailed(java.lang.String) -> b
     void connectingDevice(java.lang.String) -> c
-com.george.obdreader.OBDProgressBarActivity$3 -> com.george.obdreader.an:
+com.george.obdreader.OBDProgressBarActivity$3 -> com.george.obdreader.aw:
     com.george.obdreader.OBDProgressBarActivity this$0 -> a
     void onClick(android.view.View) -> onClick
     com.george.obdreader.OBDProgressBarActivity access$0(com.george.obdreader.OBDProgressBarActivity$3) -> a
-com.george.obdreader.OBDProgressBarActivity$3$1 -> com.george.obdreader.ao:
+com.george.obdreader.OBDProgressBarActivity$3$1 -> com.george.obdreader.ax:
     com.george.obdreader.OBDProgressBarActivity$3 this$1 -> a
     void onDismiss(android.content.DialogInterface) -> onDismiss
-com.george.obdreader.OBDProgressBarActivity$PidValue -> com.george.obdreader.ap:
+com.george.obdreader.OBDProgressBarActivity$PidValue -> com.george.obdreader.ay:
     float value -> a
     com.george.obdreader.io.ObdCommandJob jobObj -> b
     com.george.obdreader.OBDProgressBarActivity this$0 -> c
-com.george.obdreader.OBDProgressBarActivity$PidsAdapter -> com.george.obdreader.aq:
+com.george.obdreader.OBDProgressBarActivity$PidsAdapter -> com.george.obdreader.az:
     android.content.Context mContext -> a
     java.lang.String[] mData -> b
     android.view.LayoutInflater mInflater -> c
@@ -2294,11 +2337,11 @@ com.george.obdreader.OBDProgressBarActivity$PidsAdapter -> com.george.obdreader.
     java.lang.Object getItem(int) -> getItem
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-com.george.obdreader.OBDProgressBarActivity$PidsAdapter$ViewHolder -> com.george.obdreader.ar:
+com.george.obdreader.OBDProgressBarActivity$PidsAdapter$ViewHolder -> com.george.obdreader.ba:
     android.widget.TextView title -> a
     android.widget.CheckBox checkBox -> b
     com.george.obdreader.OBDProgressBarActivity$PidsAdapter this$1 -> c
-com.george.obdreader.OBDProgressBarActivity$ProgressBarAdapter -> com.george.obdreader.as:
+com.george.obdreader.OBDProgressBarActivity$ProgressBarAdapter -> com.george.obdreader.bb:
     android.view.LayoutInflater mInflater -> b
     com.george.obdreader.OBDProgressBarActivity this$0 -> a
     int getCount() -> getCount
@@ -2308,11 +2351,11 @@ com.george.obdreader.OBDProgressBarActivity$ProgressBarAdapter -> com.george.obd
 com.george.obdreader.OBDService -> com.george.obdreader.OBDService:
     android.os.IBinder onBind(android.content.Intent) -> onBind
     void onCreate() -> onCreate
-com.george.obdreader.OBDService$TimeTickBroadcast -> com.george.obdreader.at:
+com.george.obdreader.OBDService$TimeTickBroadcast -> com.george.obdreader.bc:
     com.george.obdreader.OBDService this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.george.obdreader.R -> com.george.obdreader.au:
-com.george.obdreader.R$styleable -> com.george.obdreader.av:
+com.george.obdreader.R -> com.george.obdreader.bd:
+com.george.obdreader.R$styleable -> com.george.obdreader.be:
     int[] DragableSpace -> DragableSpace
     int DragableSpace_default_screen -> DragableSpace_default_screen
     int DragableSpace_xorientation -> DragableSpace_xorientation
@@ -2355,7 +2398,7 @@ com.george.obdreader.R$styleable -> com.george.obdreader.av:
     int TabWidget_tabStripRight -> TabWidget_tabStripRight
     int[] WifiEncryptionState -> WifiEncryptionState
     int WifiEncryptionState_state_encrypted -> WifiEncryptionState_state_encrypted
-com.george.obdreader.SecondIndexFragment -> com.george.obdreader.aw:
+com.george.obdreader.SecondIndexFragment -> com.george.obdreader.bf:
     java.util.List mList -> P
     android.content.pm.PackageManager mPackageManager -> Q
     java.util.Comparator sDisplayNameComparator -> R
@@ -2365,11 +2408,11 @@ com.george.obdreader.SecondIndexFragment -> com.george.obdreader.aw:
     void onClick(android.view.View) -> onClick
     java.util.List access$0(com.george.obdreader.SecondIndexFragment) -> a
     android.content.pm.PackageManager access$1(com.george.obdreader.SecondIndexFragment) -> b
-com.george.obdreader.SecondIndexFragment$1 -> com.george.obdreader.ax:
+com.george.obdreader.SecondIndexFragment$1 -> com.george.obdreader.bg:
     java.text.Collator collator -> a
     int compare(java.util.Map,java.util.Map) -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
-com.george.obdreader.SecondIndexFragment$MyAdapter -> com.george.obdreader.ay:
+com.george.obdreader.SecondIndexFragment$MyAdapter -> com.george.obdreader.bh:
     com.george.obdreader.SecondIndexFragment this$0 -> a
     int getCount() -> getCount
     java.lang.Object getItem(int) -> getItem
@@ -2404,23 +2447,23 @@ com.george.obdreader.SpeedUpTest -> com.george.obdreader.SpeedUpTest:
     void access$6(com.george.obdreader.SpeedUpTest,boolean) -> b
     android.os.Handler access$7(com.george.obdreader.SpeedUpTest) -> f
     com.george.obdreader.io.ObdGatewayServiceConnection access$8(com.george.obdreader.SpeedUpTest) -> g
-com.george.obdreader.SpeedUpTest$1 -> com.george.obdreader.az:
+com.george.obdreader.SpeedUpTest$1 -> com.george.obdreader.bi:
     com.george.obdreader.SpeedUpTest this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.george.obdreader.SpeedUpTest$2 -> com.george.obdreader.ba:
+com.george.obdreader.SpeedUpTest$2 -> com.george.obdreader.bj:
     com.george.obdreader.SpeedUpTest this$0 -> a
     void onClick(int,int) -> a
-com.george.obdreader.SpeedUpTest$3 -> com.george.obdreader.bb:
+com.george.obdreader.SpeedUpTest$3 -> com.george.obdreader.bk:
     com.george.obdreader.SpeedUpTest this$0 -> a
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
     void deviceConnected(java.lang.String) -> a
     void connectFailed(java.lang.String) -> b
     void connectingDevice(java.lang.String) -> c
-com.george.obdreader.SpeedUpTest$MyTimerTask -> com.george.obdreader.bc:
+com.george.obdreader.SpeedUpTest$MyTimerTask -> com.george.obdreader.bl:
     com.george.obdreader.SpeedUpTest me -> b
     com.george.obdreader.SpeedUpTest this$0 -> a
     void run() -> run
-com.george.obdreader.SpeedUpTest$TimerHandler -> com.george.obdreader.bd:
+com.george.obdreader.SpeedUpTest$TimerHandler -> com.george.obdreader.bm:
     com.george.obdreader.SpeedUpTest me -> b
     com.george.obdreader.SpeedUpTest this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
@@ -2446,19 +2489,94 @@ com.george.obdreader.TroubleCodes -> com.george.obdreader.TroubleCodes:
     java.util.List access$2(com.george.obdreader.TroubleCodes) -> b
     android.widget.SimpleAdapter access$3(com.george.obdreader.TroubleCodes) -> c
     android.os.Handler access$4(com.george.obdreader.TroubleCodes) -> d
-com.george.obdreader.TroubleCodes$1 -> com.george.obdreader.be:
+com.george.obdreader.TroubleCodes$1 -> com.george.obdreader.bn:
     com.george.obdreader.TroubleCodes this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.george.obdreader.TroubleCodes$2 -> com.george.obdreader.bf:
+com.george.obdreader.TroubleCodes$2 -> com.george.obdreader.bo:
     com.george.obdreader.TroubleCodes this$0 -> a
     void run() -> run
-com.george.obdreader.TroubleCodes$3 -> com.george.obdreader.bg:
+com.george.obdreader.TroubleCodes$3 -> com.george.obdreader.bp:
     com.george.obdreader.TroubleCodes this$0 -> a
     void stateUpdate(com.george.obdreader.io.ObdCommandJob) -> a
     void deviceConnected(java.lang.String) -> a
     void connectFailed(java.lang.String) -> b
     void connectingDevice(java.lang.String) -> c
-com.george.obdreader.config.AccessPoint -> com.george.obdreader.config.a:
+com.george.obdreader.config.AboutSoftwareActivity -> com.george.obdreader.config.AboutSoftwareActivity:
+    android.support.v4.app.FragmentTabHost mTabHost -> n
+    void setupTabHost() -> f
+    void onCreate(android.os.Bundle) -> onCreate
+    void setTabs() -> g
+    void onWindowFocusChanged(boolean) -> onWindowFocusChanged
+    void addTab(java.lang.String,int,java.lang.Class) -> a
+com.george.obdreader.config.AboutSoftwareSetting -> com.george.obdreader.config.a:
+    boolean wifi_update_only_value -> T
+    java.lang.String current_version_name -> U
+    java.lang.String new_version_name -> V
+    android.app.ProgressDialog progressDialog -> W
+    long mDownloadId -> X
+    android.app.DownloadManager downloadManager -> Y
+    android.os.Handler handler -> Z
+    android.content.BroadcastReceiver receiver -> P
+    android.content.BroadcastReceiver receiver2 -> Q
+    int step -> R
+    com.george.obdreader.config.AboutSoftwareSetting$QueryRunnable runnable -> S
+    void onCreate(android.os.Bundle) -> c
+    void onResume() -> i
+    void startQuery(long) -> a
+    void queryState(long) -> b
+    void lookDownload() -> B
+    void onDestroy() -> m
+    void access$0(com.george.obdreader.config.AboutSoftwareSetting,java.lang.String) -> a
+    java.lang.String access$1(com.george.obdreader.config.AboutSoftwareSetting) -> a
+    java.lang.String access$2(com.george.obdreader.config.AboutSoftwareSetting) -> b
+    void access$3(com.george.obdreader.config.AboutSoftwareSetting,android.app.DownloadManager) -> a
+    android.app.DownloadManager access$4(com.george.obdreader.config.AboutSoftwareSetting) -> c
+    void access$5(com.george.obdreader.config.AboutSoftwareSetting,long) -> a
+    long access$6(com.george.obdreader.config.AboutSoftwareSetting) -> d
+    void access$7(com.george.obdreader.config.AboutSoftwareSetting,long) -> b
+    android.app.ProgressDialog access$8(com.george.obdreader.config.AboutSoftwareSetting) -> e
+    void access$9(com.george.obdreader.config.AboutSoftwareSetting,long) -> c
+    android.os.Handler access$10(com.george.obdreader.config.AboutSoftwareSetting) -> f
+    void access$11(com.george.obdreader.config.AboutSoftwareSetting,boolean) -> a
+    boolean access$12(com.george.obdreader.config.AboutSoftwareSetting) -> g
+    void access$13(com.george.obdreader.config.AboutSoftwareSetting,android.app.ProgressDialog) -> a
+com.george.obdreader.config.AboutSoftwareSetting$1 -> com.george.obdreader.config.b:
+    com.george.obdreader.config.AboutSoftwareSetting this$0 -> a
+    void handleMessage(android.os.Message) -> handleMessage
+    com.george.obdreader.config.AboutSoftwareSetting access$0(com.george.obdreader.config.AboutSoftwareSetting$1) -> a
+com.george.obdreader.config.AboutSoftwareSetting$1$1 -> com.george.obdreader.config.c:
+    com.george.obdreader.config.AboutSoftwareSetting$1 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.config.AboutSoftwareSetting$1$2 -> com.george.obdreader.config.d:
+    com.george.obdreader.config.AboutSoftwareSetting$1 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.config.AboutSoftwareSetting$1$3 -> com.george.obdreader.config.e:
+    com.george.obdreader.config.AboutSoftwareSetting$1 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.george.obdreader.config.AboutSoftwareSetting$2 -> com.george.obdreader.config.f:
+    com.george.obdreader.config.AboutSoftwareSetting this$0 -> a
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.george.obdreader.config.AboutSoftwareSetting$3 -> com.george.obdreader.config.g:
+    com.george.obdreader.config.AboutSoftwareSetting this$0 -> a
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.george.obdreader.config.AboutSoftwareSetting$4 -> com.george.obdreader.config.h:
+    com.george.obdreader.config.AboutSoftwareSetting this$0 -> a
+    boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
+com.george.obdreader.config.AboutSoftwareSetting$5 -> com.george.obdreader.config.i:
+    com.george.obdreader.config.AboutSoftwareSetting this$0 -> a
+    boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
+    com.george.obdreader.config.AboutSoftwareSetting access$0(com.george.obdreader.config.AboutSoftwareSetting$5) -> a
+com.george.obdreader.config.AboutSoftwareSetting$5$1 -> com.george.obdreader.config.j:
+    com.george.obdreader.config.AboutSoftwareSetting$5 this$1 -> a
+    void run() -> run
+com.george.obdreader.config.AboutSoftwareSetting$5$2 -> com.george.obdreader.config.k:
+    com.george.obdreader.config.AboutSoftwareSetting$5 this$1 -> a
+    void run() -> run
+com.george.obdreader.config.AboutSoftwareSetting$QueryRunnable -> com.george.obdreader.config.l:
+    long DownID -> a
+    com.george.obdreader.config.AboutSoftwareSetting this$0 -> b
+    void run() -> run
+com.george.obdreader.config.AccessPoint -> com.george.obdreader.config.m:
     int[] STATE_SECURED -> d
     int[] STATE_NONE -> e
     java.lang.String ssid -> a
@@ -2491,51 +2609,55 @@ com.george.obdreader.config.BTDeviceListActivity -> com.george.obdreader.config.
     android.bluetooth.BluetoothAdapter access$0(com.george.obdreader.config.BTDeviceListActivity) -> a
     android.widget.ArrayAdapter access$1(com.george.obdreader.config.BTDeviceListActivity) -> b
     void access$2(com.george.obdreader.config.BTDeviceListActivity) -> c
-com.george.obdreader.config.BTDeviceListActivity$1 -> com.george.obdreader.config.b:
+com.george.obdreader.config.BTDeviceListActivity$1 -> com.george.obdreader.config.n:
     com.george.obdreader.config.BTDeviceListActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.george.obdreader.config.BTDeviceListActivity$2 -> com.george.obdreader.config.c:
+com.george.obdreader.config.BTDeviceListActivity$2 -> com.george.obdreader.config.o:
     com.george.obdreader.config.BTDeviceListActivity this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.george.obdreader.config.BTDeviceListActivity$3 -> com.george.obdreader.config.d:
+com.george.obdreader.config.BTDeviceListActivity$3 -> com.george.obdreader.config.p:
     com.george.obdreader.config.BTDeviceListActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.george.obdreader.config.BaseSetting -> com.george.obdreader.config.e:
+com.george.obdreader.config.BaseSetting -> com.george.obdreader.config.q:
     java.lang.String EXTRA_DEVICE_ADDRESS -> P
     java.lang.String CUSTOMER_CONNECT -> Q
     java.lang.String CUSTOMER_IP -> R
     java.lang.String CUSTOMER_PORT -> S
-    java.lang.String mConnect_type -> T
+    java.lang.String SOFTWARE_UPDATE -> T
+    java.lang.String REPORT -> U
+    java.lang.String mConnect_type -> V
     void onCreate(android.os.Bundle) -> c
     boolean onPreferenceChange(android.preference.Preference,java.lang.Object) -> onPreferenceChange
     void onActivityResult(int,int,android.content.Intent) -> a
-    java.lang.String access$0(com.george.obdreader.config.BaseSetting) -> a
-com.george.obdreader.config.BaseSetting$1 -> com.george.obdreader.config.f:
+com.george.obdreader.config.BaseSetting$1 -> com.george.obdreader.config.r:
     com.george.obdreader.config.BaseSetting this$0 -> a
     boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
-com.george.obdreader.config.BaseSetting$2 -> com.george.obdreader.config.g:
-    com.george.obdreader.config.BaseSetting this$0 -> a
-    boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
-    com.george.obdreader.config.BaseSetting access$0(com.george.obdreader.config.BaseSetting$2) -> a
-com.george.obdreader.config.BaseSetting$2$1 -> com.george.obdreader.config.h:
-    com.george.obdreader.config.BaseSetting$2 this$1 -> a
+    com.george.obdreader.config.BaseSetting access$0(com.george.obdreader.config.BaseSetting$1) -> a
+com.george.obdreader.config.BaseSetting$1$1 -> com.george.obdreader.config.s:
+    com.george.obdreader.config.BaseSetting$1 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.config.BaseSetting$2$2 -> com.george.obdreader.config.i:
-    com.george.obdreader.config.BaseSetting$2 this$1 -> a
+com.george.obdreader.config.BaseSetting$1$2 -> com.george.obdreader.config.t:
+    com.george.obdreader.config.BaseSetting$1 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.george.obdreader.config.BaseSetting$2$3 -> com.george.obdreader.config.j:
-    com.george.obdreader.config.BaseSetting$2 this$1 -> a
+com.george.obdreader.config.BaseSetting$1$3 -> com.george.obdreader.config.u:
+    com.george.obdreader.config.BaseSetting$1 this$1 -> a
     android.view.View val$mDialogView -> b
     android.app.AlertDialog val$alertDialog -> c
     void onClick(android.view.View) -> onClick
-com.george.obdreader.config.ConfigActivity -> com.george.obdreader.config.k:
+com.george.obdreader.config.BaseSetting$2 -> com.george.obdreader.config.v:
+    com.george.obdreader.config.BaseSetting this$0 -> a
+    boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
+com.george.obdreader.config.BaseSetting$3 -> com.george.obdreader.config.w:
+    com.george.obdreader.config.BaseSetting this$0 -> a
+    boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
+com.george.obdreader.config.ConfigActivity -> com.george.obdreader.config.x:
     void onCreate(android.os.Bundle) -> onCreate
     boolean onPreferenceChange(android.preference.Preference,java.lang.Object) -> onPreferenceChange
     int getUpdatePeriod(android.content.SharedPreferences) -> a
     double getVolumetricEfficieny(android.content.SharedPreferences) -> b
     double getEngineDisplacement(android.content.SharedPreferences) -> c
     java.util.ArrayList getObdCommands(android.content.SharedPreferences) -> d
-com.george.obdreader.config.ConfigActivity$1 -> com.george.obdreader.config.l:
+com.george.obdreader.config.ConfigActivity$1 -> com.george.obdreader.config.y:
     com.george.obdreader.config.ConfigActivity this$0 -> a
     android.bluetooth.BluetoothAdapter val$mBtAdapter -> b
     android.app.Activity val$thisActivity -> c
@@ -2547,13 +2669,31 @@ com.george.obdreader.config.ConfigurationActivity -> com.george.obdreader.config
     void setTabs() -> g
     void onWindowFocusChanged(boolean) -> onWindowFocusChanged
     void addTab(java.lang.String,int,java.lang.Class) -> a
-com.george.obdreader.config.ObdConfig -> com.george.obdreader.config.m:
+com.george.obdreader.config.ObdConfig -> com.george.obdreader.config.z:
     java.util.ArrayList getCommands() -> a
 com.george.obdreader.config.ProgressCategory -> com.george.obdreader.config.ProgressCategory:
     boolean mProgress -> a
     void onBindView(android.view.View) -> onBindView
     void setProgress(boolean) -> a
-com.george.obdreader.config.Summary -> com.george.obdreader.config.n:
+com.george.obdreader.config.ReportActivity -> com.george.obdreader.config.ReportActivity:
+    java.lang.String[] values -> b
+    java.lang.String[] starts -> c
+    android.os.Handler handler -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onRatingChanged(android.widget.RatingBar,float,boolean) -> onRatingChanged
+    java.lang.String[] access$0(com.george.obdreader.config.ReportActivity) -> a
+    java.lang.String[] access$1(com.george.obdreader.config.ReportActivity) -> b
+com.george.obdreader.config.ReportActivity$1 -> com.george.obdreader.config.aa:
+    com.george.obdreader.config.ReportActivity this$0 -> a
+    void handleMessage(android.os.Message) -> handleMessage
+com.george.obdreader.config.ReportActivity$2 -> com.george.obdreader.config.ab:
+    com.george.obdreader.config.ReportActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+    com.george.obdreader.config.ReportActivity access$0(com.george.obdreader.config.ReportActivity$2) -> a
+com.george.obdreader.config.ReportActivity$2$1 -> com.george.obdreader.config.ac:
+    com.george.obdreader.config.ReportActivity$2 this$1 -> a
+    void run() -> run
+com.george.obdreader.config.Summary -> com.george.obdreader.config.ad:
     java.lang.String get(android.content.Context,java.lang.String,android.net.NetworkInfo$DetailedState) -> a
     java.lang.String get(android.content.Context,android.net.NetworkInfo$DetailedState) -> a
 com.george.obdreader.config.WifiDeviceListActivity -> com.george.obdreader.config.WifiDeviceListActivity:
@@ -2586,16 +2726,16 @@ com.george.obdreader.config.WifiDeviceListActivity -> com.george.obdreader.confi
     com.george.obdreader.config.ProgressCategory access$0(com.george.obdreader.config.WifiDeviceListActivity) -> a
     android.net.wifi.WifiManager access$1(com.george.obdreader.config.WifiDeviceListActivity) -> b
     void access$2(com.george.obdreader.config.WifiDeviceListActivity,android.content.Intent) -> a
-com.george.obdreader.config.WifiDeviceListActivity$1 -> com.george.obdreader.config.o:
+com.george.obdreader.config.WifiDeviceListActivity$1 -> com.george.obdreader.config.ae:
     com.george.obdreader.config.WifiDeviceListActivity this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.george.obdreader.config.WifiDeviceListActivity$Scanner -> com.george.obdreader.config.p:
+com.george.obdreader.config.WifiDeviceListActivity$Scanner -> com.george.obdreader.config.af:
     int mRetry -> b
     com.george.obdreader.config.WifiDeviceListActivity this$0 -> a
     void resume() -> a
     void pause() -> b
     void handleMessage(android.os.Message) -> handleMessage
-com.george.obdreader.config.WifiEnabler -> com.george.obdreader.config.q:
+com.george.obdreader.config.WifiEnabler -> com.george.obdreader.config.ag:
     android.content.Context mContext -> a
     android.preference.CheckBoxPreference mCheckBox -> b
     java.lang.CharSequence mOriginalSummary -> c
@@ -2609,7 +2749,7 @@ com.george.obdreader.config.WifiEnabler -> com.george.obdreader.config.q:
     void handleStateChanged(android.net.NetworkInfo$DetailedState) -> a
     void access$0(com.george.obdreader.config.WifiEnabler,int) -> a
     void access$1(com.george.obdreader.config.WifiEnabler,android.net.NetworkInfo$DetailedState) -> a
-com.george.obdreader.config.WifiEnabler$1 -> com.george.obdreader.config.r:
+com.george.obdreader.config.WifiEnabler$1 -> com.george.obdreader.config.ah:
     com.george.obdreader.config.WifiEnabler this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
 com.george.obdreader.db.DatabaseProvider -> com.george.obdreader.db.DatabaseProvider:
@@ -2767,7 +2907,20 @@ com.george.obdreader.ui.ViewHolder -> com.george.obdreader.ui.c:
 com.george.utils.Device -> com.george.a.a:
     int[] $SWITCH_TABLE$android$net$NetworkInfo$State -> a
     int getNetConnect(android.content.Context) -> a
+    java.lang.String getHttpResponse(java.lang.String,java.lang.String) -> a
+    java.lang.String getAppVersionName(android.content.Context) -> b
+    java.util.List encodeParameters(com.george.utils.Parameters) -> a
+    boolean isBundleEmpty(com.george.utils.Parameters) -> b
+    java.lang.String openHttpClient(java.lang.String,java.lang.String,com.george.utils.Parameters) -> a
+    java.lang.String encodeUrl(com.george.utils.Parameters) -> c
     int[] $SWITCH_TABLE$android$net$NetworkInfo$State() -> a
+com.george.utils.Parameters -> com.george.a.b:
+    android.os.Bundle mParameters -> a
+    java.util.List mKeys -> b
+    void add(java.lang.String,java.lang.String) -> a
+    java.lang.String getKey(int) -> a
+    java.lang.String getValue(int) -> b
+    int size() -> a
 eu.lighthouselabs.obd.commands.ObdCommand -> a.a.a.a.a:
     java.util.ArrayList buffer -> a
     java.lang.String cmd -> b

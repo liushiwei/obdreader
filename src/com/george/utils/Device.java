@@ -1,17 +1,24 @@
 package com.george.utils;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -37,11 +44,15 @@ import com.george.obdreader.Log;
 
 public class Device {
 
+	static {
+		System.loadLibrary("obdreader-jni");
+	}
+
 	public static final String HTTP_METHOD_GET = "GET";
 	public static final String HTTP_METHOD_POST = "POST";
 
 	private static final String TAG = "Device";
-
+	
 	public static String getDeviceId() {
 		final String MMC_CID_PATH = "/sys/class/mmc_host/mmc0/mmc0:0001/cid";
 		String id = null;
@@ -332,5 +343,86 @@ public class Device {
 		}
 		return sb.toString();
 	}
+
+	/**
+	 * 加密（使用DES算法）
+	 * 
+	 * @param txt
+	 *            需要加密的文本
+	 * @param key
+	 *            密钥
+	 * @return 成功加密的文本
+	 * @throws InvalidKeySpecException
+	 * @throws InvalidKeyException
+	 * @throws NoSuchPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws BadPaddingException
+	 */
+	public static String enCrypto(String txt, String key)
+			throws InvalidKeySpecException, InvalidKeyException,
+			NoSuchPaddingException, IllegalBlockSizeException,
+			BadPaddingException {
+		StringBuffer sb = new StringBuffer();
+		DESKeySpec desKeySpec = new DESKeySpec(key==null?jni_key.getBytes():key.getBytes());
+		SecretKeyFactory skeyFactory = null;
+		Cipher cipher = null;
+		try {
+			skeyFactory = SecretKeyFactory.getInstance("DES");
+			cipher = Cipher.getInstance("DES");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		SecretKey deskey = skeyFactory.generateSecret(desKeySpec);
+		cipher.init(Cipher.ENCRYPT_MODE, deskey);
+		byte[] cipherText = cipher.doFinal(txt.getBytes());
+		for (int n = 0; n < cipherText.length; n++) {
+			String stmp = (java.lang.Integer.toHexString(cipherText[n] & 0XFF));
+
+			if (stmp.length() == 1) {
+				sb.append("0" + stmp);
+			} else {
+				sb.append(stmp);
+			}
+		}
+		return sb.toString().toUpperCase();
+	}
+	private static String jni_key = keyFromJNI();
+	/**
+	 * 解密（使用DES算法）
+	 * 
+	 * @param txt
+	 *            需要解密的文本
+	 * @param key
+	 *            密钥
+	 * @return 成功解密的文本
+	 * @throws InvalidKeyException
+	 * @throws InvalidKeySpecException
+	 * @throws NoSuchPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws BadPaddingException
+	 */
+	public static String deCrypto(String txt, String key)
+			throws InvalidKeyException, InvalidKeySpecException,
+			NoSuchPaddingException, IllegalBlockSizeException,
+			BadPaddingException {
+		DESKeySpec desKeySpec = new DESKeySpec(key==null?jni_key.getBytes():key.getBytes());
+		SecretKeyFactory skeyFactory = null;
+		Cipher cipher = null;
+		try {
+			skeyFactory = SecretKeyFactory.getInstance("DES");
+			cipher = Cipher.getInstance("DES");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		SecretKey deskey = skeyFactory.generateSecret(desKeySpec);
+		cipher.init(Cipher.DECRYPT_MODE, deskey);
+		byte[] btxts = new byte[txt.length() / 2];
+		for (int i = 0, count = txt.length(); i < count; i += 2) {
+			btxts[i / 2] = (byte) Integer.parseInt(txt.substring(i, i + 2), 16);
+		}
+		return (new String(cipher.doFinal(btxts)));
+	}
+
+	public static native String keyFromJNI();
 
 }

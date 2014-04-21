@@ -62,50 +62,50 @@ public class BaseSetting extends PreferenceFragment implements
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.configuration_preferences);
 
-		ListPreference type = (ListPreference) findPreference(CONNECT_TYPE);
-
-		type.setOnPreferenceChangeListener(this);
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
-		mConnect_type = preferences.getString(CONNECT_TYPE, null);
-		if (mConnect_type != null) {
-			String[] times = getResources()
-					.getStringArray(R.array.connect_type);
-			type.setSummary(getString(R.string.current_connect_type) + " "
-					+ times[Integer.valueOf(mConnect_type)]);
-		}
-
-		Preference device = findPreference(CONNECT_DEVICE);
-
-		if (mConnect_type != null) {
-			String obd_device = preferences.getString(CONNECT_DEVICE, null);
-			if (obd_device != null)
-				device.setSummary(getString(R.string.current_obd_device)
-						+ obd_device);
-		}
-
-		device.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				if (mConnect_type != null) {
-					if (mConnect_type.equals("0")) {
-						Intent serverIntent = new Intent(getActivity(),
-								WifiDeviceListActivity.class);
-						startActivityForResult(serverIntent, 100);
-					} else {
-						Intent serverIntent = new Intent(getActivity(),
-								BTDeviceListActivity.class);
-						startActivityForResult(serverIntent, 100);
-					}
-				} else {
-					Toast.makeText(getActivity(), R.string.choice_connect_type,
-							Toast.LENGTH_LONG).show();
-				}
-
-				return false;
-			}
-		});
+//		ListPreference type = (ListPreference) findPreference(CONNECT_TYPE);
+//
+//		type.setOnPreferenceChangeListener(this);
+//		mConnect_type = preferences.getString(CONNECT_TYPE, null);
+//		if (mConnect_type != null) {
+//			String[] times = getResources()
+//					.getStringArray(R.array.connect_type);
+//			type.setSummary(getString(R.string.current_connect_type) + " "
+//					+ times[Integer.valueOf(mConnect_type)]);
+//		}
+//
+//		Preference device = findPreference(CONNECT_DEVICE);
+//
+//		if (mConnect_type != null) {
+//			String obd_device = preferences.getString(CONNECT_DEVICE, null);
+//			if (obd_device != null)
+//				device.setSummary(getString(R.string.current_obd_device)
+//						+ obd_device);
+//		}
+//
+//		device.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+//
+//			@Override
+//			public boolean onPreferenceClick(Preference preference) {
+//				if (mConnect_type != null) {
+//					if (mConnect_type.equals("0")) {
+//						Intent serverIntent = new Intent(getActivity(),
+//								WifiDeviceListActivity.class);
+//						startActivityForResult(serverIntent, 100);
+//					} else {
+//						Intent serverIntent = new Intent(getActivity(),
+//								BTDeviceListActivity.class);
+//						startActivityForResult(serverIntent, 100);
+//					}
+//				} else {
+//					Toast.makeText(getActivity(), R.string.choice_connect_type,
+//							Toast.LENGTH_LONG).show();
+//				}
+//
+//				return false;
+//			}
+//		});
 
 		Preference customer_connect = findPreference(CUSTOMER_CONNECT);
 		String ip = preferences.getString(CUSTOMER_IP, "192.168.0.10");

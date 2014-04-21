@@ -174,6 +174,7 @@ com.george.obdreader.R$array: int fuel_types
 com.george.obdreader.R$array: int maintenance_time
 com.george.obdreader.R$array: int maintenance_time_value
 com.george.obdreader.R$array: int maintenance_types
+com.george.obdreader.R$array: int report_values
 com.george.obdreader.R$array: int rpm_rangeColors
 com.george.obdreader.R$array: int rpm_ranges
 com.george.obdreader.R$array: int speed_rangeColors
@@ -445,6 +446,8 @@ com.george.obdreader.R$id: int add_pid
 com.george.obdreader.R$id: int amount
 com.george.obdreader.R$id: int back_button
 com.george.obdreader.R$id: int best_score
+com.george.obdreader.R$id: int bugs
+com.george.obdreader.R$id: int bugs_text
 com.george.obdreader.R$id: int button_bar
 com.george.obdreader.R$id: int button_scan
 com.george.obdreader.R$id: int category
@@ -459,6 +462,7 @@ com.george.obdreader.R$id: int customer_port
 com.george.obdreader.R$id: int datePicker1
 com.george.obdreader.R$id: int desc
 com.george.obdreader.R$id: int editText1
+com.george.obdreader.R$id: int email
 com.george.obdreader.R$id: int en_des
 com.george.obdreader.R$id: int expandableListView1
 com.george.obdreader.R$id: int fault_icon
@@ -466,6 +470,8 @@ com.george.obdreader.R$id: int forgetLog
 com.george.obdreader.R$id: int formcustomspinner_list
 com.george.obdreader.R$id: int fuel_costs
 com.george.obdreader.R$id: int fueltype
+com.george.obdreader.R$id: int fun
+com.george.obdreader.R$id: int fun_text
 com.george.obdreader.R$id: int gridView1
 com.george.obdreader.R$id: int icon
 com.george.obdreader.R$id: int intake_manifold_pressure
@@ -501,6 +507,7 @@ com.george.obdreader.R$id: int obd_pid_max_value
 com.george.obdreader.R$id: int obd_pid_min_value
 com.george.obdreader.R$id: int obdlist
 com.george.obdreader.R$id: int ok
+com.george.obdreader.R$id: int option
 com.george.obdreader.R$id: int paired_devices
 com.george.obdreader.R$id: int pid
 com.george.obdreader.R$id: int pidslist
@@ -526,6 +533,7 @@ com.george.obdreader.R$id: int speed_80
 com.george.obdreader.R$id: int spinner1
 com.george.obdreader.R$id: int start_check
 com.george.obdreader.R$id: int stopwatch
+com.george.obdreader.R$id: int submit
 com.george.obdreader.R$id: int tabsLayout
 com.george.obdreader.R$id: int tabs_icon
 com.george.obdreader.R$id: int tabs_text
@@ -541,6 +549,8 @@ com.george.obdreader.R$id: int title_paired_devices
 com.george.obdreader.R$id: int today
 com.george.obdreader.R$id: int tomorrow
 com.george.obdreader.R$id: int trouble_codes
+com.george.obdreader.R$id: int ui
+com.george.obdreader.R$id: int ui_text
 com.george.obdreader.R$id: int vPager
 com.george.obdreader.R$integer: int preference_fragment_scrollbarStyle
 com.george.obdreader.R$layout: int activity_main
@@ -570,6 +580,7 @@ com.george.obdreader.R$layout: int preference_list_fragment
 com.george.obdreader.R$layout: int preference_progress_category
 com.george.obdreader.R$layout: int preference_widget_wifi_signal
 com.george.obdreader.R$layout: int refuel_log
+com.george.obdreader.R$layout: int report
 com.george.obdreader.R$layout: int second_index
 com.george.obdreader.R$layout: int speed_up_test
 com.george.obdreader.R$layout: int spinner_item
@@ -579,14 +590,20 @@ com.george.obdreader.R$layout: int trouble_code_info
 com.george.obdreader.R$layout: int trouble_codes
 com.george.obdreader.R$layout: int trouble_codes_item
 com.george.obdreader.R$menu: int main
+com.george.obdreader.R$string: int about_software
 com.george.obdreader.R$string: int action_settings
 com.george.obdreader.R$string: int app_name
+com.george.obdreader.R$string: int auto_update
 com.george.obdreader.R$string: int back_button_label
 com.george.obdreader.R$string: int base_settings
 com.george.obdreader.R$string: int best_score
+com.george.obdreader.R$string: int bugs
 com.george.obdreader.R$string: int button_scan
 com.george.obdreader.R$string: int category
+com.george.obdreader.R$string: int check_new_version
 com.george.obdreader.R$string: int check_not_error
+com.george.obdreader.R$string: int checked_new_version
+com.george.obdreader.R$string: int checking_new_version
 com.george.obdreader.R$string: int choice_connect_type
 com.george.obdreader.R$string: int choice_date
 com.george.obdreader.R$string: int chronograph
@@ -599,9 +616,11 @@ com.george.obdreader.R$string: int connect_device_title
 com.george.obdreader.R$string: int connect_type_summary
 com.george.obdreader.R$string: int connect_type_title
 com.george.obdreader.R$string: int cost
+com.george.obdreader.R$string: int current_connect_not_wifi
 com.george.obdreader.R$string: int current_connect_type
 com.george.obdreader.R$string: int current_interval_time
 com.george.obdreader.R$string: int current_obd_device
+com.george.obdreader.R$string: int current_version
 com.george.obdreader.R$string: int customer_connect_ip
 com.george.obdreader.R$string: int customer_connect_ip_error
 com.george.obdreader.R$string: int customer_connect_port
@@ -609,12 +628,16 @@ com.george.obdreader.R$string: int customer_connect_port_error
 com.george.obdreader.R$string: int customer_connect_summary
 com.george.obdreader.R$string: int customer_connect_title
 com.george.obdreader.R$string: int delete_fail
+com.george.obdreader.R$string: int delete_item
 com.george.obdreader.R$string: int delete_success
 com.george.obdreader.R$string: int device_unconn
+com.george.obdreader.R$string: int download_new_version
+com.george.obdreader.R$string: int email
 com.george.obdreader.R$string: int en_def
 com.george.obdreader.R$string: int fault_code
 com.george.obdreader.R$string: int fuell_logs
 com.george.obdreader.R$string: int fuelling_logs
+com.george.obdreader.R$string: int fun
 com.george.obdreader.R$string: int hello_world
 com.george.obdreader.R$string: int km
 com.george.obdreader.R$string: int knowledge
@@ -626,12 +649,15 @@ com.george.obdreader.R$string: int maintenance_time
 com.george.obdreader.R$string: int maintenance_tip
 com.george.obdreader.R$string: int maintenance_tip_off
 com.george.obdreader.R$string: int maintenance_tip_on
+com.george.obdreader.R$string: int net_error
 com.george.obdreader.R$string: int net_uncon
+com.george.obdreader.R$string: int new_version
 com.george.obdreader.R$string: int next_button_label
 com.george.obdreader.R$string: int next_maintenance_time
 com.george.obdreader.R$string: int no_best_score
 com.george.obdreader.R$string: int no_fault_code
 com.george.obdreader.R$string: int no_maintenance_log
+com.george.obdreader.R$string: int no_new_verion
 com.george.obdreader.R$string: int none_found
 com.george.obdreader.R$string: int none_paired
 com.george.obdreader.R$string: int not_null
@@ -776,13 +802,16 @@ com.george.obdreader.R$string: int obd_01A0
 com.george.obdreader.R$string: int obd_01C0
 com.george.obdreader.R$string: int obd_check
 com.george.obdreader.R$string: int obd_pid
+com.george.obdreader.R$string: int opinion
 com.george.obdreader.R$string: int over
 com.george.obdreader.R$string: int pid_not_supported
+com.george.obdreader.R$string: int please_select_phase2
 com.george.obdreader.R$string: int please_stop
 com.george.obdreader.R$string: int progress_scanning
 com.george.obdreader.R$string: int reading_fault_code
 com.george.obdreader.R$string: int ready
 com.george.obdreader.R$string: int reboot
+com.george.obdreader.R$string: int report
 com.george.obdreader.R$string: int scanning
 com.george.obdreader.R$string: int second
 com.george.obdreader.R$string: int select_device
@@ -797,6 +826,8 @@ com.george.obdreader.R$string: int solved
 com.george.obdreader.R$string: int speed_100
 com.george.obdreader.R$string: int speed_60
 com.george.obdreader.R$string: int speed_80
+com.george.obdreader.R$string: int submit
+com.george.obdreader.R$string: int submit_success
 com.george.obdreader.R$string: int take
 com.george.obdreader.R$string: int test_0_second
 com.george.obdreader.R$string: int test_distance_setting
@@ -809,34 +840,82 @@ com.george.obdreader.R$string: int test_stop
 com.george.obdreader.R$string: int test_test
 com.george.obdreader.R$string: int title_other_devices
 com.george.obdreader.R$string: int title_paired_devices
+com.george.obdreader.R$string: int ui
 com.george.obdreader.R$string: int unsolved
 com.george.obdreader.R$string: int wait
 com.george.obdreader.R$string: int wifi_access_points
 com.george.obdreader.R$string: int wifi_add_network
+com.george.obdreader.R$string: int wifi_advanced_mac_address_title
+com.george.obdreader.R$string: int wifi_advanced_titlebar
+com.george.obdreader.R$string: int wifi_cancel
+com.george.obdreader.R$string: int wifi_connect
 com.george.obdreader.R$string: int wifi_connect_wrong
 com.george.obdreader.R$string: int wifi_disabled
+com.george.obdreader.R$string: int wifi_dns1
+com.george.obdreader.R$string: int wifi_dns2
+com.george.obdreader.R$string: int wifi_eap_anonymous
+com.george.obdreader.R$string: int wifi_eap_ca_cert
+com.george.obdreader.R$string: int wifi_eap_identity
+com.george.obdreader.R$string: int wifi_eap_method
+com.george.obdreader.R$string: int wifi_eap_user_cert
 com.george.obdreader.R$string: int wifi_error
 com.george.obdreader.R$string: int wifi_fail_to_scan
+com.george.obdreader.R$string: int wifi_forget
+com.george.obdreader.R$string: int wifi_gateway
 com.george.obdreader.R$string: int wifi_in_airplane_mode
+com.george.obdreader.R$string: int wifi_ip_address
+com.george.obdreader.R$string: int wifi_ip_settings_invalid_ip
+com.george.obdreader.R$string: int wifi_ip_settings_menu_cancel
+com.george.obdreader.R$string: int wifi_ip_settings_menu_save
+com.george.obdreader.R$string: int wifi_ip_settings_titlebar
 com.george.obdreader.R$string: int wifi_menu_advanced
 com.george.obdreader.R$string: int wifi_menu_connect
 com.george.obdreader.R$string: int wifi_menu_forget
 com.george.obdreader.R$string: int wifi_menu_modify
 com.george.obdreader.R$string: int wifi_menu_scan
+com.george.obdreader.R$string: int wifi_netmask
 com.george.obdreader.R$string: int wifi_not_in_range
 com.george.obdreader.R$string: int wifi_notify_open_networks
 com.george.obdreader.R$string: int wifi_notify_open_networks_summary
 com.george.obdreader.R$string: int wifi_open
+com.george.obdreader.R$string: int wifi_password
 com.george.obdreader.R$string: int wifi_quick_toggle_summary
 com.george.obdreader.R$string: int wifi_quick_toggle_title
 com.george.obdreader.R$string: int wifi_remembered
+com.george.obdreader.R$string: int wifi_save
 com.george.obdreader.R$string: int wifi_secured
 com.george.obdreader.R$string: int wifi_secured_with_status
+com.george.obdreader.R$string: int wifi_security
+com.george.obdreader.R$string: int wifi_setting_num_channels_channel_phrase
+com.george.obdreader.R$string: int wifi_setting_num_channels_error
+com.george.obdreader.R$string: int wifi_setting_num_channels_summary
+com.george.obdreader.R$string: int wifi_setting_num_channels_title
+com.george.obdreader.R$string: int wifi_setting_sleep_policy_error
+com.george.obdreader.R$string: int wifi_setting_sleep_policy_summary
+com.george.obdreader.R$string: int wifi_setting_sleep_policy_title
 com.george.obdreader.R$string: int wifi_settings
 com.george.obdreader.R$string: int wifi_settings_category
 com.george.obdreader.R$string: int wifi_settings_summary
+com.george.obdreader.R$string: int wifi_show_password
+com.george.obdreader.R$string: int wifi_signal
+com.george.obdreader.R$string: int wifi_speed
+com.george.obdreader.R$string: int wifi_ssid
 com.george.obdreader.R$string: int wifi_starting
+com.george.obdreader.R$string: int wifi_status
 com.george.obdreader.R$string: int wifi_stopping
+com.george.obdreader.R$string: int wifi_tether_checkbox_text
+com.george.obdreader.R$string: int wifi_tether_configure_ap_text
+com.george.obdreader.R$string: int wifi_tether_configure_ssid_default
+com.george.obdreader.R$string: int wifi_tether_configure_subtext
+com.george.obdreader.R$string: int wifi_tether_enabled_subtext
+com.george.obdreader.R$string: int wifi_tether_failed_subtext
+com.george.obdreader.R$string: int wifi_tether_settings_subtext
+com.george.obdreader.R$string: int wifi_tether_settings_text
+com.george.obdreader.R$string: int wifi_tether_settings_title
+com.george.obdreader.R$string: int wifi_unchanged
+com.george.obdreader.R$string: int wifi_unspecified
+com.george.obdreader.R$string: int wifi_update_only
+com.george.obdreader.R$string: int wifi_use_static_ip
 com.george.obdreader.R$string: int yuan
 com.george.obdreader.R$string: int yuansheng
 com.george.obdreader.R$style: int AppBaseTheme
@@ -909,6 +988,7 @@ com.george.obdreader.R$styleable: int TabWidget_tabStripLeft
 com.george.obdreader.R$styleable: int TabWidget_tabStripRight
 com.george.obdreader.R$styleable: int[] WifiEncryptionState
 com.george.obdreader.R$styleable: int WifiEncryptionState_state_encrypted
+com.george.obdreader.R$xml: int about_software
 com.george.obdreader.R$xml: int configuration_preferences
 com.george.obdreader.R$xml: int maintenance_preferences
 com.george.obdreader.R$xml: int preferences
@@ -919,12 +999,16 @@ com.george.obdreader.SpeedUpTest: void onClick(android.view.View)
 com.george.obdreader.TroubleCodes
 com.george.obdreader.TroubleCodes: TroubleCodes()
 com.george.obdreader.TroubleCodes: void onClick(android.view.View)
+com.george.obdreader.config.AboutSoftwareActivity
+com.george.obdreader.config.AboutSoftwareActivity: AboutSoftwareActivity()
 com.george.obdreader.config.BTDeviceListActivity
 com.george.obdreader.config.BTDeviceListActivity: BTDeviceListActivity()
 com.george.obdreader.config.ConfigurationActivity
 com.george.obdreader.config.ConfigurationActivity: ConfigurationActivity()
 com.george.obdreader.config.ProgressCategory
 com.george.obdreader.config.ProgressCategory: ProgressCategory(android.content.Context,android.util.AttributeSet)
+com.george.obdreader.config.ReportActivity
+com.george.obdreader.config.ReportActivity: ReportActivity()
 com.george.obdreader.config.WifiDeviceListActivity
 com.george.obdreader.config.WifiDeviceListActivity: WifiDeviceListActivity()
 com.george.obdreader.db.DatabaseProvider

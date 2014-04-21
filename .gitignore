@@ -3,3 +3,5 @@ default.properties
 gen/
 .gitignore
 .settings/
+obj/
+libs/armeabi/
