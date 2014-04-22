@@ -1227,7 +1227,7 @@ com.george.obdreader.R$menu
 com.george.obdreader.R$string
 com.george.obdreader.R$style
 com.george.obdreader.R$styleable:
-    1162:1162:public R$styleable()
+    1164:1164:public R$styleable()
 com.george.obdreader.R$xml
 com.george.obdreader.SecondIndexFragment:
     private static final java.lang.String TAG
@@ -1246,9 +1246,9 @@ com.george.obdreader.config.AboutSoftwareSetting:
     public static final java.lang.String WIFI_UPDATE_ONLY
     public static final java.lang.String SOFTWARE_UPDATE
     private static final java.lang.String TAG
-    300:301:private void stopQuery()
-    350:362:private java.lang.String statusMessage(int)
-    428:428:private int removeDownload(long)
+    309:310:private void stopQuery()
+    359:371:private java.lang.String statusMessage(int)
+    437:437:private int removeDownload(long)
 com.george.obdreader.config.AccessPoint:
     static final int SECURITY_NONE
     static final int SECURITY_WEP
@@ -1287,6 +1287,10 @@ com.george.obdreader.config.Summary:
 com.george.obdreader.config.WifiDeviceListActivity:
     private static final java.lang.String TAG
     127:129:private void forget(int)
+com.george.obdreader.db.DBOperation
+com.george.obdreader.db.DBOperation$1
+com.george.obdreader.db.DBOperation$2
+com.george.obdreader.db.DBOperation$3
 com.george.obdreader.db.DatabaseProvider:
     private static final java.lang.String TAG
     private static final java.lang.String DATABASE_NAME
@@ -1341,9 +1345,10 @@ com.george.utils.Device:
     public static final java.lang.String HTTP_METHOD_GET
     public static final java.lang.String HTTP_METHOD_POST
     private static final java.lang.String TAG
-    38:38:public Device()
-    46:65:public static java.lang.String getDeviceId()
-    223:223:public java.lang.String getHttpResponse(java.lang.String)
+    45:45:public Device()
+    57:76:public static java.lang.String getDeviceId()
+    234:234:public java.lang.String getHttpResponse(java.lang.String)
+    365:387:public static java.lang.String enCrypto(java.lang.String,java.lang.String)
 com.george.utils.Parameters:
     31:33:public void remove(java.lang.String)
     36:39:public void remove(int)

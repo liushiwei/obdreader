@@ -2526,15 +2526,15 @@ com.george.obdreader.config.AboutSoftwareSetting -> com.george.obdreader.config.
     void queryState(long) -> b
     void lookDownload() -> B
     void onDestroy() -> m
-    void access$0(com.george.obdreader.config.AboutSoftwareSetting,java.lang.String) -> a
-    java.lang.String access$1(com.george.obdreader.config.AboutSoftwareSetting) -> a
+    android.app.ProgressDialog access$0(com.george.obdreader.config.AboutSoftwareSetting) -> a
+    void access$1(com.george.obdreader.config.AboutSoftwareSetting,java.lang.String) -> a
     java.lang.String access$2(com.george.obdreader.config.AboutSoftwareSetting) -> b
-    void access$3(com.george.obdreader.config.AboutSoftwareSetting,android.app.DownloadManager) -> a
-    android.app.DownloadManager access$4(com.george.obdreader.config.AboutSoftwareSetting) -> c
-    void access$5(com.george.obdreader.config.AboutSoftwareSetting,long) -> a
-    long access$6(com.george.obdreader.config.AboutSoftwareSetting) -> d
-    void access$7(com.george.obdreader.config.AboutSoftwareSetting,long) -> b
-    android.app.ProgressDialog access$8(com.george.obdreader.config.AboutSoftwareSetting) -> e
+    java.lang.String access$3(com.george.obdreader.config.AboutSoftwareSetting) -> c
+    void access$4(com.george.obdreader.config.AboutSoftwareSetting,android.app.DownloadManager) -> a
+    android.app.DownloadManager access$5(com.george.obdreader.config.AboutSoftwareSetting) -> d
+    void access$6(com.george.obdreader.config.AboutSoftwareSetting,long) -> a
+    long access$7(com.george.obdreader.config.AboutSoftwareSetting) -> e
+    void access$8(com.george.obdreader.config.AboutSoftwareSetting,long) -> b
     void access$9(com.george.obdreader.config.AboutSoftwareSetting,long) -> c
     android.os.Handler access$10(com.george.obdreader.config.AboutSoftwareSetting) -> f
     void access$11(com.george.obdreader.config.AboutSoftwareSetting,boolean) -> a
@@ -2904,8 +2904,9 @@ com.george.obdreader.ui.SelectDialog -> com.george.obdreader.ui.b:
     void onCreate(android.os.Bundle) -> onCreate
 com.george.obdreader.ui.ViewHolder -> com.george.obdreader.ui.c:
     android.widget.TextView textView -> a
-com.george.utils.Device -> com.george.a.a:
-    int[] $SWITCH_TABLE$android$net$NetworkInfo$State -> a
+com.george.utils.Device -> com.george.utils.Device:
+    java.lang.String jni_key -> a
+    int[] $SWITCH_TABLE$android$net$NetworkInfo$State -> b
     int getNetConnect(android.content.Context) -> a
     java.lang.String getHttpResponse(java.lang.String,java.lang.String) -> a
     java.lang.String getAppVersionName(android.content.Context) -> b
@@ -2913,8 +2914,10 @@ com.george.utils.Device -> com.george.a.a:
     boolean isBundleEmpty(com.george.utils.Parameters) -> b
     java.lang.String openHttpClient(java.lang.String,java.lang.String,com.george.utils.Parameters) -> a
     java.lang.String encodeUrl(com.george.utils.Parameters) -> c
+    java.lang.String deCrypto(java.lang.String,java.lang.String) -> b
+    java.lang.String keyFromJNI() -> keyFromJNI
     int[] $SWITCH_TABLE$android$net$NetworkInfo$State() -> a
-com.george.utils.Parameters -> com.george.a.b:
+com.george.utils.Parameters -> com.george.utils.a:
     android.os.Bundle mParameters -> a
     java.util.List mKeys -> b
     void add(java.lang.String,java.lang.String) -> a

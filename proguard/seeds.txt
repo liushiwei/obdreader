@@ -448,6 +448,7 @@ com.george.obdreader.R$id: int back_button
 com.george.obdreader.R$id: int best_score
 com.george.obdreader.R$id: int bugs
 com.george.obdreader.R$id: int bugs_text
+com.george.obdreader.R$id: int button1
 com.george.obdreader.R$id: int button_bar
 com.george.obdreader.R$id: int button_scan
 com.george.obdreader.R$id: int category
@@ -558,6 +559,7 @@ com.george.obdreader.R$layout: int app_item
 com.george.obdreader.R$layout: int apptheme_tab_indicator_holo
 com.george.obdreader.R$layout: int costs
 com.george.obdreader.R$layout: int customer_connect
+com.george.obdreader.R$layout: int db_operation
 com.george.obdreader.R$layout: int device_list
 com.george.obdreader.R$layout: int device_name
 com.george.obdreader.R$layout: int first_index
@@ -1023,6 +1025,8 @@ com.george.obdreader.ui.CustomerSpinner: java.lang.String[] getList()
 com.george.obdreader.ui.CustomerSpinner: void setList(java.lang.String[])
 com.george.obdreader.ui.CustomerSpinner: java.lang.String getText()
 com.george.obdreader.ui.CustomerSpinner: void setText(java.lang.String)
+com.george.utils.Device
+com.george.utils.Device: java.lang.String keyFromJNI()
 eu.lighthouselabs.obd.enums.AvailableCommandNames: eu.lighthouselabs.obd.enums.AvailableCommandNames[] values()
 eu.lighthouselabs.obd.enums.AvailableCommandNames: eu.lighthouselabs.obd.enums.AvailableCommandNames valueOf(java.lang.String)
 eu.lighthouselabs.obd.enums.FuelTrim: eu.lighthouselabs.obd.enums.FuelTrim[] values()
