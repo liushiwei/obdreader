@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">OBDReader</string>
+    <string name="app_name">Car Sister</string>
     <string name="hello_world">Hello world!</string>
     <string name="command_list">Choose a command</string>
     <string name="service_started">OBD connection has started.</string>

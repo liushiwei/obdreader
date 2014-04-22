@@ -313,7 +313,7 @@ public class Device {
 			response = "";
 
 			while ((readLine = br.readLine()) != null) {
-				response = response + readLine;
+				response += readLine + "\n";
 			}
 			is.close();
 			br.close();

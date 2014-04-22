@@ -97,7 +97,7 @@ public class AboutSoftwareSetting extends PreferenceFragment {
 											.show(getActivity(),
 													null,
 													getString(R.string.checking_new_version),
-													true, false);
+													true, true);
 									new Thread() {
 
 										@Override
@@ -129,7 +129,7 @@ public class AboutSoftwareSetting extends PreferenceFragment {
 										.show(getActivity(),
 												null,
 												getString(R.string.checking_new_version),
-												true, false);
+												true, true);
 								new Thread() {
 
 									@Override
@@ -176,8 +176,17 @@ public class AboutSoftwareSetting extends PreferenceFragment {
 				String respone = (String) msg.obj;
 				if (respone != null) {
 					Log.e(TAG, "respone = " + respone);
+					int index = respone.indexOf('\n');
+					if(index == -1)
+						index = respone.indexOf('\r');
+					if(index == -1){
+						Toast.makeText(getActivity(), R.string.net_error, Toast.LENGTH_SHORT).show();
+						progressDialog.dismiss();
+						return;
+					}
+						
 					String version = respone
-							.substring(0, respone.indexOf('\n'));
+							.substring(0, index);
 					new_version_name = version.trim().substring(
 							version.indexOf(':') + 1, version.length());
 					Log.e(TAG, current_version_name.compareTo(new_version_name)
