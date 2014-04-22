@@ -65,8 +65,8 @@
                 <category android:name="com.george.obdreader.category.APP" />
             </intent-filter>
         </activity>
-        
-       <!--  <activity
+<!--
+        <activity
             android:name=".db.DBOperation"
             android:icon="@drawable/trouble_codes"
             android:label="DB" >
@@ -75,8 +75,8 @@
 
                 <category android:name="com.george.obdreader.category.APP" />
             </intent-filter>
-        </activity> -->
-
+        </activity>
+        -->
         <service
             android:name=".io.ObdGatewayService"
             android:exported="false" />
