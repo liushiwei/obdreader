@@ -176,9 +176,11 @@ public class SecondIndexFragment extends Fragment implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			 Intent i = new Intent();  
-			 Log.d(TAG, mList.get((Integer) v.getTag()).activityInfo.name);
-			 i.setClassName(mList.get((Integer) v.getTag()).activityInfo.packageName, mList.get((Integer) v.getTag()).activityInfo.name);
-             startActivity(i); 	
+			 int index = (Integer) v.getTag();
+			 if(index<mList.size()){
+				 i.setClassName(mList.get((Integer) v.getTag()).activityInfo.packageName, mList.get((Integer) v.getTag()).activityInfo.name);
+				 startActivity(i); 	
+			 }
 			
 		}
 

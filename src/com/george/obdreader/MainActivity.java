@@ -538,8 +538,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                     WifiInfo wifiInfo = mWifi.getConnectionInfo();
 
                     if (wifiInfo.getIpAddress() == 0) {
-                        // showDialog(0);
-
+                    	startConnect();
                     } else if (ssid != null && !wifiInfo.getSSID().equals(ssid)) {
                         Log.e(TAG, "connect wrong");
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

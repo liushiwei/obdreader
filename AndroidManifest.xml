@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.george.obdreader"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="0.9.1" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -65,7 +65,18 @@
                 <category android:name="com.george.obdreader.category.APP" />
             </intent-filter>
         </activity>
+<!--
+        <activity
+            android:name=".db.DBOperation"
+            android:icon="@drawable/trouble_codes"
+            android:label="DB" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="com.george.obdreader.category.APP" />
+            </intent-filter>
+        </activity>
+        -->
         <service
             android:name=".io.ObdGatewayService"
             android:exported="false" />
