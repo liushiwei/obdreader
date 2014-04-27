@@ -102,8 +102,8 @@ public class Log {
 	 */
 	private static void log(String tag, String msg, char level) {
 		if (MYLOG_SWITCH) {
-			if (MYLOG_FILTER && !mTag.equals(tag))
-				return;
+//			if (MYLOG_FILTER && !mTag.equals(tag))
+//				return;
 			if ('e' == level && ('e' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) { // 输出错误信息
 				android.util.Log.e(tag, msg);
 			} else if ('w' == level && ('w' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) {

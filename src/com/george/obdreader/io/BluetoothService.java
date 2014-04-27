@@ -43,7 +43,7 @@ import com.george.obdreader.config.BaseSetting;
  */
 public class BluetoothService  extends ObdConnecter{
     // Debugging
-    private static final String TAG = "BluetoothChatService";
+    private static final String TAG = "BluetoothService";
     private static final boolean D = true;
 
     // Name for the SDP record when creating server socket
@@ -51,14 +51,21 @@ public class BluetoothService  extends ObdConnecter{
 
 //    // Unique UUID for this application
 //    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
+    private static final UUID MY_UUID_SECURE =
+            UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
+    private static final UUID MY_UUID_INSECURE =
+                UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     
-    //private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
+    private static final String NAME_SECURE = "BluetoothChatSecure";
+    private static final String NAME_INSECURE = "BluetoothChatInsecure";
+    //private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
 
     // Member fields
     private final BluetoothAdapter mAdapter;
     private final Handler mHandler;
-    private AcceptThread mAcceptThread;
+    private AcceptThread mSecureAcceptThread;
+    private AcceptThread mInsecureAcceptThread;
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
     private int mState;
@@ -108,19 +115,24 @@ public class BluetoothService  extends ObdConnecter{
         // Cancel any thread currently running a connection
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
 
+	setState(STATE_LISTEN);
+
         // Start the thread to listen on a BluetoothServerSocket
-        if (mAcceptThread == null) {
-            mAcceptThread = new AcceptThread();
-            mAcceptThread.start();
+        if (mSecureAcceptThread == null) {
+            mSecureAcceptThread = new AcceptThread(true);
+            mSecureAcceptThread.start();
         }
-        setState(STATE_LISTEN);
-    }
+        if (mInsecureAcceptThread == null) {
+            mInsecureAcceptThread = new AcceptThread(false);
+            mInsecureAcceptThread.start();
+        }    }
 
     /**
      * Start the ConnectThread to initiate a connection to a remote device.
      * @param device  The BluetoothDevice to connect
+     * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
-    public synchronized void connect(BluetoothDevice device) {
+    public synchronized void connect(BluetoothDevice device, boolean secure) {
         if (D) Log.d(TAG, "connect to: " + device);
 
         // Cancel any thread attempting to make a connection
@@ -132,7 +144,7 @@ public class BluetoothService  extends ObdConnecter{
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
 
         // Start the thread to connect with the given device
-        mConnectThread = new ConnectThread(device);
+        mConnectThread = new ConnectThread(device, secure);
         mConnectThread.start();
         setState(STATE_CONNECTING);
     }
@@ -142,8 +154,8 @@ public class BluetoothService  extends ObdConnecter{
      * @param socket  The BluetoothSocket on which the connection was made
      * @param device  The BluetoothDevice that has been connected
      */
-    public synchronized void connected(BluetoothSocket socket, BluetoothDevice device) {
-        if (D) Log.d(TAG, "connected");
+    public synchronized void connected(BluetoothSocket socket, BluetoothDevice device, final String socketType) {
+        if (D) Log.d(TAG, "connected, Socket Type:" + socketType);
 
         // Cancel the thread that completed the connection
         if (mConnectThread != null) {mConnectThread.cancel(); mConnectThread = null;}
@@ -152,10 +164,16 @@ public class BluetoothService  extends ObdConnecter{
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
 
         // Cancel the accept thread because we only want to connect to one device
-        if (mAcceptThread != null) {mAcceptThread.cancel(); mAcceptThread = null;}
-
+	 if (mSecureAcceptThread != null) {
+            mSecureAcceptThread.cancel();
+            mSecureAcceptThread = null;
+        }
+        if (mInsecureAcceptThread != null) {
+            mInsecureAcceptThread.cancel();
+            mInsecureAcceptThread = null;
+        }
         // Start the thread to manage the connection and perform transmissions
-        mConnectedThread = new ConnectedThread(socket);
+        mConnectedThread = new ConnectedThread(socket, socketType);
         mConnectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
@@ -176,8 +194,16 @@ public class BluetoothService  extends ObdConnecter{
         if (D) Log.d(TAG, "stop");
         if (mConnectThread != null) {mConnectThread.cancel(); mConnectThread = null;}
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
-        if (mAcceptThread != null) {mAcceptThread.cancel(); mAcceptThread = null;}
-        setState(STATE_NONE);
+	if (mSecureAcceptThread != null) {
+            mSecureAcceptThread.cancel();
+            mSecureAcceptThread = null;
+        }
+
+        if (mInsecureAcceptThread != null) {
+            mInsecureAcceptThread.cancel();
+            mInsecureAcceptThread = null;
+        }        
+	setState(STATE_NONE);
     }
 
     /**
@@ -209,7 +235,9 @@ public class BluetoothService  extends ObdConnecter{
         bundle.putString(ObdGatewayService.TOAST, "Unable to connect device");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-    }
+	// Start the service over to restart listening mode
+        BluetoothService.this.start();    
+}
 
     /**
      * Indicate that the connection was lost and notify the UI Activity.
@@ -223,7 +251,9 @@ public class BluetoothService  extends ObdConnecter{
         bundle.putString(ObdGatewayService.TOAST, "Device connection was lost");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-    }
+	// Start the service over to restart listening mode
+        BluetoothService.this.start();    
+}
 
     /**
      * This thread runs while listening for incoming connections. It behaves
@@ -233,22 +263,30 @@ public class BluetoothService  extends ObdConnecter{
     private class AcceptThread extends Thread {
         // The local server socket
         private final BluetoothServerSocket mmServerSocket;
-
-        public AcceptThread() {
+	private String mSocketType;
+        public AcceptThread(boolean secure) {
             BluetoothServerSocket tmp = null;
+	    mSocketType = secure ? "Secure":"Insecure";
 
             // Create a new listening server socket
             try {
-                tmp = mAdapter.listenUsingRfcommWithServiceRecord(NAME, MY_UUID);
-            } catch (IOException e) {
-                Log.e(TAG, "listen() failed", e);
+		if (secure) {
+                    tmp = mAdapter.listenUsingRfcommWithServiceRecord(NAME_SECURE,
+                        MY_UUID_SECURE);
+                } else {
+                    tmp = mAdapter.listenUsingInsecureRfcommWithServiceRecord(
+                            NAME_INSECURE, MY_UUID_INSECURE);
+                }            
+		} catch (IOException e) {
+                Log.e(TAG, "Socket Type: " + mSocketType + "listen() failed", e);
             }
             mmServerSocket = tmp;
         }
 
         public void run() {
-            if (D) Log.d(TAG, "BEGIN mAcceptThread" + this);
-            setName("AcceptThread");
+            if (D) Log.d(TAG, "Socket Type: " + mSocketType +
+                    "BEGIN mAcceptThread" + this);
+            setName("AcceptThread" + mSocketType);
             BluetoothSocket socket = null;
 
             // Listen to the server socket if we're not connected
@@ -258,7 +296,7 @@ public class BluetoothService  extends ObdConnecter{
                     // successful connection or an exception
                     socket = mmServerSocket.accept();
                 } catch (IOException e) {
-                    Log.e(TAG, "accept() failed", e);
+                    Log.e(TAG, "Socket Type: " + mSocketType + "accept() failed", e);
                     break;
                 }
 
@@ -269,7 +307,8 @@ public class BluetoothService  extends ObdConnecter{
                         case STATE_LISTEN:
                         case STATE_CONNECTING:
                             // Situation normal. Start the connected thread.
-                            connected(socket, socket.getRemoteDevice());
+                            connected(socket, socket.getRemoteDevice(),
+                                    mSocketType);
                             break;
                         case STATE_NONE:
                         case STATE_CONNECTED:
@@ -284,15 +323,15 @@ public class BluetoothService  extends ObdConnecter{
                     }
                 }
             }
-            if (D) Log.i(TAG, "END mAcceptThread");
+            if (D) Log.i(TAG, "END mAcceptThread, socket Type: " + mSocketType);
         }
 
         public void cancel() {
-            if (D) Log.d(TAG, "cancel " + this);
+            if (D) Log.d(TAG, "Socket Type" + mSocketType + "cancel " + this);
             try {
                 mmServerSocket.close();
             } catch (IOException e) {
-                Log.e(TAG, "close() of server failed", e);
+                Log.e(TAG, "Socket Type" + mSocketType + "close() of server failed", e);
             }
         }
     }
@@ -306,25 +345,29 @@ public class BluetoothService  extends ObdConnecter{
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final BluetoothDevice mmDevice;
-
-        public ConnectThread(BluetoothDevice device) {
+	private String mSocketType;
+        public ConnectThread(BluetoothDevice device, boolean secure) {
             mmDevice = device;
             BluetoothSocket tmp = null;
-
+	    mSocketType = secure ? "Secure" : "Insecure";
             // Get a BluetoothSocket for a connection with the
             // given BluetoothDevice
             try {
-                tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
-            } catch (IOException e) {
-                Log.e(TAG, "create() failed", e);
+		if (secure) {
+                    tmp = device.createRfcommSocketToServiceRecord(
+                            MY_UUID_SECURE);
+                } else {
+                    tmp = device.createInsecureRfcommSocketToServiceRecord(
+                            MY_UUID_INSECURE);
+                }            } catch (IOException e) {
+                Log.e(TAG, "Socket Type: " + mSocketType + "create() failed", e);
             }
             mmSocket = tmp;
         }
 
         public void run() {
-            Log.i(TAG, "BEGIN mConnectThread");
-            setName("ConnectThread");
-
+            Log.i(TAG, "BEGIN mConnectThread SocketType:" + mSocketType);
+            setName("ConnectThread" + mSocketType);
             // Always cancel discovery because it will slow down a connection
             mAdapter.cancelDiscovery();
 
@@ -334,15 +377,16 @@ public class BluetoothService  extends ObdConnecter{
                 // successful connection or an exception
                 mmSocket.connect();
             } catch (IOException e) {
-                connectionFailed();
+                
                 // Close the socket
                 try {
                     mmSocket.close();
                 } catch (IOException e2) {
-                    Log.e(TAG, "unable to close() socket during connection failure", e2);
+                    Log.e(TAG, "unable to close() " + mSocketType +
+                            " socket during connection failure", e2);
                 }
                 // Start the service over to restart listening mode
-                BluetoothService.this.start();
+                connectionFailed();
                 return;
             }
 
@@ -352,14 +396,14 @@ public class BluetoothService  extends ObdConnecter{
             }
 
             // Start the connected thread
-            connected(mmSocket, mmDevice);
+            connected(mmSocket, mmDevice, mSocketType);
         }
 
         public void cancel() {
             try {
                 mmSocket.close();
             } catch (IOException e) {
-                Log.e(TAG, "close() of connect socket failed", e);
+                Log.e(TAG, "close() of connect " + mSocketType + " socket failed", e);
             }
         }
     }
@@ -375,8 +419,8 @@ public class BluetoothService  extends ObdConnecter{
         private final BluetoothSocket mmSocket;
        
 
-        public ConnectedThread(BluetoothSocket socket) {
-            Log.d(TAG, "create ConnectedThread");
+        public ConnectedThread(BluetoothSocket socket, String socketType) {
+            Log.d(TAG, "create ConnectedThread: " + socketType);
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
@@ -410,7 +454,9 @@ public class BluetoothService  extends ObdConnecter{
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();
-                    break;
+		    // Start the service over to restart listening mode
+                    BluetoothService.this.start();                    
+		break;
                 }
             }
         }
@@ -445,7 +491,7 @@ public class BluetoothService  extends ObdConnecter{
 		 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 		 String address = preferences.getString(BaseSetting.CONNECT_DEVICE_ADDRESS, null);
 		 BluetoothDevice device = mAdapter.getRemoteDevice(address);
-		 connect(device);
+		 connect(device,false);
 	}
 
 	@Override

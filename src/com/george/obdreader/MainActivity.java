@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private Intent mServiceIntent = null;
     private ObdGatewayServiceConnection mServiceConnection;
 
-    private ViewPager mPager;
+    private static ViewPager mPager;
     private ArrayList<Fragment> fragmentsList;
     private FirstIndexFragment mFirstfragment;
 
@@ -77,9 +77,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
     private final static int SHOW_ICON = 0x05;
 
-    private final static int WIFI_CONNECT_FAILED = 0x06;
+    private final static int CONNECT_FAILED = 0x06;
 
-    private final static int WIFI_CONNECTING = 0x07;
+    private final static int CONNECTING = 0x07;
 
     private static final String TAG = "MainActivity";
 
@@ -96,17 +96,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
         @Override
         public void connectFailed(String deviceName) {
-            mHandler.sendEmptyMessage(WIFI_CONNECT_FAILED);
+            mHandler.sendEmptyMessage(CONNECT_FAILED);
         }
 
         @Override
         public void connectingDevice(String deviceName) {
-            mHandler.sendEmptyMessage(WIFI_CONNECTING);
+            mHandler.sendEmptyMessage(CONNECTING);
         }
 
     };
 
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
@@ -271,7 +271,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                                     msg.arg1 = R.anim.right_out;
                                     msg.arg2 = R.id.right_top;
                                     mHandler.sendMessageDelayed(msg, 50);
-
+                                    mHandler.removeMessages(START_ANIM);
+                                    mHandler.removeMessages(START_ANIM);
                                 }
                             });
                             anim.start();
@@ -343,12 +344,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
                         break;
 
-                    case WIFI_CONNECT_FAILED:
+                    case CONNECT_FAILED:
                         ImageView con = (ImageView) findViewById(R.id.obd_connected);
                         con.clearAnimation();
                         con.setImageResource(R.drawable.obd_uncon);
                         break;
-                    case WIFI_CONNECTING:
+                    case CONNECTING:
                         final Animation animation = new AlphaAnimation(1, 0);
                         animation.setDuration(400);
                         animation
@@ -583,7 +584,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         public void run() {
             if (!mServiceConnection.isConnected()
                     || !mServiceConnection.isRunning()) {
-                Log.e(TAG, "mServiceConnection.connectDevice()");
+//                Log.e(TAG, "mServiceConnection.connectDevice()");
                 mHandler.postDelayed(getConnectStatusRunable, 500);
             } else {
                 findViewById(R.id.obd_connected).clearAnimation();
