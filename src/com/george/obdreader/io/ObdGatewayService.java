@@ -103,8 +103,9 @@ public class ObdGatewayService extends Service {
                                 _callback.connectingDevice("WIFI");
                                 Log.e(TAG, "connecting device");
                             }
+                            break;
                         case ObdConnecter.STATE_CONNECTED:
-
+                        	 new Thread(btConnectRunnable).start();
                             break;
 
                         default:
@@ -452,12 +453,15 @@ public class ObdGatewayService extends Service {
                         mConnectTime = 0;
                         return;
                     }
-
+                    ObdResetCommand reset =  new ObdResetCommand();
+                    reset.setDelay(500);
                     ObdCommandJob job = new ObdCommandJob(
-                            new ObdResetCommand());
+                    		reset);
                     job.getCommand().run(mObdConnecter.getInputStream(),
                             mObdConnecter.getOutputStream());
-                    job = new ObdCommandJob(new EchoOffObdCommand());
+                    EchoOffObdCommand echo = new EchoOffObdCommand();
+                    echo.setDelay(500);
+                    job = new ObdCommandJob(echo);
                     job.getCommand().run(mObdConnecter.getInputStream(),
                             mObdConnecter.getOutputStream());
                     if (job.getCommand().getResult() != null

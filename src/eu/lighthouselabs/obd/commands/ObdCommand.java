@@ -69,6 +69,8 @@ public abstract class ObdCommand {
 		readResult(in);
 		long endTime=System.currentTimeMillis(); //获取结束时间
 		Log.e("ObdCommand", "Read Take time = "+(endTime-sendTime));
+		if(delay>0)
+			Thread.sleep(delay);
 	}
 
 	/**
@@ -95,8 +97,7 @@ public abstract class ObdCommand {
 		 * Due to the time that some systems may take to respond, let's give it
 		 * 500ms.
 		 */
-		if(delay>0)
-		Thread.sleep(delay);
+		
 	}
 
 	/**
