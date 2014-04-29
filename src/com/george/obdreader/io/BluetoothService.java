@@ -294,7 +294,10 @@ public class BluetoothService  extends ObdConnecter{
                 try {
                     // This is a blocking call and will only return on a
                     // successful connection or an exception
+                	if(mmServerSocket!=null)
                     socket = mmServerSocket.accept();
+                	else 
+                		return;
                 } catch (IOException e) {
                     Log.e(TAG, "Socket Type: " + mSocketType + "accept() failed", e);
                     break;
