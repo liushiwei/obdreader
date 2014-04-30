@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">Car Sister</string>
+    <string name="app_name">Car Home Pro</string>
     <string name="check_not_error">没有查询到任何故障</string>
     <string name="test_start">开始</string>
     <string name="test_stop">停止</string>
